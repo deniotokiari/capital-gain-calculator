@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_service/src/alphavantage/models/overview_response.dart';
+import 'package:stock_service/src/alphavantage/models/symbol_search_response.dart';
 import 'package:stock_service/src/stock_service_api.dart';
 
 // TODO remove before commit
@@ -8,8 +9,10 @@ const _apiKey = 'YE5DPYCSWSMC689Q';
 const _baseUri = 'https://www.alphavantage.co';
 const _query = '/query';
 const _overview = 'OVERVIEW';
+const _symbolSearch = 'SYMBOL_SEARCH';
 const _function = 'function';
 const _symbol = 'symbol';
+const _keywords = 'keywords';
 
 class AlphaVantageService implements StockServiceApi {
   final _dio = Dio(BaseOptions(
@@ -32,7 +35,7 @@ class AlphaVantageService implements StockServiceApi {
   });
 
   Future<T> executeWithRequestsLimitCheck<T>(
-    Future<T> Function() function,
+    Future<T> future,
   ) async {
     final currentDateTime = nowDateTime();
     final lastRequestDateTime = _lastRequestDateTime ?? currentDateTime;
@@ -62,29 +65,38 @@ class AlphaVantageService implements StockServiceApi {
               .difference(currentDateTime)
               .inMilliseconds,
         ),
-        function,
+        () => future,
       );
     } else {
-      return function();
+      return future;
     }
   }
 
   Future<T> executeWithParsing<T>(
-    Future<Response> Function() function,
+    Future<Response> future,
     T Function(Map<String, dynamic> json) convert,
   ) async {
-    final response = await executeWithRequestsLimitCheck(function);
+    final response = await executeWithRequestsLimitCheck(future);
 
     return convert(response.data);
   }
 
   @override
   Future<OverviewResponse> overview(String symbol) => executeWithParsing(
-        () => _dio.get(_query, queryParameters: {
+        _dio.get(_query, queryParameters: {
           _function: _overview,
           _symbol: symbol,
         }),
         OverviewResponse.fromJson,
+      );
+
+  @override
+  Future<SymbolSearchResponse> symbolSearch(String keywords) => executeWithParsing(
+        _dio.get(_query, queryParameters: {
+          _function: _symbolSearch,
+          _keywords: keywords,
+        }),
+        SymbolSearchResponse.fromJson,
       );
 }
 

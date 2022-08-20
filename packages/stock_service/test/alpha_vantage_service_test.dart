@@ -12,7 +12,7 @@ void main() {
       );
 
       final result = await sut.executeWithRequestsLimitCheck(
-        () async => 'RESULT',
+        Future.value('RESULT'),
       );
 
       expect(result, 'RESULT');
@@ -30,7 +30,7 @@ void main() {
 
       await expectLater(
           sut.executeWithRequestsLimitCheck(
-            () async => throw Exception('FAILURE'),
+            Future.error(Exception()),
           ),
           throwsA(isA<Exception>()));
     },
@@ -47,7 +47,7 @@ void main() {
       );
 
       var result = await sut.executeWithRequestsLimitCheck(
-        () async => 'RESULT',
+        Future.value('RESULT'),
       );
 
       expect(
@@ -57,7 +57,7 @@ void main() {
 
       time = time.add(const Duration(minutes: 1));
       result = await sut.executeWithRequestsLimitCheck(
-        () async => 'RESULT',
+        Future.value('RESULT'),
       );
 
       expect(
@@ -78,7 +78,7 @@ void main() {
       );
 
       var result = await sut.executeWithRequestsLimitCheck(
-        () async => 'RESULT',
+        Future.value('RESULT'),
       );
 
       expect(
@@ -88,7 +88,7 @@ void main() {
 
       time = time.add(const Duration(days: 1));
       result = await sut.executeWithRequestsLimitCheck(
-        () async => 'RESULT',
+        Future.value('RESULT'),
       );
 
       expect(
@@ -108,7 +108,7 @@ void main() {
       );
 
       var result = await sut.executeWithRequestsLimitCheck(
-        () async => 'RESULT',
+        Future.value('RESULT'),
       );
 
       expect(
@@ -117,7 +117,7 @@ void main() {
       );
 
       await expectLater(
-        sut.executeWithRequestsLimitCheck(() async => 'RESULT'),
+        sut.executeWithRequestsLimitCheck(Future.value('RESULT')),
         throwsA(isA<RequestsLimitReached>()),
       );
     },
