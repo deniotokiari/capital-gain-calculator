@@ -1,12 +1,19 @@
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_service/stock_service.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final StockServiceApi _stockServiceApi = AlphaVantageService(
+    requestsPerMinute: 5,
+    requestsPerDay: 500,
+    nowDateTime: DateTime.now,
+  );
 
   // This widget is the root of your application.
   @override
@@ -25,13 +32,18 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(_stockServiceApi, title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  final StockServiceApi stockServiceApi;
+  const MyHomePage(
+    this.stockServiceApi, {
+    Key? key,
+    required this.title,
+  }) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -51,7 +63,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
+  Future<void> _incrementCounter() async {
+    final result = await widget.stockServiceApi.overview('EPAM').runCatching();
+
+    print('LOG: result => $result => ${result.map(success: (success) => success.data.name, failed: (failed) => failed.error)}');
+
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -107,7 +123,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () async {
+          await _incrementCounter();
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

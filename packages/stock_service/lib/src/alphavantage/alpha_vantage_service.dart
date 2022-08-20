@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_service/src/alphavantage/models/overview_response.dart';
-import 'package:stock_service/src/api_resource.dart';
 import 'package:stock_service/src/stock_service_api.dart';
 
 // TODO remove before commit
@@ -15,7 +14,7 @@ const _symbol = 'symbol';
 class AlphaVantageService implements StockServiceApi {
   final _dio = Dio(BaseOptions(
     baseUrl: _baseUri,
-    queryParameters: {'apiKey': _apiKey},
+    queryParameters: {'apikey': _apiKey},
   ));
 
   DateTime? _lastRequestDateTime;
@@ -80,15 +79,13 @@ class AlphaVantageService implements StockServiceApi {
   }
 
   @override
-  Future<ApiResource<OverviewResponse>> overview(String symbol) async {
-    return runCatching(executeWithParsing(
-      () => _dio.get(_query, queryParameters: {
-        _function: _overview,
-        _symbol: symbol,
-      }),
-      OverviewResponse.fromJson,
-    ));
-  }
+  Future<OverviewResponse> overview(String symbol) => executeWithParsing(
+        () => _dio.get(_query, queryParameters: {
+          _function: _overview,
+          _symbol: symbol,
+        }),
+        OverviewResponse.fromJson,
+      );
 }
 
 class RequestsLimitReached implements Exception {}

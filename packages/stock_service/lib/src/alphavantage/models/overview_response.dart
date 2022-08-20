@@ -1,145 +1,148 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:stock_service/src/model/overview_response.dart' as overview_response_interface;
 
 part 'overview_response.g.dart';
 
 @JsonSerializable()
-class OverviewResponse {
-  @JsonKey(name: 'Symbol')
+class OverviewResponse implements overview_response_interface.OverviewResponse {
+  @override
+  @JsonKey(name: 'Symbol', defaultValue: '')
   final String symbol;
 
-  @JsonKey(name: 'AssetType')
+  @JsonKey(name: 'AssetType', defaultValue: '')
   final String assetType;
 
-  @JsonKey(name: 'Name')
+  @override
+  @JsonKey(name: 'Name', defaultValue: '')
   final String name;
 
-  @JsonKey(name: 'Description')
+  @JsonKey(name: 'Description', defaultValue: '')
   final String description;
 
-  @JsonKey(name: 'CIK')
+  @JsonKey(name: 'CIK', defaultValue: '')
   final String cik;
 
-  @JsonKey(name: 'Exchange')
+  @JsonKey(name: 'Exchange', defaultValue: '')
   final String exchange;
 
-  @JsonKey(name: 'Currency')
+  @JsonKey(name: 'Currency', defaultValue: '')
   final String currency;
 
-  @JsonKey(name: 'Country')
+  @JsonKey(name: 'Country', defaultValue: '')
   final String country;
 
-  @JsonKey(name: 'sector')
+  @JsonKey(name: 'sector', defaultValue: '')
   final String sector;
 
-  @JsonKey(name: 'Industry')
+  @JsonKey(name: 'Industry', defaultValue: '')
   final String industry;
 
-  @JsonKey(name: 'Address')
+  @JsonKey(name: 'Address', defaultValue: '')
   final String address;
 
-  @JsonKey(name: 'FiscalYearEnd')
+  @JsonKey(name: 'FiscalYearEnd', defaultValue: '')
   final String fiscalYearEnd;
 
-  @JsonKey(name: 'LatestQuarter')
+  @JsonKey(name: 'LatestQuarter', defaultValue: '')
   final String latestQuarter;
 
-  @JsonKey(name: 'MarketCapitalization')
+  @JsonKey(name: 'MarketCapitalization', defaultValue: '')
   final String marketCapitalization;
 
-  @JsonKey(name: 'EBITDA')
+  @JsonKey(name: 'EBITDA', defaultValue: '')
   final String ebitda;
 
-  @JsonKey(name: 'PERatio')
+  @JsonKey(name: 'PERatio', defaultValue: '')
   final String peRatio;
 
-  @JsonKey(name: 'PEGRatio')
+  @JsonKey(name: 'PEGRatio', defaultValue: '')
   final String pegRatio;
 
-  @JsonKey(name: 'BookValue')
+  @JsonKey(name: 'BookValue', defaultValue: '')
   final String bookValue;
 
-  @JsonKey(name: 'DividendPerShare')
+  @JsonKey(name: 'DividendPerShare', defaultValue: '')
   final String dividendPerShare;
 
-  @JsonKey(name: 'DividendYield')
+  @JsonKey(name: 'DividendYield', defaultValue: '')
   final String dividendYield;
 
-  @JsonKey(name: 'EPS')
+  @JsonKey(name: 'EPS', defaultValue: '')
   final String eps;
 
-  @JsonKey(name: 'RevenuePerShareTTM')
+  @JsonKey(name: 'RevenuePerShareTTM', defaultValue: '')
   final String revenuePerShareTtm;
 
-  @JsonKey(name: 'ProfitMargin')
+  @JsonKey(name: 'ProfitMargin', defaultValue: '')
   final String profitMargin;
 
-  @JsonKey(name: 'OperatingMarginTTM')
+  @JsonKey(name: 'OperatingMarginTTM', defaultValue: '')
   final String operatingMarginTtm;
 
-  @JsonKey(name: 'ReturnOnAssetsTTM')
+  @JsonKey(name: 'ReturnOnAssetsTTM', defaultValue: '')
   final String returnOnAssetsTtm;
 
-  @JsonKey(name: 'ReturnOnEquityTTM')
+  @JsonKey(name: 'ReturnOnEquityTTM', defaultValue: '')
   final String returnOnEquityTtm;
 
-  @JsonKey(name: 'RevenueTTM')
+  @JsonKey(name: 'RevenueTTM', defaultValue: '')
   final String revenueTtm;
 
-  @JsonKey(name: 'GrossProfitTTM')
+  @JsonKey(name: 'GrossProfitTTM', defaultValue: '')
   final String grossProfitTtm;
 
-  @JsonKey(name: 'DilutedEPSTTM')
+  @JsonKey(name: 'DilutedEPSTTM', defaultValue: '')
   final String dilutedEpsTtm;
 
-  @JsonKey(name: 'QuarterlyEarningsGrowthYOY')
+  @JsonKey(name: 'QuarterlyEarningsGrowthYOY', defaultValue: '')
   final String quarterlyEarningsGrowthYoy;
 
-  @JsonKey(name: 'QuarterlyRevenueGrowthYOY')
+  @JsonKey(name: 'QuarterlyRevenueGrowthYOY', defaultValue: '')
   final String quarterlyRevenueGrowthYoy;
 
-  @JsonKey(name: 'AnalystTargetPrice')
+  @JsonKey(name: 'AnalystTargetPrice', defaultValue: '')
   final String analystTargetPrice;
 
-  @JsonKey(name: 'TrailingPE')
+  @JsonKey(name: 'TrailingPE', defaultValue: '')
   final String trailingPe;
 
-  @JsonKey(name: 'ForwardPE')
+  @JsonKey(name: 'ForwardPE', defaultValue: '')
   final String forwardPe;
 
-  @JsonKey(name: 'PriceToSalesRatioTTM')
+  @JsonKey(name: 'PriceToSalesRatioTTM', defaultValue: '')
   final String priceToSalesRatioTtm;
 
-  @JsonKey(name: 'PriceToBookRatio')
+  @JsonKey(name: 'PriceToBookRatio', defaultValue: '')
   final String priceToBookRatio;
 
-  @JsonKey(name: 'EVToRevenue')
+  @JsonKey(name: 'EVToRevenue', defaultValue: '')
   final String evToRevenue;
 
-  @JsonKey(name: 'EVToEBITDA')
+  @JsonKey(name: 'EVToEBITDA', defaultValue: '')
   final String evToEbitda;
 
-  @JsonKey(name: 'Beta')
+  @JsonKey(name: 'Beta', defaultValue: '')
   final String beta;
 
-  @JsonKey(name: '52WeekHigh')
+  @JsonKey(name: '52WeekHigh', defaultValue: '')
   final String high52Week;
 
-  @JsonKey(name: '52WeekLow')
+  @JsonKey(name: '52WeekLow', defaultValue: '')
   final String low52Week;
 
-  @JsonKey(name: '50DayMovingAverage')
+  @JsonKey(name: '50DayMovingAverage', defaultValue: '')
   final String movingAverage50Day;
 
-  @JsonKey(name: '200DayMovingAverage')
+  @JsonKey(name: '200DayMovingAverage', defaultValue: '')
   final String movingAverage200Day;
 
-  @JsonKey(name: 'SharesOutstanding')
+  @JsonKey(name: 'SharesOutstanding', defaultValue: '')
   final String sharesOutstanding;
 
-  @JsonKey(name: 'DividendDate')
+  @JsonKey(name: 'DividendDate', defaultValue: '')
   final String dividendDate;
 
-  @JsonKey(name: 'ExDividendDate')
+  @JsonKey(name: 'ExDividendDate', defaultValue: '')
   final String exDividendDate;
 
   OverviewResponse(

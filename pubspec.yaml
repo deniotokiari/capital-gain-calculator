@@ -30,6 +30,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  common:
+    path: ./packages/common
   stock_service:
     path: ./packages/stock_service
 
@@ -89,3 +91,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+analyzer:
+  errors:
+    invalid_annotation_target: ignore

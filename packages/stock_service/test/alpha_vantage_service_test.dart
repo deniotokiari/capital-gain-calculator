@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:stock_service/src/alphavantage/alpha_vantage_service.dart';
-import 'package:stock_service/src/api_resource.dart';
 
 void main() {
   test(
@@ -13,10 +12,10 @@ void main() {
       );
 
       final result = await sut.executeWithRequestsLimitCheck(
-        () async => ApiResource.success('RESULT'),
+        () async => 'RESULT',
       );
 
-      expect(result.requireValue, 'RESULT');
+      expect(result, 'RESULT');
     },
   );
 
@@ -29,16 +28,11 @@ void main() {
         nowDateTime: DateTime.now,
       );
 
-      final exception = Exception('FAILURE');
-
-      final result = await sut.executeWithRequestsLimitCheck(
-        () async => ApiResource.failure(exception),
-      );
-
-      expect(
-        result.requireException,
-        exception,
-      );
+      await expectLater(
+          sut.executeWithRequestsLimitCheck(
+            () async => throw Exception('FAILURE'),
+          ),
+          throwsA(isA<Exception>()));
     },
   );
 
@@ -53,21 +47,21 @@ void main() {
       );
 
       var result = await sut.executeWithRequestsLimitCheck(
-        () async => ApiResource.success('RESULT'),
+        () async => 'RESULT',
       );
 
       expect(
-        result.requireValue,
+        result,
         'RESULT',
       );
 
       time = time.add(const Duration(minutes: 1));
       result = await sut.executeWithRequestsLimitCheck(
-        () async => ApiResource.success('RESULT'),
+        () async => 'RESULT',
       );
 
       expect(
-        result.requireValue,
+        result,
         'RESULT',
       );
     },
@@ -84,28 +78,28 @@ void main() {
       );
 
       var result = await sut.executeWithRequestsLimitCheck(
-        () async => ApiResource.success('RESULT'),
+        () async => 'RESULT',
       );
 
       expect(
-        result.requireValue,
+        result,
         'RESULT',
       );
 
       time = time.add(const Duration(days: 1));
       result = await sut.executeWithRequestsLimitCheck(
-        () async => ApiResource.success('RESULT'),
+        () async => 'RESULT',
       );
 
       expect(
-        result.requireValue,
+        result,
         'RESULT',
       );
     },
   );
 
   test(
-    'should return RequestsLimitReached in case of reaching day limit',
+    'should throw RequestsLimitReached in case of reaching day limit',
     () async {
       final sut = AlphaVantageService(
         requestsPerMinute: 5,
@@ -114,21 +108,17 @@ void main() {
       );
 
       var result = await sut.executeWithRequestsLimitCheck(
-        () async => ApiResource.success('RESULT'),
+        () async => 'RESULT',
       );
 
       expect(
-        result.requireValue,
+        result,
         'RESULT',
       );
 
-      result = await sut.executeWithRequestsLimitCheck(
-        () async => ApiResource.success('RESULT'),
-      );
-
-      expect(
-        result.requireException is RequestsLimitReached,
-        true,
+      await expectLater(
+        sut.executeWithRequestsLimitCheck(() async => 'RESULT'),
+        throwsA(isA<RequestsLimitReached>()),
       );
     },
   );

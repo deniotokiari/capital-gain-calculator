@@ -1,6 +1,5 @@
-import 'package:stock_service/src/alphavantage/models/overview_response.dart';
-import 'package:stock_service/src/api_resource.dart';
+import 'package:stock_service/src/model/overview_response.dart';
 
 abstract class StockServiceApi {
-  Future<ApiResource<OverviewResponse>> overview(String symbol);
+  Future<OverviewResponse> overview(String symbol);
 }
