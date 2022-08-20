@@ -1,0 +1,94 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:stock_service/src/alphavantage/models/overview_response.dart';
+import 'package:stock_service/src/api_resource.dart';
+import 'package:stock_service/src/stock_service_api.dart';
+
+// TODO remove before commit
+const _apiKey = 'YE5DPYCSWSMC689Q';
+const _baseUri = 'https://www.alphavantage.co';
+const _query = '/query';
+const _overview = 'OVERVIEW';
+const _function = 'function';
+const _symbol = 'symbol';
+
+class AlphaVantageService implements StockServiceApi {
+  final _dio = Dio(BaseOptions(
+    baseUrl: _baseUri,
+    queryParameters: {'apiKey': _apiKey},
+  ));
+
+  DateTime? _lastRequestDateTime;
+  int _requestsInMinuteExecuted = -1;
+  int _requestsInDayExecuted = -1;
+
+  final int requestsPerMinute;
+  final int requestsPerDay;
+  final ValueGetter<DateTime> nowDateTime;
+
+  AlphaVantageService({
+    required this.requestsPerMinute,
+    required this.requestsPerDay,
+    required this.nowDateTime,
+  });
+
+  Future<T> executeWithRequestsLimitCheck<T>(
+    Future<T> Function() function,
+  ) async {
+    final currentDateTime = nowDateTime();
+    final lastRequestDateTime = _lastRequestDateTime ?? currentDateTime;
+
+    final isNewMinute = currentDateTime.difference(lastRequestDateTime).inMinutes >= 1;
+    final isNewDay = currentDateTime.difference(lastRequestDateTime).inDays >= 1;
+
+    if (isNewMinute) {
+      _requestsInMinuteExecuted = -1;
+    }
+
+    if (isNewDay) {
+      _requestsInDayExecuted = -1;
+    }
+
+    _requestsInMinuteExecuted++;
+    _requestsInDayExecuted++;
+    _lastRequestDateTime = currentDateTime;
+
+    if (_requestsInDayExecuted >= requestsPerDay) {
+      throw RequestsLimitReached();
+    } else if (_requestsInMinuteExecuted >= requestsPerMinute) {
+      return Future.delayed(
+        Duration(
+          milliseconds: currentDateTime
+              .add(const Duration(minutes: 1))
+              .difference(currentDateTime)
+              .inMilliseconds,
+        ),
+        function,
+      );
+    } else {
+      return function();
+    }
+  }
+
+  Future<T> executeWithParsing<T>(
+    Future<Response> Function() function,
+    T Function(Map<String, dynamic> json) convert,
+  ) async {
+    final response = await executeWithRequestsLimitCheck(function);
+
+    return convert(response.data);
+  }
+
+  @override
+  Future<ApiResource<OverviewResponse>> overview(String symbol) async {
+    return runCatching(executeWithParsing(
+      () => _dio.get(_query, queryParameters: {
+        _function: _overview,
+        _symbol: symbol,
+      }),
+      OverviewResponse.fromJson,
+    ));
+  }
+}
+
+class RequestsLimitReached implements Exception {}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stock_service/stock_service.dart';
 
 void main() {
   runApp(const MyApp());
