@@ -8,11 +8,7 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
-  final StockServiceApi _stockServiceApi = AlphaVantageService(
-    requestsPerMinute: 5,
-    requestsPerDay: 500,
-    nowDateTime: DateTime.now,
-  );
+  final StockServiceApi _stockServiceApi = AlphaVantageService();
 
   @override
   Widget build(BuildContext context) {
