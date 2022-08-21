@@ -1,6 +1,7 @@
 name: common
 description: A new Flutter package project.
 version: 0.0.1
+publish_to: none
 
 environment:
   sdk: ">=2.17.3 <3.0.0"
@@ -11,6 +12,7 @@ dependencies:
     sdk: flutter
   freezed: ^2.1.0+1
   freezed_annotation: ^2.1.0
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:

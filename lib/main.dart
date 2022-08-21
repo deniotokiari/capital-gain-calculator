@@ -1,14 +1,15 @@
+import 'package:capital_gain_calculator/main_dependency_module.dart';
+import 'package:capital_gain_calculator/search/search_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:stock_service/stock_service.dart';
 
 void main() {
-  runApp(MyApp());
+  MainDependencyModule().init();
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
-
-  final StockServiceApi _stockServiceApi = AlphaVantageService();
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,60 +18,27 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(_stockServiceApi, title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  final StockServiceApi stockServiceApi;
-  const MyHomePage(
-    this.stockServiceApi, {
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({
     Key? key,
     required this.title,
   }) : super(key: key);
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  Future<void> _incrementCounter() async {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+        child: SearchWidget(),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await _incrementCounter();
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), 
     );
   }
 }
