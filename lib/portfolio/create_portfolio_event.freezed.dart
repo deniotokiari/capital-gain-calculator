@@ -19,27 +19,24 @@ mixin _$CreatePortfolioEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function() cancel,
     required TResult Function() submit,
-    required TResult Function(Currency currency) currencySelected,
+    required TResult Function(PhysicalCurrency currency) currencySelected,
     required TResult Function(String portfolioName) portfolioNameChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? cancel,
     TResult Function()? submit,
-    TResult Function(Currency currency)? currencySelected,
+    TResult Function(PhysicalCurrency currency)? currencySelected,
     TResult Function(String portfolioName)? portfolioNameChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? cancel,
     TResult Function()? submit,
-    TResult Function(Currency currency)? currencySelected,
+    TResult Function(PhysicalCurrency currency)? currencySelected,
     TResult Function(String portfolioName)? portfolioNameChanged,
     required TResult orElse(),
   }) =>
@@ -47,7 +44,6 @@ mixin _$CreatePortfolioEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CreatePortfolioEventInit value) init,
-    required TResult Function(CreatePortfolioEventCancel value) cancel,
     required TResult Function(CreatePortfolioEventSubmit value) submit,
     required TResult Function(CreatePortfolioEventCurrencySelected value)
         currencySelected,
@@ -58,7 +54,6 @@ mixin _$CreatePortfolioEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(CreatePortfolioEventInit value)? init,
-    TResult Function(CreatePortfolioEventCancel value)? cancel,
     TResult Function(CreatePortfolioEventSubmit value)? submit,
     TResult Function(CreatePortfolioEventCurrencySelected value)?
         currencySelected,
@@ -69,7 +64,6 @@ mixin _$CreatePortfolioEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CreatePortfolioEventInit value)? init,
-    TResult Function(CreatePortfolioEventCancel value)? cancel,
     TResult Function(CreatePortfolioEventSubmit value)? submit,
     TResult Function(CreatePortfolioEventCurrencySelected value)?
         currencySelected,
@@ -141,9 +135,8 @@ class _$CreatePortfolioEventInit implements CreatePortfolioEventInit {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function() cancel,
     required TResult Function() submit,
-    required TResult Function(Currency currency) currencySelected,
+    required TResult Function(PhysicalCurrency currency) currencySelected,
     required TResult Function(String portfolioName) portfolioNameChanged,
   }) {
     return init();
@@ -153,9 +146,8 @@ class _$CreatePortfolioEventInit implements CreatePortfolioEventInit {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? cancel,
     TResult Function()? submit,
-    TResult Function(Currency currency)? currencySelected,
+    TResult Function(PhysicalCurrency currency)? currencySelected,
     TResult Function(String portfolioName)? portfolioNameChanged,
   }) {
     return init?.call();
@@ -165,9 +157,8 @@ class _$CreatePortfolioEventInit implements CreatePortfolioEventInit {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? cancel,
     TResult Function()? submit,
-    TResult Function(Currency currency)? currencySelected,
+    TResult Function(PhysicalCurrency currency)? currencySelected,
     TResult Function(String portfolioName)? portfolioNameChanged,
     required TResult orElse(),
   }) {
@@ -181,7 +172,6 @@ class _$CreatePortfolioEventInit implements CreatePortfolioEventInit {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CreatePortfolioEventInit value) init,
-    required TResult Function(CreatePortfolioEventCancel value) cancel,
     required TResult Function(CreatePortfolioEventSubmit value) submit,
     required TResult Function(CreatePortfolioEventCurrencySelected value)
         currencySelected,
@@ -195,7 +185,6 @@ class _$CreatePortfolioEventInit implements CreatePortfolioEventInit {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(CreatePortfolioEventInit value)? init,
-    TResult Function(CreatePortfolioEventCancel value)? cancel,
     TResult Function(CreatePortfolioEventSubmit value)? submit,
     TResult Function(CreatePortfolioEventCurrencySelected value)?
         currencySelected,
@@ -209,7 +198,6 @@ class _$CreatePortfolioEventInit implements CreatePortfolioEventInit {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CreatePortfolioEventInit value)? init,
-    TResult Function(CreatePortfolioEventCancel value)? cancel,
     TResult Function(CreatePortfolioEventSubmit value)? submit,
     TResult Function(CreatePortfolioEventCurrencySelected value)?
         currencySelected,
@@ -226,139 +214,6 @@ class _$CreatePortfolioEventInit implements CreatePortfolioEventInit {
 
 abstract class CreatePortfolioEventInit implements CreatePortfolioEvent {
   factory CreatePortfolioEventInit() = _$CreatePortfolioEventInit;
-}
-
-/// @nodoc
-abstract class _$$CreatePortfolioEventCancelCopyWith<$Res> {
-  factory _$$CreatePortfolioEventCancelCopyWith(
-          _$CreatePortfolioEventCancel value,
-          $Res Function(_$CreatePortfolioEventCancel) then) =
-      __$$CreatePortfolioEventCancelCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$CreatePortfolioEventCancelCopyWithImpl<$Res>
-    extends _$CreatePortfolioEventCopyWithImpl<$Res>
-    implements _$$CreatePortfolioEventCancelCopyWith<$Res> {
-  __$$CreatePortfolioEventCancelCopyWithImpl(
-      _$CreatePortfolioEventCancel _value,
-      $Res Function(_$CreatePortfolioEventCancel) _then)
-      : super(_value, (v) => _then(v as _$CreatePortfolioEventCancel));
-
-  @override
-  _$CreatePortfolioEventCancel get _value =>
-      super._value as _$CreatePortfolioEventCancel;
-}
-
-/// @nodoc
-
-class _$CreatePortfolioEventCancel implements CreatePortfolioEventCancel {
-  _$CreatePortfolioEventCancel();
-
-  @override
-  String toString() {
-    return 'CreatePortfolioEvent.cancel()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CreatePortfolioEventCancel);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() cancel,
-    required TResult Function() submit,
-    required TResult Function(Currency currency) currencySelected,
-    required TResult Function(String portfolioName) portfolioNameChanged,
-  }) {
-    return cancel();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? cancel,
-    TResult Function()? submit,
-    TResult Function(Currency currency)? currencySelected,
-    TResult Function(String portfolioName)? portfolioNameChanged,
-  }) {
-    return cancel?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? cancel,
-    TResult Function()? submit,
-    TResult Function(Currency currency)? currencySelected,
-    TResult Function(String portfolioName)? portfolioNameChanged,
-    required TResult orElse(),
-  }) {
-    if (cancel != null) {
-      return cancel();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(CreatePortfolioEventInit value) init,
-    required TResult Function(CreatePortfolioEventCancel value) cancel,
-    required TResult Function(CreatePortfolioEventSubmit value) submit,
-    required TResult Function(CreatePortfolioEventCurrencySelected value)
-        currencySelected,
-    required TResult Function(CreatePortfolioEventPortfolioNameChanged value)
-        portfolioNameChanged,
-  }) {
-    return cancel(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(CreatePortfolioEventInit value)? init,
-    TResult Function(CreatePortfolioEventCancel value)? cancel,
-    TResult Function(CreatePortfolioEventSubmit value)? submit,
-    TResult Function(CreatePortfolioEventCurrencySelected value)?
-        currencySelected,
-    TResult Function(CreatePortfolioEventPortfolioNameChanged value)?
-        portfolioNameChanged,
-  }) {
-    return cancel?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(CreatePortfolioEventInit value)? init,
-    TResult Function(CreatePortfolioEventCancel value)? cancel,
-    TResult Function(CreatePortfolioEventSubmit value)? submit,
-    TResult Function(CreatePortfolioEventCurrencySelected value)?
-        currencySelected,
-    TResult Function(CreatePortfolioEventPortfolioNameChanged value)?
-        portfolioNameChanged,
-    required TResult orElse(),
-  }) {
-    if (cancel != null) {
-      return cancel(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class CreatePortfolioEventCancel implements CreatePortfolioEvent {
-  factory CreatePortfolioEventCancel() = _$CreatePortfolioEventCancel;
 }
 
 /// @nodoc
@@ -407,9 +262,8 @@ class _$CreatePortfolioEventSubmit implements CreatePortfolioEventSubmit {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function() cancel,
     required TResult Function() submit,
-    required TResult Function(Currency currency) currencySelected,
+    required TResult Function(PhysicalCurrency currency) currencySelected,
     required TResult Function(String portfolioName) portfolioNameChanged,
   }) {
     return submit();
@@ -419,9 +273,8 @@ class _$CreatePortfolioEventSubmit implements CreatePortfolioEventSubmit {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? cancel,
     TResult Function()? submit,
-    TResult Function(Currency currency)? currencySelected,
+    TResult Function(PhysicalCurrency currency)? currencySelected,
     TResult Function(String portfolioName)? portfolioNameChanged,
   }) {
     return submit?.call();
@@ -431,9 +284,8 @@ class _$CreatePortfolioEventSubmit implements CreatePortfolioEventSubmit {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? cancel,
     TResult Function()? submit,
-    TResult Function(Currency currency)? currencySelected,
+    TResult Function(PhysicalCurrency currency)? currencySelected,
     TResult Function(String portfolioName)? portfolioNameChanged,
     required TResult orElse(),
   }) {
@@ -447,7 +299,6 @@ class _$CreatePortfolioEventSubmit implements CreatePortfolioEventSubmit {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CreatePortfolioEventInit value) init,
-    required TResult Function(CreatePortfolioEventCancel value) cancel,
     required TResult Function(CreatePortfolioEventSubmit value) submit,
     required TResult Function(CreatePortfolioEventCurrencySelected value)
         currencySelected,
@@ -461,7 +312,6 @@ class _$CreatePortfolioEventSubmit implements CreatePortfolioEventSubmit {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(CreatePortfolioEventInit value)? init,
-    TResult Function(CreatePortfolioEventCancel value)? cancel,
     TResult Function(CreatePortfolioEventSubmit value)? submit,
     TResult Function(CreatePortfolioEventCurrencySelected value)?
         currencySelected,
@@ -475,7 +325,6 @@ class _$CreatePortfolioEventSubmit implements CreatePortfolioEventSubmit {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CreatePortfolioEventInit value)? init,
-    TResult Function(CreatePortfolioEventCancel value)? cancel,
     TResult Function(CreatePortfolioEventSubmit value)? submit,
     TResult Function(CreatePortfolioEventCurrencySelected value)?
         currencySelected,
@@ -500,7 +349,7 @@ abstract class _$$CreatePortfolioEventCurrencySelectedCopyWith<$Res> {
           _$CreatePortfolioEventCurrencySelected value,
           $Res Function(_$CreatePortfolioEventCurrencySelected) then) =
       __$$CreatePortfolioEventCurrencySelectedCopyWithImpl<$Res>;
-  $Res call({Currency currency});
+  $Res call({PhysicalCurrency currency});
 }
 
 /// @nodoc
@@ -525,7 +374,7 @@ class __$$CreatePortfolioEventCurrencySelectedCopyWithImpl<$Res>
       currency == freezed
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
-              as Currency,
+              as PhysicalCurrency,
     ));
   }
 }
@@ -537,7 +386,7 @@ class _$CreatePortfolioEventCurrencySelected
   _$CreatePortfolioEventCurrencySelected(this.currency);
 
   @override
-  final Currency currency;
+  final PhysicalCurrency currency;
 
   @override
   String toString() {
@@ -567,9 +416,8 @@ class _$CreatePortfolioEventCurrencySelected
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function() cancel,
     required TResult Function() submit,
-    required TResult Function(Currency currency) currencySelected,
+    required TResult Function(PhysicalCurrency currency) currencySelected,
     required TResult Function(String portfolioName) portfolioNameChanged,
   }) {
     return currencySelected(currency);
@@ -579,9 +427,8 @@ class _$CreatePortfolioEventCurrencySelected
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? cancel,
     TResult Function()? submit,
-    TResult Function(Currency currency)? currencySelected,
+    TResult Function(PhysicalCurrency currency)? currencySelected,
     TResult Function(String portfolioName)? portfolioNameChanged,
   }) {
     return currencySelected?.call(currency);
@@ -591,9 +438,8 @@ class _$CreatePortfolioEventCurrencySelected
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? cancel,
     TResult Function()? submit,
-    TResult Function(Currency currency)? currencySelected,
+    TResult Function(PhysicalCurrency currency)? currencySelected,
     TResult Function(String portfolioName)? portfolioNameChanged,
     required TResult orElse(),
   }) {
@@ -607,7 +453,6 @@ class _$CreatePortfolioEventCurrencySelected
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CreatePortfolioEventInit value) init,
-    required TResult Function(CreatePortfolioEventCancel value) cancel,
     required TResult Function(CreatePortfolioEventSubmit value) submit,
     required TResult Function(CreatePortfolioEventCurrencySelected value)
         currencySelected,
@@ -621,7 +466,6 @@ class _$CreatePortfolioEventCurrencySelected
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(CreatePortfolioEventInit value)? init,
-    TResult Function(CreatePortfolioEventCancel value)? cancel,
     TResult Function(CreatePortfolioEventSubmit value)? submit,
     TResult Function(CreatePortfolioEventCurrencySelected value)?
         currencySelected,
@@ -635,7 +479,6 @@ class _$CreatePortfolioEventCurrencySelected
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CreatePortfolioEventInit value)? init,
-    TResult Function(CreatePortfolioEventCancel value)? cancel,
     TResult Function(CreatePortfolioEventSubmit value)? submit,
     TResult Function(CreatePortfolioEventCurrencySelected value)?
         currencySelected,
@@ -652,10 +495,10 @@ class _$CreatePortfolioEventCurrencySelected
 
 abstract class CreatePortfolioEventCurrencySelected
     implements CreatePortfolioEvent {
-  factory CreatePortfolioEventCurrencySelected(final Currency currency) =
-      _$CreatePortfolioEventCurrencySelected;
+  factory CreatePortfolioEventCurrencySelected(
+      final PhysicalCurrency currency) = _$CreatePortfolioEventCurrencySelected;
 
-  Currency get currency;
+  PhysicalCurrency get currency;
   @JsonKey(ignore: true)
   _$$CreatePortfolioEventCurrencySelectedCopyWith<
           _$CreatePortfolioEventCurrencySelected>
@@ -736,9 +579,8 @@ class _$CreatePortfolioEventPortfolioNameChanged
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function() cancel,
     required TResult Function() submit,
-    required TResult Function(Currency currency) currencySelected,
+    required TResult Function(PhysicalCurrency currency) currencySelected,
     required TResult Function(String portfolioName) portfolioNameChanged,
   }) {
     return portfolioNameChanged(portfolioName);
@@ -748,9 +590,8 @@ class _$CreatePortfolioEventPortfolioNameChanged
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? cancel,
     TResult Function()? submit,
-    TResult Function(Currency currency)? currencySelected,
+    TResult Function(PhysicalCurrency currency)? currencySelected,
     TResult Function(String portfolioName)? portfolioNameChanged,
   }) {
     return portfolioNameChanged?.call(portfolioName);
@@ -760,9 +601,8 @@ class _$CreatePortfolioEventPortfolioNameChanged
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? cancel,
     TResult Function()? submit,
-    TResult Function(Currency currency)? currencySelected,
+    TResult Function(PhysicalCurrency currency)? currencySelected,
     TResult Function(String portfolioName)? portfolioNameChanged,
     required TResult orElse(),
   }) {
@@ -776,7 +616,6 @@ class _$CreatePortfolioEventPortfolioNameChanged
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CreatePortfolioEventInit value) init,
-    required TResult Function(CreatePortfolioEventCancel value) cancel,
     required TResult Function(CreatePortfolioEventSubmit value) submit,
     required TResult Function(CreatePortfolioEventCurrencySelected value)
         currencySelected,
@@ -790,7 +629,6 @@ class _$CreatePortfolioEventPortfolioNameChanged
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(CreatePortfolioEventInit value)? init,
-    TResult Function(CreatePortfolioEventCancel value)? cancel,
     TResult Function(CreatePortfolioEventSubmit value)? submit,
     TResult Function(CreatePortfolioEventCurrencySelected value)?
         currencySelected,
@@ -804,7 +642,6 @@ class _$CreatePortfolioEventPortfolioNameChanged
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CreatePortfolioEventInit value)? init,
-    TResult Function(CreatePortfolioEventCancel value)? cancel,
     TResult Function(CreatePortfolioEventSubmit value)? submit,
     TResult Function(CreatePortfolioEventCurrencySelected value)?
         currencySelected,

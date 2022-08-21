@@ -17,21 +17,32 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CreatePortfolioState {
   bool get submitEnabled => throw _privateConstructorUsedError;
-  List<Currency> get listOfCurrency => throw _privateConstructorUsedError;
+  List<PhysicalCurrency> get listOfCurrency =>
+      throw _privateConstructorUsedError;
+  String get portfolioName => throw _privateConstructorUsedError;
+  PhysicalCurrency? get selectedCurrency => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool submitEnabled, List<Currency> listOfCurrency)
+    required TResult Function(
+            bool submitEnabled,
+            List<PhysicalCurrency> listOfCurrency,
+            String portfolioName,
+            PhysicalCurrency? selectedCurrency)
         idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool submitEnabled, List<Currency> listOfCurrency)? idle,
+    TResult Function(bool submitEnabled, List<PhysicalCurrency> listOfCurrency,
+            String portfolioName, PhysicalCurrency? selectedCurrency)?
+        idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool submitEnabled, List<Currency> listOfCurrency)? idle,
+    TResult Function(bool submitEnabled, List<PhysicalCurrency> listOfCurrency,
+            String portfolioName, PhysicalCurrency? selectedCurrency)?
+        idle,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -62,7 +73,11 @@ abstract class $CreatePortfolioStateCopyWith<$Res> {
   factory $CreatePortfolioStateCopyWith(CreatePortfolioState value,
           $Res Function(CreatePortfolioState) then) =
       _$CreatePortfolioStateCopyWithImpl<$Res>;
-  $Res call({bool submitEnabled, List<Currency> listOfCurrency});
+  $Res call(
+      {bool submitEnabled,
+      List<PhysicalCurrency> listOfCurrency,
+      String portfolioName,
+      PhysicalCurrency? selectedCurrency});
 }
 
 /// @nodoc
@@ -78,6 +93,8 @@ class _$CreatePortfolioStateCopyWithImpl<$Res>
   $Res call({
     Object? submitEnabled = freezed,
     Object? listOfCurrency = freezed,
+    Object? portfolioName = freezed,
+    Object? selectedCurrency = freezed,
   }) {
     return _then(_value.copyWith(
       submitEnabled: submitEnabled == freezed
@@ -87,7 +104,15 @@ class _$CreatePortfolioStateCopyWithImpl<$Res>
       listOfCurrency: listOfCurrency == freezed
           ? _value.listOfCurrency
           : listOfCurrency // ignore: cast_nullable_to_non_nullable
-              as List<Currency>,
+              as List<PhysicalCurrency>,
+      portfolioName: portfolioName == freezed
+          ? _value.portfolioName
+          : portfolioName // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedCurrency: selectedCurrency == freezed
+          ? _value.selectedCurrency
+          : selectedCurrency // ignore: cast_nullable_to_non_nullable
+              as PhysicalCurrency?,
     ));
   }
 }
@@ -100,7 +125,11 @@ abstract class _$$_CreatePortfolioStateIdleCopyWith<$Res>
           $Res Function(_$_CreatePortfolioStateIdle) then) =
       __$$_CreatePortfolioStateIdleCopyWithImpl<$Res>;
   @override
-  $Res call({bool submitEnabled, List<Currency> listOfCurrency});
+  $Res call(
+      {bool submitEnabled,
+      List<PhysicalCurrency> listOfCurrency,
+      String portfolioName,
+      PhysicalCurrency? selectedCurrency});
 }
 
 /// @nodoc
@@ -119,6 +148,8 @@ class __$$_CreatePortfolioStateIdleCopyWithImpl<$Res>
   $Res call({
     Object? submitEnabled = freezed,
     Object? listOfCurrency = freezed,
+    Object? portfolioName = freezed,
+    Object? selectedCurrency = freezed,
   }) {
     return _then(_$_CreatePortfolioStateIdle(
       submitEnabled: submitEnabled == freezed
@@ -128,7 +159,15 @@ class __$$_CreatePortfolioStateIdleCopyWithImpl<$Res>
       listOfCurrency: listOfCurrency == freezed
           ? _value._listOfCurrency
           : listOfCurrency // ignore: cast_nullable_to_non_nullable
-              as List<Currency>,
+              as List<PhysicalCurrency>,
+      portfolioName: portfolioName == freezed
+          ? _value.portfolioName
+          : portfolioName // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedCurrency: selectedCurrency == freezed
+          ? _value.selectedCurrency
+          : selectedCurrency // ignore: cast_nullable_to_non_nullable
+              as PhysicalCurrency?,
     ));
   }
 }
@@ -138,21 +177,28 @@ class __$$_CreatePortfolioStateIdleCopyWithImpl<$Res>
 class _$_CreatePortfolioStateIdle implements _CreatePortfolioStateIdle {
   _$_CreatePortfolioStateIdle(
       {required this.submitEnabled,
-      required final List<Currency> listOfCurrency})
+      required final List<PhysicalCurrency> listOfCurrency,
+      required this.portfolioName,
+      required this.selectedCurrency})
       : _listOfCurrency = listOfCurrency;
 
   @override
   final bool submitEnabled;
-  final List<Currency> _listOfCurrency;
+  final List<PhysicalCurrency> _listOfCurrency;
   @override
-  List<Currency> get listOfCurrency {
+  List<PhysicalCurrency> get listOfCurrency {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_listOfCurrency);
   }
 
   @override
+  final String portfolioName;
+  @override
+  final PhysicalCurrency? selectedCurrency;
+
+  @override
   String toString() {
-    return 'CreatePortfolioState.idle(submitEnabled: $submitEnabled, listOfCurrency: $listOfCurrency)';
+    return 'CreatePortfolioState.idle(submitEnabled: $submitEnabled, listOfCurrency: $listOfCurrency, portfolioName: $portfolioName, selectedCurrency: $selectedCurrency)';
   }
 
   @override
@@ -163,14 +209,20 @@ class _$_CreatePortfolioStateIdle implements _CreatePortfolioStateIdle {
             const DeepCollectionEquality()
                 .equals(other.submitEnabled, submitEnabled) &&
             const DeepCollectionEquality()
-                .equals(other._listOfCurrency, _listOfCurrency));
+                .equals(other._listOfCurrency, _listOfCurrency) &&
+            const DeepCollectionEquality()
+                .equals(other.portfolioName, portfolioName) &&
+            const DeepCollectionEquality()
+                .equals(other.selectedCurrency, selectedCurrency));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(submitEnabled),
-      const DeepCollectionEquality().hash(_listOfCurrency));
+      const DeepCollectionEquality().hash(_listOfCurrency),
+      const DeepCollectionEquality().hash(portfolioName),
+      const DeepCollectionEquality().hash(selectedCurrency));
 
   @JsonKey(ignore: true)
   @override
@@ -181,28 +233,38 @@ class _$_CreatePortfolioStateIdle implements _CreatePortfolioStateIdle {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(bool submitEnabled, List<Currency> listOfCurrency)
+    required TResult Function(
+            bool submitEnabled,
+            List<PhysicalCurrency> listOfCurrency,
+            String portfolioName,
+            PhysicalCurrency? selectedCurrency)
         idle,
   }) {
-    return idle(submitEnabled, listOfCurrency);
+    return idle(submitEnabled, listOfCurrency, portfolioName, selectedCurrency);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(bool submitEnabled, List<Currency> listOfCurrency)? idle,
+    TResult Function(bool submitEnabled, List<PhysicalCurrency> listOfCurrency,
+            String portfolioName, PhysicalCurrency? selectedCurrency)?
+        idle,
   }) {
-    return idle?.call(submitEnabled, listOfCurrency);
+    return idle?.call(
+        submitEnabled, listOfCurrency, portfolioName, selectedCurrency);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(bool submitEnabled, List<Currency> listOfCurrency)? idle,
+    TResult Function(bool submitEnabled, List<PhysicalCurrency> listOfCurrency,
+            String portfolioName, PhysicalCurrency? selectedCurrency)?
+        idle,
     required TResult orElse(),
   }) {
     if (idle != null) {
-      return idle(submitEnabled, listOfCurrency);
+      return idle(
+          submitEnabled, listOfCurrency, portfolioName, selectedCurrency);
     }
     return orElse();
   }
@@ -239,13 +301,19 @@ class _$_CreatePortfolioStateIdle implements _CreatePortfolioStateIdle {
 abstract class _CreatePortfolioStateIdle implements CreatePortfolioState {
   factory _CreatePortfolioStateIdle(
           {required final bool submitEnabled,
-          required final List<Currency> listOfCurrency}) =
+          required final List<PhysicalCurrency> listOfCurrency,
+          required final String portfolioName,
+          required final PhysicalCurrency? selectedCurrency}) =
       _$_CreatePortfolioStateIdle;
 
   @override
   bool get submitEnabled;
   @override
-  List<Currency> get listOfCurrency;
+  List<PhysicalCurrency> get listOfCurrency;
+  @override
+  String get portfolioName;
+  @override
+  PhysicalCurrency? get selectedCurrency;
   @override
   @JsonKey(ignore: true)
   _$$_CreatePortfolioStateIdleCopyWith<_$_CreatePortfolioStateIdle>

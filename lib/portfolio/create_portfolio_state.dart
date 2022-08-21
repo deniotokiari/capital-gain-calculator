@@ -1,5 +1,5 @@
-import 'package:capital_gain_calculator/portfolio/create_portfolio_event.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:stock_service/stock_service.dart';
 
 part 'create_portfolio_state.freezed.dart';
 
@@ -7,6 +7,8 @@ part 'create_portfolio_state.freezed.dart';
 class CreatePortfolioState with _$CreatePortfolioState {
   factory CreatePortfolioState.idle({
     required bool submitEnabled,
-    required List<Currency> listOfCurrency,
+    required List<PhysicalCurrency> listOfCurrency,
+    required String portfolioName,
+    required PhysicalCurrency? selectedCurrency,
   }) = _CreatePortfolioStateIdle;
 }

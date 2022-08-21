@@ -11,7 +11,9 @@ class MainDependencyModule extends DependencyModule {
   @override
   void init() {
     registerFactory<SearchBloc>(() => SearchBloc(get()));
-    registerFactory<CreatePortfolioBloc>(() => CreatePortfolioBloc());
+    registerFactory<CreatePortfolioBloc>(() => CreatePortfolioBloc(
+          get(),
+        ));
 
     for (var module in _modules) {
       module.init();

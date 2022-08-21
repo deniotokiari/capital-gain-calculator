@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:stock_service/stock_service.dart';
 
 part 'create_portfolio_event.freezed.dart';
 
@@ -6,19 +7,11 @@ part 'create_portfolio_event.freezed.dart';
 class CreatePortfolioEvent with _$CreatePortfolioEvent {
   factory CreatePortfolioEvent.init() = CreatePortfolioEventInit;
 
-  factory CreatePortfolioEvent.cancel() = CreatePortfolioEventCancel;
-
   factory CreatePortfolioEvent.submit() = CreatePortfolioEventSubmit;
 
-  factory CreatePortfolioEvent.currencySelected(Currency currency) =
+  factory CreatePortfolioEvent.currencySelected(PhysicalCurrency currency) =
       CreatePortfolioEventCurrencySelected;
 
   factory CreatePortfolioEvent.portfolioNameChanged(String portfolioName) =
       CreatePortfolioEventPortfolioNameChanged;
-}
-
-class Currency {
-  final String title;
-
-  Currency(this.title);
 }
