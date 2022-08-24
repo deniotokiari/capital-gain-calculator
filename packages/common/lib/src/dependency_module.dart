@@ -19,7 +19,3 @@ abstract class DependencyModule {
     _getIt.registerLazySingleton(factoryFunc);
   }
 }
-
-extension AnyObjectExtension<T> on T {
-  P get<P extends Object>() => GetIt.I.get<P>();
-}

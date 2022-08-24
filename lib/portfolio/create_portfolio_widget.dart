@@ -4,14 +4,17 @@ import 'package:capital_gain_calculator/portfolio/create_portfolio_state.dart';
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:stock_service/stock_service.dart';
+
+part 'create_portfolio_widget.freezed.dart';
 
 class CreatePortfolioWidget extends StatelessWidget {
   const CreatePortfolioWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-        create: (_) => get<CreatePortfolioBloc>(),
+        create: (_) => get<CreatePortfolioBloc>()..add(CreatePortfolioEvent.init()),
         child: AlertDialog(
           title: const Text('Create Portfolio'),
           content: Column(
@@ -19,10 +22,6 @@ class CreatePortfolioWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Builder(builder: (context) {
-                context.read<CreatePortfolioBloc>().add(
-                      CreatePortfolioEvent.init(),
-                    );
-
                 return TextFormField(
                   onChanged: (text) {
                     context
@@ -66,7 +65,7 @@ class CreatePortfolioWidget extends StatelessWidget {
                                 CreatePortfolioEvent.submit(),
                               );
 
-                          Navigator.of(context).pop();
+                          Navigator.of(context).pop(CreatePortfolioWidgetNavigationResult.submit());
                         }
                       : null,
                 ),
@@ -74,10 +73,20 @@ class CreatePortfolioWidget extends StatelessWidget {
               );
             }),
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () =>
+                  Navigator.of(context).pop(CreatePortfolioWidgetNavigationResult.cancel()),
               child: const Text('Cancel'),
             ),
           ],
         ),
       );
+}
+
+@freezed
+class CreatePortfolioWidgetNavigationResult with _$CreatePortfolioWidgetNavigationResult {
+  factory CreatePortfolioWidgetNavigationResult.cancel() =
+      _CreatePortfolioWidgetNavigationResultCancel;
+
+  factory CreatePortfolioWidgetNavigationResult.submit() =
+      _CreatePortfolioWidgetNavigationResultSubmit;
 }

@@ -1,14 +1,19 @@
 import 'package:capital_gain_calculator/portfolio/create_portfolio_event.dart';
 import 'package:capital_gain_calculator/portfolio/create_portfolio_state.dart';
+import 'package:capital_gain_calculator/portfolio/portfolio_repository.dart';
+import 'package:common/common.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stock_service/stock_service.dart';
 import 'package:collection/collection.dart';
 
 class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioState> {
   final PhysicalCurrencyListRepository _physicalCurrencyListRepository;
+  final PortfolioRepository _portfolioRepository;
 
-  CreatePortfolioBloc(this._physicalCurrencyListRepository)
-      : super(
+  CreatePortfolioBloc(
+    this._physicalCurrencyListRepository,
+    this._portfolioRepository,
+  ) : super(
           CreatePortfolioState.idle(
             submitEnabled: false,
             selectedCurrency: null,
@@ -44,8 +49,11 @@ class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioStat
         portfolioName: portfolioName,
       ));
     });
-    on<CreatePortfolioEventSubmit>((event, emit) {
-      // TODO create portfolio
+    on<CreatePortfolioEventSubmit>((event, emit) async {
+      await _portfolioRepository.save(Portfolio(
+        state.portfolioName,
+        state.selectedCurrency.require,
+      ));
     });
   }
 }
