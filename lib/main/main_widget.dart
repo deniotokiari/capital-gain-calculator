@@ -18,29 +18,34 @@ class MainWidget extends StatelessWidget {
           create: (context) => get<MainBloc>(),
           child: Column(
             children: [
-              Builder(builder: (context) {
-                return TextButton(
-                  onPressed: () async {
-                    final result = await showDialog<CreatePortfolioWidgetNavigationResult>(
-                      context: context,
-                      builder: (context) => const CreatePortfolioWidget(),
-                    );
+              Builder(
+                  builder: (context) => TextButton(
+                        onPressed: () async {
+                          final result = await showDialog<CreatePortfolioWidgetNavigationResult>(
+                            context: context,
+                            builder: (context) => const CreatePortfolioWidget(),
+                          );
 
-                    result?.whenOrNull(
-                      submit: () {
-                        context.read<MainBloc>().add(MainEvent.init());
-                      },
-                    );
-                  },
-                  child: const Text('+ Create Portfolio'),
-                );
-              }),
+                          result?.whenOrNull(
+                            submit: () {
+                              context.read<MainBloc>().add(MainEvent.init());
+                            },
+                          );
+                        },
+                        child: const Text('+ Create Portfolio'),
+                      )),
               BlocBuilder<MainBloc, MainState>(
                 builder: (context, state) => Flexible(
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: state.portfolios.length,
                     itemBuilder: (context, index) => ListTile(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          '/portfolio/${state.portfolios[index].id}',
+                          arguments: state.portfolios[index].id,
+                        );
+                      },
                       title: Text(state.portfolios[index].title),
                     ),
                   ),

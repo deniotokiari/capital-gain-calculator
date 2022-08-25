@@ -11,6 +11,12 @@ abstract class DependencyModule {
     _getIt.registerFactory(factoryFunc);
   }
 
+  void registerFactoryParam<T extends Object, P1, P2>(
+    FactoryFuncParam<T, P1, P2> factoryFunc,
+  ) {
+    _getIt.registerFactoryParam(factoryFunc);
+  }
+
   void registerSingleton<T extends Object>(T instance) {
     _getIt.registerSingleton(instance);
   }

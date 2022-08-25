@@ -20,4 +20,6 @@ class Portfolio {
     this.title,
     this.physicalCurrency,
   );
+
+  int get id => Object.hashAll([title, physicalCurrency]);
 }
