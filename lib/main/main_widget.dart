@@ -42,8 +42,8 @@ class MainWidget extends StatelessWidget {
                     itemBuilder: (context, index) => ListTile(
                       onTap: () {
                         Navigator.of(context).pushNamed(
-                          '/portfolio/${state.portfolios[index].id}',
-                          arguments: state.portfolios[index].id,
+                          '/portfolio',
+                          arguments: state.portfolios[index],
                         );
                       },
                       title: Text(state.portfolios[index].title),

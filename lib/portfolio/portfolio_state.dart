@@ -6,7 +6,7 @@ part 'portfolio_state.freezed.dart';
 @freezed
 class PortfolioState with _$PortfolioState {
   factory PortfolioState.idle(
-    Portfolio? portfolio,
+    Portfolio portfolio,
     List<Symbol> symbols,
   ) = _PortfolioStateIdle;
 }

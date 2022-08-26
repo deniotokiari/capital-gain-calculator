@@ -20,15 +20,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MainWidget(),
-      onGenerateRoute: (settings) {
-        if (settings.name?.contains('/portfolio') == true) {
-          final portfolioId = settings.arguments as int;
-
-          return MaterialPageRoute(builder: ((context) => PortfolioWidget(portfolioId)));
-        } else {
-          return null;
-          //return MaterialPageRoute(builder: ((context) => const MainWidget()));
-        }
+      routes: {
+        '/portfolio': (_) => const PortfolioWidget(),
       },
     );
   }

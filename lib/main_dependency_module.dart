@@ -19,7 +19,9 @@ class MainDependencyModule extends DependencyModule {
           get(),
         ));
     registerFactory<MainBloc>(() => MainBloc(get()));
-    registerFactory(() => PortfolioBloc());
+    registerFactoryParam<PortfolioBloc, Portfolio, dynamic>(
+      (param1, _) => PortfolioBloc(param1),
+    );
 
     registerSingleton<PortfolioRepository>(PortfolioRepository());
 

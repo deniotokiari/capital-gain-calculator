@@ -4,5 +4,5 @@ part 'portfolio_event.freezed.dart';
 
 @freezed
 class PortfolioEvent with _$PortfolioEvent {
-  factory PortfolioEvent.init(int portfolioId) = PortfolioEventInit;
+  factory PortfolioEvent.init() = PortfolioEventInit;
 }
