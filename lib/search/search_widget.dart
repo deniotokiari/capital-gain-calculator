@@ -42,6 +42,9 @@ class SearchWidget extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final item = data.result.items[index];
                         return ListTile(
+                            onTap: () {
+                              Navigator.of(context).pop(item);
+                            },
                             title: Text(
                                 '${item.symbol} - ${item.name} - ${item.region} - ${item.currency}'));
                       },

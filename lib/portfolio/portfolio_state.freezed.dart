@@ -16,21 +16,23 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PortfolioState {
-  Portfolio? get portfolio => throw _privateConstructorUsedError;
-  List<Symbol> get symbols => throw _privateConstructorUsedError;
+  Portfolio get portfolio => throw _privateConstructorUsedError;
+  List<SearchResultItem> get symbols => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Portfolio? portfolio, List<Symbol> symbols) idle,
+    required TResult Function(
+            Portfolio portfolio, List<SearchResultItem> symbols)
+        idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Portfolio? portfolio, List<Symbol> symbols)? idle,
+    TResult Function(Portfolio portfolio, List<SearchResultItem> symbols)? idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Portfolio? portfolio, List<Symbol> symbols)? idle,
+    TResult Function(Portfolio portfolio, List<SearchResultItem> symbols)? idle,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +63,7 @@ abstract class $PortfolioStateCopyWith<$Res> {
   factory $PortfolioStateCopyWith(
           PortfolioState value, $Res Function(PortfolioState) then) =
       _$PortfolioStateCopyWithImpl<$Res>;
-  $Res call({Portfolio? portfolio, List<Symbol> symbols});
+  $Res call({Portfolio portfolio, List<SearchResultItem> symbols});
 }
 
 /// @nodoc
@@ -82,11 +84,11 @@ class _$PortfolioStateCopyWithImpl<$Res>
       portfolio: portfolio == freezed
           ? _value.portfolio
           : portfolio // ignore: cast_nullable_to_non_nullable
-              as Portfolio?,
+              as Portfolio,
       symbols: symbols == freezed
           ? _value.symbols
           : symbols // ignore: cast_nullable_to_non_nullable
-              as List<Symbol>,
+              as List<SearchResultItem>,
     ));
   }
 }
@@ -98,7 +100,7 @@ abstract class _$$_PortfolioStateIdleCopyWith<$Res>
           $Res Function(_$_PortfolioStateIdle) then) =
       __$$_PortfolioStateIdleCopyWithImpl<$Res>;
   @override
-  $Res call({Portfolio? portfolio, List<Symbol> symbols});
+  $Res call({Portfolio portfolio, List<SearchResultItem> symbols});
 }
 
 /// @nodoc
@@ -121,11 +123,11 @@ class __$$_PortfolioStateIdleCopyWithImpl<$Res>
       portfolio == freezed
           ? _value.portfolio
           : portfolio // ignore: cast_nullable_to_non_nullable
-              as Portfolio?,
+              as Portfolio,
       symbols == freezed
           ? _value._symbols
           : symbols // ignore: cast_nullable_to_non_nullable
-              as List<Symbol>,
+              as List<SearchResultItem>,
     ));
   }
 }
@@ -133,14 +135,14 @@ class __$$_PortfolioStateIdleCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PortfolioStateIdle implements _PortfolioStateIdle {
-  _$_PortfolioStateIdle(this.portfolio, final List<Symbol> symbols)
+  _$_PortfolioStateIdle(this.portfolio, final List<SearchResultItem> symbols)
       : _symbols = symbols;
 
   @override
-  final Portfolio? portfolio;
-  final List<Symbol> _symbols;
+  final Portfolio portfolio;
+  final List<SearchResultItem> _symbols;
   @override
-  List<Symbol> get symbols {
+  List<SearchResultItem> get symbols {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_symbols);
   }
@@ -174,7 +176,9 @@ class _$_PortfolioStateIdle implements _PortfolioStateIdle {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Portfolio? portfolio, List<Symbol> symbols) idle,
+    required TResult Function(
+            Portfolio portfolio, List<SearchResultItem> symbols)
+        idle,
   }) {
     return idle(portfolio, symbols);
   }
@@ -182,7 +186,7 @@ class _$_PortfolioStateIdle implements _PortfolioStateIdle {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Portfolio? portfolio, List<Symbol> symbols)? idle,
+    TResult Function(Portfolio portfolio, List<SearchResultItem> symbols)? idle,
   }) {
     return idle?.call(portfolio, symbols);
   }
@@ -190,7 +194,7 @@ class _$_PortfolioStateIdle implements _PortfolioStateIdle {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Portfolio? portfolio, List<Symbol> symbols)? idle,
+    TResult Function(Portfolio portfolio, List<SearchResultItem> symbols)? idle,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -230,13 +234,13 @@ class _$_PortfolioStateIdle implements _PortfolioStateIdle {
 
 abstract class _PortfolioStateIdle implements PortfolioState {
   factory _PortfolioStateIdle(
-          final Portfolio? portfolio, final List<Symbol> symbols) =
+          final Portfolio portfolio, final List<SearchResultItem> symbols) =
       _$_PortfolioStateIdle;
 
   @override
-  Portfolio? get portfolio;
+  Portfolio get portfolio;
   @override
-  List<Symbol> get symbols;
+  List<SearchResultItem> get symbols;
   @override
   @JsonKey(ignore: true)
   _$$_PortfolioStateIdleCopyWith<_$_PortfolioStateIdle> get copyWith =>

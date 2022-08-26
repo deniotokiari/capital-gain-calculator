@@ -9,7 +9,8 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   PortfolioBloc(
     this._portfolio,
   ) : super(PortfolioState.idle(_portfolio, [])) {
-    on<PortfolioEventInit>(((event, emit) async {
+    on<PortfolioEventAddSymbol>(((event, emit) {
+      emit(state.copyWith(symbols: [...state.symbols, event.item]));
     }));
   }
 }

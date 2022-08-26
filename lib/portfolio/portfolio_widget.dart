@@ -1,6 +1,9 @@
 import 'package:capital_gain_calculator/portfolio/portfolio_bloc.dart';
+import 'package:capital_gain_calculator/portfolio/portfolio_event.dart';
 import 'package:capital_gain_calculator/portfolio/portfolio_repository.dart';
 import 'package:capital_gain_calculator/portfolio/portfolio_state.dart';
+import 'package:capital_gain_calculator/search/search_state.dart';
+import 'package:capital_gain_calculator/search/search_widget.dart';
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,13 +23,38 @@ class PortfolioWidget extends StatelessWidget {
           child: Column(
             children: [
               BlocBuilder<PortfolioBloc, PortfolioState>(
-                  buildWhen: ((p, c) => c.portfolio?.title != null),
-                  builder: ((context, state) => Text(state.portfolio?.title ?? ''))),
+                  builder: ((context, state) => Text(state.portfolio.title))),
               Builder(
                 builder: ((context) => TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await showModalBottomSheet<SearchResultItem?>(
+                          context: context,
+                          builder: (context) => SearchWidget(),
+                        ).then((value) {
+                          if (value != null) {
+                            context.read<PortfolioBloc>().add(PortfolioEvent.addSymbol(value));
+                          }
+                        });
+                      },
                       child: const Text('+ Add Symbol'),
                     )),
+              ),
+              BlocBuilder<PortfolioBloc, PortfolioState>(
+                builder: ((context, state) {
+                  return Flexible(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: state.symbols.length,
+                      itemBuilder: ((context, index) {
+                        final item = state.symbols[index];
+
+                        return ListTile(
+                          title: Text(item.name),
+                        );
+                      }),
+                    ),
+                  );
+                }),
               ),
             ],
           ),
