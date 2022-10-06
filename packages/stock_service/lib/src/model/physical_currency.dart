@@ -1,4 +1,6 @@
-class PhysicalCurrency {
+import 'package:common/common.dart';
+
+class PhysicalCurrency extends LocalStorageEntity {
   final String code;
   final String name;
 
@@ -12,12 +14,14 @@ class PhysicalCurrency {
         name: map['name'],
       );
 
+  @override
   String get id => Object.hashAll([code, name]).toString();
 
-  bool get isUsd => code.toLowerCase() == 'usd';
-
+  @override
   Map<String, dynamic> get toMap => {
         'code': code,
         'name': name,
       };
+
+  bool get isUsd => code.toLowerCase() == 'usd';
 }
