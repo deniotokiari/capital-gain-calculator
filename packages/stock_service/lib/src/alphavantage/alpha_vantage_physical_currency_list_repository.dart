@@ -3,15 +3,36 @@ import 'package:stock_service/src/model/physical_currency.dart';
 import 'package:stock_service/src/physical_currency_list_repository.dart';
 import 'package:stock_service/src/stock_service_api.dart';
 
+const String _physicalCurrencyListRepositoryTable = '_physicalCurrencyListRepositoryTable';
+
 class AlphaVantagePhysicalCurrencyListResponse implements PhysicalCurrencyListRepository {
   final StockServiceApi _stockServiceApi;
+  final LocalStorage _localStorage;
   final List<PhysicalCurrency> _list = List.empty(growable: true);
 
-  AlphaVantagePhysicalCurrencyListResponse(this._stockServiceApi);
+  AlphaVantagePhysicalCurrencyListResponse(
+    this._stockServiceApi,
+    this._localStorage,
+  );
 
   @override
   Future<List<PhysicalCurrency>> getPhysicalCurrencyList() async {
+    // check in memory
+    if (_list.isNotEmpty) {
+      return _list;
+    }
+
+    // get from local storage
+    final localItems = await _localStorage.collection(_physicalCurrencyListRepositoryTable);
+
+    if (localItems != null && localItems.isNotEmpty) {
+      _list
+        ..clear()
+        ..addAll(localItems.map((e) => PhysicalCurrency.fromMap(e)));
+    }
+
     if (_list.isEmpty) {
+      // fetch from backend
       final response = await _stockServiceApi
           .physicCurrencyList()
           .runCatching()
@@ -25,6 +46,15 @@ class AlphaVantagePhysicalCurrencyListResponse implements PhysicalCurrencyListRe
       _list
         ..clear()
         ..addAll(response);
+
+      // save in local storage
+      for (var element in _list) {
+        await _localStorage.save(
+          id: element.id,
+          name: _physicalCurrencyListRepositoryTable,
+          element.toMap,
+        );
+      }
     }
 
     return _list;

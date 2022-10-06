@@ -10,7 +10,6 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     this._portfolioRepository,
   ) : super(MainState.idle([])) {
     on<MainEventInit>((event, emit) async {
-      print('LOG: emit');
       emit(MainState.idle(await _portfolioRepository.getAll()));
     });
   }

@@ -15,7 +15,7 @@ class MainWidget extends StatelessWidget {
           title: const Text('Capital Gain Calculator'),
         ),
         body: BlocProvider(
-          create: (context) => get<MainBloc>(),
+          create: (context) => get<MainBloc>()..add(MainEvent.init()),
           child: Column(
             children: [
               Builder(

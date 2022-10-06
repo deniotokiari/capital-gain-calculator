@@ -4,6 +4,7 @@ import 'package:capital_gain_calculator/portfolio/portfolio_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   MainDependencyModule().init();
 
   runApp(const MyApp());

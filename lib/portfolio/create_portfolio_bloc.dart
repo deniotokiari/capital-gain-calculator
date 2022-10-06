@@ -50,9 +50,9 @@ class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioStat
       ));
     });
     on<CreatePortfolioEventSubmit>((event, emit) async {
-      await _portfolioRepository.save(Portfolio(
-        state.portfolioName,
-        state.selectedCurrency.require,
+      await _portfolioRepository.add(Portfolio(
+        title: state.portfolioName,
+        physicalCurrencyId: state.selectedCurrency.require.id,
       ));
     });
   }

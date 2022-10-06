@@ -13,6 +13,7 @@ class MainDependencyModule extends DependencyModule {
 
   @override
   void init() {
+    registerSingleton<LocalStorage>(LocalStorage());
     registerFactory<SearchBloc>(() => SearchBloc(get()));
     registerFactory<CreatePortfolioBloc>(() => CreatePortfolioBloc(
           get(),
@@ -23,7 +24,7 @@ class MainDependencyModule extends DependencyModule {
       (param1, _) => PortfolioBloc(param1),
     );
 
-    registerSingleton<PortfolioRepository>(PortfolioRepository());
+    registerSingleton<PortfolioRepository>(PortfolioRepository(get()));
 
     for (var module in _modules) {
       module.init();

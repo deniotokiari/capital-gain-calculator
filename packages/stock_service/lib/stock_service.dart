@@ -18,7 +18,7 @@ class StockServiceModule extends DependencyModule {
   void init() {
     registerSingleton<StockServiceApi>(AlphaVantageService());
     registerLazySingleton<PhysicalCurrencyListRepository>(
-      () => AlphaVantagePhysicalCurrencyListResponse(get()),
+      () => AlphaVantagePhysicalCurrencyListResponse(get(), get()),
     );
   }
 }
