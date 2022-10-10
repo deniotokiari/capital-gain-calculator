@@ -6,4 +6,6 @@ part 'portfolio_event.freezed.dart';
 @freezed
 class PortfolioEvent with _$PortfolioEvent {
   factory PortfolioEvent.addSymbol(SearchResultItem item) = PortfolioEventAddSymbol;
+
+  factory PortfolioEvent.init() = PortfolioEventInit;
 }

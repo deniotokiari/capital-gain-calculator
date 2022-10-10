@@ -16,42 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PortfolioEvent {
-  SearchResultItem get item => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(SearchResultItem item) addSymbol,
+    required TResult Function() init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(SearchResultItem item)? addSymbol,
+    TResult Function()? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SearchResultItem item)? addSymbol,
+    TResult Function()? init,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioEventAddSymbol value) addSymbol,
+    required TResult Function(PortfolioEventInit value) init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PortfolioEventAddSymbol value)? addSymbol,
+    TResult Function(PortfolioEventInit value)? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioEventAddSymbol value)? addSymbol,
+    TResult Function(PortfolioEventInit value)? init,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $PortfolioEventCopyWith<PortfolioEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,7 +61,6 @@ abstract class $PortfolioEventCopyWith<$Res> {
   factory $PortfolioEventCopyWith(
           PortfolioEvent value, $Res Function(PortfolioEvent) then) =
       _$PortfolioEventCopyWithImpl<$Res>;
-  $Res call({SearchResultItem item});
 }
 
 /// @nodoc
@@ -71,27 +71,13 @@ class _$PortfolioEventCopyWithImpl<$Res>
   final PortfolioEvent _value;
   // ignore: unused_field
   final $Res Function(PortfolioEvent) _then;
-
-  @override
-  $Res call({
-    Object? item = freezed,
-  }) {
-    return _then(_value.copyWith(
-      item: item == freezed
-          ? _value.item
-          : item // ignore: cast_nullable_to_non_nullable
-              as SearchResultItem,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class _$$PortfolioEventAddSymbolCopyWith<$Res>
-    implements $PortfolioEventCopyWith<$Res> {
+abstract class _$$PortfolioEventAddSymbolCopyWith<$Res> {
   factory _$$PortfolioEventAddSymbolCopyWith(_$PortfolioEventAddSymbol value,
           $Res Function(_$PortfolioEventAddSymbol) then) =
       __$$PortfolioEventAddSymbolCopyWithImpl<$Res>;
-  @override
   $Res call({SearchResultItem item});
 }
 
@@ -155,6 +141,7 @@ class _$PortfolioEventAddSymbol implements PortfolioEventAddSymbol {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(SearchResultItem item) addSymbol,
+    required TResult Function() init,
   }) {
     return addSymbol(item);
   }
@@ -163,6 +150,7 @@ class _$PortfolioEventAddSymbol implements PortfolioEventAddSymbol {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(SearchResultItem item)? addSymbol,
+    TResult Function()? init,
   }) {
     return addSymbol?.call(item);
   }
@@ -171,6 +159,7 @@ class _$PortfolioEventAddSymbol implements PortfolioEventAddSymbol {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(SearchResultItem item)? addSymbol,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (addSymbol != null) {
@@ -183,6 +172,7 @@ class _$PortfolioEventAddSymbol implements PortfolioEventAddSymbol {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioEventAddSymbol value) addSymbol,
+    required TResult Function(PortfolioEventInit value) init,
   }) {
     return addSymbol(this);
   }
@@ -191,6 +181,7 @@ class _$PortfolioEventAddSymbol implements PortfolioEventAddSymbol {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PortfolioEventAddSymbol value)? addSymbol,
+    TResult Function(PortfolioEventInit value)? init,
   }) {
     return addSymbol?.call(this);
   }
@@ -199,6 +190,7 @@ class _$PortfolioEventAddSymbol implements PortfolioEventAddSymbol {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioEventAddSymbol value)? addSymbol,
+    TResult Function(PortfolioEventInit value)? init,
     required TResult orElse(),
   }) {
     if (addSymbol != null) {
@@ -212,10 +204,113 @@ abstract class PortfolioEventAddSymbol implements PortfolioEvent {
   factory PortfolioEventAddSymbol(final SearchResultItem item) =
       _$PortfolioEventAddSymbol;
 
-  @override
   SearchResultItem get item;
-  @override
   @JsonKey(ignore: true)
   _$$PortfolioEventAddSymbolCopyWith<_$PortfolioEventAddSymbol> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PortfolioEventInitCopyWith<$Res> {
+  factory _$$PortfolioEventInitCopyWith(_$PortfolioEventInit value,
+          $Res Function(_$PortfolioEventInit) then) =
+      __$$PortfolioEventInitCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PortfolioEventInitCopyWithImpl<$Res>
+    extends _$PortfolioEventCopyWithImpl<$Res>
+    implements _$$PortfolioEventInitCopyWith<$Res> {
+  __$$PortfolioEventInitCopyWithImpl(
+      _$PortfolioEventInit _value, $Res Function(_$PortfolioEventInit) _then)
+      : super(_value, (v) => _then(v as _$PortfolioEventInit));
+
+  @override
+  _$PortfolioEventInit get _value => super._value as _$PortfolioEventInit;
+}
+
+/// @nodoc
+
+class _$PortfolioEventInit implements PortfolioEventInit {
+  _$PortfolioEventInit();
+
+  @override
+  String toString() {
+    return 'PortfolioEvent.init()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$PortfolioEventInit);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SearchResultItem item) addSymbol,
+    required TResult Function() init,
+  }) {
+    return init();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(SearchResultItem item)? addSymbol,
+    TResult Function()? init,
+  }) {
+    return init?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SearchResultItem item)? addSymbol,
+    TResult Function()? init,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PortfolioEventAddSymbol value) addSymbol,
+    required TResult Function(PortfolioEventInit value) init,
+  }) {
+    return init(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PortfolioEventAddSymbol value)? addSymbol,
+    TResult Function(PortfolioEventInit value)? init,
+  }) {
+    return init?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PortfolioEventAddSymbol value)? addSymbol,
+    TResult Function(PortfolioEventInit value)? init,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PortfolioEventInit implements PortfolioEvent {
+  factory PortfolioEventInit() = _$PortfolioEventInit;
 }

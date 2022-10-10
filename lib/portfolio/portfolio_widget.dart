@@ -19,7 +19,7 @@ class PortfolioWidget extends StatelessWidget {
         body: BlocProvider<PortfolioBloc>(
           create: (_) => get<PortfolioBloc>(
             param1: ModalRoute.of(context)?.settings.arguments as Portfolio,
-          ),
+          )..add(PortfolioEvent.init()),
           child: Column(
             children: [
               BlocBuilder<PortfolioBloc, PortfolioState>(
@@ -49,7 +49,7 @@ class PortfolioWidget extends StatelessWidget {
                         final item = state.symbols[index];
 
                         return ListTile(
-                          title: Text(item.name),
+                          title: Text('${item.symbol} - ${item.name} - ${item.type} - ${item.region} - ${item.currency}'),
                         );
                       }),
                     ),

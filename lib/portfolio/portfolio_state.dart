@@ -8,6 +8,31 @@ part 'portfolio_state.freezed.dart';
 class PortfolioState with _$PortfolioState {
   factory PortfolioState.idle(
     Portfolio portfolio,
-    List<SearchResultItem> symbols,
+    List<PortfolioPositionViewModel> symbols,
   ) = _PortfolioStateIdle;
+}
+
+class PortfolioPositionViewModel {
+  final String symbol;
+  final String name;
+  final String currency;
+  final String region;
+  final String type;
+
+  PortfolioPositionViewModel({
+    required this.symbol,
+    required this.name,
+    required this.currency,
+    required this.region,
+    required this.type,
+  });
+
+  factory PortfolioPositionViewModel.fromSearchResultItem(SearchResultItem item) =>
+      PortfolioPositionViewModel(
+        symbol: item.symbol,
+        name: item.name,
+        currency: item.currency,
+        region: item.region,
+        type: item.type,
+      );
 }

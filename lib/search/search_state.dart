@@ -19,6 +19,7 @@ class SearchResultItem {
   final String name;
   final String currency;
   final String region;
+  final String type;
   final SymbolSearchMatch backendModel;
 
   SearchResultItem({
@@ -26,6 +27,7 @@ class SearchResultItem {
     required this.name,
     required this.currency,
     required this.region,
+    required this.type,
     required this.backendModel,
   });
 }
@@ -40,6 +42,7 @@ class SearchResult {
                   name: e.name,
                   currency: e.currency,
                   region: e.region,
+                  type: e.type,
                   backendModel: e,
                 ))
             .toList(growable: false);
