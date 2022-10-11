@@ -1,38 +1,31 @@
-import 'package:capital_gain_calculator/main/main_bloc.dart';
-import 'package:capital_gain_calculator/portfolio/create_portfolio_bloc.dart';
-import 'package:capital_gain_calculator/portfolio/portfolio_bloc.dart';
-import 'package:capital_gain_calculator/portfolio/portfolio_positions_repository.dart';
-import 'package:capital_gain_calculator/portfolio/portfolio_repository.dart';
-import 'package:capital_gain_calculator/portfolio/symbol_repository.dart';
-import 'package:capital_gain_calculator/search/search_bloc.dart';
 import 'package:common/common.dart';
+import 'package:flutter/foundation.dart';
+import 'package:physical_currency/physical_currency.dart';
+import 'package:portfolio/portfolio.dart';
 import 'package:stock_service/stock_service.dart';
 
 class MainDependencyModule extends DependencyModule {
   final _modules = <DependencyModule>[
     StockServiceModule(),
+    PhysicalCurrencyModule(),
+    PortfolioModule(),
   ];
 
   @override
   void init() {
-    registerSingleton<LocalStorage>(LocalStorage());
-    registerFactory<SearchBloc>(() => SearchBloc(get()));
-    registerFactory<CreatePortfolioBloc>(() => CreatePortfolioBloc(
-          get(),
-          get(),
-        ));
-    registerFactory<MainBloc>(() => MainBloc(get()));
-    registerFactoryParam<PortfolioBloc, Portfolio, dynamic>(
-      (param1, _) => PortfolioBloc(
-        get(),
-        get(),
-        param1,
-      ),
+    registerLazySingleton<LocalStorage>(() => LocalStorage());
+    registerLazySingleton<AsyncValueGetter<List<PhysicalCurrency>>>(
+      () => () => get<StockServiceApi>().physicCurrencyList().then(
+            (response) => response.list
+                .map(
+                  (currency) => PhysicalCurrency(
+                    code: currency.code,
+                    name: currency.name,
+                  ),
+                )
+                .toList(growable: false),
+          ),
     );
-
-    registerSingleton<PortfolioRepository>(PortfolioRepository(get()));
-    registerSingleton<PortfolioPositionsRepository>(PortfolioPositionsRepository(get()));
-    registerSingleton<SymbolRepository>(SymbolRepository(get()));
 
     for (var module in _modules) {
       module.init();

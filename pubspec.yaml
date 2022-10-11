@@ -9,12 +9,19 @@ environment:
   sdk: ">=2.17.3 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
   common:
     path: ./packages/common
+  create_portfolio:
+    path: ./packages/create_portfolio
+  physical_currency:
+    path: ./packages/physical_currency
+  portfolio:
+    path: ./packages/portfolio
   stock_service:
     path: ./packages/stock_service
+
+  flutter:
+    sdk: flutter
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.1.1
   freezed: ^2.1.0+1

@@ -23,7 +23,7 @@ class LocalStorage {
         );
   }
 
-  Future<List<T>?> collection<T extends LocalStorageEntity>(
+  Future<List<T>> collection<T extends LocalStorageEntity>(
     T Function(Map<String, dynamic>) converter,
   ) {
     return _db.collection(_getName(T)).get().then(
@@ -31,7 +31,7 @@ class LocalStorage {
               .map<T>(
                 (e) => converter(e.value),
               )
-              .toList(growable: false),
+              .toList(growable: false) ?? [],
         );
   }
 }

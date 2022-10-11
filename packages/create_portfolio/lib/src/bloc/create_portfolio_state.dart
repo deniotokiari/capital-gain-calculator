@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stock_service/stock_service.dart';
+import 'package:physical_currency/physical_currency.dart';
 
 part 'create_portfolio_state.freezed.dart';
 
