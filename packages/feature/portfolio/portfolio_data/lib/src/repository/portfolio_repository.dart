@@ -1,5 +1,5 @@
 import 'package:common/common.dart';
-import 'package:portfolio/src/model/portfolio.dart';
+import 'package:portfolio_data/src/model/portfolio.dart';
 
 class PortfolioRepository {
   final LocalStorage _localStorage;

@@ -15,3 +15,7 @@ class CreatePortfolioEvent with _$CreatePortfolioEvent {
   factory CreatePortfolioEvent.portfolioNameChanged(String portfolioName) =
       CreatePortfolioEventPortfolioNameChanged;
 }
+
+extension CreatePortfolioEventPortfolioNameChangedExt on CreatePortfolioEventPortfolioNameChanged {
+  String getPortfolioName() => portfolioName.trim();
+}

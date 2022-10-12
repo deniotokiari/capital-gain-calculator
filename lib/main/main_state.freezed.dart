@@ -16,20 +16,19 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MainState {
-  List<Portfolio> get portfolios => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Portfolio> portfolios) idle,
+    required TResult Function() idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<Portfolio> portfolios)? idle,
+    TResult Function()? idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Portfolio> portfolios)? idle,
+    TResult Function()? idle,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -49,17 +48,12 @@ mixin _$MainState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $MainStateCopyWith<MainState> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $MainStateCopyWith<$Res> {
   factory $MainStateCopyWith(MainState value, $Res Function(MainState) then) =
       _$MainStateCopyWithImpl<$Res>;
-  $Res call({List<Portfolio> portfolios});
 }
 
 /// @nodoc
@@ -69,28 +63,13 @@ class _$MainStateCopyWithImpl<$Res> implements $MainStateCopyWith<$Res> {
   final MainState _value;
   // ignore: unused_field
   final $Res Function(MainState) _then;
-
-  @override
-  $Res call({
-    Object? portfolios = freezed,
-  }) {
-    return _then(_value.copyWith(
-      portfolios: portfolios == freezed
-          ? _value.portfolios
-          : portfolios // ignore: cast_nullable_to_non_nullable
-              as List<Portfolio>,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class _$$_MainStateIdleCopyWith<$Res>
-    implements $MainStateCopyWith<$Res> {
+abstract class _$$_MainStateIdleCopyWith<$Res> {
   factory _$$_MainStateIdleCopyWith(
           _$_MainStateIdle value, $Res Function(_$_MainStateIdle) then) =
       __$$_MainStateIdleCopyWithImpl<$Res>;
-  @override
-  $Res call({List<Portfolio> portfolios});
 }
 
 /// @nodoc
@@ -102,79 +81,51 @@ class __$$_MainStateIdleCopyWithImpl<$Res> extends _$MainStateCopyWithImpl<$Res>
 
   @override
   _$_MainStateIdle get _value => super._value as _$_MainStateIdle;
-
-  @override
-  $Res call({
-    Object? portfolios = freezed,
-  }) {
-    return _then(_$_MainStateIdle(
-      portfolios == freezed
-          ? _value._portfolios
-          : portfolios // ignore: cast_nullable_to_non_nullable
-              as List<Portfolio>,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_MainStateIdle implements _MainStateIdle {
-  _$_MainStateIdle(final List<Portfolio> portfolios) : _portfolios = portfolios;
-
-  final List<Portfolio> _portfolios;
-  @override
-  List<Portfolio> get portfolios {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_portfolios);
-  }
+  _$_MainStateIdle();
 
   @override
   String toString() {
-    return 'MainState.idle(portfolios: $portfolios)';
+    return 'MainState.idle()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_MainStateIdle &&
-            const DeepCollectionEquality()
-                .equals(other._portfolios, _portfolios));
+        (other.runtimeType == runtimeType && other is _$_MainStateIdle);
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_portfolios));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$_MainStateIdleCopyWith<_$_MainStateIdle> get copyWith =>
-      __$$_MainStateIdleCopyWithImpl<_$_MainStateIdle>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Portfolio> portfolios) idle,
+    required TResult Function() idle,
   }) {
-    return idle(portfolios);
+    return idle();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<Portfolio> portfolios)? idle,
+    TResult Function()? idle,
   }) {
-    return idle?.call(portfolios);
+    return idle?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Portfolio> portfolios)? idle,
+    TResult Function()? idle,
     required TResult orElse(),
   }) {
     if (idle != null) {
-      return idle(portfolios);
+      return idle();
     }
     return orElse();
   }
@@ -209,12 +160,5 @@ class _$_MainStateIdle implements _MainStateIdle {
 }
 
 abstract class _MainStateIdle implements MainState {
-  factory _MainStateIdle(final List<Portfolio> portfolios) = _$_MainStateIdle;
-
-  @override
-  List<Portfolio> get portfolios;
-  @override
-  @JsonKey(ignore: true)
-  _$$_MainStateIdleCopyWith<_$_MainStateIdle> get copyWith =>
-      throw _privateConstructorUsedError;
+  factory _MainStateIdle() = _$_MainStateIdle;
 }

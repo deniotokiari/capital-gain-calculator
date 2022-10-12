@@ -1,6 +1,5 @@
 import 'package:capital_gain_calculator/main/main_widget.dart';
 import 'package:capital_gain_calculator/main_dependency_module.dart';
-import 'package:capital_gain_calculator/portfolio/portfolio_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const MainWidget(),
       routes: {
-        '/portfolio': (_) => const PortfolioWidget(),
+        //'/portfolio': (_) => const PortfolioWidget(),
       },
     );
   }

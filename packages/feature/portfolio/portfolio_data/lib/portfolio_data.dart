@@ -1,12 +1,12 @@
-library portfolio;
+library portfolio_data;
 
 export 'src/model/portfolio.dart';
 export 'src/repository/portfolio_repository.dart';
 
 import 'package:common/common.dart';
-import 'package:portfolio/src/repository/portfolio_repository.dart';
+import 'package:portfolio_data/src/repository/portfolio_repository.dart';
 
-class PortfolioModule extends DependencyModule {
+class PortfolioDataModule extends DependencyModule {
   @override
   void init() {
     registerLazySingleton<PortfolioRepository>(

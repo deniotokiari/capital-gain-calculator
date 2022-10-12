@@ -1,7 +1,8 @@
+import 'package:capital_gain_calculator/main/main_bloc.dart';
 import 'package:common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:physical_currency/physical_currency.dart';
-import 'package:portfolio/portfolio.dart';
+import 'package:portfolio_api/portfolio_api.dart';
 import 'package:stock_service/stock_service.dart';
 
 class MainDependencyModule extends DependencyModule {
@@ -26,6 +27,8 @@ class MainDependencyModule extends DependencyModule {
                 .toList(growable: false),
           ),
     );
+
+    registerFactory<MainBloc>(() => MainBloc());
 
     for (var module in _modules) {
       module.init();

@@ -1,4 +1,4 @@
-name: portfolio
+name: portfolio_data
 description: A new Flutter package project.
 version: 0.0.1
 publish_to: none
@@ -9,7 +9,7 @@ environment:
 
 dependencies:
   common:
-    path: ../common
+    path: ../../../common
     
   flutter:
     sdk: flutter
@@ -19,3 +19,4 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
 flutter:
+

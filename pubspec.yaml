@@ -11,12 +11,10 @@ environment:
 dependencies:
   common:
     path: ./packages/common
-  create_portfolio:
-    path: ./packages/create_portfolio
   physical_currency:
     path: ./packages/physical_currency
-  portfolio:
-    path: ./packages/portfolio
+  portfolio_api:
+    path: ./packages/feature/portfolio/portfolio_api
   stock_service:
     path: ./packages/stock_service
 

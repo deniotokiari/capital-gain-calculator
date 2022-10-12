@@ -1,16 +1,13 @@
-import 'package:capital_gain_calculator/portfolio/create_portfolio_bloc.dart';
-import 'package:capital_gain_calculator/portfolio/create_portfolio_event.dart';
-import 'package:capital_gain_calculator/portfolio/create_portfolio_state.dart';
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stock_service/stock_service.dart';
+import 'package:physical_currency/physical_currency.dart';
+import 'package:portfolio_create/src/bloc/create_portfolio_bloc.dart';
+import 'package:portfolio_create/src/bloc/create_portfolio_event.dart';
+import 'package:portfolio_create/src/bloc/create_portfolio_state.dart';
 
-part 'create_portfolio_widget.freezed.dart';
-
-class CreatePortfolioWidget extends StatelessWidget {
-  const CreatePortfolioWidget({Key? key}) : super(key: key);
+class PortfolioCreateWidget extends StatelessWidget {
+  const PortfolioCreateWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => BlocProvider(
@@ -65,7 +62,7 @@ class CreatePortfolioWidget extends StatelessWidget {
                                 CreatePortfolioEvent.submit(),
                               );
 
-                          Navigator.of(context).pop(CreatePortfolioWidgetNavigationResult.submit());
+                          Navigator.of(context).pop(const NavigationResult.ok());
                         }
                       : null,
                 ),
@@ -73,20 +70,10 @@ class CreatePortfolioWidget extends StatelessWidget {
               );
             }),
             TextButton(
-              onPressed: () =>
-                  Navigator.of(context).pop(CreatePortfolioWidgetNavigationResult.cancel()),
+              onPressed: () => Navigator.of(context).pop(const NavigationResult.cancel()),
               child: const Text('Cancel'),
             ),
           ],
         ),
       );
-}
-
-@freezed
-class CreatePortfolioWidgetNavigationResult with _$CreatePortfolioWidgetNavigationResult {
-  factory CreatePortfolioWidgetNavigationResult.cancel() =
-      _CreatePortfolioWidgetNavigationResultCancel;
-
-  factory CreatePortfolioWidgetNavigationResult.submit() =
-      _CreatePortfolioWidgetNavigationResultSubmit;
 }
