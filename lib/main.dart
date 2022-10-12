@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MainWidget(),
-      routes: {
+      routes: const {
         //'/portfolio': (_) => const PortfolioWidget(),
       },
     );

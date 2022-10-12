@@ -15,7 +15,7 @@ class Portfolio extends LocalStorageEntity {
       );
 
   @override
-  String get id => Object.hashAll([name, physicalCurrencyId]).toString();
+  Iterable get itemsForId => [name, physicalCurrencyId];
 
   @override
   Map<String, dynamic> get toMap => {

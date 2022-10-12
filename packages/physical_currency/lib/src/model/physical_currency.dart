@@ -15,7 +15,7 @@ class PhysicalCurrency extends LocalStorageEntity {
       );
 
   @override
-  String get id => Object.hashAll([code, name]).toString();
+  Iterable get itemsForId => [code, name];
 
   @override
   Map<String, dynamic> get toMap => {

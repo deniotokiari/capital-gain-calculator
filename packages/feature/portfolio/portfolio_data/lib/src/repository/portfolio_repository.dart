@@ -8,6 +8,8 @@ class PortfolioRepository {
     this._localStorage,
   );
 
+  Stream<Portfolio> get stream => _localStorage.stream(Portfolio.fromMap);
+
   Future<void> add(Portfolio portfolio) {
     return _localStorage.save(portfolio);
   }

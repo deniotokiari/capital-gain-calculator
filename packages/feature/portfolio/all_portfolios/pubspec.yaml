@@ -1,4 +1,4 @@
-name: portfolio_api
+name: all_portfolios
 description: A new Flutter package project.
 version: 0.0.1
 publish_to: none
@@ -8,22 +8,24 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  all_portfolios:
-    path: ../all_portfolios
-  common:
-    path: ../../../common
-  portfolio_create:
-    path: ../portfolio_create
-  portfolio_data:
-    path: ../portfolio_data
-
+  collection: ^1.16.0
+  flutter_bloc: ^8.1.1
   flutter:
     sdk: flutter
+  freezed: ^2.1.0+1
+  freezed_annotation: ^2.1.0
+
+  common:
+    path: ../../../common
+  portfolio_data:
+    path: ../portfolio_data
+  physical_currency:
+    path: ../../../physical_currency
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  build_runner:  ^2.2.0
 
 flutter:
-

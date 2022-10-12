@@ -6,32 +6,28 @@ class PhysicalCurrencyListRepository {
   final LocalStorage _localStorage;
   final AsyncValueGetter<List<PhysicalCurrency>> _remotePhysicalCurrencyListCall;
 
-  final List<PhysicalCurrency> _list = List.empty(growable: true);
-
   PhysicalCurrencyListRepository(
     this._localStorage,
     this._remotePhysicalCurrencyListCall,
   );
 
   Future<List<PhysicalCurrency>> getPhysicalCurrencyList() async {
-    if (_list.isEmpty) {
-      // try to get from local cache
-      final localPhysicalCurrencyList = await _localStorage.collection(PhysicalCurrency.fromMap);
+    // try to get from local cache
+    final localPhysicalCurrencyList = await _localStorage.collection(PhysicalCurrency.fromMap);
 
-      if (localPhysicalCurrencyList.isEmpty) {
-        // try to get from remote
-        final remotePhysicalCurrencyList = await _remotePhysicalCurrencyListCall();
+    if (localPhysicalCurrencyList.isEmpty) {
+      // try to get from remote
+      final remotePhysicalCurrencyList = await _remotePhysicalCurrencyListCall();
 
-        if (remotePhysicalCurrencyList.isEmpty) {
-          // so no response then return empty list
-        } else {
-          _list.addAll(remotePhysicalCurrencyList);
-        }
+      if (remotePhysicalCurrencyList.isEmpty) {
+        return [];
       } else {
-        _list.addAll(localPhysicalCurrencyList);
-      }
-    }
+        await _localStorage.saveAll(remotePhysicalCurrencyList);
 
-    return _list;
+        return remotePhysicalCurrencyList;
+      }
+    } else {
+      return localPhysicalCurrencyList;
+    }
   }
 }

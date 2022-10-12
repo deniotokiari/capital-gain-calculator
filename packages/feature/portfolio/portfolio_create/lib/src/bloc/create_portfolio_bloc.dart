@@ -31,7 +31,12 @@ class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioStat
       emit(state.copyWith(selectedCurrency: event.currency));
     });
     on<CreatePortfolioEventPortfolioNameChanged>((event, emit) {
-      emit(state.copyWith(portfolioName: event.getPortfolioName()));
+      final portfolioName = event.getPortfolioName();
+
+      emit(state.copyWith(
+        portfolioName: portfolioName,
+        submitEnabled: portfolioName.isNotEmpty,
+      ));
     });
     on<CreatePortfolioEventSubmit>((event, emit) async {
       await _portfolioRepository.add(Portfolio(

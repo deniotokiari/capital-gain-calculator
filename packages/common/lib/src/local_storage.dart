@@ -9,6 +9,12 @@ class LocalStorage {
     return Future.forEach(items, save);
   }
 
+  Stream<T> stream<T extends LocalStorageEntity>(
+    T Function(Map<String, dynamic>) converter,
+  ) {
+    return _db.collection(_getName(T)).stream.map((event) => converter(event));
+  }
+
   Future<void> save(
     LocalStorageEntity entity,
   ) {
@@ -27,16 +33,20 @@ class LocalStorage {
     T Function(Map<String, dynamic>) converter,
   ) {
     return _db.collection(_getName(T)).get().then(
-          (value) => value?.entries
-              .map<T>(
-                (e) => converter(e.value),
-              )
-              .toList(growable: false) ?? [],
+          (value) =>
+              value?.entries
+                  .map<T>(
+                    (e) => converter(e.value),
+                  )
+                  .toList(growable: false) ??
+              [],
         );
   }
 }
 
 abstract class LocalStorageEntity {
-  String get id;
+  Iterable<dynamic> get itemsForId;
   Map<String, dynamic> get toMap;
+
+  String get id => itemsForId.map((item) => item.hashCode).join();
 }
