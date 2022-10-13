@@ -14,6 +14,7 @@ class MainDependencyModule extends DependencyModule {
 
   @override
   void init() {
+    registerLazySingleton<List<NavigationPath>>(() => List.empty(growable: true));
     registerLazySingleton<LocalStorage>(() => LocalStorage());
     registerLazySingleton<AsyncValueGetter<List<PhysicalCurrency>>>(
       () => () => get<StockServiceApi>().physicCurrencyList().then(

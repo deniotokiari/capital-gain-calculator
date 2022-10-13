@@ -10,10 +10,12 @@ class AllPortfoliosViewModel {
 class PortfolioViewModel {
   final String name;
   final String currency;
+  final String portfolioId;
 
   PortfolioViewModel({
     required this.name,
     required this.currency,
+    required this.portfolioId,
   });
 
   factory PortfolioViewModel.fromPortfolioAndCurrency(
@@ -23,5 +25,6 @@ class PortfolioViewModel {
       PortfolioViewModel(
         name: portfolio.name,
         currency: currency.code,
+        portfolioId: portfolio.id,
       );
 }

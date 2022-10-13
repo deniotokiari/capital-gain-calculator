@@ -24,11 +24,9 @@ class AllPortfoliosBloc extends Bloc<AllPortfoliosEvent, AllPortfoliosState> {
       final currencyList = await _physicalCurrencyListRepository.getPhysicalCurrencyList();
 
       emit(AllPortfoliosState.idle(AllPortfoliosViewModel([
-        ...portfolios.map((portfolio) => PortfolioViewModel(
-              name: portfolio.name,
-              currency: currencyList
-                  .firstWhere((currency) => currency.id == portfolio.physicalCurrencyId)
-                  .code,
+        ...portfolios.map((portfolio) => PortfolioViewModel.fromPortfolioAndCurrency(
+              portfolio,
+              currencyList.firstWhere((currency) => currency.id == portfolio.physicalCurrencyId),
             ))
       ])));
     });

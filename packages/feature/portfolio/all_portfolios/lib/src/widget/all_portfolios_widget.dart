@@ -20,7 +20,9 @@ class AllPortfoliosWidget extends StatelessWidget {
                     final item = state.model.portfolios[index];
 
                     return ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, '/portfolio?id=${item.portfolioId}');
+                      },
                       title: Text('${item.name} (${item.currency})'),
                     );
                   },
