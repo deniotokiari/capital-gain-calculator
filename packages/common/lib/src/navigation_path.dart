@@ -1,30 +1,35 @@
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 
 class NavigationPath {
-  final String pattern;
-  final Widget Function(BuildContext, String?) builder;
+  final Widget Function(BuildContext, Map<String, dynamic>? args) builder;
 
-  NavigationPath(this.pattern, this.builder);
+  NavigationPath(this.builder);
 
   static Route<dynamic>? onGenerateRoute(
     RouteSettings settings,
-    List<NavigationPath> paths,
   ) {
     final name = settings.name;
 
     if (name != null) {
-      for (NavigationPath path in paths) {
-        final regExpPattern = RegExp(path.pattern);
+      final uri = Uri.parse(name);
+      final path = runCatching(() => name.get<NavigationPath>(instanceName: uri.path)).mapOrNull(
+        success: (success) => success.data,
+      );
 
-        if (regExpPattern.hasMatch(name)) {
-          final firstMatch = regExpPattern.firstMatch(name);
-          final match = (firstMatch?.groupCount == 1) ? firstMatch?.group(1) : null;
+      if (path != null) {
+        final arguments = settings.arguments as Map<String, dynamic>?;
+        final query = <String>[];
 
-          return MaterialPageRoute<void>(
-            builder: (context) => path.builder(context, match),
-            settings: settings,
-          );
-        }
+        arguments?.forEach((key, value) {
+          query.add('$key=$value');
+        });
+
+        return MaterialPageRoute<void>(
+          builder: (context) => path.builder(context, arguments),
+          settings: settings.copyWith(
+              name: '${uri.path}${query.isEmpty ? '' : '?'}${query.join('&')}', arguments: null),
+        );
       }
     }
     // If no match is found, [WidgetsApp.onUnknownRoute] handles it.

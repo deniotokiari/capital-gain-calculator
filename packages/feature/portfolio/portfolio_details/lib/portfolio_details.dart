@@ -6,7 +6,6 @@ import 'package:portfolio_details/src/navigation/portfolio_details_navigation_pa
 class PortfolioDetailsModule extends DependencyModule {
   @override
   void init() {
-    registerFactory(() => PortfolioDetailsNavigationPath(), instanceName: 'portfolio_details');
-    get<List<NavigationPath>>().add();
+    registerFactory<NavigationPath>(() => PortfolioDetailsNavigationPath(), instanceName: '/portfolio');
   }
 }

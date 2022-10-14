@@ -1,4 +1,5 @@
 import 'package:capital_gain_calculator/main/main_bloc.dart';
+import 'package:capital_gain_calculator/main/main_widget.dart';
 import 'package:common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:physical_currency/physical_currency.dart';
@@ -14,7 +15,6 @@ class MainDependencyModule extends DependencyModule {
 
   @override
   void init() {
-    registerLazySingleton<List<NavigationPath>>(() => List.empty(growable: true));
     registerLazySingleton<LocalStorage>(() => LocalStorage());
     registerLazySingleton<AsyncValueGetter<List<PhysicalCurrency>>>(
       () => () => get<StockServiceApi>().physicCurrencyList().then(
@@ -34,5 +34,7 @@ class MainDependencyModule extends DependencyModule {
     for (var module in _modules) {
       module.init();
     }
+
+    registerFactory<NavigationPath>(() => NavigationPath((_, __) => const MainWidget()), instanceName: '/');
   }
 }

@@ -4,7 +4,10 @@ import 'package:portfolio_details/src/widget/portfolio_details_widget.dart';
 class PortfolioDetailsNavigationPath extends NavigationPath {
   PortfolioDetailsNavigationPath()
       : super(
-          r'^/portfolio/d+',
-          (_, match) => PortfolioDetailsWidget(match ?? ''),
+          (_, settings) {
+            final portfolioId = (settings as Map)['id'] as String;
+
+            return PortfolioDetailsWidget(portfolioId);
+          },
         );
 }
