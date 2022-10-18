@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$NavigationResult {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() ok,
+    required TResult Function(dynamic data) ok,
     required TResult Function() cancel,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? ok,
+    TResult Function(dynamic data)? ok,
     TResult Function()? cancel,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? ok,
+    TResult Function(dynamic data)? ok,
     TResult Function()? cancel,
     required TResult orElse(),
   }) =>
@@ -78,6 +78,7 @@ abstract class _$$NavigationResultOkCopyWith<$Res> {
   factory _$$NavigationResultOkCopyWith(_$NavigationResultOk value,
           $Res Function(_$NavigationResultOk) then) =
       __$$NavigationResultOkCopyWithImpl<$Res>;
+  $Res call({dynamic data});
 }
 
 /// @nodoc
@@ -90,54 +91,78 @@ class __$$NavigationResultOkCopyWithImpl<$Res>
 
   @override
   _$NavigationResultOk get _value => super._value as _$NavigationResultOk;
+
+  @override
+  $Res call({
+    Object? data = freezed,
+  }) {
+    return _then(_$NavigationResultOk(
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$NavigationResultOk implements NavigationResultOk {
-  const _$NavigationResultOk();
+  const _$NavigationResultOk({this.data});
+
+  @override
+  final dynamic data;
 
   @override
   String toString() {
-    return 'NavigationResult.ok()';
+    return 'NavigationResult.ok(data: $data)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$NavigationResultOk);
+        (other.runtimeType == runtimeType &&
+            other is _$NavigationResultOk &&
+            const DeepCollectionEquality().equals(other.data, data));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$NavigationResultOkCopyWith<_$NavigationResultOk> get copyWith =>
+      __$$NavigationResultOkCopyWithImpl<_$NavigationResultOk>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() ok,
+    required TResult Function(dynamic data) ok,
     required TResult Function() cancel,
   }) {
-    return ok();
+    return ok(data);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? ok,
+    TResult Function(dynamic data)? ok,
     TResult Function()? cancel,
   }) {
-    return ok?.call();
+    return ok?.call(data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? ok,
+    TResult Function(dynamic data)? ok,
     TResult Function()? cancel,
     required TResult orElse(),
   }) {
     if (ok != null) {
-      return ok();
+      return ok(data);
     }
     return orElse();
   }
@@ -175,7 +200,12 @@ class _$NavigationResultOk implements NavigationResultOk {
 }
 
 abstract class NavigationResultOk implements NavigationResult {
-  const factory NavigationResultOk() = _$NavigationResultOk;
+  const factory NavigationResultOk({final dynamic data}) = _$NavigationResultOk;
+
+  dynamic get data;
+  @JsonKey(ignore: true)
+  _$$NavigationResultOkCopyWith<_$NavigationResultOk> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -220,7 +250,7 @@ class _$NavigationResultCancel implements NavigationResultCancel {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() ok,
+    required TResult Function(dynamic data) ok,
     required TResult Function() cancel,
   }) {
     return cancel();
@@ -229,7 +259,7 @@ class _$NavigationResultCancel implements NavigationResultCancel {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? ok,
+    TResult Function(dynamic data)? ok,
     TResult Function()? cancel,
   }) {
     return cancel?.call();
@@ -238,7 +268,7 @@ class _$NavigationResultCancel implements NavigationResultCancel {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? ok,
+    TResult Function(dynamic data)? ok,
     TResult Function()? cancel,
     required TResult orElse(),
   }) {

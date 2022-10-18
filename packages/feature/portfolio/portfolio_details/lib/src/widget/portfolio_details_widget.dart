@@ -17,7 +17,7 @@ class PortfolioDetailsWidget extends StatelessWidget {
           title: const Text('Capital Gain Calculator'),
         ),
         body: BlocProvider<PortfolioDetailsBloc>(
-          create: (_) => get<PortfolioDetailsBloc>()..add(PortfolioDetailsEvent.init()),
+          create: (_) => get<PortfolioDetailsBloc>()..add(PortfolioDetailsEvent.init(_portfolioId)),
           child: Column(
             children: [
               BlocBuilder<PortfolioDetailsBloc, PortfolioDetailsState>(
@@ -30,7 +30,9 @@ class PortfolioDetailsWidget extends StatelessWidget {
                           builder: (context) => SymbolSearchWidget(),
                         ).then((value) {
                           if (value != null) {
-                            //context.read<PortfolioDetailsBloc>().add(PortfolioEvent.addSymbol(value));
+                            context
+                                .read<PortfolioDetailsBloc>()
+                                .add(PortfolioDetailsEvent.addSymbol(value));
                           }
                         });
                       },

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:symbol_search/src/bloc/symbol_search_bloc.dart';
 import 'package:symbol_search/src/bloc/symbol_search_event.dart';
 import 'package:symbol_search/src/bloc/symbol_search_state.dart';
+import 'package:symbol_search/src/model/symbol_search_view_model.dart';
 
 class SymbolSearchWidget extends StatelessWidget {
   final Debouncer _debouncer = Debouncer(
@@ -43,7 +44,12 @@ class SymbolSearchWidget extends StatelessWidget {
                         final item = data.result.symbols[index];
                         return ListTile(
                             onTap: () {
-                              Navigator.of(context).pop(item);
+                              Navigator.of(context).pop(
+                                NavigationResult.ok(
+                                  data: SymbolSearchWidgetNavigationResult
+                                      .fromSymbolSearchViewModelItem(item),
+                                ),
+                              );
                             },
                             title: Text(
                                 '${item.symbol} - ${item.name} - ${item.region} - ${item.currency}'));
@@ -56,5 +62,28 @@ class SymbolSearchWidget extends StatelessWidget {
             )
           ],
         ),
+      );
+}
+
+class SymbolSearchWidgetNavigationResult {
+  final String name;
+  final String symbol;
+  final String region;
+  final String currency;
+
+  SymbolSearchWidgetNavigationResult(
+    this.name,
+    this.symbol,
+    this.region,
+    this.currency,
+  );
+
+  factory SymbolSearchWidgetNavigationResult.fromSymbolSearchViewModelItem(
+          SymbolSearchViewModelItem item) =>
+      SymbolSearchWidgetNavigationResult(
+        item.name,
+        item.symbol,
+        item.region,
+        item.currency,
       );
 }
