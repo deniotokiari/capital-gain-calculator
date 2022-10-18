@@ -9,7 +9,7 @@ class PortfolioDetailsModule extends DependencyModule {
   void init() {
     registerFactory<NavigationWidgetBuilder>(
       () => PortfolioDetailsNavigationWidgetBuilder(),
-      instanceName: RouteDestination.portfolio.name,
+      instanceName: RouteDestination.portfolio.title,
     );
   }
 }

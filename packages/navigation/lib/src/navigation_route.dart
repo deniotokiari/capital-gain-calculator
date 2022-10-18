@@ -14,7 +14,7 @@ class NavigationRoute {
   void push(BuildContext context) {
     Navigator.pushNamed(
       context,
-      route.name,
+      route.title,
       arguments: arguments,
     );
   }
@@ -82,7 +82,7 @@ enum RouteDestination {
   root('/'),
   portfolio('/portfolio');
 
-  final String name;
+  final String title;
 
-  const RouteDestination(this.name);
+  const RouteDestination(this.title);
 }

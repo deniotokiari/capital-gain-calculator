@@ -39,7 +39,7 @@ class MainDependencyModule extends DependencyModule {
 
     registerFactory<NavigationWidgetBuilder>(
       () => NavigationWidgetBuilder((_, __) => const MainWidget()),
-      instanceName: RouteDestination.root.name,
+      instanceName: RouteDestination.root.title,
     );
   }
 }
