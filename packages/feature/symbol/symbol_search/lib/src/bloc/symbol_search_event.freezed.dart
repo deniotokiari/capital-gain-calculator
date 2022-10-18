@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'search_event.dart';
+part of 'symbol_search_event.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$SearchEvent {
+mixin _$SymbolSearchEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String query) search,
@@ -24,8 +24,8 @@ mixin _$SearchEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String query)? search,
-    TResult Function()? clear,
+    TResult? Function(String query)? search,
+    TResult? Function()? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,66 +37,67 @@ mixin _$SearchEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(SearchEventSearch value) search,
-    required TResult Function(SearchEventClear value) clear,
+    required TResult Function(SymbolSearchEventSearch value) search,
+    required TResult Function(SymbolSearchEventClear value) clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SearchEventSearch value)? search,
-    TResult Function(SearchEventClear value)? clear,
+    TResult? Function(SymbolSearchEventSearch value)? search,
+    TResult? Function(SymbolSearchEventClear value)? clear,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(SearchEventSearch value)? search,
-    TResult Function(SearchEventClear value)? clear,
+    TResult Function(SymbolSearchEventSearch value)? search,
+    TResult Function(SymbolSearchEventClear value)? clear,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SearchEventCopyWith<$Res> {
-  factory $SearchEventCopyWith(
-          SearchEvent value, $Res Function(SearchEvent) then) =
-      _$SearchEventCopyWithImpl<$Res>;
+abstract class $SymbolSearchEventCopyWith<$Res> {
+  factory $SymbolSearchEventCopyWith(
+          SymbolSearchEvent value, $Res Function(SymbolSearchEvent) then) =
+      _$SymbolSearchEventCopyWithImpl<$Res, SymbolSearchEvent>;
 }
 
 /// @nodoc
-class _$SearchEventCopyWithImpl<$Res> implements $SearchEventCopyWith<$Res> {
-  _$SearchEventCopyWithImpl(this._value, this._then);
+class _$SymbolSearchEventCopyWithImpl<$Res, $Val extends SymbolSearchEvent>
+    implements $SymbolSearchEventCopyWith<$Res> {
+  _$SymbolSearchEventCopyWithImpl(this._value, this._then);
 
-  final SearchEvent _value;
   // ignore: unused_field
-  final $Res Function(SearchEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class _$$SearchEventSearchCopyWith<$Res> {
-  factory _$$SearchEventSearchCopyWith(
-          _$SearchEventSearch value, $Res Function(_$SearchEventSearch) then) =
-      __$$SearchEventSearchCopyWithImpl<$Res>;
+abstract class _$$SymbolSearchEventSearchCopyWith<$Res> {
+  factory _$$SymbolSearchEventSearchCopyWith(_$SymbolSearchEventSearch value,
+          $Res Function(_$SymbolSearchEventSearch) then) =
+      __$$SymbolSearchEventSearchCopyWithImpl<$Res>;
+  @useResult
   $Res call({String query});
 }
 
 /// @nodoc
-class __$$SearchEventSearchCopyWithImpl<$Res>
-    extends _$SearchEventCopyWithImpl<$Res>
-    implements _$$SearchEventSearchCopyWith<$Res> {
-  __$$SearchEventSearchCopyWithImpl(
-      _$SearchEventSearch _value, $Res Function(_$SearchEventSearch) _then)
-      : super(_value, (v) => _then(v as _$SearchEventSearch));
+class __$$SymbolSearchEventSearchCopyWithImpl<$Res>
+    extends _$SymbolSearchEventCopyWithImpl<$Res, _$SymbolSearchEventSearch>
+    implements _$$SymbolSearchEventSearchCopyWith<$Res> {
+  __$$SymbolSearchEventSearchCopyWithImpl(_$SymbolSearchEventSearch _value,
+      $Res Function(_$SymbolSearchEventSearch) _then)
+      : super(_value, _then);
 
-  @override
-  _$SearchEventSearch get _value => super._value as _$SearchEventSearch;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? query = freezed,
+    Object? query = null,
   }) {
-    return _then(_$SearchEventSearch(
-      query == freezed
+    return _then(_$SymbolSearchEventSearch(
+      null == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
@@ -106,33 +107,34 @@ class __$$SearchEventSearchCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SearchEventSearch implements SearchEventSearch {
-  _$SearchEventSearch(this.query);
+class _$SymbolSearchEventSearch implements SymbolSearchEventSearch {
+  _$SymbolSearchEventSearch(this.query);
 
   @override
   final String query;
 
   @override
   String toString() {
-    return 'SearchEvent.search(query: $query)';
+    return 'SymbolSearchEvent.search(query: $query)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SearchEventSearch &&
-            const DeepCollectionEquality().equals(other.query, query));
+            other is _$SymbolSearchEventSearch &&
+            (identical(other.query, query) || other.query == query));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(query));
+  int get hashCode => Object.hash(runtimeType, query);
 
   @JsonKey(ignore: true)
   @override
-  _$$SearchEventSearchCopyWith<_$SearchEventSearch> get copyWith =>
-      __$$SearchEventSearchCopyWithImpl<_$SearchEventSearch>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$SymbolSearchEventSearchCopyWith<_$SymbolSearchEventSearch> get copyWith =>
+      __$$SymbolSearchEventSearchCopyWithImpl<_$SymbolSearchEventSearch>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -146,8 +148,8 @@ class _$SearchEventSearch implements SearchEventSearch {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String query)? search,
-    TResult Function()? clear,
+    TResult? Function(String query)? search,
+    TResult? Function()? clear,
   }) {
     return search?.call(query);
   }
@@ -168,8 +170,8 @@ class _$SearchEventSearch implements SearchEventSearch {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(SearchEventSearch value) search,
-    required TResult Function(SearchEventClear value) clear,
+    required TResult Function(SymbolSearchEventSearch value) search,
+    required TResult Function(SymbolSearchEventClear value) clear,
   }) {
     return search(this);
   }
@@ -177,8 +179,8 @@ class _$SearchEventSearch implements SearchEventSearch {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SearchEventSearch value)? search,
-    TResult Function(SearchEventClear value)? clear,
+    TResult? Function(SymbolSearchEventSearch value)? search,
+    TResult? Function(SymbolSearchEventClear value)? clear,
   }) {
     return search?.call(this);
   }
@@ -186,8 +188,8 @@ class _$SearchEventSearch implements SearchEventSearch {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(SearchEventSearch value)? search,
-    TResult Function(SearchEventClear value)? clear,
+    TResult Function(SymbolSearchEventSearch value)? search,
+    TResult Function(SymbolSearchEventClear value)? clear,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -197,48 +199,46 @@ class _$SearchEventSearch implements SearchEventSearch {
   }
 }
 
-abstract class SearchEventSearch implements SearchEvent {
-  factory SearchEventSearch(final String query) = _$SearchEventSearch;
+abstract class SymbolSearchEventSearch implements SymbolSearchEvent {
+  factory SymbolSearchEventSearch(final String query) =
+      _$SymbolSearchEventSearch;
 
   String get query;
   @JsonKey(ignore: true)
-  _$$SearchEventSearchCopyWith<_$SearchEventSearch> get copyWith =>
+  _$$SymbolSearchEventSearchCopyWith<_$SymbolSearchEventSearch> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SearchEventClearCopyWith<$Res> {
-  factory _$$SearchEventClearCopyWith(
-          _$SearchEventClear value, $Res Function(_$SearchEventClear) then) =
-      __$$SearchEventClearCopyWithImpl<$Res>;
+abstract class _$$SymbolSearchEventClearCopyWith<$Res> {
+  factory _$$SymbolSearchEventClearCopyWith(_$SymbolSearchEventClear value,
+          $Res Function(_$SymbolSearchEventClear) then) =
+      __$$SymbolSearchEventClearCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$SearchEventClearCopyWithImpl<$Res>
-    extends _$SearchEventCopyWithImpl<$Res>
-    implements _$$SearchEventClearCopyWith<$Res> {
-  __$$SearchEventClearCopyWithImpl(
-      _$SearchEventClear _value, $Res Function(_$SearchEventClear) _then)
-      : super(_value, (v) => _then(v as _$SearchEventClear));
-
-  @override
-  _$SearchEventClear get _value => super._value as _$SearchEventClear;
+class __$$SymbolSearchEventClearCopyWithImpl<$Res>
+    extends _$SymbolSearchEventCopyWithImpl<$Res, _$SymbolSearchEventClear>
+    implements _$$SymbolSearchEventClearCopyWith<$Res> {
+  __$$SymbolSearchEventClearCopyWithImpl(_$SymbolSearchEventClear _value,
+      $Res Function(_$SymbolSearchEventClear) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SearchEventClear implements SearchEventClear {
-  _$SearchEventClear();
+class _$SymbolSearchEventClear implements SymbolSearchEventClear {
+  _$SymbolSearchEventClear();
 
   @override
   String toString() {
-    return 'SearchEvent.clear()';
+    return 'SymbolSearchEvent.clear()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SearchEventClear);
+        (other.runtimeType == runtimeType && other is _$SymbolSearchEventClear);
   }
 
   @override
@@ -256,8 +256,8 @@ class _$SearchEventClear implements SearchEventClear {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String query)? search,
-    TResult Function()? clear,
+    TResult? Function(String query)? search,
+    TResult? Function()? clear,
   }) {
     return clear?.call();
   }
@@ -278,8 +278,8 @@ class _$SearchEventClear implements SearchEventClear {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(SearchEventSearch value) search,
-    required TResult Function(SearchEventClear value) clear,
+    required TResult Function(SymbolSearchEventSearch value) search,
+    required TResult Function(SymbolSearchEventClear value) clear,
   }) {
     return clear(this);
   }
@@ -287,8 +287,8 @@ class _$SearchEventClear implements SearchEventClear {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SearchEventSearch value)? search,
-    TResult Function(SearchEventClear value)? clear,
+    TResult? Function(SymbolSearchEventSearch value)? search,
+    TResult? Function(SymbolSearchEventClear value)? clear,
   }) {
     return clear?.call(this);
   }
@@ -296,8 +296,8 @@ class _$SearchEventClear implements SearchEventClear {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(SearchEventSearch value)? search,
-    TResult Function(SearchEventClear value)? clear,
+    TResult Function(SymbolSearchEventSearch value)? search,
+    TResult Function(SymbolSearchEventClear value)? clear,
     required TResult orElse(),
   }) {
     if (clear != null) {
@@ -307,6 +307,6 @@ class _$SearchEventClear implements SearchEventClear {
   }
 }
 
-abstract class SearchEventClear implements SearchEvent {
-  factory SearchEventClear() = _$SearchEventClear;
+abstract class SymbolSearchEventClear implements SymbolSearchEvent {
+  factory SymbolSearchEventClear() = _$SymbolSearchEventClear;
 }

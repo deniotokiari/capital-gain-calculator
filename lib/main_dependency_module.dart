@@ -6,12 +6,14 @@ import 'package:navigation/navigation.dart';
 import 'package:physical_currency/physical_currency.dart';
 import 'package:portfolio_api/portfolio_api.dart';
 import 'package:stock_service/stock_service.dart';
+import 'package:symbol_api/symbol_api.dart';
 
 class MainDependencyModule extends DependencyModule {
   final _modules = <DependencyModule>[
     StockServiceModule(),
     PhysicalCurrencyModule(),
     PortfolioModule(),
+    SymbolApiModule(),
     NavigationModule(),
   ];
 

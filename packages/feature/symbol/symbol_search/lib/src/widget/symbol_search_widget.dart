@@ -1,27 +1,27 @@
-import 'package:capital_gain_calculator/search/search_bloc.dart';
-import 'package:capital_gain_calculator/search/search_event.dart';
-import 'package:capital_gain_calculator/search/search_state.dart';
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:symbol_search/src/bloc/symbol_search_bloc.dart';
+import 'package:symbol_search/src/bloc/symbol_search_event.dart';
+import 'package:symbol_search/src/bloc/symbol_search_state.dart';
 
-class SearchWidget extends StatelessWidget {
+class SymbolSearchWidget extends StatelessWidget {
   final Debouncer _debouncer = Debouncer(
     duration: const Duration(milliseconds: 500),
   );
 
-  SearchWidget({Key? key}) : super(key: key);
+  SymbolSearchWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-        create: (_) => get<SearchBloc>(),
+        create: (_) => get<SymbolSearchBloc>(),
         child: Column(
           children: [
             Builder(builder: (context) {
               return TextFormField(
                 onChanged: (text) {
                   _debouncer.run(
-                    () => context.read<SearchBloc>().add(SearchEvent.search(text)),
+                    () => context.read<SymbolSearchBloc>().add(SymbolSearchEvent.search(text)),
                   );
                 },
                 decoration: const InputDecoration(
@@ -30,17 +30,17 @@ class SearchWidget extends StatelessWidget {
                 ),
               );
             }),
-            BlocBuilder<SearchBloc, SearchState>(
+            BlocBuilder<SymbolSearchBloc, SymbolSearchState>(
               builder: (context, state) {
                 return state.map(
                   initial: (_) => const Text('initial'),
-                  loading: (_) => const Text('initial'),
+                  loading: (_) => const Text('loading'),
                   result: (data) => Flexible(
                     child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: data.result.items.length,
+                      itemCount: data.result.symbols.length,
                       itemBuilder: (context, index) {
-                        final item = data.result.items[index];
+                        final item = data.result.symbols[index];
                         return ListTile(
                             onTap: () {
                               Navigator.of(context).pop(item);

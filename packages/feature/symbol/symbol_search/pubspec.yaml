@@ -1,4 +1,4 @@
-name: portfolio_details
+name: symbol_search
 description: A new Flutter package project.
 version: 0.0.1
 publish_to: none
@@ -17,14 +17,10 @@ dependencies:
 
   common:
     path: ../../../common
-  portfolio_data:
-    path: ../portfolio_data
+  stock_service:
+    path: ../../../stock_service
   physical_currency:
     path: ../../../physical_currency
-  symbol_api:
-    path: ../../symbol/symbol_api
-  navigation:
-    path: ../../../navigation
 
 dev_dependencies:
   flutter_test:
@@ -33,3 +29,4 @@ dev_dependencies:
   build_runner:  ^2.2.0
 
 flutter:
+

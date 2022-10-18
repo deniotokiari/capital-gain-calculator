@@ -15,6 +15,8 @@ dependencies:
     path: ./packages/physical_currency
   portfolio_api:
     path: ./packages/feature/portfolio/portfolio_api
+  symbol_api:
+    path: ./packages/feature/symbol/symbol_api
   navigation:
     path: ./packages/navigation
   stock_service:
