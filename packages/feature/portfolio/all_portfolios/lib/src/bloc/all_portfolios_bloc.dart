@@ -31,7 +31,7 @@ class AllPortfoliosBloc extends Bloc<AllPortfoliosEvent, AllPortfoliosState> {
       ])));
     });
 
-    _streamSubscription = _portfolioRepository.stream.listen((event) {
+    _streamSubscription = _portfolioRepository.stream.listen((_) {
       add(AllPortfoliosEvent.init());
     });
   }

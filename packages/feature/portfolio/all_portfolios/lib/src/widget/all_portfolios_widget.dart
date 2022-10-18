@@ -4,6 +4,7 @@ import 'package:all_portfolios/src/bloc/all_portfolios_state.dart';
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:navigation/navigation.dart';
 
 class AllPortfoliosWidget extends StatelessWidget {
   const AllPortfoliosWidget({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class AllPortfoliosWidget extends StatelessWidget {
 
                     return ListTile(
                       onTap: () {
-                        Navigator.pushNamed(context, '/portfolio', arguments: {'id': item.portfolioId});
+                        NavigationRoute.portfolio(item.portfolioId).push(context);
                       },
                       title: Text('${item.name} (${item.currency})'),
                     );

@@ -2,6 +2,7 @@ import 'package:capital_gain_calculator/main/main_bloc.dart';
 import 'package:capital_gain_calculator/main/main_widget.dart';
 import 'package:common/common.dart';
 import 'package:flutter/foundation.dart';
+import 'package:navigation/navigation.dart';
 import 'package:physical_currency/physical_currency.dart';
 import 'package:portfolio_api/portfolio_api.dart';
 import 'package:stock_service/stock_service.dart';
@@ -11,6 +12,7 @@ class MainDependencyModule extends DependencyModule {
     StockServiceModule(),
     PhysicalCurrencyModule(),
     PortfolioModule(),
+    NavigationModule(),
   ];
 
   @override
@@ -35,6 +37,9 @@ class MainDependencyModule extends DependencyModule {
       module.init();
     }
 
-    registerFactory<NavigationPath>(() => NavigationPath((_, __) => const MainWidget()), instanceName: '/');
+    registerFactory<NavigationWidgetBuilder>(
+      () => NavigationWidgetBuilder((_, __) => const MainWidget()),
+      instanceName: RouteDestination.root.name,
+    );
   }
 }

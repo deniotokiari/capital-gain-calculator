@@ -1,6 +1,6 @@
 import 'package:capital_gain_calculator/main_dependency_module.dart';
-import 'package:common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:navigation/navigation.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       initialRoute: '/',
-      onGenerateRoute: (settings) => NavigationPath.onGenerateRoute(settings),
+      onGenerateRoute: NavigationRoute.onGenerateRoute,
     );
   }
 }

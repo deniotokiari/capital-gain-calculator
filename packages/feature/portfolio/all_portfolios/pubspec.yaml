@@ -21,6 +21,8 @@ dependencies:
     path: ../portfolio_data
   physical_currency:
     path: ../../../physical_currency
+  navigation:
+    path: ../../../navigation
 
 dev_dependencies:
   flutter_test:
