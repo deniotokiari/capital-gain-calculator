@@ -30,4 +30,10 @@ class PhysicalCurrencyListRepository {
       return localPhysicalCurrencyList;
     }
   }
+
+  Future<PhysicalCurrency> getByCurrencyCode(String code) => getPhysicalCurrencyList().then(
+        (value) => value.firstWhere(
+          (element) => element.code == code,
+        ),
+      );
 }

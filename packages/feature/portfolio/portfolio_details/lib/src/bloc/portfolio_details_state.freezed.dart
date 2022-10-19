@@ -16,19 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PortfolioDetailsState {
+  PortfolioDetailsViewModel get model => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idle,
+    required TResult Function(PortfolioDetailsViewModel model) idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? idle,
+    TResult Function(PortfolioDetailsViewModel model)? idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
+    TResult Function(PortfolioDetailsViewModel model)? idle,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +49,10 @@ mixin _$PortfolioDetailsState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $PortfolioDetailsStateCopyWith<PortfolioDetailsState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +60,9 @@ abstract class $PortfolioDetailsStateCopyWith<$Res> {
   factory $PortfolioDetailsStateCopyWith(PortfolioDetailsState value,
           $Res Function(PortfolioDetailsState) then) =
       _$PortfolioDetailsStateCopyWithImpl<$Res>;
+  $Res call({PortfolioDetailsViewModel model});
+
+  $PortfolioDetailsViewModelCopyWith<$Res> get model;
 }
 
 /// @nodoc
@@ -65,14 +73,39 @@ class _$PortfolioDetailsStateCopyWithImpl<$Res>
   final PortfolioDetailsState _value;
   // ignore: unused_field
   final $Res Function(PortfolioDetailsState) _then;
+
+  @override
+  $Res call({
+    Object? model = freezed,
+  }) {
+    return _then(_value.copyWith(
+      model: model == freezed
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as PortfolioDetailsViewModel,
+    ));
+  }
+
+  @override
+  $PortfolioDetailsViewModelCopyWith<$Res> get model {
+    return $PortfolioDetailsViewModelCopyWith<$Res>(_value.model, (value) {
+      return _then(_value.copyWith(model: value));
+    });
+  }
 }
 
 /// @nodoc
-abstract class _$$_PortfolioDetailsStateIdleCopyWith<$Res> {
+abstract class _$$_PortfolioDetailsStateIdleCopyWith<$Res>
+    implements $PortfolioDetailsStateCopyWith<$Res> {
   factory _$$_PortfolioDetailsStateIdleCopyWith(
           _$_PortfolioDetailsStateIdle value,
           $Res Function(_$_PortfolioDetailsStateIdle) then) =
       __$$_PortfolioDetailsStateIdleCopyWithImpl<$Res>;
+  @override
+  $Res call({PortfolioDetailsViewModel model});
+
+  @override
+  $PortfolioDetailsViewModelCopyWith<$Res> get model;
 }
 
 /// @nodoc
@@ -87,52 +120,75 @@ class __$$_PortfolioDetailsStateIdleCopyWithImpl<$Res>
   @override
   _$_PortfolioDetailsStateIdle get _value =>
       super._value as _$_PortfolioDetailsStateIdle;
+
+  @override
+  $Res call({
+    Object? model = freezed,
+  }) {
+    return _then(_$_PortfolioDetailsStateIdle(
+      model == freezed
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as PortfolioDetailsViewModel,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_PortfolioDetailsStateIdle implements _PortfolioDetailsStateIdle {
-  _$_PortfolioDetailsStateIdle();
+  _$_PortfolioDetailsStateIdle(this.model);
+
+  @override
+  final PortfolioDetailsViewModel model;
 
   @override
   String toString() {
-    return 'PortfolioDetailsState.idle()';
+    return 'PortfolioDetailsState.idle(model: $model)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PortfolioDetailsStateIdle);
+            other is _$_PortfolioDetailsStateIdle &&
+            const DeepCollectionEquality().equals(other.model, model));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(model));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_PortfolioDetailsStateIdleCopyWith<_$_PortfolioDetailsStateIdle>
+      get copyWith => __$$_PortfolioDetailsStateIdleCopyWithImpl<
+          _$_PortfolioDetailsStateIdle>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idle,
+    required TResult Function(PortfolioDetailsViewModel model) idle,
   }) {
-    return idle();
+    return idle(model);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? idle,
+    TResult Function(PortfolioDetailsViewModel model)? idle,
   }) {
-    return idle?.call();
+    return idle?.call(model);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
+    TResult Function(PortfolioDetailsViewModel model)? idle,
     required TResult orElse(),
   }) {
     if (idle != null) {
-      return idle();
+      return idle(model);
     }
     return orElse();
   }
@@ -167,5 +223,13 @@ class _$_PortfolioDetailsStateIdle implements _PortfolioDetailsStateIdle {
 }
 
 abstract class _PortfolioDetailsStateIdle implements PortfolioDetailsState {
-  factory _PortfolioDetailsStateIdle() = _$_PortfolioDetailsStateIdle;
+  factory _PortfolioDetailsStateIdle(final PortfolioDetailsViewModel model) =
+      _$_PortfolioDetailsStateIdle;
+
+  @override
+  PortfolioDetailsViewModel get model;
+  @override
+  @JsonKey(ignore: true)
+  _$$_PortfolioDetailsStateIdleCopyWith<_$_PortfolioDetailsStateIdle>
+      get copyWith => throw _privateConstructorUsedError;
 }

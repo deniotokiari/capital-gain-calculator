@@ -21,19 +21,22 @@ class PortfolioDetailsWidget extends StatelessWidget {
           child: Column(
             children: [
               BlocBuilder<PortfolioDetailsBloc, PortfolioDetailsState>(
-                  builder: ((context, state) => Text(_portfolioId))),
+                  builder: ((context, state) => Text(state.model.portfolioName))),
               Builder(
                 builder: ((context) => TextButton(
                       onPressed: () async {
-                        await showModalBottomSheet(
+                        await showModalBottomSheet<NavigationResult>(
                           context: context,
                           builder: (context) => SymbolSearchWidget(),
                         ).then((value) {
-                          if (value != null) {
-                            context
-                                .read<PortfolioDetailsBloc>()
-                                .add(PortfolioDetailsEvent.addSymbol(value));
-                          }
+                          value?.map(
+                            ok: (ok) {
+                              context
+                                  .read<PortfolioDetailsBloc>()
+                                  .add(PortfolioDetailsEvent.addSymbol(ok.data));
+                            },
+                            cancel: (_) {},
+                          );
                         });
                       },
                       child: const Text('+ Add Symbol'),
@@ -44,10 +47,13 @@ class PortfolioDetailsWidget extends StatelessWidget {
                   return Flexible(
                     child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: 0,
+                      itemCount: state.model.symbols.length,
                       itemBuilder: ((context, index) {
-                        return const ListTile(
-                          title: Text('test'),
+                        final item = state.model.symbols[index];
+
+                        return ListTile(
+                          title: Text(
+                              '${item.name} - ${item.symbol} - ${item.region} - ${item.currency}'),
                         );
                       }),
                     ),

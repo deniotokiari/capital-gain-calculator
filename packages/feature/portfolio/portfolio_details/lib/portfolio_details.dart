@@ -8,7 +8,13 @@ import 'package:portfolio_details/src/navigation/portfolio_details_navigation_wi
 class PortfolioDetailsModule extends DependencyModule {
   @override
   void init() {
-    registerFactory<PortfolioDetailsBloc>(() => PortfolioDetailsBloc());
+    registerFactory<PortfolioDetailsBloc>(
+      () => PortfolioDetailsBloc(
+        get(),
+        get(),
+        get(),
+      ),
+    );
     registerFactory<NavigationWidgetBuilder>(
       () => PortfolioDetailsNavigationWidgetBuilder(),
       instanceName: RouteDestination.portfolio.title,

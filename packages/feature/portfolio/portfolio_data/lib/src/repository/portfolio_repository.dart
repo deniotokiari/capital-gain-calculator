@@ -17,4 +17,8 @@ class PortfolioRepository {
   Future<List<Portfolio>> getAll() {
     return _localStorage.collection(Portfolio.fromMap);
   }
+
+  Future<Portfolio> getById(String id) => _localStorage
+      .collection(Portfolio.fromMap)
+      .then((value) => value.firstWhere((element) => element.id == id));
 }
