@@ -1,58 +1,55 @@
-import 'package:common/common.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:physical_currency/physical_currency.dart';
 import 'package:portfolio_data/portfolio_data.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_event.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_state.dart';
 import 'package:portfolio_details/src/model/portfolio_details_view_model.dart';
+import 'package:portfolio_use_case/portfolio_use_case.dart';
 import 'package:symbol_api/symbol_api.dart';
 
 class PortfolioDetailsBloc extends Bloc<PortfolioDetailsEvent, PortfolioDetailsState> {
+  final GetPortfolioInstrumentsUseCase _getPortfolioInstruments;
+  final AddPortfolioSymbolUseCase _addPortfolioSymbolUseCase;
   final PortfolioRepository _portfolioRepository;
-  final SymbolRepository _symbolRepository;
-  final PhysicalCurrencyListRepository _physicalCurrencyListRepository;
-  final PortfolioInstrumentRepository _portfolioInstrumentRepository;
 
   late String _portfolioId;
 
   PortfolioDetailsBloc(
+    this._getPortfolioInstruments,
+    this._addPortfolioSymbolUseCase,
     this._portfolioRepository,
-    this._symbolRepository,
-    this._physicalCurrencyListRepository,
-    this._portfolioInstrumentRepository,
   ) : super(PortfolioDetailsState.idle(PortfolioDetailsViewModel.initial())) {
     on<PortfolioDetailsEventInit>((event, emit) async {
       _portfolioId = event.portfolioId;
 
-      final physicalCurrencyList = await _physicalCurrencyListRepository.getPhysicalCurrencyList();
-      final portfolio = await _portfolioRepository.getById(_portfolioId);
-      final instruments = await _portfolioInstrumentRepository.getByPortfolioId(_portfolioId);
-      final symbols = await _symbolRepository.getItemsById(
-        instruments.mapNotNull((e) => e.symbolId),
-      );
+      final instruments = await _getPortfolioInstruments.execute(_portfolioId);
 
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           model: state.model.copyWith(
-        portfolioName: portfolio.name,
-        symbols: [
-          ...symbols.map((e) => PortfolioDetailsSymbolViewModel.fromSymbol(
-                e,
-                physicalCurrencyList.firstWhere((element) => element.id == e.physicalCurrencyId),
-              ))
-        ],
-      )));
+            portfolioName:
+                await _portfolioRepository.getById(_portfolioId).then((value) => value.name),
+            symbols: [
+              ...instruments.map(
+                success: (success) => success.data.map(
+                  (e) => PortfolioDetailsSymbolViewModel.fromSymbolAndPhysicalCurrency(
+                    e.symbol,
+                    e.currency,
+                  ),
+                ),
+                failed: (_) => [],
+              )
+            ],
+          ),
+        ),
+      );
     });
     on<PortfolioDetailsEventAddSymbol>((event, emit) async {
-      // save symbol
-      final physicalCurrency =
-          await _physicalCurrencyListRepository.getByCurrencyCode(event.symbol.currency);
-      final symbol = event.symbol.toSymbol(physicalCurrency.id);
-      await _symbolRepository.add(symbol);
-
-      // save instrument
-      await _portfolioInstrumentRepository.add(PortfolioInstrument.symbol(
+      await _addPortfolioSymbolUseCase.execute(AddPortfolioSymbolArguments(
         portfolioId: _portfolioId,
-        symbolId: symbol.id,
+        name: event.symbol.name,
+        symbol: event.symbol.symbol,
+        region: event.symbol.region,
+        currency: event.symbol.currency,
       ));
 
       final viewModelSymbol =

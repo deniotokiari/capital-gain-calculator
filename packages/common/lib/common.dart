@@ -7,3 +7,4 @@ export 'src/local_storage.dart';
 export 'src/navigation_result.dart';
 export 'src/object_extension.dart';
 export 'src/result.dart';
+export 'src/use_case.dart';

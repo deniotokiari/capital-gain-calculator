@@ -23,6 +23,14 @@ Result<T> runCatching<T>(T Function() action) {
   }
 }
 
+Future<Result<T>> runCatchingAsync<T>(Future<T> Function() action) async {
+  try {
+    return Result.success(await action());
+  } catch (e) {
+    return Result.failed(e as Error);
+  }
+}
+
 extension FutureExtension<T> on Future<T> {
   Future<Result<T>> runCatching() async {
     try {

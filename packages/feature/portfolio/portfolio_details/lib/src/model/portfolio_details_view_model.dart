@@ -40,7 +40,7 @@ class PortfolioDetailsSymbolViewModel {
         region: item.region,
       );
 
-  factory PortfolioDetailsSymbolViewModel.fromSymbol(
+  factory PortfolioDetailsSymbolViewModel.fromSymbolAndPhysicalCurrency(
     Symbol symbol,
     PhysicalCurrency physicalCurrency,
   ) =>
