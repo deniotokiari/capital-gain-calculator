@@ -48,5 +48,5 @@ abstract class LocalStorageEntity {
   Iterable<dynamic> get itemsForId;
   Map<String, dynamic> get toMap;
 
-  String get id => itemsForId.map((item) => item.hashCode).join();
+  String get id => itemsForId.map((item) => item?.hashCode ?? 0).join();
 }
