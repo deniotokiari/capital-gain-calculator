@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:time_machine/time_machine.dart';
 
 part 'portfolio_add_position_event.freezed.dart';
 
@@ -9,12 +8,12 @@ class PortfolioAddPositionEvent with _$PortfolioAddPositionEvent {
 
   factory PortfolioAddPositionEvent.submit() = PortfolioAddPositionEventSubmit;
 
-  factory PortfolioAddPositionEvent.countChanged(double count) =
+  factory PortfolioAddPositionEvent.countChanged(double? count) =
       PortfolioAddPositionEventCountChanged;
 
-  factory PortfolioAddPositionEvent.dateChanged(LocalDate date) =
+  factory PortfolioAddPositionEvent.dateChanged(DateTime date) =
       PortfolioAddPositionEventDateChanged;
 
-  factory PortfolioAddPositionEvent.priceChanged(double price) =
+  factory PortfolioAddPositionEvent.priceChanged(double? price) =
       PortfolioAddPositionEventPriceChanged;
 }

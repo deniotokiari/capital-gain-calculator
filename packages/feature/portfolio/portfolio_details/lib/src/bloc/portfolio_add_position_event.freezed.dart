@@ -20,27 +20,27 @@ mixin _$PortfolioAddPositionEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() submit,
-    required TResult Function(double count) countChanged,
-    required TResult Function(LocalDate date) dateChanged,
-    required TResult Function(double price) priceChanged,
+    required TResult Function(double? count) countChanged,
+    required TResult Function(DateTime date) dateChanged,
+    required TResult Function(double? price) priceChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
-    TResult Function(double count)? countChanged,
-    TResult Function(LocalDate date)? dateChanged,
-    TResult Function(double price)? priceChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
-    TResult Function(double count)? countChanged,
-    TResult Function(LocalDate date)? dateChanged,
-    TResult Function(double price)? priceChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -166,9 +166,9 @@ class _$PortfolioAddPositionEventInit implements PortfolioAddPositionEventInit {
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() submit,
-    required TResult Function(double count) countChanged,
-    required TResult Function(LocalDate date) dateChanged,
-    required TResult Function(double price) priceChanged,
+    required TResult Function(double? count) countChanged,
+    required TResult Function(DateTime date) dateChanged,
+    required TResult Function(double? price) priceChanged,
   }) {
     return init(instrumentId);
   }
@@ -178,9 +178,9 @@ class _$PortfolioAddPositionEventInit implements PortfolioAddPositionEventInit {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
-    TResult Function(double count)? countChanged,
-    TResult Function(LocalDate date)? dateChanged,
-    TResult Function(double price)? priceChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
   }) {
     return init?.call(instrumentId);
   }
@@ -190,9 +190,9 @@ class _$PortfolioAddPositionEventInit implements PortfolioAddPositionEventInit {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
-    TResult Function(double count)? countChanged,
-    TResult Function(LocalDate date)? dateChanged,
-    TResult Function(double price)? priceChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -304,9 +304,9 @@ class _$PortfolioAddPositionEventSubmit
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() submit,
-    required TResult Function(double count) countChanged,
-    required TResult Function(LocalDate date) dateChanged,
-    required TResult Function(double price) priceChanged,
+    required TResult Function(double? count) countChanged,
+    required TResult Function(DateTime date) dateChanged,
+    required TResult Function(double? price) priceChanged,
   }) {
     return submit();
   }
@@ -316,9 +316,9 @@ class _$PortfolioAddPositionEventSubmit
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
-    TResult Function(double count)? countChanged,
-    TResult Function(LocalDate date)? dateChanged,
-    TResult Function(double price)? priceChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
   }) {
     return submit?.call();
   }
@@ -328,9 +328,9 @@ class _$PortfolioAddPositionEventSubmit
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
-    TResult Function(double count)? countChanged,
-    TResult Function(LocalDate date)? dateChanged,
-    TResult Function(double price)? priceChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
     required TResult orElse(),
   }) {
     if (submit != null) {
@@ -394,7 +394,7 @@ abstract class _$$PortfolioAddPositionEventCountChangedCopyWith<$Res> {
           _$PortfolioAddPositionEventCountChanged value,
           $Res Function(_$PortfolioAddPositionEventCountChanged) then) =
       __$$PortfolioAddPositionEventCountChangedCopyWithImpl<$Res>;
-  $Res call({double count});
+  $Res call({double? count});
 }
 
 /// @nodoc
@@ -419,7 +419,7 @@ class __$$PortfolioAddPositionEventCountChangedCopyWithImpl<$Res>
       count == freezed
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
     ));
   }
 }
@@ -431,7 +431,7 @@ class _$PortfolioAddPositionEventCountChanged
   _$PortfolioAddPositionEventCountChanged(this.count);
 
   @override
-  final double count;
+  final double? count;
 
   @override
   String toString() {
@@ -462,9 +462,9 @@ class _$PortfolioAddPositionEventCountChanged
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() submit,
-    required TResult Function(double count) countChanged,
-    required TResult Function(LocalDate date) dateChanged,
-    required TResult Function(double price) priceChanged,
+    required TResult Function(double? count) countChanged,
+    required TResult Function(DateTime date) dateChanged,
+    required TResult Function(double? price) priceChanged,
   }) {
     return countChanged(count);
   }
@@ -474,9 +474,9 @@ class _$PortfolioAddPositionEventCountChanged
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
-    TResult Function(double count)? countChanged,
-    TResult Function(LocalDate date)? dateChanged,
-    TResult Function(double price)? priceChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
   }) {
     return countChanged?.call(count);
   }
@@ -486,9 +486,9 @@ class _$PortfolioAddPositionEventCountChanged
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
-    TResult Function(double count)? countChanged,
-    TResult Function(LocalDate date)? dateChanged,
-    TResult Function(double price)? priceChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
     required TResult orElse(),
   }) {
     if (countChanged != null) {
@@ -543,10 +543,10 @@ class _$PortfolioAddPositionEventCountChanged
 
 abstract class PortfolioAddPositionEventCountChanged
     implements PortfolioAddPositionEvent {
-  factory PortfolioAddPositionEventCountChanged(final double count) =
+  factory PortfolioAddPositionEventCountChanged(final double? count) =
       _$PortfolioAddPositionEventCountChanged;
 
-  double get count;
+  double? get count;
   @JsonKey(ignore: true)
   _$$PortfolioAddPositionEventCountChangedCopyWith<
           _$PortfolioAddPositionEventCountChanged>
@@ -559,7 +559,7 @@ abstract class _$$PortfolioAddPositionEventDateChangedCopyWith<$Res> {
           _$PortfolioAddPositionEventDateChanged value,
           $Res Function(_$PortfolioAddPositionEventDateChanged) then) =
       __$$PortfolioAddPositionEventDateChangedCopyWithImpl<$Res>;
-  $Res call({LocalDate date});
+  $Res call({DateTime date});
 }
 
 /// @nodoc
@@ -584,7 +584,7 @@ class __$$PortfolioAddPositionEventDateChangedCopyWithImpl<$Res>
       date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as LocalDate,
+              as DateTime,
     ));
   }
 }
@@ -596,7 +596,7 @@ class _$PortfolioAddPositionEventDateChanged
   _$PortfolioAddPositionEventDateChanged(this.date);
 
   @override
-  final LocalDate date;
+  final DateTime date;
 
   @override
   String toString() {
@@ -627,9 +627,9 @@ class _$PortfolioAddPositionEventDateChanged
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() submit,
-    required TResult Function(double count) countChanged,
-    required TResult Function(LocalDate date) dateChanged,
-    required TResult Function(double price) priceChanged,
+    required TResult Function(double? count) countChanged,
+    required TResult Function(DateTime date) dateChanged,
+    required TResult Function(double? price) priceChanged,
   }) {
     return dateChanged(date);
   }
@@ -639,9 +639,9 @@ class _$PortfolioAddPositionEventDateChanged
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
-    TResult Function(double count)? countChanged,
-    TResult Function(LocalDate date)? dateChanged,
-    TResult Function(double price)? priceChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
   }) {
     return dateChanged?.call(date);
   }
@@ -651,9 +651,9 @@ class _$PortfolioAddPositionEventDateChanged
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
-    TResult Function(double count)? countChanged,
-    TResult Function(LocalDate date)? dateChanged,
-    TResult Function(double price)? priceChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
     required TResult orElse(),
   }) {
     if (dateChanged != null) {
@@ -708,10 +708,10 @@ class _$PortfolioAddPositionEventDateChanged
 
 abstract class PortfolioAddPositionEventDateChanged
     implements PortfolioAddPositionEvent {
-  factory PortfolioAddPositionEventDateChanged(final LocalDate date) =
+  factory PortfolioAddPositionEventDateChanged(final DateTime date) =
       _$PortfolioAddPositionEventDateChanged;
 
-  LocalDate get date;
+  DateTime get date;
   @JsonKey(ignore: true)
   _$$PortfolioAddPositionEventDateChangedCopyWith<
           _$PortfolioAddPositionEventDateChanged>
@@ -724,7 +724,7 @@ abstract class _$$PortfolioAddPositionEventPriceChangedCopyWith<$Res> {
           _$PortfolioAddPositionEventPriceChanged value,
           $Res Function(_$PortfolioAddPositionEventPriceChanged) then) =
       __$$PortfolioAddPositionEventPriceChangedCopyWithImpl<$Res>;
-  $Res call({double price});
+  $Res call({double? price});
 }
 
 /// @nodoc
@@ -749,7 +749,7 @@ class __$$PortfolioAddPositionEventPriceChangedCopyWithImpl<$Res>
       price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
     ));
   }
 }
@@ -761,7 +761,7 @@ class _$PortfolioAddPositionEventPriceChanged
   _$PortfolioAddPositionEventPriceChanged(this.price);
 
   @override
-  final double price;
+  final double? price;
 
   @override
   String toString() {
@@ -792,9 +792,9 @@ class _$PortfolioAddPositionEventPriceChanged
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() submit,
-    required TResult Function(double count) countChanged,
-    required TResult Function(LocalDate date) dateChanged,
-    required TResult Function(double price) priceChanged,
+    required TResult Function(double? count) countChanged,
+    required TResult Function(DateTime date) dateChanged,
+    required TResult Function(double? price) priceChanged,
   }) {
     return priceChanged(price);
   }
@@ -804,9 +804,9 @@ class _$PortfolioAddPositionEventPriceChanged
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
-    TResult Function(double count)? countChanged,
-    TResult Function(LocalDate date)? dateChanged,
-    TResult Function(double price)? priceChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
   }) {
     return priceChanged?.call(price);
   }
@@ -816,9 +816,9 @@ class _$PortfolioAddPositionEventPriceChanged
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
-    TResult Function(double count)? countChanged,
-    TResult Function(LocalDate date)? dateChanged,
-    TResult Function(double price)? priceChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
     required TResult orElse(),
   }) {
     if (priceChanged != null) {
@@ -873,10 +873,10 @@ class _$PortfolioAddPositionEventPriceChanged
 
 abstract class PortfolioAddPositionEventPriceChanged
     implements PortfolioAddPositionEvent {
-  factory PortfolioAddPositionEventPriceChanged(final double price) =
+  factory PortfolioAddPositionEventPriceChanged(final double? price) =
       _$PortfolioAddPositionEventPriceChanged;
 
-  double get price;
+  double? get price;
   @JsonKey(ignore: true)
   _$$PortfolioAddPositionEventPriceChangedCopyWith<
           _$PortfolioAddPositionEventPriceChanged>

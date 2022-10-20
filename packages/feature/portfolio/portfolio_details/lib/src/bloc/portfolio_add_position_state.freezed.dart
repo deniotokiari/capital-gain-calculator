@@ -18,26 +18,26 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PortfolioAddPositionState {
   double? get count => throw _privateConstructorUsedError;
   double? get price => throw _privateConstructorUsedError;
-  LocalDate get date => throw _privateConstructorUsedError;
+  DateTime get date => throw _privateConstructorUsedError;
   bool get submitEnabled => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            double? count, double? price, LocalDate date, bool submitEnabled)
+            double? count, double? price, DateTime date, bool submitEnabled)
         idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
-            double? count, double? price, LocalDate date, bool submitEnabled)?
+            double? count, double? price, DateTime date, bool submitEnabled)?
         idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            double? count, double? price, LocalDate date, bool submitEnabled)?
+            double? count, double? price, DateTime date, bool submitEnabled)?
         idle,
     required TResult orElse(),
   }) =>
@@ -69,7 +69,7 @@ abstract class $PortfolioAddPositionStateCopyWith<$Res> {
   factory $PortfolioAddPositionStateCopyWith(PortfolioAddPositionState value,
           $Res Function(PortfolioAddPositionState) then) =
       _$PortfolioAddPositionStateCopyWithImpl<$Res>;
-  $Res call({double? count, double? price, LocalDate date, bool submitEnabled});
+  $Res call({double? count, double? price, DateTime date, bool submitEnabled});
 }
 
 /// @nodoc
@@ -100,7 +100,7 @@ class _$PortfolioAddPositionStateCopyWithImpl<$Res>
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as LocalDate,
+              as DateTime,
       submitEnabled: submitEnabled == freezed
           ? _value.submitEnabled
           : submitEnabled // ignore: cast_nullable_to_non_nullable
@@ -117,7 +117,7 @@ abstract class _$$_PortfolioAddPositionStateIdleCopyWith<$Res>
           $Res Function(_$_PortfolioAddPositionStateIdle) then) =
       __$$_PortfolioAddPositionStateIdleCopyWithImpl<$Res>;
   @override
-  $Res call({double? count, double? price, LocalDate date, bool submitEnabled});
+  $Res call({double? count, double? price, DateTime date, bool submitEnabled});
 }
 
 /// @nodoc
@@ -152,7 +152,7 @@ class __$$_PortfolioAddPositionStateIdleCopyWithImpl<$Res>
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as LocalDate,
+              as DateTime,
       submitEnabled: submitEnabled == freezed
           ? _value.submitEnabled
           : submitEnabled // ignore: cast_nullable_to_non_nullable
@@ -176,7 +176,7 @@ class _$_PortfolioAddPositionStateIdle
   @override
   final double? price;
   @override
-  final LocalDate date;
+  final DateTime date;
   @override
   final bool submitEnabled;
 
@@ -215,7 +215,7 @@ class _$_PortfolioAddPositionStateIdle
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            double? count, double? price, LocalDate date, bool submitEnabled)
+            double? count, double? price, DateTime date, bool submitEnabled)
         idle,
   }) {
     return idle(count, price, date, submitEnabled);
@@ -225,7 +225,7 @@ class _$_PortfolioAddPositionStateIdle
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
-            double? count, double? price, LocalDate date, bool submitEnabled)?
+            double? count, double? price, DateTime date, bool submitEnabled)?
         idle,
   }) {
     return idle?.call(count, price, date, submitEnabled);
@@ -235,7 +235,7 @@ class _$_PortfolioAddPositionStateIdle
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            double? count, double? price, LocalDate date, bool submitEnabled)?
+            double? count, double? price, DateTime date, bool submitEnabled)?
         idle,
     required TResult orElse(),
   }) {
@@ -279,7 +279,7 @@ abstract class _PortfolioAddPositionStateIdle
   factory _PortfolioAddPositionStateIdle(
       {required final double? count,
       required final double? price,
-      required final LocalDate date,
+      required final DateTime date,
       required final bool submitEnabled}) = _$_PortfolioAddPositionStateIdle;
 
   @override
@@ -287,7 +287,7 @@ abstract class _PortfolioAddPositionStateIdle
   @override
   double? get price;
   @override
-  LocalDate get date;
+  DateTime get date;
   @override
   bool get submitEnabled;
   @override

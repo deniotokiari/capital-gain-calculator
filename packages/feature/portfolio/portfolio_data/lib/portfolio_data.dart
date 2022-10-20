@@ -5,6 +5,7 @@ export 'src/repository/portfolio_repository.dart';
 export 'src/model/portfolio_instrument.dart';
 export 'src/repository/portfolio_instrument.dart';
 export 'src/repository/portfolio_instrument_position_repository.dart';
+export 'src/model/portfolio_instrument_position.dart';
 
 import 'package:common/common.dart';
 import 'package:portfolio_data/src/repository/portfolio_instrument.dart';

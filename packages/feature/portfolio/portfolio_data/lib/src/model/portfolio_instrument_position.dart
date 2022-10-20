@@ -1,12 +1,10 @@
 import 'package:common/common.dart';
-import 'package:time_machine/time_machine.dart';
-import 'package:time_machine/time_machine_text_patterns.dart';
 
 class PortfolioInstrumentPosition extends LocalStorageEntity {
   final String portfolioInstrumentId;
   final double count;
   final double price;
-  final LocalDate date;
+  final DateTime date;
 
   PortfolioInstrumentPosition({
     required this.portfolioInstrumentId,
@@ -15,13 +13,20 @@ class PortfolioInstrumentPosition extends LocalStorageEntity {
     required this.date,
   });
 
-  factory PortfolioInstrumentPosition.fromMap(Map<String, dynamic> map) =>
-      PortfolioInstrumentPosition(
-        portfolioInstrumentId: map['portfolioInstrumentId'],
-        count: map['count'],
-        price: map['price'],
-        date: LocalDatePattern.createWithCurrentCulture('yyyy-mm-dd').parse(map['date']).value,
-      );
+  factory PortfolioInstrumentPosition.fromMap(Map<String, dynamic> map) {
+    final date = (map['date'] as String).split('/');
+
+    return PortfolioInstrumentPosition(
+      portfolioInstrumentId: map['portfolioInstrumentId'],
+      count: map['count'],
+      price: map['price'],
+      date: DateTime(
+        int.parse(date[0]),
+        int.parse(date[1]),
+        int.parse(date[2]),
+      ),
+    );
+  }
 
   @override
   Iterable get itemsForId => [portfolioInstrumentId, count, price, date];
@@ -31,6 +36,6 @@ class PortfolioInstrumentPosition extends LocalStorageEntity {
         'portfolioInstrumentId': portfolioInstrumentId,
         'count': count,
         'price': price,
-        'date': date.toString('yyyy-mm-dd'),
+        'date': '${date.year}/${date.month}/${date.day}',
       };
 }

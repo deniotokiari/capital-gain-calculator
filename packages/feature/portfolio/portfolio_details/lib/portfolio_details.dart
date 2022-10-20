@@ -16,7 +16,11 @@ class PortfolioDetailsModule extends DependencyModule {
         get(),
       ),
     );
-    registerFactory<PortfolioAddPositionBloc>(() => PortfolioAddPositionBloc());
+    registerFactory<PortfolioAddPositionBloc>(
+      () => PortfolioAddPositionBloc(
+        get(),
+      ),
+    );
     registerFactory<NavigationWidgetBuilder>(
       () => PortfolioDetailsNavigationWidgetBuilder(),
       instanceName: RouteDestination.portfolio.title,
