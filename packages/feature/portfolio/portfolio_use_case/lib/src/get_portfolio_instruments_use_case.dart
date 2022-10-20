@@ -34,6 +34,7 @@ class GetPortfolioInstrumentsUseCase implements UseCase<String, List<PortfolioIn
             .map(
               (symbol) => PortfolioInstrument.symbol(
                 symbol,
+                instruments.firstWhere((element) => element.symbolId == symbol.id).id,
                 _physicalCurrencyList
                     .firstWhere((currency) => currency.id == symbol.physicalCurrencyId),
               ),
@@ -46,6 +47,7 @@ class GetPortfolioInstrumentsUseCase implements UseCase<String, List<PortfolioIn
 class PortfolioInstrument with _$PortfolioInstrument {
   factory PortfolioInstrument.symbol(
     Symbol symbol,
+    String instruemntId,
     PhysicalCurrency currency,
   ) = _PortfolioInstrumentSymbol;
 }

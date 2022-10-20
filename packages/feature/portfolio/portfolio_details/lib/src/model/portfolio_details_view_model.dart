@@ -22,26 +22,31 @@ class PortfolioDetailsSymbolViewModel {
   final String symbol;
   final String currency;
   final String region;
+  final String instrumentId;
 
   PortfolioDetailsSymbolViewModel({
     required this.name,
     required this.symbol,
     required this.currency,
     required this.region,
+    required this.instrumentId,
   });
 
   factory PortfolioDetailsSymbolViewModel.fromSymbolSearchWidgetNavigationResult(
     SymbolSearchWidgetNavigationResult item,
+    String instrumentId,
   ) =>
       PortfolioDetailsSymbolViewModel(
         name: item.name,
         symbol: item.symbol,
         currency: item.currency,
         region: item.region,
+        instrumentId: instrumentId,
       );
 
   factory PortfolioDetailsSymbolViewModel.fromSymbolAndPhysicalCurrency(
     Symbol symbol,
+    String instrumentId,
     PhysicalCurrency physicalCurrency,
   ) =>
       PortfolioDetailsSymbolViewModel(
@@ -49,5 +54,6 @@ class PortfolioDetailsSymbolViewModel {
         symbol: symbol.symbol,
         currency: physicalCurrency.code,
         region: symbol.region,
+        instrumentId: instrumentId,
       );
 }

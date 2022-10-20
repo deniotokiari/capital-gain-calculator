@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_bloc.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_event.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_state.dart';
+import 'package:portfolio_details/src/widget/portfolio_add_position_widget.dart';
 import 'package:symbol_api/symbol_api.dart';
 
 class PortfolioDetailsWidget extends StatelessWidget {
@@ -52,8 +53,21 @@ class PortfolioDetailsWidget extends StatelessWidget {
                         final item = state.model.symbols[index];
 
                         return ListTile(
-                          title: Text(
-                              '${item.name} - ${item.symbol} - ${item.region} - ${item.currency}'),
+                          title: ExpansionTile(
+                            title: Text(
+                                '${item.name} - ${item.symbol} - ${item.region} - ${item.currency}'),
+                            children: [
+                              TextButton(
+                                onPressed: () async {
+                                  await showDialog(
+                                      context: context,
+                                      builder: (_) =>
+                                          PortfolioAddPositionWidget(item.instrumentId));
+                                },
+                                child: const Text('+ Add Position'),
+                              ),
+                            ],
+                          ),
                         );
                       }),
                     ),
