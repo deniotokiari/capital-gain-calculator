@@ -17,6 +17,8 @@ dependencies:
     path: ./packages/feature/portfolio/portfolio_api
   symbol_api:
     path: ./packages/feature/symbol/symbol_api
+  news_api:
+    path: ./packages/feature/news/news_api
   navigation:
     path: ./packages/navigation
   stock_service:

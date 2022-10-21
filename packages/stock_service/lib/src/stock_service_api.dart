@@ -7,4 +7,11 @@ abstract class StockServiceApi {
   Future<SymbolSearchResponse> symbolSearch(String keywords);
 
   Future<PhysicCurrencyListResponse> physicCurrencyList();
+
+  Future<NewsAndSentimentResponse> newsAndSentiment(
+    DateTime from,
+    DateTime to, {
+    int limit = 200,
+    List<String> tickers = const [],
+  });
 }

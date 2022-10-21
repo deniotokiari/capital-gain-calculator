@@ -5,6 +5,8 @@
         "cupertino",
         "debouncer",
         "EBITDA",
-        "EPSTTM"
+        "EPSTTM",
+        "forex",
+        "YYYYMMDDTHHMM"
     ]
 }
