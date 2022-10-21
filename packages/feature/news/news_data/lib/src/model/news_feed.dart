@@ -26,8 +26,8 @@ class NewsFeed extends LocalStorageEntity {
   }
 
   factory NewsFeed.fromMap(Map<String, dynamic> map) => NewsFeed(
-        tickers: map['tickers'],
-        feed: [...(map['feed'] as List<Map<String, dynamic>>).map(NewsFeedItem.fromMap)],
+        tickers: [...(map['tickers'] as List<dynamic>).map((e) => e as String)],
+        feed: [...(map['feed'] as List<dynamic>).map(NewsFeedItem.fromMap)],
         from: _convertFromString(map['from']),
         to: _convertFromString(map['to']),
       );
@@ -45,9 +45,33 @@ class NewsFeed extends LocalStorageEntity {
 }
 
 class NewsFeedItem {
-  NewsFeedItem();
+  final String title;
+  final String url;
+  final int timePublished;
+  final String summary;
+  final double overallSentimentScore;
 
-  factory NewsFeedItem.fromMap(Map<String, dynamic> map) => NewsFeedItem();
+  NewsFeedItem({
+    required this.title,
+    required this.url,
+    required this.timePublished,
+    required this.summary,
+    required this.overallSentimentScore,
+  });
 
-  Map<String, dynamic> get toMap => {};
+  factory NewsFeedItem.fromMap(dynamic map) => NewsFeedItem(
+        title: map['title'],
+        url: map['url'],
+        timePublished: map['timePublished'],
+        summary: map['summary'],
+        overallSentimentScore: map['overallSentimentScore'],
+      );
+
+  Map<String, dynamic> get toMap => {
+        'title': title,
+        'url': url,
+        'timePublished': timePublished,
+        'summary': summary,
+        'overallSentimentScore': overallSentimentScore,
+      };
 }

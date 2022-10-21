@@ -1,7 +1,17 @@
 library news_list;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+export 'src/widget/news_list_widget.dart';
+
+import 'package:common/common.dart';
+import 'package:news_list/src/bloc/news_list_bloc.dart';
+
+class NewListModule extends DependencyModule {
+  @override
+  void init() {
+    registerFactory<NewsListBloc>(
+      () => NewsListBloc(
+        get(),
+      ),
+    );
+  }
 }

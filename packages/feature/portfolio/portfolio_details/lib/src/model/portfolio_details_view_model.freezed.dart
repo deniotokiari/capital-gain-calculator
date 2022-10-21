@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PortfolioDetailsViewModel {
   String get portfolioName => throw _privateConstructorUsedError;
+  List<String> get tickers => throw _privateConstructorUsedError;
   List<PortfolioDetailsSymbolViewModel> get symbols =>
       throw _privateConstructorUsedError;
 
@@ -31,7 +32,9 @@ abstract class $PortfolioDetailsViewModelCopyWith<$Res> {
           $Res Function(PortfolioDetailsViewModel) then) =
       _$PortfolioDetailsViewModelCopyWithImpl<$Res>;
   $Res call(
-      {String portfolioName, List<PortfolioDetailsSymbolViewModel> symbols});
+      {String portfolioName,
+      List<String> tickers,
+      List<PortfolioDetailsSymbolViewModel> symbols});
 }
 
 /// @nodoc
@@ -46,6 +49,7 @@ class _$PortfolioDetailsViewModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? portfolioName = freezed,
+    Object? tickers = freezed,
     Object? symbols = freezed,
   }) {
     return _then(_value.copyWith(
@@ -53,6 +57,10 @@ class _$PortfolioDetailsViewModelCopyWithImpl<$Res>
           ? _value.portfolioName
           : portfolioName // ignore: cast_nullable_to_non_nullable
               as String,
+      tickers: tickers == freezed
+          ? _value.tickers
+          : tickers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       symbols: symbols == freezed
           ? _value.symbols
           : symbols // ignore: cast_nullable_to_non_nullable
@@ -70,7 +78,9 @@ abstract class _$$$PortfolioDetailsViewModelCopyWith<$Res>
       __$$$PortfolioDetailsViewModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String portfolioName, List<PortfolioDetailsSymbolViewModel> symbols});
+      {String portfolioName,
+      List<String> tickers,
+      List<PortfolioDetailsSymbolViewModel> symbols});
 }
 
 /// @nodoc
@@ -89,6 +99,7 @@ class __$$$PortfolioDetailsViewModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? portfolioName = freezed,
+    Object? tickers = freezed,
     Object? symbols = freezed,
   }) {
     return _then(_$$PortfolioDetailsViewModel(
@@ -96,6 +107,10 @@ class __$$$PortfolioDetailsViewModelCopyWithImpl<$Res>
           ? _value.portfolioName
           : portfolioName // ignore: cast_nullable_to_non_nullable
               as String,
+      tickers == freezed
+          ? _value._tickers
+          : tickers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       symbols == freezed
           ? _value._symbols
           : symbols // ignore: cast_nullable_to_non_nullable
@@ -107,12 +122,20 @@ class __$$$PortfolioDetailsViewModelCopyWithImpl<$Res>
 /// @nodoc
 
 class _$$PortfolioDetailsViewModel implements $PortfolioDetailsViewModel {
-  _$$PortfolioDetailsViewModel(
-      this.portfolioName, final List<PortfolioDetailsSymbolViewModel> symbols)
-      : _symbols = symbols;
+  _$$PortfolioDetailsViewModel(this.portfolioName, final List<String> tickers,
+      final List<PortfolioDetailsSymbolViewModel> symbols)
+      : _tickers = tickers,
+        _symbols = symbols;
 
   @override
   final String portfolioName;
+  final List<String> _tickers;
+  @override
+  List<String> get tickers {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_tickers);
+  }
+
   final List<PortfolioDetailsSymbolViewModel> _symbols;
   @override
   List<PortfolioDetailsSymbolViewModel> get symbols {
@@ -122,7 +145,7 @@ class _$$PortfolioDetailsViewModel implements $PortfolioDetailsViewModel {
 
   @override
   String toString() {
-    return 'PortfolioDetailsViewModel(portfolioName: $portfolioName, symbols: $symbols)';
+    return 'PortfolioDetailsViewModel(portfolioName: $portfolioName, tickers: $tickers, symbols: $symbols)';
   }
 
   @override
@@ -132,6 +155,7 @@ class _$$PortfolioDetailsViewModel implements $PortfolioDetailsViewModel {
             other is _$$PortfolioDetailsViewModel &&
             const DeepCollectionEquality()
                 .equals(other.portfolioName, portfolioName) &&
+            const DeepCollectionEquality().equals(other._tickers, _tickers) &&
             const DeepCollectionEquality().equals(other._symbols, _symbols));
   }
 
@@ -139,6 +163,7 @@ class _$$PortfolioDetailsViewModel implements $PortfolioDetailsViewModel {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(portfolioName),
+      const DeepCollectionEquality().hash(_tickers),
       const DeepCollectionEquality().hash(_symbols));
 
   @JsonKey(ignore: true)
@@ -149,12 +174,16 @@ class _$$PortfolioDetailsViewModel implements $PortfolioDetailsViewModel {
 }
 
 abstract class $PortfolioDetailsViewModel implements PortfolioDetailsViewModel {
-  factory $PortfolioDetailsViewModel(final String portfolioName,
+  factory $PortfolioDetailsViewModel(
+          final String portfolioName,
+          final List<String> tickers,
           final List<PortfolioDetailsSymbolViewModel> symbols) =
       _$$PortfolioDetailsViewModel;
 
   @override
   String get portfolioName;
+  @override
+  List<String> get tickers;
   @override
   List<PortfolioDetailsSymbolViewModel> get symbols;
   @override

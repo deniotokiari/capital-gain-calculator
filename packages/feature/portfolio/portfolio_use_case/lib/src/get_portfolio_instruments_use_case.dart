@@ -47,7 +47,7 @@ class GetPortfolioInstrumentsUseCase implements UseCase<String, List<PortfolioIn
 class PortfolioInstrument with _$PortfolioInstrument {
   factory PortfolioInstrument.symbol(
     Symbol symbol,
-    String instruemntId,
+    String instrumentId,
     PhysicalCurrency currency,
   ) = _PortfolioInstrumentSymbol;
 }

@@ -8,11 +8,13 @@ part 'portfolio_details_view_model.freezed.dart';
 class PortfolioDetailsViewModel with _$PortfolioDetailsViewModel {
   factory PortfolioDetailsViewModel(
     String portfolioName,
+    List<String> tickers,
     List<PortfolioDetailsSymbolViewModel> symbols,
   ) = $PortfolioDetailsViewModel;
 
   factory PortfolioDetailsViewModel.initial() => PortfolioDetailsViewModel(
         '',
+        [],
         [],
       );
 }

@@ -12,6 +12,7 @@ class NewsDataModule extends DependencyModule {
     registerLazySingleton<NewsRepository>(
       () => NewsRepository(
         get(),
+        get(),
       ),
     );
   }

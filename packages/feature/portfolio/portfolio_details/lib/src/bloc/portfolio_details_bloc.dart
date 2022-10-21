@@ -38,8 +38,14 @@ class PortfolioDetailsBloc extends Bloc<PortfolioDetailsEvent, PortfolioDetailsS
 
   Future<PortfolioDetailsState> _getState() async {
     final instruments = await _getPortfolioInstrumentsUseCase.execute(_portfolioId);
+    final List<String> tickers = instruments.map(
+      success: (success) => [...success.data.map((e) => e.symbol.symbol)],
+      failed: (_) => [],
+    );
+
     return state.copyWith(
       model: state.model.copyWith(
+        tickers: tickers,
         portfolioName: await _portfolioRepository.getById(_portfolioId).then((value) => value.name),
         symbols: [
           ...instruments.map(

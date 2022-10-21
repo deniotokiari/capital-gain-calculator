@@ -27,6 +27,8 @@ dependencies:
     path: ../../../physical_currency
   symbol_api:
     path: ../../symbol/symbol_api
+  news_api: 
+    path: ../../news/news_api
 
 dev_dependencies:
   flutter_test:

@@ -21,17 +21,23 @@ mixin _$PortfolioInstrument {
   PhysicalCurrency get currency => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Symbol symbol, String instruemntId, PhysicalCurrency currency) symbol,
+    required TResult Function(
+            Symbol symbol, String instrumentId, PhysicalCurrency currency)
+        symbol,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Symbol symbol, String instruemntId, PhysicalCurrency currency)? symbol,
+    TResult? Function(
+            Symbol symbol, String instrumentId, PhysicalCurrency currency)?
+        symbol,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Symbol symbol, String instruemntId, PhysicalCurrency currency)? symbol,
+    TResult Function(
+            Symbol symbol, String instrumentId, PhysicalCurrency currency)?
+        symbol,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,7 +69,7 @@ abstract class $PortfolioInstrumentCopyWith<$Res> {
           PortfolioInstrument value, $Res Function(PortfolioInstrument) then) =
       _$PortfolioInstrumentCopyWithImpl<$Res, PortfolioInstrument>;
   @useResult
-  $Res call({Symbol symbol, String instruemntId, PhysicalCurrency currency});
+  $Res call({Symbol symbol, String instrumentId, PhysicalCurrency currency});
 }
 
 /// @nodoc
@@ -80,7 +86,7 @@ class _$PortfolioInstrumentCopyWithImpl<$Res, $Val extends PortfolioInstrument>
   @override
   $Res call({
     Object? symbol = null,
-    Object? instruemntId = null,
+    Object? instrumentId = null,
     Object? currency = null,
   }) {
     return _then(_value.copyWith(
@@ -88,9 +94,9 @@ class _$PortfolioInstrumentCopyWithImpl<$Res, $Val extends PortfolioInstrument>
           ? _value.symbol
           : symbol // ignore: cast_nullable_to_non_nullable
               as Symbol,
-      instruemntId: null == instruemntId
+      instrumentId: null == instrumentId
           ? _value.instrumentId
-          : instruemntId // ignore: cast_nullable_to_non_nullable
+          : instrumentId // ignore: cast_nullable_to_non_nullable
               as String,
       currency: null == currency
           ? _value.currency
@@ -104,26 +110,29 @@ class _$PortfolioInstrumentCopyWithImpl<$Res, $Val extends PortfolioInstrument>
 abstract class _$$_PortfolioInstrumentSymbolCopyWith<$Res>
     implements $PortfolioInstrumentCopyWith<$Res> {
   factory _$$_PortfolioInstrumentSymbolCopyWith(
-          _$_PortfolioInstrumentSymbol value, $Res Function(_$_PortfolioInstrumentSymbol) then) =
+          _$_PortfolioInstrumentSymbol value,
+          $Res Function(_$_PortfolioInstrumentSymbol) then) =
       __$$_PortfolioInstrumentSymbolCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Symbol symbol, String instruemntId, PhysicalCurrency currency});
+  $Res call({Symbol symbol, String instrumentId, PhysicalCurrency currency});
 }
 
 /// @nodoc
 class __$$_PortfolioInstrumentSymbolCopyWithImpl<$Res>
-    extends _$PortfolioInstrumentCopyWithImpl<$Res, _$_PortfolioInstrumentSymbol>
+    extends _$PortfolioInstrumentCopyWithImpl<$Res,
+        _$_PortfolioInstrumentSymbol>
     implements _$$_PortfolioInstrumentSymbolCopyWith<$Res> {
   __$$_PortfolioInstrumentSymbolCopyWithImpl(
-      _$_PortfolioInstrumentSymbol _value, $Res Function(_$_PortfolioInstrumentSymbol) _then)
+      _$_PortfolioInstrumentSymbol _value,
+      $Res Function(_$_PortfolioInstrumentSymbol) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? symbol = null,
-    Object? instruemntId = null,
+    Object? instrumentId = null,
     Object? currency = null,
   }) {
     return _then(_$_PortfolioInstrumentSymbol(
@@ -131,9 +140,9 @@ class __$$_PortfolioInstrumentSymbolCopyWithImpl<$Res>
           ? _value.symbol
           : symbol // ignore: cast_nullable_to_non_nullable
               as Symbol,
-      null == instruemntId
+      null == instrumentId
           ? _value.instrumentId
-          : instruemntId // ignore: cast_nullable_to_non_nullable
+          : instrumentId // ignore: cast_nullable_to_non_nullable
               as String,
       null == currency
           ? _value.currency
@@ -157,7 +166,7 @@ class _$_PortfolioInstrumentSymbol implements _PortfolioInstrumentSymbol {
 
   @override
   String toString() {
-    return 'PortfolioInstrument.symbol(symbol: $symbol, instruemntId: $instrumentId, currency: $currency)';
+    return 'PortfolioInstrument.symbol(symbol: $symbol, instrumentId: $instrumentId, currency: $currency)';
   }
 
   @override
@@ -166,8 +175,10 @@ class _$_PortfolioInstrumentSymbol implements _PortfolioInstrumentSymbol {
         (other.runtimeType == runtimeType &&
             other is _$_PortfolioInstrumentSymbol &&
             (identical(other.symbol, symbol) || other.symbol == symbol) &&
-            (identical(other.instrumentId, instrumentId) || other.instrumentId == instrumentId) &&
-            (identical(other.currency, currency) || other.currency == currency));
+            (identical(other.instrumentId, instrumentId) ||
+                other.instrumentId == instrumentId) &&
+            (identical(other.currency, currency) ||
+                other.currency == currency));
   }
 
   @override
@@ -176,13 +187,16 @@ class _$_PortfolioInstrumentSymbol implements _PortfolioInstrumentSymbol {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PortfolioInstrumentSymbolCopyWith<_$_PortfolioInstrumentSymbol> get copyWith =>
-      __$$_PortfolioInstrumentSymbolCopyWithImpl<_$_PortfolioInstrumentSymbol>(this, _$identity);
+  _$$_PortfolioInstrumentSymbolCopyWith<_$_PortfolioInstrumentSymbol>
+      get copyWith => __$$_PortfolioInstrumentSymbolCopyWithImpl<
+          _$_PortfolioInstrumentSymbol>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Symbol symbol, String instruemntId, PhysicalCurrency currency) symbol,
+    required TResult Function(
+            Symbol symbol, String instrumentId, PhysicalCurrency currency)
+        symbol,
   }) {
     return symbol(this.symbol, instrumentId, currency);
   }
@@ -190,7 +204,9 @@ class _$_PortfolioInstrumentSymbol implements _PortfolioInstrumentSymbol {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Symbol symbol, String instruemntId, PhysicalCurrency currency)? symbol,
+    TResult? Function(
+            Symbol symbol, String instrumentId, PhysicalCurrency currency)?
+        symbol,
   }) {
     return symbol?.call(this.symbol, instrumentId, currency);
   }
@@ -198,7 +214,9 @@ class _$_PortfolioInstrumentSymbol implements _PortfolioInstrumentSymbol {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Symbol symbol, String instruemntId, PhysicalCurrency currency)? symbol,
+    TResult Function(
+            Symbol symbol, String instrumentId, PhysicalCurrency currency)?
+        symbol,
     required TResult orElse(),
   }) {
     if (symbol != null) {
@@ -238,8 +256,9 @@ class _$_PortfolioInstrumentSymbol implements _PortfolioInstrumentSymbol {
 
 abstract class _PortfolioInstrumentSymbol implements PortfolioInstrument {
   factory _PortfolioInstrumentSymbol(
-          final Symbol symbol, final String instruemntId, final PhysicalCurrency currency) =
-      _$_PortfolioInstrumentSymbol;
+      final Symbol symbol,
+      final String instrumentId,
+      final PhysicalCurrency currency) = _$_PortfolioInstrumentSymbol;
 
   @override
   Symbol get symbol;
@@ -249,6 +268,6 @@ abstract class _PortfolioInstrumentSymbol implements PortfolioInstrument {
   PhysicalCurrency get currency;
   @override
   @JsonKey(ignore: true)
-  _$$_PortfolioInstrumentSymbolCopyWith<_$_PortfolioInstrumentSymbol> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_PortfolioInstrumentSymbolCopyWith<_$_PortfolioInstrumentSymbol>
+      get copyWith => throw _privateConstructorUsedError;
 }

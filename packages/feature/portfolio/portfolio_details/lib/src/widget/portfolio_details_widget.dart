@@ -1,6 +1,7 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_api/news_api.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_bloc.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_event.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_state.dart';
@@ -45,34 +46,42 @@ class PortfolioDetailsWidget extends StatelessWidget {
               ),
               BlocBuilder<PortfolioDetailsBloc, PortfolioDetailsState>(
                 builder: ((context, state) {
-                  return Flexible(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.model.symbols.length,
-                      itemBuilder: ((context, index) {
-                        final item = state.model.symbols[index];
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.model.symbols.length,
+                    itemBuilder: ((context, index) {
+                      final item = state.model.symbols[index];
 
-                        return ListTile(
-                          title: ExpansionTile(
-                            title: Text(
-                                '${item.name} - ${item.symbol} - ${item.region} - ${item.currency}'),
-                            children: [
-                              TextButton(
-                                onPressed: () async {
-                                  await showDialog(
-                                      context: context,
-                                      builder: (_) =>
-                                          PortfolioAddPositionWidget(item.instrumentId));
-                                },
-                                child: const Text('+ Add Position'),
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
-                    ),
+                      return ListTile(
+                        contentPadding: const EdgeInsets.all(0),
+                        title: ExpansionTile(
+                          title: Text(
+                              style: const TextStyle(inherit: true, fontSize: 14),
+                              '${item.name} - ${item.symbol} - ${item.region} - ${item.currency}'),
+                          children: [
+                            TextButton(
+                              onPressed: () async {
+                                await showDialog(
+                                    context: context,
+                                    builder: (_) => PortfolioAddPositionWidget(item.instrumentId));
+                              },
+                              child: const Text('+ Add Position'),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
                   );
                 }),
+              ),
+              BlocBuilder<PortfolioDetailsBloc, PortfolioDetailsState>(
+                builder: (_, state) {
+                  if (state.model.tickers.isEmpty) {
+                    return const SizedBox();
+                  } else {
+                    return NewsListWidget(state.model.tickers);
+                  }
+                },
               ),
             ],
           ),

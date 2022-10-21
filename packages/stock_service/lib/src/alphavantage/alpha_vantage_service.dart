@@ -65,14 +65,12 @@ class AlphaVantageService implements StockServiceApi {
     DateTime from,
     DateTime to, {
     int limit = 200,
-    List<String> symbols = const [],
-    List<String> crypto = const [],
-    List<String> forex = const [],
+    List<String> tickers = const [],
   }) {
     return executeWithJsonParsing(
       _Functions.newsSentiment,
       {
-        _tickers: [...symbols, ...crypto, ...forex].join(','),
+        _tickers: tickers.join(','),
         _timeFrom: from.toYYYYMMDDTHHMM,
         _timeTo: to.toYYYYMMDDTHHMM,
         _limit: limit.toString(),
