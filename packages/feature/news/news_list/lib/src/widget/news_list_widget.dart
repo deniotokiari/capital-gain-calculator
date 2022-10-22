@@ -19,21 +19,61 @@ class NewsListWidget extends StatelessWidget {
         child: BlocBuilder<NewsListBloc, NewsListState>(
           builder: (context, state) => Column(
             children: [
-              Container(
-                width: double.infinity,
-                color: Colors.blue,
-                padding: const EdgeInsets.all(4),
-                child: Center(
-                    child: Text(
-                  state.model.newsHeader,
-                  style: const TextStyle(inherit: true, color: Colors.white),
-                )),
-              ),
+              _getNewsHeader(context, state),
               _getNewsListOrEmpty(state),
             ],
           ),
         ),
       );
+
+  Widget _getNewsHeader(BuildContext context, NewsListState state) {
+    return Container(
+      width: double.infinity,
+      color: Colors.blue,
+      padding: const EdgeInsets.all(4),
+      child: Center(
+        child: state.model.loading
+            ? Text(
+                state.model.newsHeader,
+                style: const TextStyle(
+                  inherit: true,
+                  color: Colors.white,
+                ),
+              )
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    state.model.newsHeader,
+                    style: const TextStyle(
+                      inherit: true,
+                      color: Colors.white,
+                    ),
+                  ),
+                  state.model.refreshing
+                      ? const Padding(
+                          padding: EdgeInsets.only(left: 4),
+                          child: CircularProgressIndicator.adaptive(),
+                        )
+                      : IconButton(
+                          hoverColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          iconSize: 20,
+                          constraints: const BoxConstraints(),
+                          padding: const EdgeInsets.only(left: 4),
+                          onPressed: () {
+                            context.read<NewsListBloc>().add(NewsListEvent.refresh());
+                          },
+                          tooltip: 'Refresh',
+                          icon: const Icon(Icons.refresh, color: Colors.white),
+                        ),
+                ],
+              ),
+      ),
+    );
+  }
 
   Widget _getNewsListOrEmpty(NewsListState state) {
     if (state.model.loading) {

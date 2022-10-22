@@ -1,19 +1,30 @@
 import 'package:news_data/news_data.dart';
 import 'package:intl/intl.dart';
 
-final _dateFormatter = DateFormat.yMd().add_Hm();
+final _dateFormatter = DateFormat('HH:mm d MMMM yyyy');
 
 class NewsListViewModel {
   final List<NewsItemViewModel> news;
   final String newsHeader;
   final bool loading;
+  final bool refreshing;
 
-  NewsListViewModel(this.news, this.newsHeader, this.loading);
+  NewsListViewModel({
+    required this.news,
+    required this.newsHeader,
+    required this.loading,
+    required this.refreshing,
+  });
 
-  factory NewsListViewModel.initial() => NewsListViewModel([], 'News', true);
+  factory NewsListViewModel.initial() => NewsListViewModel(
+        news: [],
+        newsHeader: 'News',
+        loading: true,
+        refreshing: false,
+      );
 
   factory NewsListViewModel.fromNewsFeed(NewsFeed feed) => NewsListViewModel(
-        [
+        news: [
           ...feed.feed.map((e) => NewsItemViewModel(
                 ticker: e.ticker,
                 title: e.title,
@@ -21,8 +32,9 @@ class NewsListViewModel {
                 url: e.url,
               ))
         ],
-        'News from ${_dateFormatter.format(feed.from)} to ${_dateFormatter.format(feed.to)}',
-        false,
+        newsHeader: 'News (last update ${_dateFormatter.format(feed.to)})',
+        loading: false,
+        refreshing: false,
       );
 }
 

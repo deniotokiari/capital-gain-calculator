@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:common/common.dart';
 import 'package:news_data/news_data.dart';
 import 'package:stock_service/stock_service.dart' as api;
@@ -29,24 +27,64 @@ class NewsRepository {
     return true;
   }
 
-  Future<NewsFeed> getByTickers(List<String> tickers) async {
+  Future<NewsFeed> refresh(List<String> tickers) async {
+    final cache = await _localStorage.collection(
+      NewsFeed.fromMap,
+      where: (item) => _compare(NewsFeed.getTickers(item), tickers),
+    );
+
+    await Future.wait(cache.map((e) => _localStorage.delete(e)));
+
+    if (cache.isEmpty) {
+      return getByTickers(tickers);
+    } else {
+      final from = cache.first.to;
+      final to = DateTime.now();
+      final result = await getByTickers(
+        tickers,
+        from: from,
+        to: to,
+      );
+
+      if (result.feed.isEmpty) {
+        await _localStorage.delete(result);
+
+        final feed = NewsFeed(
+          tickers: tickers,
+          feed: cache.first.feed,
+          from: from,
+          to: to,
+        );
+
+        await _localStorage.save(feed);
+
+        return feed;
+      } else {
+        return result;
+      }
+    }
+  }
+
+  Future<NewsFeed> getByTickers(
+    List<String> tickers, {
+    DateTime? from,
+    DateTime? to,
+  }) async {
     final cache = await _localStorage.collection(
       NewsFeed.fromMap,
       where: (item) => _compare(NewsFeed.getTickers(item), tickers),
     );
 
     if (cache.isEmpty) {
-      final to = DateTime.now();
-      final from = to.add(const Duration(days: -7));
+      to ??= DateTime.now();
+      from ??= to.add(const Duration(days: -7));
       final response = await Future.wait(tickers.map(
-        (ticker) => _stockServiceApi
-            .newsAndSentiment(
-              from,
-              to,
+        (ticker) => runCatchingAsync(() => _stockServiceApi.newsAndSentiment(
+              from!,
+              to!,
               tickers: [ticker],
               limit: 5,
-            )
-            .then((value) => Pair(ticker, value)),
+            )).then((value) => Pair(ticker, value)),
       ));
 
       final result = response.toNewsFeed(tickers, from, to, 5);
@@ -62,7 +100,7 @@ class NewsRepository {
   }
 }
 
-extension _NewsAndSentimentResponseExt on List<Pair<String, api.NewsAndSentimentResponse>> {
+extension _NewsAndSentimentResponseExt on List<Pair<String, Result<api.NewsAndSentimentResponse>>> {
   NewsFeed toNewsFeed(
     List<String> tickers,
     DateTime from,
@@ -72,15 +110,19 @@ extension _NewsAndSentimentResponseExt on List<Pair<String, api.NewsAndSentiment
     final feed = <NewsFeedItem>[];
 
     forEach((item) {
-      for (var element in item.second.feed.take(limit)) {
-        feed.add(NewsFeedItem(
-          ticker: item.first,
-          title: element.title,
-          url: element.url,
-          timePublished: element.timePublished,
-          summary: element.summary,
-          overallSentimentScore: element.overallSentimentScore,
-        ));
+      final response = item.second.mapOrNull(success: (success) => success.data.feed);
+
+      if (response != null) {
+        for (var element in feed.take(limit)) {
+          feed.add(NewsFeedItem(
+            ticker: item.first,
+            title: element.title,
+            url: element.url,
+            timePublished: element.timePublished,
+            summary: element.summary,
+            overallSentimentScore: element.overallSentimentScore,
+          ));
+        }
       }
     });
 

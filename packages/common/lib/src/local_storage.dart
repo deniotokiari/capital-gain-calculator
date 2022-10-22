@@ -15,6 +15,13 @@ class LocalStorage {
     return _db.collection(_getName(T)).stream.map((event) => converter(event));
   }
 
+  Future<void> delete(LocalStorageEntity entity) => _db
+      .collection(
+        _getName(entity.runtimeType),
+      )
+      .doc(entity.id)
+      .delete();
+
   Future<void> save(
     LocalStorageEntity entity,
   ) {
