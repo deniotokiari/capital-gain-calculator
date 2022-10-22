@@ -26,11 +26,15 @@ class NewsFeed extends LocalStorageEntity {
   }
 
   factory NewsFeed.fromMap(Map<String, dynamic> map) => NewsFeed(
-        tickers: [...(map['tickers'] as List<dynamic>).map((e) => e as String)],
+        tickers: getTickers(map),
         feed: [...(map['feed'] as List<dynamic>).map(NewsFeedItem.fromMap)],
         from: _convertFromString(map['from']),
         to: _convertFromString(map['to']),
       );
+
+  static List<String> getTickers(Map<String, dynamic> map) => [
+        ...(map['tickers'] as List<dynamic>).map((e) => e as String),
+      ];
 
   @override
   Iterable get itemsForId => [...tickers];
@@ -45,6 +49,7 @@ class NewsFeed extends LocalStorageEntity {
 }
 
 class NewsFeedItem {
+  final String ticker;
   final String title;
   final String url;
   final int timePublished;
@@ -52,6 +57,7 @@ class NewsFeedItem {
   final double overallSentimentScore;
 
   NewsFeedItem({
+    required this.ticker,
     required this.title,
     required this.url,
     required this.timePublished,
@@ -60,6 +66,7 @@ class NewsFeedItem {
   });
 
   factory NewsFeedItem.fromMap(dynamic map) => NewsFeedItem(
+        ticker: map['ticker'],
         title: map['title'],
         url: map['url'],
         timePublished: map['timePublished'],
@@ -68,6 +75,7 @@ class NewsFeedItem {
       );
 
   Map<String, dynamic> get toMap => {
+        'ticker': ticker,
         'title': title,
         'url': url,
         'timePublished': timePublished,

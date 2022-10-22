@@ -30,17 +30,19 @@ class LocalStorage {
   }
 
   Future<List<T>> collection<T extends LocalStorageEntity>(
-    T Function(Map<String, dynamic>) converter,
-  ) {
-    return _db.collection(_getName(T)).get().then(
-          (value) =>
-              value?.entries
-                  .map<T>(
-                    (e) => converter(e.value),
-                  )
-                  .toList(growable: false) ??
-              [],
-        );
+    T Function(Map<String, dynamic>) converter, {
+    bool Function(Map<String, dynamic>)? where,
+  }) async {
+    final dbResult = await _db.collection(_getName(T)).get();
+    late Iterable<MapEntry<String, dynamic>>? toConvert;
+
+    if (where != null) {
+      toConvert = dbResult?.entries.where((item) => where(item.value));
+    } else {
+      toConvert = dbResult?.entries;
+    }
+
+    return toConvert?.map((e) => converter(e.value)).toList(growable: false) ?? [];
   }
 }
 

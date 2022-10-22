@@ -30,6 +30,7 @@ class NewsListWidget extends StatelessWidget {
                 )),
               ),
               ListView.builder(
+                padding: EdgeInsets.zero,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: state.model.news.length,
@@ -37,20 +38,40 @@ class NewsListWidget extends StatelessWidget {
                   final item = state.model.news[index];
 
                   return ListTile(
+                    minVerticalPadding: 0,
+                    contentPadding: EdgeInsets.zero,
                     onTap: () {},
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          item.title,
-                          style: const TextStyle(
-                              inherit: true, fontWeight: FontWeight.w900, fontSize: 13),
-                        ),
-                        Text(
-                          item.summary,
-                          style: const TextStyle(inherit: true, fontSize: 13),
-                        ),
-                      ],
+                    title: Flexible(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _getHeader(state, index),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                              vertical: 4.0,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item.title,
+                                  style: const TextStyle(
+                                    inherit: true,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                                Text(
+                                  item.summary,
+                                  style: const TextStyle(inherit: true, fontSize: 13),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -59,4 +80,31 @@ class NewsListWidget extends StatelessWidget {
           ),
         ),
       );
+
+  Widget _getHeader(NewsListState state, int index) {
+    final previous = (index - 1 < 0) ? null : state.model.news[index - 1];
+    final current = state.model.news[index];
+    final showHeader = previous?.ticker != current.ticker;
+
+    if (showHeader) {
+      return Container(
+        width: double.infinity,
+        color: const Color.fromARGB(255, 113, 55, 70),
+        padding: const EdgeInsets.all(2),
+        margin: const EdgeInsets.only(bottom: 2),
+        child: Center(
+          child: Text(
+            current.ticker,
+            style: const TextStyle(
+              inherit: true,
+              fontSize: 12,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
+    } else {
+      return const SizedBox();
+    }
+  }
 }
