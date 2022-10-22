@@ -20,70 +20,85 @@ class PortfolioDetailsWidget extends StatelessWidget {
         ),
         body: BlocProvider<PortfolioDetailsBloc>(
           create: (_) => get<PortfolioDetailsBloc>()..add(PortfolioDetailsEvent.init(_portfolioId)),
-          child: Column(
-            children: [
-              BlocBuilder<PortfolioDetailsBloc, PortfolioDetailsState>(
-                  builder: ((context, state) => Text(state.model.portfolioName))),
-              Builder(
-                builder: ((context) => TextButton(
-                      onPressed: () async {
-                        await showModalBottomSheet<NavigationResult>(
-                          context: context,
-                          builder: (context) => SymbolSearchWidget(),
-                        ).then((value) {
-                          value?.map(
-                            ok: (ok) {
-                              context
-                                  .read<PortfolioDetailsBloc>()
-                                  .add(PortfolioDetailsEvent.addSymbol(ok.data));
-                            },
-                            cancel: (_) {},
-                          );
-                        });
-                      },
-                      child: const Text('+ Add Symbol'),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BlocBuilder<PortfolioDetailsBloc, PortfolioDetailsState>(
+                  builder: (context, state) => Container(
+                    width: double.infinity,
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(4),
+                    child: Center(
+                        child: Text(
+                      state.model.portfolioName,
+                      style: const TextStyle(inherit: true, color: Colors.white),
                     )),
-              ),
-              BlocBuilder<PortfolioDetailsBloc, PortfolioDetailsState>(
-                builder: ((context, state) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.model.symbols.length,
-                    itemBuilder: ((context, index) {
-                      final item = state.model.symbols[index];
-
-                      return ListTile(
-                        contentPadding: const EdgeInsets.all(0),
-                        title: ExpansionTile(
-                          title: Text(
-                              style: const TextStyle(inherit: true, fontSize: 14),
-                              '${item.name} - ${item.symbol} - ${item.region} - ${item.currency}'),
-                          children: [
-                            TextButton(
-                              onPressed: () async {
-                                await showDialog(
-                                    context: context,
-                                    builder: (_) => PortfolioAddPositionWidget(item.instrumentId));
+                  ),
+                ),
+                Builder(
+                  builder: ((context) => TextButton(
+                        onPressed: () async {
+                          await showModalBottomSheet<NavigationResult>(
+                            context: context,
+                            builder: (context) => SymbolSearchWidget(),
+                          ).then((value) {
+                            value?.map(
+                              ok: (ok) {
+                                context
+                                    .read<PortfolioDetailsBloc>()
+                                    .add(PortfolioDetailsEvent.addSymbol(ok.data));
                               },
-                              child: const Text('+ Add Position'),
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
-                  );
-                }),
-              ),
-              BlocBuilder<PortfolioDetailsBloc, PortfolioDetailsState>(
-                builder: (_, state) {
-                  if (state.model.tickers.isEmpty) {
-                    return const SizedBox();
-                  } else {
-                    return NewsListWidget(state.model.tickers);
-                  }
-                },
-              ),
-            ],
+                              cancel: (_) {},
+                            );
+                          });
+                        },
+                        child: const Text('+ Add Symbol'),
+                      )),
+                ),
+                BlocBuilder<PortfolioDetailsBloc, PortfolioDetailsState>(
+                  builder: ((context, state) {
+                    return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: state.model.symbols.length,
+                      itemBuilder: ((context, index) {
+                        final item = state.model.symbols[index];
+
+                        return ListTile(
+                          contentPadding: const EdgeInsets.all(0),
+                          title: ExpansionTile(
+                            title: Text(
+                                style: const TextStyle(inherit: true, fontSize: 14),
+                                '${item.name} - ${item.symbol} - ${item.region} - ${item.currency}'),
+                            children: [
+                              TextButton(
+                                onPressed: () async {
+                                  await showDialog(
+                                      context: context,
+                                      builder: (_) =>
+                                          PortfolioAddPositionWidget(item.instrumentId));
+                                },
+                                child: const Text('+ Add Position'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                    );
+                  }),
+                ),
+                BlocBuilder<PortfolioDetailsBloc, PortfolioDetailsState>(
+                  builder: (_, state) {
+                    if (state.model.tickers.isEmpty) {
+                      return const SizedBox();
+                    } else {
+                      return NewsListWidget(state.model.tickers);
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       );
