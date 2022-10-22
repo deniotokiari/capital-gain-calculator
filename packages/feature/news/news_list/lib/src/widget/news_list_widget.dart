@@ -23,63 +23,83 @@ class NewsListWidget extends StatelessWidget {
                 width: double.infinity,
                 color: Colors.blue,
                 padding: const EdgeInsets.all(4),
-                child: const Center(
+                child: Center(
                     child: Text(
-                  'News',
-                  style: TextStyle(inherit: true, color: Colors.white),
+                  state.model.newsHeader,
+                  style: const TextStyle(inherit: true, color: Colors.white),
                 )),
               ),
-              ListView.builder(
-                padding: EdgeInsets.zero,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: state.model.news.length,
-                itemBuilder: (_, index) {
-                  final item = state.model.news[index];
-
-                  return ListTile(
-                    minVerticalPadding: 0,
-                    contentPadding: EdgeInsets.zero,
-                    onTap: () {},
-                    title: Flexible(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _getHeader(state, index),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 4.0,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  item.title,
-                                  style: const TextStyle(
-                                    inherit: true,
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                                Text(
-                                  item.summary,
-                                  style: const TextStyle(inherit: true, fontSize: 13),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
+              _getNewsListOrEmpty(state),
             ],
           ),
         ),
       );
+
+  Widget _getNewsListOrEmpty(NewsListState state) {
+    if (state.model.loading) {
+      return const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: CircularProgressIndicator.adaptive(),
+      );
+    } else if (state.model.news.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text('No news for ${_tickers.join(', ')}'),
+      );
+    } else {
+      return ListView.builder(
+        padding: EdgeInsets.zero,
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: state.model.news.length,
+        itemBuilder: (_, index) => _getNewsItem(
+          state,
+          index,
+          state.model.news[index],
+        ),
+      );
+    }
+  }
+
+  Widget _getNewsItem(NewsListState state, int index, dynamic item) {
+    return ListTile(
+      minVerticalPadding: 0,
+      contentPadding: EdgeInsets.zero,
+      onTap: () {},
+      title: Flexible(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _getHeader(state, index),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 4.0,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.title,
+                    style: const TextStyle(
+                      inherit: true,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 13,
+                    ),
+                  ),
+                  Text(
+                    item.summary,
+                    style: const TextStyle(inherit: true, fontSize: 13),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget _getHeader(NewsListState state, int index) {
     final previous = (index - 1 < 0) ? null : state.model.news[index - 1];

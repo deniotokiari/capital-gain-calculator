@@ -62,7 +62,7 @@ class NavigationRoute {
       );
 
       if (builder != null) {
-        return MaterialPageRoute(
+        return _MaterialPageRoute(
           builder: (context) => builder.builder(context, _getArguments(settings.arguments, uri)),
           settings: _getSettings(settings, uri),
         );
@@ -76,6 +76,16 @@ class NavigationRoute {
         RouteDestination.portfolio,
         {'id': id},
       );
+}
+
+class _MaterialPageRoute extends MaterialPageRoute {
+  _MaterialPageRoute({
+    required super.builder,
+    required super.settings,
+  });
+
+  @override
+  Duration get transitionDuration => Duration.zero;
 }
 
 enum RouteDestination {
