@@ -52,7 +52,7 @@ class NewsFeedItem {
   final String ticker;
   final String title;
   final String url;
-  final int timePublished;
+  final String timePublished;
   final String summary;
   final double overallSentimentScore;
 

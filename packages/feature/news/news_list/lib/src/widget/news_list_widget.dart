@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_list/src/bloc/news_list_bloc.dart';
 import 'package:news_list/src/bloc/news_list_event.dart';
 import 'package:news_list/src/bloc/news_list_state.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class NewsListWidget extends StatelessWidget {
   final List<String> _tickers;
@@ -105,38 +106,49 @@ class NewsListWidget extends StatelessWidget {
     return ListTile(
       minVerticalPadding: 0,
       contentPadding: EdgeInsets.zero,
-      onTap: () {},
-      title: Flexible(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _getHeader(state, index),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 4.0,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item.title,
-                    style: const TextStyle(
-                      inherit: true,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 13,
-                    ),
+      onTap: () {
+        launchUrlString(item.url);
+      },
+      title: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _getHeader(state, index),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 4.0,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.title,
+                  style: const TextStyle(
+                    inherit: true,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 13,
                   ),
-                  Text(
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 3.0),
+                  child: Text(
                     item.summary,
                     style: const TextStyle(inherit: true, fontSize: 13),
                   ),
-                ],
-              ),
+                ),
+                Text(
+                  item.publishedIn,
+                  style: const TextStyle(
+                    inherit: true,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w100,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

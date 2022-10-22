@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:stock_service/src/alphavantage/models/new_and_sentiment_response.dart';
 import 'package:stock_service/src/alphavantage/models/overview_response.dart';
@@ -96,18 +98,18 @@ extension _DateTimeExt on DateTime {
     if (absN >= 1000) return "$n";
     if (absN >= 100) return "${sign}0$absN";
     if (absN >= 10) return "${sign}00$absN";
-    
+
     return "${sign}000$absN";
   }
 
   String _sixDigits(int n) {
     assert(n < -9999 || n > 9999);
-    
+
     int absN = n.abs();
     String sign = n < 0 ? "-" : "+";
-    
+
     if (absN >= 100000) return "$sign$absN";
-    
+
     return "${sign}0$absN";
   }
 

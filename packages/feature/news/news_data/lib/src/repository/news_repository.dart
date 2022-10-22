@@ -113,7 +113,7 @@ extension _NewsAndSentimentResponseExt on List<Pair<String, Result<api.NewsAndSe
       final response = item.second.mapOrNull(success: (success) => success.data.feed);
 
       if (response != null) {
-        for (var element in feed.take(limit)) {
+        for (var element in response.take(limit)) {
           feed.add(NewsFeedItem(
             ticker: item.first,
             title: element.title,

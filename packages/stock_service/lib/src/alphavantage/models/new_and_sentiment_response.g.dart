@@ -22,17 +22,17 @@ Map<String, dynamic> _$NewsAndSentimentResponseToJson(
     };
 
 NewsFeed _$NewsFeedFromJson(Map<String, dynamic> json) => NewsFeed(
-      (json['overallSentimentScore'] as num?)?.toDouble() ?? 0,
+      (json['overall_sentiment_score'] as num?)?.toDouble() ?? 0,
       json['summary'] as String? ?? '',
-      json['timePublished'] as int? ?? 0,
+      json['time_published'] as String? ?? '',
       json['title'] as String? ?? '',
       json['url'] as String? ?? '',
     );
 
 Map<String, dynamic> _$NewsFeedToJson(NewsFeed instance) => <String, dynamic>{
-      'overallSentimentScore': instance.overallSentimentScore,
+      'overall_sentiment_score': instance.overallSentimentScore,
       'summary': instance.summary,
-      'timePublished': instance.timePublished,
+      'time_published': instance.timePublished,
       'title': instance.title,
       'url': instance.url,
     };

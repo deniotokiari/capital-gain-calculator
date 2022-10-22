@@ -22,7 +22,7 @@ class NewsAndSentimentResponse
 @JsonSerializable()
 class NewsFeed implements news_and_sentiment_response_interface.NewsFeed {
   @override
-  @JsonKey(name: 'overallSentimentScore', defaultValue: 0)
+  @JsonKey(name: 'overall_sentiment_score', defaultValue: 0)
   double overallSentimentScore;
 
   @override
@@ -30,8 +30,8 @@ class NewsFeed implements news_and_sentiment_response_interface.NewsFeed {
   String summary;
 
   @override
-  @JsonKey(name: 'timePublished', defaultValue: 0)
-  int timePublished;
+  @JsonKey(name: 'time_published', defaultValue: '')
+  String timePublished;
 
   @override
   @JsonKey(name: 'title', defaultValue: '')
