@@ -35,6 +35,7 @@ class PortfolioCreateWidget extends StatelessWidget {
               }),
               BlocBuilder<CreatePortfolioBloc, CreatePortfolioState>(
                   builder: (context, state) => DropdownButton<PhysicalCurrency>(
+                        isExpanded: true,
                         value: state.selectedCurrency,
                         items: state.listOfCurrency
                             .map((e) => DropdownMenuItem(
