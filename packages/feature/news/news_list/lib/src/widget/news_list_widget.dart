@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,90 +18,95 @@ class NewsListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocProvider(
         create: (_) => get<NewsListBloc>()..add(NewsListEvent.init(_tickers)),
-        child: BlocBuilder<NewsListBloc, NewsListState>(
-          builder: (context, state) => Column(
-            children: [
-              _getNewsHeader(context, state),
-              _getNewsListOrEmpty(state),
-            ],
-          ),
+        child: Column(
+          children: [
+            _getNewsHeader(),
+            _getNewsListOrEmpty(),
+          ],
         ),
       );
 
-  Widget _getNewsHeader(BuildContext context, NewsListState state) {
+  Widget _getNewsHeader() {
     return Container(
       width: double.infinity,
       color: Colors.blue,
       padding: const EdgeInsets.all(4),
       child: Center(
-        child: state.model.loading
-            ? Text(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            BlocBuilder<NewsListBloc, NewsListState>(
+              buildWhen: (p, c) => p.model.newsHeader != c.model.newsHeader,
+              builder: (_, state) => Text(
                 state.model.newsHeader,
                 style: const TextStyle(
                   inherit: true,
                   color: Colors.white,
                 ),
-              )
-            : Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    state.model.newsHeader,
-                    style: const TextStyle(
-                      inherit: true,
-                      color: Colors.white,
-                    ),
-                  ),
-                  state.model.refreshing
-                      ? const Padding(
-                          padding: EdgeInsets.only(left: 4),
-                          child: CircularProgressIndicator.adaptive(),
-                        )
-                      : IconButton(
-                          hoverColor: Colors.transparent,
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          iconSize: 20,
-                          constraints: const BoxConstraints(),
-                          padding: const EdgeInsets.only(left: 4),
-                          onPressed: () {
-                            context.read<NewsListBloc>().add(NewsListEvent.refresh());
-                          },
-                          tooltip: 'Refresh',
-                          icon: const Icon(Icons.refresh, color: Colors.white),
-                        ),
-                ],
               ),
+            ),
+            BlocBuilder<NewsListBloc, NewsListState>(
+              buildWhen: (p, c) => p.model.refreshing != c.model.refreshing,
+              builder: (context, state) {
+                if (state.model.refreshing) {
+                  return const Padding(
+                    padding: EdgeInsets.only(left: 4),
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+                } else {
+                  return IconButton(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    iconSize: 20,
+                    constraints: const BoxConstraints(),
+                    padding: const EdgeInsets.only(left: 4),
+                    onPressed: () {
+                      context.read<NewsListBloc>().add(NewsListEvent.refresh());
+                    },
+                    tooltip: 'Refresh',
+                    icon: const Icon(Icons.refresh, color: Colors.white),
+                  );
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _getNewsListOrEmpty(NewsListState state) {
-    if (state.model.loading) {
-      return const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: CircularProgressIndicator.adaptive(),
+  Widget _getNewsListOrEmpty() => BlocBuilder<NewsListBloc, NewsListState>(
+        buildWhen: (p, c) =>
+            !(const DeepCollectionEquality()).equals(p.model.news, c.model.news) ||
+            p.model.loading != c.model.loading,
+        builder: (_, state) {
+          if (state.model.loading) {
+            return const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: CircularProgressIndicator.adaptive(),
+            );
+          } else if (state.model.news.isEmpty) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text('No news for ${_tickers.join(', ')}'),
+            );
+          } else {
+            return ListView.builder(
+              padding: EdgeInsets.zero,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: state.model.news.length,
+              itemBuilder: (_, index) => _getNewsItem(
+                state,
+                index,
+                state.model.news[index],
+              ),
+            );
+          }
+        },
       );
-    } else if (state.model.news.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text('No news for ${_tickers.join(', ')}'),
-      );
-    } else {
-      return ListView.builder(
-        padding: EdgeInsets.zero,
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: state.model.news.length,
-        itemBuilder: (_, index) => _getNewsItem(
-          state,
-          index,
-          state.model.news[index],
-        ),
-      );
-    }
-  }
 
   Widget _getNewsItem(NewsListState state, int index, dynamic item) {
     return ListTile(

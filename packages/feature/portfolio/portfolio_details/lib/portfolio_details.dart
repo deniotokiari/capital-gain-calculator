@@ -4,6 +4,7 @@ import 'package:common/common.dart';
 import 'package:navigation/navigation.dart';
 import 'package:portfolio_details/src/bloc/portfolio_add_position_bloc.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_bloc.dart';
+import 'package:portfolio_details/src/bloc/portfolio_instrument_positions_bloc.dart';
 import 'package:portfolio_details/src/navigation/portfolio_details_navigation_widget_builder.dart';
 
 class PortfolioDetailsModule extends DependencyModule {
@@ -24,6 +25,12 @@ class PortfolioDetailsModule extends DependencyModule {
     registerFactory<NavigationWidgetBuilder>(
       () => PortfolioDetailsNavigationWidgetBuilder(),
       instanceName: RouteDestination.portfolio.title,
+    );
+    registerFactory<PortfolioInstrumentPositionsBloc>(
+      () => PortfolioInstrumentPositionsBloc(
+        get(),
+        get(),
+      ),
     );
   }
 }

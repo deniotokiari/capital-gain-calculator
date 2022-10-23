@@ -6,6 +6,7 @@ import 'package:portfolio_details/src/bloc/portfolio_details_bloc.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_event.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_state.dart';
 import 'package:portfolio_details/src/widget/portfolio_add_position_widget.dart';
+import 'package:portfolio_details/src/widget/portfolio_instrument_positions_widget.dart';
 import 'package:symbol_api/symbol_api.dart';
 
 class PortfolioDetailsWidget extends StatelessWidget {
@@ -68,6 +69,7 @@ class PortfolioDetailsWidget extends StatelessWidget {
                         return ListTile(
                           contentPadding: const EdgeInsets.all(0),
                           title: ExpansionTile(
+                            expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
                             title: Text(
                                 style: const TextStyle(inherit: true, fontSize: 14),
                                 '${item.name} - ${item.symbol} - ${item.region} - ${item.currency}'),
@@ -81,6 +83,7 @@ class PortfolioDetailsWidget extends StatelessWidget {
                                 },
                                 child: const Text('+ Add Position'),
                               ),
+                              PortfolioInstrumentPositionsWidget(item.instrumentId),
                             ],
                           ),
                         );

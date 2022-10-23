@@ -71,9 +71,11 @@ class PortfolioAddPositionWidget extends StatelessWidget {
                 );
 
                 return TextField(
+                  focusNode: AlwaysDisabledFocusNode(),
+                  enableInteractiveSelection: false,
+                  mouseCursor: MaterialStateMouseCursor.clickable,
                   controller: controller,
                   decoration: const InputDecoration(
-                    icon: Icon(Icons.calendar_today),
                     labelText: "Enter date",
                   ),
                   readOnly: true,
@@ -121,4 +123,9 @@ class PortfolioAddPositionWidget extends StatelessWidget {
           ],
         ),
       );
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }

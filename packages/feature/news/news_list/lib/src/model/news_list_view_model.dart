@@ -1,7 +1,7 @@
 import 'package:news_data/news_data.dart';
 import 'package:intl/intl.dart';
 
-final _dateFormatter = DateFormat('HH:mm - d MMMM yyyy');
+final _dateFormatter = DateFormat('d MMMM yyyy - HH:mm');
 
 class NewsListViewModel {
   final List<NewsItemViewModel> news;
@@ -61,4 +61,26 @@ class NewsItemViewModel {
     required this.url,
     required this.publishedIn,
   });
+
+  @override
+  int get hashCode => Object.hash(
+        ticker,
+        title,
+        summary,
+        url,
+        publishedIn,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (other is NewsItemViewModel) {
+      return ticker == other.ticker &&
+          title == other.title &&
+          summary == other.summary &&
+          url == other.url &&
+          publishedIn == other.publishedIn;
+    }
+
+    return false;
+  }
 }
