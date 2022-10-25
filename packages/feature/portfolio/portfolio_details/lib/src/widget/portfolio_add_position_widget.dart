@@ -76,7 +76,7 @@ class PortfolioAddPositionWidget extends StatelessWidget {
                   mouseCursor: MaterialStateMouseCursor.clickable,
                   controller: controller,
                   decoration: const InputDecoration(
-                    labelText: "Enter date",
+                    labelText: "Select date",
                   ),
                   readOnly: true,
                   onTap: () async {
