@@ -1,0 +1,25 @@
+name: db
+description: A new Flutter package project.
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.3 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  freezed: ^2.1.0+1
+  freezed_annotation: ^2.1.0
+  get_it: ^7.2.0
+  localstore: ^1.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  build_runner:  ^2.2.0
+
+flutter:
+
