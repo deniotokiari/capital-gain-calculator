@@ -13,8 +13,12 @@ dependencies:
   get_it: ^7.2.0
   localstore: ^1.2.3
 
+  db:
+    path: ../db
   common:
     path: ../common
+  stock_service:
+    path: ../stock_service
 
 dev_dependencies:
   flutter_test:

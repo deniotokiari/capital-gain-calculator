@@ -23,6 +23,8 @@ dependencies:
     path: ./packages/navigation
   stock_service:
     path: ./packages/stock_service
+  db:
+    path: ./packages/db
 
   flutter:
     sdk: flutter

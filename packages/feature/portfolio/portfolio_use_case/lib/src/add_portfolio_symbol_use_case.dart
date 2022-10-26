@@ -4,14 +4,14 @@ import 'package:portfolio_data/portfolio_data.dart';
 import 'package:symbol_api/symbol_api.dart';
 
 class AddPortfolioSymbolUseCase implements UseCase<AddPortfolioSymbolArguments, void> {
-  final PhysicalCurrencyListRepository _physicalCurrencyListRepository;
+  final GetPhysicalCurrencyListUseCase _getPhysicalCurrencyListUseCase;
   final SymbolRepository _symbolRepository;
   final PortfolioInstrumentRepository _portfolioInstrumentRepository;
 
   final List<PhysicalCurrency> _physicalCurrencyList = [];
 
   AddPortfolioSymbolUseCase(
-    this._physicalCurrencyListRepository,
+    this._getPhysicalCurrencyListUseCase,
     this._symbolRepository,
     this._portfolioInstrumentRepository,
   );
@@ -20,7 +20,7 @@ class AddPortfolioSymbolUseCase implements UseCase<AddPortfolioSymbolArguments, 
   Future<Result<void>> execute(AddPortfolioSymbolArguments args) => runCatchingAsync(() async {
         if (_physicalCurrencyList.isEmpty) {
           _physicalCurrencyList
-              .addAll(await _physicalCurrencyListRepository.getPhysicalCurrencyList());
+              .addAll(await _getPhysicalCurrencyListUseCase.execute(null).then((value) => value.requireValue));
         }
 
         final symbol = Symbol(

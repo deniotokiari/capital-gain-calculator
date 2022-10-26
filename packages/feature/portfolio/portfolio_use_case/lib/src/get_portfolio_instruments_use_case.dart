@@ -7,14 +7,14 @@ import 'package:symbol_api/symbol_api.dart';
 part 'get_portfolio_instruments_use_case.freezed.dart';
 
 class GetPortfolioInstrumentsUseCase implements UseCase<String, List<PortfolioInstrument>> {
-  final PhysicalCurrencyListRepository _physicalCurrencyListRepository;
+  final GetPhysicalCurrencyListUseCase _getPhysicalCurrencyListUseCase;
   final SymbolRepository _symbolRepository;
   final PortfolioInstrumentRepository _portfolioInstrumentRepository;
 
   final List<PhysicalCurrency> _physicalCurrencyList = [];
 
   GetPortfolioInstrumentsUseCase(
-    this._physicalCurrencyListRepository,
+    this._getPhysicalCurrencyListUseCase,
     this._symbolRepository,
     this._portfolioInstrumentRepository,
   );
@@ -23,7 +23,7 @@ class GetPortfolioInstrumentsUseCase implements UseCase<String, List<PortfolioIn
   Future<Result<List<PortfolioInstrument>>> execute(String id) => runCatchingAsync(() async {
         if (_physicalCurrencyList.isEmpty) {
           _physicalCurrencyList
-              .addAll(await _physicalCurrencyListRepository.getPhysicalCurrencyList());
+              .addAll(await _getPhysicalCurrencyListUseCase.execute(null).then((value) => value.requireValue));
         }
 
         final instruments = await _portfolioInstrumentRepository.getByPortfolioId(id);

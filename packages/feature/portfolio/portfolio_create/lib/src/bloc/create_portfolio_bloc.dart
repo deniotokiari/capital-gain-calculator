@@ -7,11 +7,11 @@ import 'package:portfolio_create/src/bloc/create_portfolio_state.dart';
 import 'package:portfolio_data/portfolio_data.dart';
 
 class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioState> {
-  final PhysicalCurrencyListRepository _physicalCurrencyListRepository;
+  final GetPhysicalCurrencyListUseCase _getPhysicalCurrencyListUseCase;
   final PortfolioRepository _portfolioRepository;
 
   CreatePortfolioBloc(
-    this._physicalCurrencyListRepository,
+    this._getPhysicalCurrencyListUseCase,
     this._portfolioRepository,
   ) : super(CreatePortfolioState.idle(
           submitEnabled: false,
@@ -20,11 +20,11 @@ class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioStat
           selectedCurrency: null,
         )) {
     on<CreatePortfolioEventInit>((event, emit) async {
-      final listOfCurrency = await _physicalCurrencyListRepository.getPhysicalCurrencyList();
+      final listOfCurrency = await _getPhysicalCurrencyListUseCase.execute(null);
 
       emit(state.copyWith(
-        listOfCurrency: listOfCurrency,
-        selectedCurrency: listOfCurrency.firstWhereOrNull((e) => e.isUsd),
+        listOfCurrency: listOfCurrency.requireValue,
+        selectedCurrency: listOfCurrency.requireValue.firstWhereOrNull((e) => e.isUsd),
       ));
     });
     on<CreatePortfolioEventCurrencySelected>((event, emit) {

@@ -16,6 +16,9 @@ dependencies:
   localstore: ^1.2.3
   intl: ^0.17.0
 
+  common:
+    path: ../common
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
