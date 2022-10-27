@@ -70,9 +70,9 @@ class AlphaVantageService implements StockServiceApi {
       .then((response) => PhysicCurrencyListResponse(response.data));
 
   @override
-  Future<NewsAndSentimentResponse> newsAndSentiment(
-    DateTime from,
-    DateTime to, {
+  Future<NewsAndSentimentResponse> newsAndSentiment({
+    DateTime? from,
+    DateTime? to,
     int limit = 200,
     List<String> tickers = const [],
   }) {
@@ -80,8 +80,8 @@ class AlphaVantageService implements StockServiceApi {
       _Functions.newsSentiment,
       {
         _tickers: tickers.join(','),
-        _timeFrom: from.toYYYYMMDDTHHMM,
-        _timeTo: to.toYYYYMMDDTHHMM,
+        if (from != null) _timeFrom: from.toYYYYMMDDTHHMM,
+        if (to != null) _timeTo: to.toYYYYMMDDTHHMM,
         _limit: limit.toString(),
       },
       NewsAndSentimentResponse.fromJson,

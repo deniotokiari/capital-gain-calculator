@@ -1,5 +1,5 @@
-import 'package:news_data/news_data.dart';
 import 'package:intl/intl.dart';
+import 'package:news_data/news_data.dart';
 
 final _dateFormatter = DateFormat('d MMMM yyyy - HH:mm');
 
@@ -23,25 +23,17 @@ class NewsListViewModel {
         refreshing: false,
       );
 
-  factory NewsListViewModel.fromNewsFeed(NewsFeed feed) => NewsListViewModel(
+  factory NewsListViewModel.fromNews(List<News> news) => NewsListViewModel(
         news: [
-          ...feed.feed.map((e) => NewsItemViewModel(
+          ...news.map((e) => NewsItemViewModel(
                 ticker: e.ticker,
                 title: e.title,
                 summary: e.summary,
                 url: e.url,
-                publishedIn: _dateFormatter.format(
-                  DateTime(
-                    int.parse(e.timePublished.substring(0, 4)),
-                    int.parse(e.timePublished.substring(4, 6)),
-                    int.parse(e.timePublished.substring(6, 8)),
-                    int.parse(e.timePublished.substring(9, 11)),
-                    int.parse(e.timePublished.substring(11, 13)),
-                  ),
-                ),
+                publishedIn: _dateFormatter.format(e.timePublished),
               ))
         ],
-        newsHeader: 'News (last update ${_dateFormatter.format(feed.to)})',
+        newsHeader: 'News',
         loading: false,
         refreshing: false,
       );

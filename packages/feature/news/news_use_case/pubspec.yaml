@@ -1,4 +1,4 @@
-name: news_list
+name: news_use_case
 description: A new Flutter package project.
 version: 0.0.1
 publish_to: none
@@ -8,26 +8,27 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  collection: ^1.16.0
-  flutter_bloc: ^8.1.1
-  flutter:
-    sdk: flutter
+  intl: ^0.17.0
   freezed: ^2.1.0+1
   freezed_annotation: ^2.1.0
-  intl: ^0.17.0
-  url_launcher: ^6.1.6
-
+  
+  db:
+    path: ../../../db
   common:
     path: ../../../common
+  stock_service:
+    path: ../../../stock_service
   news_data:
     path: ../news_data
-  news_use_case:
-    path: ../news_use_case
+    
+  flutter:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  build_runner: ^2.2.0
-
+  build_runner:  ^2.2.0
 flutter:
+
+

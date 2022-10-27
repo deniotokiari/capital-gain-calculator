@@ -1,23 +1,29 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_data/news_data.dart';
 import 'package:news_list/src/bloc/news_list_event.dart';
 import 'package:news_list/src/bloc/news_list_state.dart';
 import 'package:news_list/src/model/news_list_view_model.dart';
+import 'package:news_use_case/news_use_case.dart';
 
 class NewsListBloc extends Bloc<NewsListEvent, NewsListState> {
-  final NewsRepository _newsRepository;
+  final GetNewsByTickersUseCase _getNewsByTickersUseCase;
+
   late List<String> _tickers;
 
   NewsListBloc(
-    this._newsRepository,
+    this._getNewsByTickersUseCase,
   ) : super(NewsListState.idle(NewsListViewModel.initial())) {
     on<NewsListEventInit>((event, emit) async {
       _tickers = event.tickers;
 
       if (_tickers.isNotEmpty) {
-        final news = await _newsRepository.getByTickers(_tickers);
+        final news = await _getNewsByTickersUseCase.execute(
+          GetNewsByTickersUseCaseArguments(
+            force: false,
+            tickers: _tickers,
+          ),
+        );
 
-        emit(NewsListState.idle(NewsListViewModel.fromNewsFeed(news)));
+        emit(NewsListState.idle(NewsListViewModel.fromNews(news)));
       }
     });
     on<NewsListEventRefresh>((event, emit) async {
@@ -30,8 +36,13 @@ class NewsListBloc extends Bloc<NewsListEvent, NewsListState> {
 
       emit(
         NewsListState.idle(
-          NewsListViewModel.fromNewsFeed(
-            await _newsRepository.refresh(_tickers),
+          NewsListViewModel.fromNews(
+            await _getNewsByTickersUseCase.execute(
+              GetNewsByTickersUseCaseArguments(
+                force: true,
+                tickers: _tickers,
+              ),
+            ),
           ),
         ),
       );

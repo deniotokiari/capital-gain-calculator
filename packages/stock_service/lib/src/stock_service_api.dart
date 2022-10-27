@@ -8,9 +8,9 @@ abstract class StockServiceApi {
 
   Future<PhysicCurrencyListResponse> physicCurrencyList();
 
-  Future<NewsAndSentimentResponse> newsAndSentiment(
-    DateTime from,
-    DateTime to, {
+  Future<NewsAndSentimentResponse> newsAndSentiment({
+    DateTime? from,
+    DateTime? to,
     int limit = 200,
     List<String> tickers = const [],
   });

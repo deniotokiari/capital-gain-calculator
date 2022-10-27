@@ -42,7 +42,7 @@ class News extends DbEntity {
 
   @override
   Map<String, dynamic> get toMap => {
-        'instrumentId': ticker,
+        'ticker': ticker,
         'title': title,
         'url': url,
         'timePublished': _dateFormatter.format(timePublished),
@@ -51,7 +51,7 @@ class News extends DbEntity {
       };
 }
 
-class NewsRepository extends DbRepository {
+class NewsRepository extends DbRepository<News> {
   @override
-  DbEntity converter(Map<String, dynamic> map) => News.fromMap(map);
+  News converter(Map<String, dynamic> map) => News.fromMap(map);
 }
