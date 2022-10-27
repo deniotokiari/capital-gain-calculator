@@ -7,7 +7,6 @@ export 'package:portfolio_details/src/widget/portfolio_details_widget.dart';
 import 'package:all_portfolios/all_portfolios.dart';
 import 'package:common/common.dart';
 import 'package:portfolio_create/portfolio_create.dart';
-import 'package:portfolio_data/portfolio_data.dart';
 import 'package:portfolio_details/portfolio_details.dart';
 import 'package:portfolio_use_case/portfolio_use_case.dart';
 
@@ -17,7 +16,6 @@ class PortfolioModule extends DependencyModule {
     for (var module in [
       AllPortfoliosModule(),
       PortfolioCreateModule(),
-      PortfolioDataModule(),
       PortfolioDetailsModule(),
       PortfolioUseCaseModule(),
     ]) {

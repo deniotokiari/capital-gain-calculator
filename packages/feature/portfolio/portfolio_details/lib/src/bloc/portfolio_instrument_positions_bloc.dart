@@ -8,36 +8,36 @@ import 'package:portfolio_use_case/portfolio_use_case.dart';
 
 class PortfolioInstrumentPositionsBloc
     extends Bloc<PortfolioInstrumentPositionsEvent, PortfolioInstrumentPositionsState> {
-  final GetPortfolioInstrumentPositionsUseCase _getPortfolioInstrumentPositionsUseCase;
-  final PortfolioInstrumentPositionRepository _instrumentPositionRepository;
+  final GetPositionsByInstrumentIdUseCase _getPositionsByInstrumentIdUseCase;
+  final InstrumentPositionsUpdatesUseCase _instrumentPositionsUpdatesUseCase;
 
   var _instrumentId = '';
-  StreamSubscription<PortfolioInstrumentPosition>? _subscription;
+  StreamSubscription<Position>? _subscription;
 
   PortfolioInstrumentPositionsBloc(
-    this._getPortfolioInstrumentPositionsUseCase,
-    this._instrumentPositionRepository,
+    this._getPositionsByInstrumentIdUseCase,
+    this._instrumentPositionsUpdatesUseCase,
   ) : super(PortfolioInstrumentPositionsState.idle(
             PortfolioInstrumentPositionsViewModel.initial())) {
-    on<PortfolioInstrumentPositionsEventInit>((event, emit) async {
-      _instrumentId = event.instrumentId;
-      final positions = await _getPortfolioInstrumentPositionsUseCase.execute(event.instrumentId);
+    on<PortfolioInstrumentPositionsEventInit>(
+      (event, emit) async {
+        _instrumentId = event.instrumentId;
 
-      positions.map(
-        success: (success) => emit(
+        final positions = await _getPositionsByInstrumentIdUseCase.execute(event.instrumentId);
+
+        _subscription ??= _instrumentPositionsUpdatesUseCase.execute(_instrumentId).listen((item) {
+          add(PortfolioInstrumentPositionsEvent.init(_instrumentId));
+        });
+
+        emit(
           PortfolioInstrumentPositionsState.idle(
-            PortfolioInstrumentPositionsViewModel.fromInstrumentPositions(
-              success.data,
+            PortfolioInstrumentPositionsViewModel.fromPositions(
+              positions,
             ),
           ),
-        ),
-        failed: (_) {},
-      );
-    });
-
-    _subscription = _instrumentPositionRepository.stream.listen((item) {
-      add(PortfolioInstrumentPositionsEvent.init(_instrumentId));
-    });
+        );
+      },
+    );
   }
 
   @override

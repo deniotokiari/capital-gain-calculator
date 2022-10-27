@@ -8,17 +8,27 @@ abstract class DbRepository<T extends DbEntity> {
 
   String _getName(Type type) => type.toString();
 
-  Future<void> add(T entity) => _db
-      .collection(
-        _getName(T),
-      )
-      .doc(entity.id)
-      .set(
-        entity.toMap,
-        SetOptions(merge: true),
-      );
+  Future<String> add(T entity) async {
+    await _db
+        .collection(
+          _getName(T),
+        )
+        .doc(entity.id)
+        .set(
+          entity.toMap,
+          SetOptions(merge: true),
+        );
+
+    return entity.id;
+  }
 
   Future addAll(Iterable<T> items) => Future.forEach(items, add);
+
+  Future<T> get(String id) async {
+    final result = await _db.collection(_getName(T)).doc(id).get();
+
+    return converter(result!);
+  }
 
   Future<Iterable<T>> where(
     bool Function(Map<String, dynamic>) where,

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:physical_currency/physical_currency.dart';
+import 'package:portfolio_data/portfolio_data.dart';
 import 'package:symbol_api/symbol_api.dart';
 
 part 'portfolio_details_view_model.freezed.dart';
@@ -46,16 +46,12 @@ class PortfolioDetailsSymbolViewModel {
         instrumentId: instrumentId,
       );
 
-  factory PortfolioDetailsSymbolViewModel.fromSymbolAndPhysicalCurrency(
-    Symbol symbol,
-    String instrumentId,
-    PhysicalCurrency physicalCurrency,
-  ) =>
+  factory PortfolioDetailsSymbolViewModel.fromSymbolAndPhysicalCurrency(Instrument instrument) =>
       PortfolioDetailsSymbolViewModel(
-        name: symbol.name,
-        symbol: symbol.symbol,
-        currency: physicalCurrency.code,
-        region: symbol.region,
-        instrumentId: instrumentId,
+        name: instrument.symbol!.name,
+        symbol: instrument.symbol!.ticker,
+        currency: instrument.symbol!.physicalCurrency.code,
+        region: instrument.symbol!.region,
+        instrumentId: instrument.id,
       );
 }

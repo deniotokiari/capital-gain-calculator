@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
-import 'package:portfolio_use_case/portfolio_use_case.dart';
+import 'package:portfolio_data/portfolio_data.dart';
 
 part 'portfolio_instrument_positions_state.freezed.dart';
 
@@ -20,13 +20,12 @@ class PortfolioInstrumentPositionsViewModel {
   factory PortfolioInstrumentPositionsViewModel.initial() =>
       PortfolioInstrumentPositionsViewModel([]);
 
-  factory PortfolioInstrumentPositionsViewModel.fromInstrumentPositions(
-          List<InstrumentPosition> items) =>
+  factory PortfolioInstrumentPositionsViewModel.fromPositions(List<Position> items) =>
       PortfolioInstrumentPositionsViewModel([
         ...items.map((e) => PortfolioInstrumentPositionViewModel(
-              count: e.position.count.toString(),
-              price: e.position.price.toString(),
-              date: _dateFormatter.format(e.position.date),
+              count: e.count.toString(),
+              price: e.price.toString(),
+              date: _dateFormatter.format(e.date),
             ))
       ]);
 }
