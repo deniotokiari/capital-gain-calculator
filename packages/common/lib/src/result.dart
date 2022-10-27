@@ -15,6 +15,10 @@ extension ResultExtension<T> on Result<T> {
   Error get requireException => (this as Failed).error;
 }
 
+extension FutureResultExtension<T> on Future<Result<T>> {
+  Future<T> get requireValue => then((value) => value.requireValue);
+}
+
 Result<T> runCatching<T>(T Function() action) {
   try {
     return Result.success(action());

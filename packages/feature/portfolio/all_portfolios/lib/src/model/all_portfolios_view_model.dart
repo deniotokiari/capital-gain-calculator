@@ -1,10 +1,16 @@
-import 'package:physical_currency/physical_currency.dart';
 import 'package:portfolio_data/portfolio_data.dart';
 
 class AllPortfoliosViewModel {
   final List<PortfolioViewModel> portfolios;
 
   AllPortfoliosViewModel(this.portfolios);
+
+  factory AllPortfoliosViewModel.fromPortfoliosList(List<Portfolio> items) =>
+      AllPortfoliosViewModel(
+        [
+          ...items.map(PortfolioViewModel.fromPortfolio),
+        ],
+      );
 }
 
 class PortfolioViewModel {
@@ -18,13 +24,12 @@ class PortfolioViewModel {
     required this.portfolioId,
   });
 
-  factory PortfolioViewModel.fromPortfolioAndCurrency(
+  factory PortfolioViewModel.fromPortfolio(
     Portfolio portfolio,
-    PhysicalCurrency currency,
   ) =>
       PortfolioViewModel(
         name: portfolio.name,
-        currency: currency.code,
+        currency: portfolio.physicalCurrency.code,
         portfolioId: portfolio.id,
       );
 }

@@ -17,12 +17,14 @@ dependencies:
 
   common:
     path: ../../../common
-  portfolio_data:
-    path: ../portfolio_data
   physical_currency:
     path: ../../../physical_currency
   navigation:
     path: ../../../navigation
+  portfolio_data:
+    path: ../portfolio_data
+  portfolio_use_case:
+    path: ../portfolio_use_case
 
 dev_dependencies:
   flutter_test:

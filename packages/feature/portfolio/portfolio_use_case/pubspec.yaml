@@ -11,12 +11,14 @@ dependencies:
   freezed: ^2.1.0+1
   freezed_annotation: ^2.1.0
   
+  db:
+    path: ../../../db
   common:
     path: ../../../common
-  portfolio_data:
-    path: ../portfolio_data
   physical_currency:
     path: ../../../physical_currency
+  portfolio_data:
+    path: ../portfolio_data
   symbol_api:
     path: ../../symbol/symbol_api
     

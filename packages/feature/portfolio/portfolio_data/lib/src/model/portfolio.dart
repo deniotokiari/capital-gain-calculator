@@ -1,25 +1,13 @@
-import 'package:common/common.dart';
+import 'package:physical_currency/physical_currency.dart';
 
-class Portfolio extends LocalStorageEntity {
-  String name;
-  String physicalCurrencyId;
+class Portfolio {
+  final String id;
+  final String name;
+  final PhysicalCurrency physicalCurrency;
 
   Portfolio({
+    required this.id,
     required this.name,
-    required this.physicalCurrencyId,
+    required this.physicalCurrency,
   });
-
-  factory Portfolio.fromMap(Map<String, dynamic> map) => Portfolio(
-        name: map['name'],
-        physicalCurrencyId: map['physicalCurrencyId'],
-      );
-
-  @override
-  Iterable get itemsForId => [name, physicalCurrencyId];
-
-  @override
-  Map<String, dynamic> get toMap => {
-        'name': name,
-        'physicalCurrencyId': physicalCurrencyId,
-      };
 }

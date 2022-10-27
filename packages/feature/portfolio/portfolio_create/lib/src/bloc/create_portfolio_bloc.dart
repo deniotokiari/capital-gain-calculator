@@ -4,15 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:physical_currency/physical_currency.dart';
 import 'package:portfolio_create/src/bloc/create_portfolio_event.dart';
 import 'package:portfolio_create/src/bloc/create_portfolio_state.dart';
-import 'package:portfolio_data/portfolio_data.dart';
+import 'package:portfolio_use_case/portfolio_use_case.dart';
 
 class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioState> {
   final GetPhysicalCurrencyListUseCase _getPhysicalCurrencyListUseCase;
-  final PortfolioRepository _portfolioRepository;
+  final CreatePortfolioUseCase _createPortfolioUseCase;
 
   CreatePortfolioBloc(
     this._getPhysicalCurrencyListUseCase,
-    this._portfolioRepository,
+    this._createPortfolioUseCase,
   ) : super(CreatePortfolioState.idle(
           submitEnabled: false,
           listOfCurrency: [],
@@ -23,8 +23,8 @@ class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioStat
       final listOfCurrency = await _getPhysicalCurrencyListUseCase.execute(null);
 
       emit(state.copyWith(
-        listOfCurrency: listOfCurrency.requireValue,
-        selectedCurrency: listOfCurrency.requireValue.firstWhereOrNull((e) => e.isUsd),
+        listOfCurrency: listOfCurrency,
+        selectedCurrency: listOfCurrency.firstWhereOrNull((e) => e.isUsd),
       ));
     });
     on<CreatePortfolioEventCurrencySelected>((event, emit) {
@@ -39,9 +39,9 @@ class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioStat
       ));
     });
     on<CreatePortfolioEventSubmit>((event, emit) async {
-      await _portfolioRepository.add(Portfolio(
+      await _createPortfolioUseCase.execute(CreatePortfolioUseCaseArguments(
         name: state.portfolioName,
-        physicalCurrencyId: state.selectedCurrency.require.id,
+        physicalCurrency: state.selectedCurrency.require,
       ));
     });
   }
