@@ -19,15 +19,18 @@ class SymbolSearchWidget extends StatelessWidget {
         child: Column(
           children: [
             Builder(builder: (context) {
-              return TextFormField(
-                onChanged: (text) {
-                  _debouncer.run(
-                    () => context.read<SymbolSearchBloc>().add(SymbolSearchEvent.search(text)),
-                  );
-                },
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Enter your query',
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  onChanged: (text) {
+                    _debouncer.run(
+                      () => context.read<SymbolSearchBloc>().add(SymbolSearchEvent.search(text)),
+                    );
+                  },
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Enter your query',
+                  ),
                 ),
               );
             }),

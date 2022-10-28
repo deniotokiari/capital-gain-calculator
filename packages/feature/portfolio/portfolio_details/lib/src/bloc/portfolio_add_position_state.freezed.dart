@@ -18,26 +18,44 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PortfolioAddPositionState {
   double? get count => throw _privateConstructorUsedError;
   double? get price => throw _privateConstructorUsedError;
+  PhysicalCurrency? get physicalCurrency => throw _privateConstructorUsedError;
+  List<PhysicalCurrency> get listOfPhysicalCurrency =>
+      throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   bool get submitEnabled => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            double? count, double? price, DateTime date, bool submitEnabled)
+            double? count,
+            double? price,
+            PhysicalCurrency? physicalCurrency,
+            List<PhysicalCurrency> listOfPhysicalCurrency,
+            DateTime date,
+            bool submitEnabled)
         idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
-            double? count, double? price, DateTime date, bool submitEnabled)?
+            double? count,
+            double? price,
+            PhysicalCurrency? physicalCurrency,
+            List<PhysicalCurrency> listOfPhysicalCurrency,
+            DateTime date,
+            bool submitEnabled)?
         idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            double? count, double? price, DateTime date, bool submitEnabled)?
+            double? count,
+            double? price,
+            PhysicalCurrency? physicalCurrency,
+            List<PhysicalCurrency> listOfPhysicalCurrency,
+            DateTime date,
+            bool submitEnabled)?
         idle,
     required TResult orElse(),
   }) =>
@@ -69,7 +87,13 @@ abstract class $PortfolioAddPositionStateCopyWith<$Res> {
   factory $PortfolioAddPositionStateCopyWith(PortfolioAddPositionState value,
           $Res Function(PortfolioAddPositionState) then) =
       _$PortfolioAddPositionStateCopyWithImpl<$Res>;
-  $Res call({double? count, double? price, DateTime date, bool submitEnabled});
+  $Res call(
+      {double? count,
+      double? price,
+      PhysicalCurrency? physicalCurrency,
+      List<PhysicalCurrency> listOfPhysicalCurrency,
+      DateTime date,
+      bool submitEnabled});
 }
 
 /// @nodoc
@@ -85,6 +109,8 @@ class _$PortfolioAddPositionStateCopyWithImpl<$Res>
   $Res call({
     Object? count = freezed,
     Object? price = freezed,
+    Object? physicalCurrency = freezed,
+    Object? listOfPhysicalCurrency = freezed,
     Object? date = freezed,
     Object? submitEnabled = freezed,
   }) {
@@ -97,6 +123,14 @@ class _$PortfolioAddPositionStateCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double?,
+      physicalCurrency: physicalCurrency == freezed
+          ? _value.physicalCurrency
+          : physicalCurrency // ignore: cast_nullable_to_non_nullable
+              as PhysicalCurrency?,
+      listOfPhysicalCurrency: listOfPhysicalCurrency == freezed
+          ? _value.listOfPhysicalCurrency
+          : listOfPhysicalCurrency // ignore: cast_nullable_to_non_nullable
+              as List<PhysicalCurrency>,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -117,7 +151,13 @@ abstract class _$$_PortfolioAddPositionStateIdleCopyWith<$Res>
           $Res Function(_$_PortfolioAddPositionStateIdle) then) =
       __$$_PortfolioAddPositionStateIdleCopyWithImpl<$Res>;
   @override
-  $Res call({double? count, double? price, DateTime date, bool submitEnabled});
+  $Res call(
+      {double? count,
+      double? price,
+      PhysicalCurrency? physicalCurrency,
+      List<PhysicalCurrency> listOfPhysicalCurrency,
+      DateTime date,
+      bool submitEnabled});
 }
 
 /// @nodoc
@@ -137,6 +177,8 @@ class __$$_PortfolioAddPositionStateIdleCopyWithImpl<$Res>
   $Res call({
     Object? count = freezed,
     Object? price = freezed,
+    Object? physicalCurrency = freezed,
+    Object? listOfPhysicalCurrency = freezed,
     Object? date = freezed,
     Object? submitEnabled = freezed,
   }) {
@@ -149,6 +191,14 @@ class __$$_PortfolioAddPositionStateIdleCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double?,
+      physicalCurrency: physicalCurrency == freezed
+          ? _value.physicalCurrency
+          : physicalCurrency // ignore: cast_nullable_to_non_nullable
+              as PhysicalCurrency?,
+      listOfPhysicalCurrency: listOfPhysicalCurrency == freezed
+          ? _value._listOfPhysicalCurrency
+          : listOfPhysicalCurrency // ignore: cast_nullable_to_non_nullable
+              as List<PhysicalCurrency>,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -168,13 +218,25 @@ class _$_PortfolioAddPositionStateIdle
   _$_PortfolioAddPositionStateIdle(
       {required this.count,
       required this.price,
+      required this.physicalCurrency,
+      required final List<PhysicalCurrency> listOfPhysicalCurrency,
       required this.date,
-      required this.submitEnabled});
+      required this.submitEnabled})
+      : _listOfPhysicalCurrency = listOfPhysicalCurrency;
 
   @override
   final double? count;
   @override
   final double? price;
+  @override
+  final PhysicalCurrency? physicalCurrency;
+  final List<PhysicalCurrency> _listOfPhysicalCurrency;
+  @override
+  List<PhysicalCurrency> get listOfPhysicalCurrency {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_listOfPhysicalCurrency);
+  }
+
   @override
   final DateTime date;
   @override
@@ -182,7 +244,7 @@ class _$_PortfolioAddPositionStateIdle
 
   @override
   String toString() {
-    return 'PortfolioAddPositionState.idle(count: $count, price: $price, date: $date, submitEnabled: $submitEnabled)';
+    return 'PortfolioAddPositionState.idle(count: $count, price: $price, physicalCurrency: $physicalCurrency, listOfPhysicalCurrency: $listOfPhysicalCurrency, date: $date, submitEnabled: $submitEnabled)';
   }
 
   @override
@@ -192,6 +254,10 @@ class _$_PortfolioAddPositionStateIdle
             other is _$_PortfolioAddPositionStateIdle &&
             const DeepCollectionEquality().equals(other.count, count) &&
             const DeepCollectionEquality().equals(other.price, price) &&
+            const DeepCollectionEquality()
+                .equals(other.physicalCurrency, physicalCurrency) &&
+            const DeepCollectionEquality().equals(
+                other._listOfPhysicalCurrency, _listOfPhysicalCurrency) &&
             const DeepCollectionEquality().equals(other.date, date) &&
             const DeepCollectionEquality()
                 .equals(other.submitEnabled, submitEnabled));
@@ -202,6 +268,8 @@ class _$_PortfolioAddPositionStateIdle
       runtimeType,
       const DeepCollectionEquality().hash(count),
       const DeepCollectionEquality().hash(price),
+      const DeepCollectionEquality().hash(physicalCurrency),
+      const DeepCollectionEquality().hash(_listOfPhysicalCurrency),
       const DeepCollectionEquality().hash(date),
       const DeepCollectionEquality().hash(submitEnabled));
 
@@ -215,32 +283,50 @@ class _$_PortfolioAddPositionStateIdle
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            double? count, double? price, DateTime date, bool submitEnabled)
+            double? count,
+            double? price,
+            PhysicalCurrency? physicalCurrency,
+            List<PhysicalCurrency> listOfPhysicalCurrency,
+            DateTime date,
+            bool submitEnabled)
         idle,
   }) {
-    return idle(count, price, date, submitEnabled);
+    return idle(count, price, physicalCurrency, listOfPhysicalCurrency, date,
+        submitEnabled);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
-            double? count, double? price, DateTime date, bool submitEnabled)?
+            double? count,
+            double? price,
+            PhysicalCurrency? physicalCurrency,
+            List<PhysicalCurrency> listOfPhysicalCurrency,
+            DateTime date,
+            bool submitEnabled)?
         idle,
   }) {
-    return idle?.call(count, price, date, submitEnabled);
+    return idle?.call(count, price, physicalCurrency, listOfPhysicalCurrency,
+        date, submitEnabled);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            double? count, double? price, DateTime date, bool submitEnabled)?
+            double? count,
+            double? price,
+            PhysicalCurrency? physicalCurrency,
+            List<PhysicalCurrency> listOfPhysicalCurrency,
+            DateTime date,
+            bool submitEnabled)?
         idle,
     required TResult orElse(),
   }) {
     if (idle != null) {
-      return idle(count, price, date, submitEnabled);
+      return idle(count, price, physicalCurrency, listOfPhysicalCurrency, date,
+          submitEnabled);
     }
     return orElse();
   }
@@ -279,6 +365,8 @@ abstract class _PortfolioAddPositionStateIdle
   factory _PortfolioAddPositionStateIdle(
       {required final double? count,
       required final double? price,
+      required final PhysicalCurrency? physicalCurrency,
+      required final List<PhysicalCurrency> listOfPhysicalCurrency,
       required final DateTime date,
       required final bool submitEnabled}) = _$_PortfolioAddPositionStateIdle;
 
@@ -286,6 +374,10 @@ abstract class _PortfolioAddPositionStateIdle
   double? get count;
   @override
   double? get price;
+  @override
+  PhysicalCurrency? get physicalCurrency;
+  @override
+  List<PhysicalCurrency> get listOfPhysicalCurrency;
   @override
   DateTime get date;
   @override

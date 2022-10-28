@@ -10,6 +10,7 @@ class AddPositionUseCase implements UseCase<AddPositionUseCaseArguments, Future<
   Future<void> execute(AddPositionUseCaseArguments args) => _positionRepository.add(
         db.Position(
           instrumentId: args.instrumentId,
+          physicalCurrencyId: args.physicalCurrencyId,
           count: args.count,
           date: args.date,
           price: args.price,
@@ -19,12 +20,14 @@ class AddPositionUseCase implements UseCase<AddPositionUseCaseArguments, Future<
 
 class AddPositionUseCaseArguments {
   final String instrumentId;
+  final String physicalCurrencyId;
   final double count;
   final double price;
   final DateTime date;
 
   AddPositionUseCaseArguments({
     required this.instrumentId,
+    required this.physicalCurrencyId,
     required this.count,
     required this.price,
     required this.date,

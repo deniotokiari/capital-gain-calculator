@@ -20,6 +20,8 @@ class PortfolioDetailsModule extends DependencyModule {
     registerFactory<PortfolioAddPositionBloc>(
       () => PortfolioAddPositionBloc(
         get(),
+        get(),
+        get(),
       ),
     );
     registerFactory<NavigationWidgetBuilder>(

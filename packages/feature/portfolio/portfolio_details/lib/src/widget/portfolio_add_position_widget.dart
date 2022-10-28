@@ -2,6 +2,7 @@ import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:physical_currency/physical_currency.dart';
 import 'package:portfolio_details/src/bloc/portfolio_add_position_bloc.dart';
 import 'package:portfolio_details/src/bloc/portfolio_add_position_event.dart';
 import 'package:portfolio_details/src/bloc/portfolio_add_position_state.dart';
@@ -27,15 +28,14 @@ class PortfolioAddPositionWidget extends StatelessWidget {
               Builder(builder: (context) {
                 return TextFormField(
                   onChanged: (text) {
-                    context
-                        .read<PortfolioAddPositionBloc>()
-                        .add(PortfolioAddPositionEvent.priceChanged(
-                          double.tryParse(text),
-                        ));
+                    context.read<PortfolioAddPositionBloc>().add(
+                          PortfolioAddPositionEvent.priceChanged(
+                            double.tryParse(text),
+                          ),
+                        );
                   },
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d*)')),
-                    //TextInputFormatter.withFunction
                   ],
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
@@ -43,6 +43,25 @@ class PortfolioAddPositionWidget extends StatelessWidget {
                   ),
                 );
               }),
+              BlocBuilder<PortfolioAddPositionBloc, PortfolioAddPositionState>(
+                builder: (context, state) => DropdownButton<PhysicalCurrency>(
+                  isExpanded: true,
+                  value: state.physicalCurrency,
+                  items: state.listOfPhysicalCurrency
+                      .map((e) => DropdownMenuItem(
+                            value: e,
+                            child: Text('${e.name} (${e.code})'),
+                          ))
+                      .toList(growable: false),
+                  onChanged: (value) {
+                    if (value != null) {
+                      context
+                          .read<PortfolioAddPositionBloc>()
+                          .add(PortfolioAddPositionEvent.physicalCurrencyChanged(value));
+                    }
+                  },
+                ),
+              ),
               Builder(builder: (context) {
                 return TextFormField(
                   onChanged: (text) {

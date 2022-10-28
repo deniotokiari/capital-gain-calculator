@@ -20,6 +20,8 @@ mixin _$PortfolioAddPositionEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() submit,
+    required TResult Function(PhysicalCurrency physicalCurrency)
+        physicalCurrencyChanged,
     required TResult Function(double? count) countChanged,
     required TResult Function(DateTime date) dateChanged,
     required TResult Function(double? price) priceChanged,
@@ -29,6 +31,8 @@ mixin _$PortfolioAddPositionEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
     TResult Function(double? count)? countChanged,
     TResult Function(DateTime date)? dateChanged,
     TResult Function(double? price)? priceChanged,
@@ -38,6 +42,8 @@ mixin _$PortfolioAddPositionEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
     TResult Function(double? count)? countChanged,
     TResult Function(DateTime date)? dateChanged,
     TResult Function(double? price)? priceChanged,
@@ -48,6 +54,9 @@ mixin _$PortfolioAddPositionEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioAddPositionEventInit value) init,
     required TResult Function(PortfolioAddPositionEventSubmit value) submit,
+    required TResult Function(
+            PortfolioAddPositionEventPhysicalCurrencyChanged value)
+        physicalCurrencyChanged,
     required TResult Function(PortfolioAddPositionEventCountChanged value)
         countChanged,
     required TResult Function(PortfolioAddPositionEventDateChanged value)
@@ -60,6 +69,8 @@ mixin _$PortfolioAddPositionEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PortfolioAddPositionEventInit value)? init,
     TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
     TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
     TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
     TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,
@@ -69,6 +80,8 @@ mixin _$PortfolioAddPositionEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioAddPositionEventInit value)? init,
     TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
     TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
     TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
     TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,
@@ -166,6 +179,8 @@ class _$PortfolioAddPositionEventInit implements PortfolioAddPositionEventInit {
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() submit,
+    required TResult Function(PhysicalCurrency physicalCurrency)
+        physicalCurrencyChanged,
     required TResult Function(double? count) countChanged,
     required TResult Function(DateTime date) dateChanged,
     required TResult Function(double? price) priceChanged,
@@ -178,6 +193,8 @@ class _$PortfolioAddPositionEventInit implements PortfolioAddPositionEventInit {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
     TResult Function(double? count)? countChanged,
     TResult Function(DateTime date)? dateChanged,
     TResult Function(double? price)? priceChanged,
@@ -190,6 +207,8 @@ class _$PortfolioAddPositionEventInit implements PortfolioAddPositionEventInit {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
     TResult Function(double? count)? countChanged,
     TResult Function(DateTime date)? dateChanged,
     TResult Function(double? price)? priceChanged,
@@ -206,6 +225,9 @@ class _$PortfolioAddPositionEventInit implements PortfolioAddPositionEventInit {
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioAddPositionEventInit value) init,
     required TResult Function(PortfolioAddPositionEventSubmit value) submit,
+    required TResult Function(
+            PortfolioAddPositionEventPhysicalCurrencyChanged value)
+        physicalCurrencyChanged,
     required TResult Function(PortfolioAddPositionEventCountChanged value)
         countChanged,
     required TResult Function(PortfolioAddPositionEventDateChanged value)
@@ -221,6 +243,8 @@ class _$PortfolioAddPositionEventInit implements PortfolioAddPositionEventInit {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PortfolioAddPositionEventInit value)? init,
     TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
     TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
     TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
     TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,
@@ -233,6 +257,8 @@ class _$PortfolioAddPositionEventInit implements PortfolioAddPositionEventInit {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioAddPositionEventInit value)? init,
     TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
     TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
     TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
     TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,
@@ -304,6 +330,8 @@ class _$PortfolioAddPositionEventSubmit
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() submit,
+    required TResult Function(PhysicalCurrency physicalCurrency)
+        physicalCurrencyChanged,
     required TResult Function(double? count) countChanged,
     required TResult Function(DateTime date) dateChanged,
     required TResult Function(double? price) priceChanged,
@@ -316,6 +344,8 @@ class _$PortfolioAddPositionEventSubmit
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
     TResult Function(double? count)? countChanged,
     TResult Function(DateTime date)? dateChanged,
     TResult Function(double? price)? priceChanged,
@@ -328,6 +358,8 @@ class _$PortfolioAddPositionEventSubmit
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
     TResult Function(double? count)? countChanged,
     TResult Function(DateTime date)? dateChanged,
     TResult Function(double? price)? priceChanged,
@@ -344,6 +376,9 @@ class _$PortfolioAddPositionEventSubmit
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioAddPositionEventInit value) init,
     required TResult Function(PortfolioAddPositionEventSubmit value) submit,
+    required TResult Function(
+            PortfolioAddPositionEventPhysicalCurrencyChanged value)
+        physicalCurrencyChanged,
     required TResult Function(PortfolioAddPositionEventCountChanged value)
         countChanged,
     required TResult Function(PortfolioAddPositionEventDateChanged value)
@@ -359,6 +394,8 @@ class _$PortfolioAddPositionEventSubmit
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PortfolioAddPositionEventInit value)? init,
     TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
     TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
     TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
     TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,
@@ -371,6 +408,8 @@ class _$PortfolioAddPositionEventSubmit
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioAddPositionEventInit value)? init,
     TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
     TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
     TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
     TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,
@@ -386,6 +425,193 @@ class _$PortfolioAddPositionEventSubmit
 abstract class PortfolioAddPositionEventSubmit
     implements PortfolioAddPositionEvent {
   factory PortfolioAddPositionEventSubmit() = _$PortfolioAddPositionEventSubmit;
+}
+
+/// @nodoc
+abstract class _$$PortfolioAddPositionEventPhysicalCurrencyChangedCopyWith<
+    $Res> {
+  factory _$$PortfolioAddPositionEventPhysicalCurrencyChangedCopyWith(
+          _$PortfolioAddPositionEventPhysicalCurrencyChanged value,
+          $Res Function(_$PortfolioAddPositionEventPhysicalCurrencyChanged)
+              then) =
+      __$$PortfolioAddPositionEventPhysicalCurrencyChangedCopyWithImpl<$Res>;
+  $Res call({PhysicalCurrency physicalCurrency});
+}
+
+/// @nodoc
+class __$$PortfolioAddPositionEventPhysicalCurrencyChangedCopyWithImpl<$Res>
+    extends _$PortfolioAddPositionEventCopyWithImpl<$Res>
+    implements
+        _$$PortfolioAddPositionEventPhysicalCurrencyChangedCopyWith<$Res> {
+  __$$PortfolioAddPositionEventPhysicalCurrencyChangedCopyWithImpl(
+      _$PortfolioAddPositionEventPhysicalCurrencyChanged _value,
+      $Res Function(_$PortfolioAddPositionEventPhysicalCurrencyChanged) _then)
+      : super(
+            _value,
+            (v) =>
+                _then(v as _$PortfolioAddPositionEventPhysicalCurrencyChanged));
+
+  @override
+  _$PortfolioAddPositionEventPhysicalCurrencyChanged get _value =>
+      super._value as _$PortfolioAddPositionEventPhysicalCurrencyChanged;
+
+  @override
+  $Res call({
+    Object? physicalCurrency = freezed,
+  }) {
+    return _then(_$PortfolioAddPositionEventPhysicalCurrencyChanged(
+      physicalCurrency == freezed
+          ? _value.physicalCurrency
+          : physicalCurrency // ignore: cast_nullable_to_non_nullable
+              as PhysicalCurrency,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PortfolioAddPositionEventPhysicalCurrencyChanged
+    implements PortfolioAddPositionEventPhysicalCurrencyChanged {
+  _$PortfolioAddPositionEventPhysicalCurrencyChanged(this.physicalCurrency);
+
+  @override
+  final PhysicalCurrency physicalCurrency;
+
+  @override
+  String toString() {
+    return 'PortfolioAddPositionEvent.physicalCurrencyChanged(physicalCurrency: $physicalCurrency)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PortfolioAddPositionEventPhysicalCurrencyChanged &&
+            const DeepCollectionEquality()
+                .equals(other.physicalCurrency, physicalCurrency));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(physicalCurrency));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$PortfolioAddPositionEventPhysicalCurrencyChangedCopyWith<
+          _$PortfolioAddPositionEventPhysicalCurrencyChanged>
+      get copyWith =>
+          __$$PortfolioAddPositionEventPhysicalCurrencyChangedCopyWithImpl<
+                  _$PortfolioAddPositionEventPhysicalCurrencyChanged>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String instrumentId) init,
+    required TResult Function() submit,
+    required TResult Function(PhysicalCurrency physicalCurrency)
+        physicalCurrencyChanged,
+    required TResult Function(double? count) countChanged,
+    required TResult Function(DateTime date) dateChanged,
+    required TResult Function(double? price) priceChanged,
+  }) {
+    return physicalCurrencyChanged(physicalCurrency);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String instrumentId)? init,
+    TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
+  }) {
+    return physicalCurrencyChanged?.call(physicalCurrency);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String instrumentId)? init,
+    TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
+    TResult Function(double? count)? countChanged,
+    TResult Function(DateTime date)? dateChanged,
+    TResult Function(double? price)? priceChanged,
+    required TResult orElse(),
+  }) {
+    if (physicalCurrencyChanged != null) {
+      return physicalCurrencyChanged(physicalCurrency);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PortfolioAddPositionEventInit value) init,
+    required TResult Function(PortfolioAddPositionEventSubmit value) submit,
+    required TResult Function(
+            PortfolioAddPositionEventPhysicalCurrencyChanged value)
+        physicalCurrencyChanged,
+    required TResult Function(PortfolioAddPositionEventCountChanged value)
+        countChanged,
+    required TResult Function(PortfolioAddPositionEventDateChanged value)
+        dateChanged,
+    required TResult Function(PortfolioAddPositionEventPriceChanged value)
+        priceChanged,
+  }) {
+    return physicalCurrencyChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PortfolioAddPositionEventInit value)? init,
+    TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
+    TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
+    TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
+    TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,
+  }) {
+    return physicalCurrencyChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PortfolioAddPositionEventInit value)? init,
+    TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
+    TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
+    TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
+    TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,
+    required TResult orElse(),
+  }) {
+    if (physicalCurrencyChanged != null) {
+      return physicalCurrencyChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PortfolioAddPositionEventPhysicalCurrencyChanged
+    implements PortfolioAddPositionEvent {
+  factory PortfolioAddPositionEventPhysicalCurrencyChanged(
+          final PhysicalCurrency physicalCurrency) =
+      _$PortfolioAddPositionEventPhysicalCurrencyChanged;
+
+  PhysicalCurrency get physicalCurrency;
+  @JsonKey(ignore: true)
+  _$$PortfolioAddPositionEventPhysicalCurrencyChangedCopyWith<
+          _$PortfolioAddPositionEventPhysicalCurrencyChanged>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -462,6 +688,8 @@ class _$PortfolioAddPositionEventCountChanged
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() submit,
+    required TResult Function(PhysicalCurrency physicalCurrency)
+        physicalCurrencyChanged,
     required TResult Function(double? count) countChanged,
     required TResult Function(DateTime date) dateChanged,
     required TResult Function(double? price) priceChanged,
@@ -474,6 +702,8 @@ class _$PortfolioAddPositionEventCountChanged
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
     TResult Function(double? count)? countChanged,
     TResult Function(DateTime date)? dateChanged,
     TResult Function(double? price)? priceChanged,
@@ -486,6 +716,8 @@ class _$PortfolioAddPositionEventCountChanged
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
     TResult Function(double? count)? countChanged,
     TResult Function(DateTime date)? dateChanged,
     TResult Function(double? price)? priceChanged,
@@ -502,6 +734,9 @@ class _$PortfolioAddPositionEventCountChanged
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioAddPositionEventInit value) init,
     required TResult Function(PortfolioAddPositionEventSubmit value) submit,
+    required TResult Function(
+            PortfolioAddPositionEventPhysicalCurrencyChanged value)
+        physicalCurrencyChanged,
     required TResult Function(PortfolioAddPositionEventCountChanged value)
         countChanged,
     required TResult Function(PortfolioAddPositionEventDateChanged value)
@@ -517,6 +752,8 @@ class _$PortfolioAddPositionEventCountChanged
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PortfolioAddPositionEventInit value)? init,
     TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
     TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
     TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
     TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,
@@ -529,6 +766,8 @@ class _$PortfolioAddPositionEventCountChanged
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioAddPositionEventInit value)? init,
     TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
     TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
     TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
     TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,
@@ -627,6 +866,8 @@ class _$PortfolioAddPositionEventDateChanged
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() submit,
+    required TResult Function(PhysicalCurrency physicalCurrency)
+        physicalCurrencyChanged,
     required TResult Function(double? count) countChanged,
     required TResult Function(DateTime date) dateChanged,
     required TResult Function(double? price) priceChanged,
@@ -639,6 +880,8 @@ class _$PortfolioAddPositionEventDateChanged
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
     TResult Function(double? count)? countChanged,
     TResult Function(DateTime date)? dateChanged,
     TResult Function(double? price)? priceChanged,
@@ -651,6 +894,8 @@ class _$PortfolioAddPositionEventDateChanged
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
     TResult Function(double? count)? countChanged,
     TResult Function(DateTime date)? dateChanged,
     TResult Function(double? price)? priceChanged,
@@ -667,6 +912,9 @@ class _$PortfolioAddPositionEventDateChanged
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioAddPositionEventInit value) init,
     required TResult Function(PortfolioAddPositionEventSubmit value) submit,
+    required TResult Function(
+            PortfolioAddPositionEventPhysicalCurrencyChanged value)
+        physicalCurrencyChanged,
     required TResult Function(PortfolioAddPositionEventCountChanged value)
         countChanged,
     required TResult Function(PortfolioAddPositionEventDateChanged value)
@@ -682,6 +930,8 @@ class _$PortfolioAddPositionEventDateChanged
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PortfolioAddPositionEventInit value)? init,
     TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
     TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
     TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
     TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,
@@ -694,6 +944,8 @@ class _$PortfolioAddPositionEventDateChanged
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioAddPositionEventInit value)? init,
     TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
     TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
     TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
     TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,
@@ -792,6 +1044,8 @@ class _$PortfolioAddPositionEventPriceChanged
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() submit,
+    required TResult Function(PhysicalCurrency physicalCurrency)
+        physicalCurrencyChanged,
     required TResult Function(double? count) countChanged,
     required TResult Function(DateTime date) dateChanged,
     required TResult Function(double? price) priceChanged,
@@ -804,6 +1058,8 @@ class _$PortfolioAddPositionEventPriceChanged
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
     TResult Function(double? count)? countChanged,
     TResult Function(DateTime date)? dateChanged,
     TResult Function(double? price)? priceChanged,
@@ -816,6 +1072,8 @@ class _$PortfolioAddPositionEventPriceChanged
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? submit,
+    TResult Function(PhysicalCurrency physicalCurrency)?
+        physicalCurrencyChanged,
     TResult Function(double? count)? countChanged,
     TResult Function(DateTime date)? dateChanged,
     TResult Function(double? price)? priceChanged,
@@ -832,6 +1090,9 @@ class _$PortfolioAddPositionEventPriceChanged
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioAddPositionEventInit value) init,
     required TResult Function(PortfolioAddPositionEventSubmit value) submit,
+    required TResult Function(
+            PortfolioAddPositionEventPhysicalCurrencyChanged value)
+        physicalCurrencyChanged,
     required TResult Function(PortfolioAddPositionEventCountChanged value)
         countChanged,
     required TResult Function(PortfolioAddPositionEventDateChanged value)
@@ -847,6 +1108,8 @@ class _$PortfolioAddPositionEventPriceChanged
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PortfolioAddPositionEventInit value)? init,
     TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
     TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
     TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
     TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,
@@ -859,6 +1122,8 @@ class _$PortfolioAddPositionEventPriceChanged
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioAddPositionEventInit value)? init,
     TResult Function(PortfolioAddPositionEventSubmit value)? submit,
+    TResult Function(PortfolioAddPositionEventPhysicalCurrencyChanged value)?
+        physicalCurrencyChanged,
     TResult Function(PortfolioAddPositionEventCountChanged value)? countChanged,
     TResult Function(PortfolioAddPositionEventDateChanged value)? dateChanged,
     TResult Function(PortfolioAddPositionEventPriceChanged value)? priceChanged,

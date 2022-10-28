@@ -8,7 +8,7 @@
             "name": "Run in Chrome",
             "request": "launch",
             "type": "dart",
-            "args": ["-d", "chrome","--web-port", "2311"],
+            "args": ["-d", "chrome","--web-port", "1234"],
             "program": "lib/main.dart",
         },
         {
