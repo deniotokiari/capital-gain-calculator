@@ -1,11 +1,7 @@
 import 'package:common/common.dart';
 import 'package:db/db.dart' as db;
-import 'package:intl/intl.dart';
 import 'package:news_data/news_data.dart';
 import 'package:stock_service/stock_service.dart';
-
-// 20221027T123000
-final _dateFormatter = DateFormat('yyyyMMMMdHHmmss');
 
 class GetNewsByTickersUseCase
     implements UseCase<GetNewsByTickersUseCaseArguments, Future<List<News>>> {
@@ -26,6 +22,15 @@ class GetNewsByTickersUseCase
     return [for (final item in news) ...item];
   }
 
+// // 20221027T123000
+  DateTime _parseDataTime(String dateTime) => DateTime(
+    int.parse(dateTime.substring(0, 5)),
+    int.parse(dateTime.substring(4, 6)),
+    int.parse(dateTime.substring(5, 7)),
+    int.parse(dateTime.substring(9, 11)),
+    int.parse(dateTime.substring(10, 12)),
+  );
+
   Future<List<News>> _newsForTicker({
     required String ticker,
     required bool force,
@@ -38,12 +43,12 @@ class GetNewsByTickersUseCase
       ).then(
         (value) => value.map(
           success: (success) => [
-            ...success.data.feed.map(
+            ...success.data.feed.take(5).map(
               (e) => db.News(
                 ticker: ticker,
                 title: e.title,
                 url: e.url,
-                timePublished: _dateFormatter.parse(e.timePublished.replaceAll('T', ' ')),
+                timePublished: _parseDataTime(e.timePublished),
                 summary: e.summary,
                 overallSentimentScore: e.overallSentimentScore,
               ),

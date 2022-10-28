@@ -14,6 +14,8 @@ dependencies:
     path: ../news_data
   news_list:
     path: ../news_list
+  news_use_case:
+    path: ../news_use_case
 
   flutter:
     sdk: flutter
