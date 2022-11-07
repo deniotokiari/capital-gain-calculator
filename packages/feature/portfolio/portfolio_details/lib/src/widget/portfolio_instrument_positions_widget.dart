@@ -23,15 +23,29 @@ class PortfolioInstrumentPositionsWidget extends StatelessWidget {
             if (state.model.positions.isEmpty) {
               return const SizedBox();
             } else {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ...state.model.positions
-                      .map((e) => Text('${e.date} - ${e.count} - ${e.price}')),
-                ],
+              return Padding(
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ...state.model.positions.map((e) => _getPosition(e)),
+                  ],
+                ),
               );
             }
           },
         ),
       );
+
+  Widget _getPosition(PortfolioInstrumentPositionViewModel item) => Padding(
+    padding: const EdgeInsets.only(top: 4, bottom: 4),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(child: Text(item.date)),
+            Expanded(child:Text(item.count)),
+            Expanded(child:Text(item.price)),
+          ],
+        ),
+  );
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:stock_service/src/alphavantage/models/global_quote_response.dart';
 import 'package:synchronized/synchronized.dart' as synchronized;
 
 import 'package:dio/dio.dart';
@@ -87,12 +88,20 @@ class AlphaVantageService implements StockServiceApi {
       NewsAndSentimentResponse.fromJson,
     );
   }
+
+  @override
+  Future<GlobalQuoteContainerResponse> globalQuote(String symbol) => executeWithJsonParsing(
+        _Functions.globalQuote,
+        {_symbol: symbol},
+        GlobalQuoteContainerResponse.fromJson,
+      );
 }
 
 class _Functions {
   static const overview = 'OVERVIEW';
   static const symbolSearch = 'SYMBOL_SEARCH';
   static const newsSentiment = 'NEWS_SENTIMENT';
+  static const globalQuote = 'GLOBAL_QUOTE';
 }
 
 class RequestsLimitReached implements Exception {}

@@ -1,3 +1,4 @@
+import 'package:stock_service/src/model/global_quote_response.dart';
 import 'package:stock_service/src/model/physical_currency_list_response.dart';
 import 'package:stock_service/stock_service.dart';
 
@@ -14,4 +15,6 @@ abstract class StockServiceApi {
     int limit = 200,
     List<String> tickers = const [],
   });
+
+  Future<GlobalQuoteContainerResponse> globalQuote(String symbol);
 }

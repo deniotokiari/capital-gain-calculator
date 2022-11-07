@@ -55,10 +55,12 @@ class PortfolioUseCaseModule extends DependencyModule {
     registerFactory<GetPositionsByInstrumentIdUseCase>(
       () => GetPositionsByInstrumentIdUseCase(
         get(),
+        get(),
       ),
     );
     registerFactory<InstrumentPositionsUpdatesUseCase>(
       () => InstrumentPositionsUpdatesUseCase(
+        get(),
         get(),
       ),
     );
