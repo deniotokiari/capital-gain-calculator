@@ -9,9 +9,13 @@ export 'src/position/instrument_positions_updates_use_case.dart';
 export 'src/portfolio/get_portfolio_name_by_id_use_case.dart';
 export 'src/instrument/add_symbol_instrument_use_case.dart';
 export 'src/instrument/get_instruments_by_portfolio_id.dart';
+export 'src/instrument/get_instrument_total_shares_use_case.dart';
+export 'src/instrument/get_instrument_average_price_use_case.dart';
 
 import 'package:common/common.dart';
 import 'package:portfolio_use_case/src/instrument/add_symbol_instrument_use_case.dart';
+import 'package:portfolio_use_case/src/instrument/get_instrument_average_price_use_case.dart';
+import 'package:portfolio_use_case/src/instrument/get_instrument_total_shares_use_case.dart';
 import 'package:portfolio_use_case/src/instrument/get_instruments_by_portfolio_id.dart';
 import 'package:portfolio_use_case/src/portfolio/create_portfolio_use_case.dart';
 import 'package:portfolio_use_case/src/portfolio/get_all_portfolios_use_case.dart';
@@ -80,6 +84,18 @@ class PortfolioUseCaseModule extends DependencyModule {
     registerFactory<GetInstrumentsByPortfolioId>(
       () => GetInstrumentsByPortfolioId(
         get(),
+        get(),
+        get(),
+        get(),
+      ),
+    );
+    registerFactory<GetInstrumentTotalSharesUseCase>(
+      () => GetInstrumentTotalSharesUseCase(
+        get(),
+      ),
+    );
+    registerFactory<GetInstrumentAveragePriceUseCase>(
+      () => GetInstrumentAveragePriceUseCase(
         get(),
       ),
     );

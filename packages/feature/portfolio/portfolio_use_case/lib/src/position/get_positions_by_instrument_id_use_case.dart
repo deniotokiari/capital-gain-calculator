@@ -21,8 +21,10 @@ class GetPositionsByInstrumentIdUseCase implements UseCase<String, Future<List<P
       result.add(Position(
         id: item.id,
         count: item.count,
-        price: item.price,
-        physicalCurrency: await _getPhysicalCurrencyByIdUseCase.execute(item.physicalCurrencyId),
+        price: PhysicalCurrencyValue(
+          currency: await _getPhysicalCurrencyByIdUseCase.execute(item.price.currencyId),
+          value: item.price.value,
+        ),
         date: item.date,
       ));
     }

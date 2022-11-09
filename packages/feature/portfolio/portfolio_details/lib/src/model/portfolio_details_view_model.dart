@@ -25,6 +25,8 @@ class PortfolioDetailsSymbolViewModel {
   final String currency;
   final String region;
   final String instrumentId;
+  final String sharesTotal;
+  final String label;
 
   PortfolioDetailsSymbolViewModel({
     required this.name,
@@ -32,6 +34,8 @@ class PortfolioDetailsSymbolViewModel {
     required this.currency,
     required this.region,
     required this.instrumentId,
+    required this.sharesTotal,
+    required this.label,
   });
 
   factory PortfolioDetailsSymbolViewModel.fromSymbolSearchWidgetNavigationResult(
@@ -44,6 +48,8 @@ class PortfolioDetailsSymbolViewModel {
         currency: item.currency,
         region: item.region,
         instrumentId: instrumentId,
+        sharesTotal: '',
+        label: '',
       );
 
   factory PortfolioDetailsSymbolViewModel.fromSymbolAndPhysicalCurrency(Instrument instrument) =>
@@ -53,5 +59,11 @@ class PortfolioDetailsSymbolViewModel {
         currency: instrument.symbol!.physicalCurrency.code,
         region: instrument.symbol!.region,
         instrumentId: instrument.id,
+        sharesTotal: instrument.count.toString(),
+        label: [
+          instrument.symbol?.ticker,
+          if (instrument.count > 0) instrument.count.toString(),
+          if (instrument.averagePrice > 0) instrument.averagePrice.toStringAsFixed(2), 
+        ].join(' - '),
       );
 }

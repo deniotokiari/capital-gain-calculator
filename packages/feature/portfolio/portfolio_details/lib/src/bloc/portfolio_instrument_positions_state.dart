@@ -4,7 +4,7 @@ import 'package:portfolio_data/portfolio_data.dart';
 
 part 'portfolio_instrument_positions_state.freezed.dart';
 
-final _dateFormatter = DateFormat('d/M/yyyy');
+final _dateFormatter = DateFormat('dd/MM/yyyy');
 
 @freezed
 class PortfolioInstrumentPositionsState with _$PortfolioInstrumentPositionsState {
@@ -24,7 +24,7 @@ class PortfolioInstrumentPositionsViewModel {
       PortfolioInstrumentPositionsViewModel([
         ...items.map((e) => PortfolioInstrumentPositionViewModel(
               count: e.count.toString(),
-              price: (e.price / e.count).toStringAsFixed(2),
+              price: e.averagePrice,
               date: _dateFormatter.format(e.date),
             ))
       ]);

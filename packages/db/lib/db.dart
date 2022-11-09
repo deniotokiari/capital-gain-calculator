@@ -6,6 +6,7 @@ export 'package:db/src/physical_currency.dart';
 export 'package:db/src/portfolio.dart';
 export 'package:db/src/position.dart';
 export 'package:db/src/symbol.dart';
+export 'package:db/src/physical_currency_value.dart';
 
 import 'package:common/common.dart';
 import 'package:db/src/instrument.dart';

@@ -71,8 +71,9 @@ class PortfolioDetailsWidget extends StatelessWidget {
                           title: ExpansionTile(
                             expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
                             title: Text(
-                                style: const TextStyle(inherit: true, fontSize: 14),
-                                '${item.name} - ${item.symbol} - ${item.region} - ${item.currency}'),
+                              style: const TextStyle(inherit: true, fontSize: 14),
+                              item.label,
+                            ),
                             children: [
                               TextButton(
                                 onPressed: () async {
