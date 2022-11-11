@@ -52,7 +52,10 @@ class PortfolioDetailsSymbolViewModel {
         label: '',
       );
 
-  factory PortfolioDetailsSymbolViewModel.fromSymbolAndPhysicalCurrency(Instrument instrument) =>
+  factory PortfolioDetailsSymbolViewModel.fromSymbolAndPhysicalCurrency(
+    Instrument instrument,
+    List<double> lastPrice,
+  ) =>
       PortfolioDetailsSymbolViewModel(
         name: instrument.symbol!.name,
         symbol: instrument.symbol!.ticker,
@@ -63,7 +66,8 @@ class PortfolioDetailsSymbolViewModel {
         label: [
           instrument.symbol?.ticker,
           if (instrument.count > 0) instrument.count.toString(),
-          if (instrument.averagePrice > 0) instrument.averagePrice.toStringAsFixed(2), 
+          if (instrument.averagePrice > 0) instrument.averagePrice.toStringAsFixed(2),
+          if (lastPrice.isNotEmpty) lastPrice.first.toStringAsFixed(2),
         ].join(' - '),
       );
 }

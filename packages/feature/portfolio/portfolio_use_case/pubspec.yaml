@@ -21,6 +21,8 @@ dependencies:
     path: ../portfolio_data
   symbol_api:
     path: ../../symbol/symbol_api
+  stock_service:
+    path: ../../../stock_service
     
   flutter:
     sdk: flutter
