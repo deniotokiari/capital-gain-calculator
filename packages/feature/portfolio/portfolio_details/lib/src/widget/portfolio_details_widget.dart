@@ -57,7 +57,7 @@ class PortfolioDetailsWidget extends StatelessWidget {
                                         color:
                                             state.model.returnValue > 0 ? Colors.green : Colors.red,
                                         child: Text(
-                                          '${state.model.currency}${state.model.returnValue > 0 ? '+' : ''}${state.model.returnValue.toStringAsFixed(2)}',
+                                          '${state.model.returnValue > 0 ? '+' : '-'}${state.model.currency}${state.model.returnValue.abs().toStringAsFixed(2)}',
                                           style: const TextStyle(
                                             inherit: true,
                                             fontWeight: FontWeight.bold,
@@ -83,6 +83,27 @@ class PortfolioDetailsWidget extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+                                    state.model.refreshing
+                                        ? const Padding(
+                                            padding: EdgeInsets.only(left: 4),
+                                            child: CircularProgressIndicator.adaptive(),
+                                          )
+                                        : IconButton(
+                                            hoverColor: Colors.transparent,
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            iconSize: 20,
+                                            constraints: const BoxConstraints(),
+                                            padding: const EdgeInsets.only(left: 4),
+                                            onPressed: () {
+                                              context
+                                                  .read<PortfolioDetailsBloc>()
+                                                  .add(PortfolioDetailsEvent.refresh());
+                                            },
+                                            tooltip: 'Refresh',
+                                            icon: const Icon(Icons.refresh, color: Colors.white),
+                                          ),
                                   ],
                                 ),
                               )

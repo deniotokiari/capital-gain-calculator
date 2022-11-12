@@ -51,6 +51,8 @@ class PortfolioInstrumentPositionsWidget extends StatelessWidget {
             Expanded(
               child: Text(
                 item.count,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.end,
                 style: const TextStyle(inherit: true, fontSize: 13),
               ),

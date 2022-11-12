@@ -24,6 +24,7 @@ mixin _$PortfolioDetailsViewModel {
   List<String> get tickers => throw _privateConstructorUsedError;
   List<PortfolioDetailsSymbolViewModel> get symbols =>
       throw _privateConstructorUsedError;
+  bool get refreshing => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PortfolioDetailsViewModelCopyWith<PortfolioDetailsViewModel> get copyWith =>
@@ -42,7 +43,8 @@ abstract class $PortfolioDetailsViewModelCopyWith<$Res> {
       double returnValue,
       double returnPercent,
       List<String> tickers,
-      List<PortfolioDetailsSymbolViewModel> symbols});
+      List<PortfolioDetailsSymbolViewModel> symbols,
+      bool refreshing});
 }
 
 /// @nodoc
@@ -63,6 +65,7 @@ class _$PortfolioDetailsViewModelCopyWithImpl<$Res>
     Object? returnPercent = freezed,
     Object? tickers = freezed,
     Object? symbols = freezed,
+    Object? refreshing = freezed,
   }) {
     return _then(_value.copyWith(
       portfolioName: portfolioName == freezed
@@ -93,6 +96,10 @@ class _$PortfolioDetailsViewModelCopyWithImpl<$Res>
           ? _value.symbols
           : symbols // ignore: cast_nullable_to_non_nullable
               as List<PortfolioDetailsSymbolViewModel>,
+      refreshing: refreshing == freezed
+          ? _value.refreshing
+          : refreshing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -112,7 +119,8 @@ abstract class _$$$PortfolioDetailsViewModelCopyWith<$Res>
       double returnValue,
       double returnPercent,
       List<String> tickers,
-      List<PortfolioDetailsSymbolViewModel> symbols});
+      List<PortfolioDetailsSymbolViewModel> symbols,
+      bool refreshing});
 }
 
 /// @nodoc
@@ -137,6 +145,7 @@ class __$$$PortfolioDetailsViewModelCopyWithImpl<$Res>
     Object? returnPercent = freezed,
     Object? tickers = freezed,
     Object? symbols = freezed,
+    Object? refreshing = freezed,
   }) {
     return _then(_$$PortfolioDetailsViewModel(
       portfolioName == freezed
@@ -167,6 +176,10 @@ class __$$$PortfolioDetailsViewModelCopyWithImpl<$Res>
           ? _value._symbols
           : symbols // ignore: cast_nullable_to_non_nullable
               as List<PortfolioDetailsSymbolViewModel>,
+      refreshing == freezed
+          ? _value.refreshing
+          : refreshing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -181,7 +194,8 @@ class _$$PortfolioDetailsViewModel implements $PortfolioDetailsViewModel {
       this.returnValue,
       this.returnPercent,
       final List<String> tickers,
-      final List<PortfolioDetailsSymbolViewModel> symbols)
+      final List<PortfolioDetailsSymbolViewModel> symbols,
+      this.refreshing)
       : _tickers = tickers,
         _symbols = symbols;
 
@@ -210,8 +224,11 @@ class _$$PortfolioDetailsViewModel implements $PortfolioDetailsViewModel {
   }
 
   @override
+  final bool refreshing;
+
+  @override
   String toString() {
-    return 'PortfolioDetailsViewModel(portfolioName: $portfolioName, currency: $currency, marketPrice: $marketPrice, returnValue: $returnValue, returnPercent: $returnPercent, tickers: $tickers, symbols: $symbols)';
+    return 'PortfolioDetailsViewModel(portfolioName: $portfolioName, currency: $currency, marketPrice: $marketPrice, returnValue: $returnValue, returnPercent: $returnPercent, tickers: $tickers, symbols: $symbols, refreshing: $refreshing)';
   }
 
   @override
@@ -229,7 +246,9 @@ class _$$PortfolioDetailsViewModel implements $PortfolioDetailsViewModel {
             const DeepCollectionEquality()
                 .equals(other.returnPercent, returnPercent) &&
             const DeepCollectionEquality().equals(other._tickers, _tickers) &&
-            const DeepCollectionEquality().equals(other._symbols, _symbols));
+            const DeepCollectionEquality().equals(other._symbols, _symbols) &&
+            const DeepCollectionEquality()
+                .equals(other.refreshing, refreshing));
   }
 
   @override
@@ -241,7 +260,8 @@ class _$$PortfolioDetailsViewModel implements $PortfolioDetailsViewModel {
       const DeepCollectionEquality().hash(returnValue),
       const DeepCollectionEquality().hash(returnPercent),
       const DeepCollectionEquality().hash(_tickers),
-      const DeepCollectionEquality().hash(_symbols));
+      const DeepCollectionEquality().hash(_symbols),
+      const DeepCollectionEquality().hash(refreshing));
 
   @JsonKey(ignore: true)
   @override
@@ -252,14 +272,14 @@ class _$$PortfolioDetailsViewModel implements $PortfolioDetailsViewModel {
 
 abstract class $PortfolioDetailsViewModel implements PortfolioDetailsViewModel {
   factory $PortfolioDetailsViewModel(
-          final String portfolioName,
-          final String currency,
-          final double marketPrice,
-          final double returnValue,
-          final double returnPercent,
-          final List<String> tickers,
-          final List<PortfolioDetailsSymbolViewModel> symbols) =
-      _$$PortfolioDetailsViewModel;
+      final String portfolioName,
+      final String currency,
+      final double marketPrice,
+      final double returnValue,
+      final double returnPercent,
+      final List<String> tickers,
+      final List<PortfolioDetailsSymbolViewModel> symbols,
+      final bool refreshing) = _$$PortfolioDetailsViewModel;
 
   @override
   String get portfolioName;
@@ -275,6 +295,8 @@ abstract class $PortfolioDetailsViewModel implements PortfolioDetailsViewModel {
   List<String> get tickers;
   @override
   List<PortfolioDetailsSymbolViewModel> get symbols;
+  @override
+  bool get refreshing;
   @override
   @JsonKey(ignore: true)
   _$$$PortfolioDetailsViewModelCopyWith<_$$PortfolioDetailsViewModel>

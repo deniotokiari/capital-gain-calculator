@@ -14,6 +14,7 @@ class PortfolioDetailsViewModel with _$PortfolioDetailsViewModel {
     double returnPercent,
     List<String> tickers,
     List<PortfolioDetailsSymbolViewModel> symbols,
+    bool refreshing,
   ) = $PortfolioDetailsViewModel;
 
   factory PortfolioDetailsViewModel.initial() => PortfolioDetailsViewModel(
@@ -24,6 +25,7 @@ class PortfolioDetailsViewModel with _$PortfolioDetailsViewModel {
         0,
         [],
         [],
+        false,
       );
 }
 

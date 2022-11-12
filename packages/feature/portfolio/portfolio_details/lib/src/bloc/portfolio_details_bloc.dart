@@ -39,6 +39,18 @@ class PortfolioDetailsBloc extends Bloc<PortfolioDetailsEvent, PortfolioDetailsS
 
       emit(await _getState());
     });
+    on<PortfolioDetailsEventRefresh>((event, emit) async {
+      emit(state.copyWith(model: state.model.copyWith(refreshing: true)));
+
+      await _getQuotesByPortfolioIdUseCase.execute(GetQuotesByPortfolioIdUseCaseArguments(
+        portfolioId: _portfolioId,
+        force: true,
+      ));
+
+      emit(await _getState());
+
+      emit(state.copyWith(model: state.model.copyWith(refreshing: false)));
+    });
   }
 
   Future<PortfolioDetailsState> _getState() async {

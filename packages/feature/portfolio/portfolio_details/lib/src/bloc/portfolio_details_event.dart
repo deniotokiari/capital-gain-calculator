@@ -9,4 +9,6 @@ class PortfolioDetailsEvent with _$PortfolioDetailsEvent {
 
   factory PortfolioDetailsEvent.addSymbol(SymbolSearchWidgetNavigationResult symbol) =
       PortfolioDetailsEventAddSymbol;
+
+  factory PortfolioDetailsEvent.refresh() = PortfolioDetailsEventRefresh;
 }
