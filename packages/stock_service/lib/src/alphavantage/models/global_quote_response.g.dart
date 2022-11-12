@@ -19,7 +19,7 @@ Map<String, dynamic> _$GlobalQuoteContainerResponseToJson(
     };
 
 GlobalQuote _$GlobalQuoteFromJson(Map<String, dynamic> json) => GlobalQuote(
-      change: json['09. change"'] as String,
+      change: json['09. change'] as String,
       changePercent: json['10. change percent'] as String,
       high: json['03. high'] as String,
       latestTradingDay: json['07. latest trading day'] as String,
@@ -41,6 +41,6 @@ Map<String, dynamic> _$GlobalQuoteToJson(GlobalQuote instance) =>
       '06. volume': instance.volume,
       '07. latest trading day': instance.latestTradingDay,
       '08. previous close': instance.previousClose,
-      '09. change"': instance.change,
+      '09. change': instance.change,
       '10. change percent': instance.changePercent,
     };

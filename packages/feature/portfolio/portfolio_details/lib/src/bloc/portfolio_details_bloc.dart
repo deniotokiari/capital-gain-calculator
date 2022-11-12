@@ -21,6 +21,10 @@ class PortfolioDetailsBloc extends Bloc<PortfolioDetailsEvent, PortfolioDetailsS
   ) : super(PortfolioDetailsState.idle(PortfolioDetailsViewModel.initial())) {
     on<PortfolioDetailsEventInit>((event, emit) async {
       _portfolioId = event.portfolioId;
+      await _getQuotesByPortfolioIdUseCase.execute(GetQuotesByPortfolioIdUseCaseArguments(
+        portfolioId: _portfolioId,
+        force: false,
+      ));
 
       emit(await _getState());
     });
@@ -40,11 +44,6 @@ class PortfolioDetailsBloc extends Bloc<PortfolioDetailsEvent, PortfolioDetailsS
   Future<PortfolioDetailsState> _getState() async {
     final instruments = await _getInstrumentsByPortfolioId.execute(_portfolioId);
     final List<String> tickers = [...instruments.map((e) => e.symbol!.ticker)];
-    final quotes =
-        await _getQuotesByPortfolioIdUseCase.execute(GetQuotesByPortfolioIdUseCaseArguments(
-      portfolioId: _portfolioId,
-      force: false,
-    ));
 
     return state.copyWith(
       model: state.model.copyWith(
@@ -52,13 +51,7 @@ class PortfolioDetailsBloc extends Bloc<PortfolioDetailsEvent, PortfolioDetailsS
         portfolioName: await _getPortfolioNameByIdUseCase.execute(_portfolioId),
         symbols: [
           ...instruments.map(
-            (e) => PortfolioDetailsSymbolViewModel.fromSymbolAndPhysicalCurrency(
-              e,
-              quotes.quotes
-                  .where((element) => element.symbol.ticker == e.symbol!.ticker)
-                  .map((e) => e.previousClose.value)
-                  .toList(growable: false),
-            ),
+            (e) => PortfolioDetailsSymbolViewModel.fromInstrument(e),
           )
         ],
       ),

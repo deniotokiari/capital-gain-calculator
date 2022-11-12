@@ -70,9 +70,12 @@ class PortfolioDetailsWidget extends StatelessWidget {
                           contentPadding: const EdgeInsets.all(0),
                           title: ExpansionTile(
                             expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-                            title: Text(
-                              style: const TextStyle(inherit: true, fontSize: 14),
-                              item.label,
+                            title: _getInstrumentText(
+                              ticker: item.ticker,
+                              currency: item.currency,
+                              marketValue: item.marketValue,
+                              returnValue: item.returnValue,
+                              returnPercent: item.returnPercent,
                             ),
                             children: [
                               TextButton(
@@ -106,4 +109,63 @@ class PortfolioDetailsWidget extends StatelessWidget {
           ),
         ),
       );
+
+  Widget _getInstrumentText({
+    required String ticker,
+    required String currency,
+    required double marketValue,
+    required double returnValue,
+    required double returnPercent,
+  }) {
+    final tickerWidget = Expanded(
+        child: Text(
+      ticker,
+      style: const TextStyle(inherit: true, fontSize: 14),
+    ));
+
+    if (returnValue != 0 && returnPercent != 0) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          tickerWidget,
+          Expanded(
+            child: Text(
+              '$currency${marketValue.toStringAsFixed(2)}',
+              style: const TextStyle(
+                inherit: true,
+                fontSize: 14,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              returnValue > 0
+                  ? '+$currency${returnValue.toStringAsFixed(2)}'
+                  : '-$currency${returnValue.abs().toStringAsFixed(2)}',
+              style: TextStyle(
+                inherit: true,
+                fontSize: 14,
+                color: returnValue > 0 ? Colors.green : Colors.red,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              returnPercent > 0
+                  ? '+${(returnPercent * 100).toStringAsFixed(2)}%'
+                  : '${(returnPercent * 100).toStringAsFixed(2)}%',
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                inherit: true,
+                fontSize: 14,
+                color: returnPercent > 0 ? Colors.green : Colors.red,
+              ),
+            ),
+          ),
+        ],
+      );
+    } else {
+      return tickerWidget;
+    }
+  }
 }

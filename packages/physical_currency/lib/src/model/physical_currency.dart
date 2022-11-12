@@ -10,4 +10,12 @@ class PhysicalCurrency {
     required this.name,
     required this.isUsd,
   });
+
+  String get sign {
+    if (code == 'USD') {
+      return '\$';
+    } else {
+      return '';
+    }
+  }
 }

@@ -66,7 +66,7 @@ class GlobalQuote implements global_quote_response_interface.GlobalQuote {
   @override
   String previousClose;
 
-  @JsonKey(name: '09. change"')
+  @JsonKey(name: '09. change')
   @override
   String change;
 

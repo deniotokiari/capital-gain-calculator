@@ -59,7 +59,7 @@ class GetQuotesByPortfolioIdUseCase
     required Symbol symbol,
     required bool force,
   }) async {
-    var fromCache = await _quoteRepository.where((map) => map['symbolId'] == symbol.ticker);
+    var fromCache = await _quoteRepository.where((map) => map['symbolId'] == symbol.id);
 
     if (fromCache.isEmpty || force) {
       final result = await _stockServiceApi.globalQuote(symbol.ticker).runCatching();
