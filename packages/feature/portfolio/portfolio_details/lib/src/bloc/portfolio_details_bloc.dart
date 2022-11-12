@@ -44,11 +44,28 @@ class PortfolioDetailsBloc extends Bloc<PortfolioDetailsEvent, PortfolioDetailsS
   Future<PortfolioDetailsState> _getState() async {
     final instruments = await _getInstrumentsByPortfolioId.execute(_portfolioId);
     final List<String> tickers = [...instruments.map((e) => e.symbol!.ticker)];
+    final marketPrice = instruments.fold<double>(
+      0,
+      (p, e) => p + e.lastPrice * e.count,
+    );
+    final returnValue = instruments.fold<double>(
+      0,
+      (p, e) => p + (e.count * e.lastPrice - e.invested),
+    );
+    final invested = instruments.fold<double>(
+      0,
+      (p, e) => p + e.invested,
+    );
+    final returnPercent = invested == 0 ? 0.0 : returnValue / invested;
 
     return state.copyWith(
       model: state.model.copyWith(
         tickers: tickers,
+        currency: instruments.isEmpty ? '' : instruments.first.symbol!.physicalCurrency.sign,
         portfolioName: await _getPortfolioNameByIdUseCase.execute(_portfolioId),
+        marketPrice: marketPrice,
+        returnValue: returnValue,
+        returnPercent: returnPercent,
         symbols: [
           ...instruments.map(
             (e) => PortfolioDetailsSymbolViewModel.fromInstrument(e),

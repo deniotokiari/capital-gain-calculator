@@ -8,12 +8,20 @@ part 'portfolio_details_view_model.freezed.dart';
 class PortfolioDetailsViewModel with _$PortfolioDetailsViewModel {
   factory PortfolioDetailsViewModel(
     String portfolioName,
+    String currency,
+    double marketPrice,
+    double returnValue,
+    double returnPercent,
     List<String> tickers,
     List<PortfolioDetailsSymbolViewModel> symbols,
   ) = $PortfolioDetailsViewModel;
 
   factory PortfolioDetailsViewModel.initial() => PortfolioDetailsViewModel(
         '',
+        '',
+        0,
+        0,
+        0,
         [],
         [],
       );

@@ -29,12 +29,66 @@ class PortfolioDetailsWidget extends StatelessWidget {
                   builder: (context, state) => Container(
                     width: double.infinity,
                     color: Colors.blue,
-                    padding: const EdgeInsets.all(4),
-                    child: Center(
-                        child: Text(
-                      state.model.portfolioName,
-                      style: const TextStyle(inherit: true, color: Colors.white),
-                    )),
+                    padding: const EdgeInsets.all(8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          state.model.portfolioName,
+                          style: const TextStyle(inherit: true, color: Colors.white),
+                        ),
+                        state.model.marketPrice != 0
+                            ? Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      '${state.model.currency}${state.model.marketPrice.toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        inherit: true,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(2),
+                                        color:
+                                            state.model.returnValue > 0 ? Colors.green : Colors.red,
+                                        child: Text(
+                                          '${state.model.currency}${state.model.returnValue > 0 ? '+' : ''}${state.model.returnValue.toStringAsFixed(2)}',
+                                          style: const TextStyle(
+                                            inherit: true,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(2),
+                                        color: state.model.returnPercent > 0
+                                            ? Colors.green
+                                            : Colors.red,
+                                        child: Text(
+                                          '${state.model.returnPercent > 0 ? '+' : ''}${(state.model.returnPercent * 100).toStringAsFixed(2)}%',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            inherit: true,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const SizedBox(),
+                      ],
+                    ),
                   ),
                 ),
                 Builder(
