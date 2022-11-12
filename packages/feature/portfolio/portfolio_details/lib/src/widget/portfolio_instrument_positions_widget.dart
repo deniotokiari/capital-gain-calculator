@@ -38,14 +38,57 @@ class PortfolioInstrumentPositionsWidget extends StatelessWidget {
       );
 
   Widget _getPosition(PortfolioInstrumentPositionViewModel item) => Padding(
-    padding: const EdgeInsets.only(top: 4, bottom: 4),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        padding: const EdgeInsets.only(top: 4, bottom: 4),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(child: Text(item.date)),
-            Expanded(child:Text(item.count)),
-            Expanded(child:Text(item.price)),
+            Expanded(
+              child: Text(
+                item.date,
+                style: const TextStyle(inherit: true, fontSize: 13),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                item.count,
+                textAlign: TextAlign.end,
+                style: const TextStyle(inherit: true, fontSize: 13),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                '${item.currency}${item.marketValue.toStringAsFixed(2)}',
+                textAlign: TextAlign.end,
+                style: const TextStyle(inherit: true, fontSize: 13),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                item.returnValue > 0
+                    ? '+${item.currency}${item.returnValue.toStringAsFixed(2)}'
+                    : '-${item.currency}${item.returnValue.abs().toStringAsFixed(2)}',
+                textAlign: TextAlign.end,
+                style: TextStyle(
+                  inherit: true,
+                  fontSize: 14,
+                  color: item.returnValue > 0 ? Colors.green : Colors.red,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                item.returnPercent > 0
+                    ? '+${(item.returnPercent * 100).toStringAsFixed(2)}%'
+                    : '${(item.returnPercent * 100).toStringAsFixed(2)}%',
+                textAlign: TextAlign.end,
+                style: TextStyle(
+                  inherit: true,
+                  fontSize: 13,
+                  color: item.returnPercent > 0 ? Colors.green : Colors.red,
+                ),
+              ),
+            ),
           ],
         ),
-  );
+      );
 }

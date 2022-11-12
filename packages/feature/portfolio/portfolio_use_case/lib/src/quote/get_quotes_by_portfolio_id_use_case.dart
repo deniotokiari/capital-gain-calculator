@@ -73,7 +73,7 @@ class GetQuotesByPortfolioIdUseCase
             ),
             previousClose: db.PhysicalCurrencyValue(
               currencyId: symbol.physicalCurrency.id,
-              value: double.parse(success.data.globalQuote.previousClose),
+              value: double.parse(success.data.globalQuote.price),
             ),
           )
         ],

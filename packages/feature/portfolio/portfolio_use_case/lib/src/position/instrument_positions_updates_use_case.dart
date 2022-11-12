@@ -24,6 +24,9 @@ class InstrumentPositionsUpdatesUseCase implements UseCase<String, Stream<Positi
             value: item.price.value,
           ),
           date: item.date,
+          lastPrice: 0,
+          returnValue: 0,
+          returnPercent: 0,
         );
       }
     }

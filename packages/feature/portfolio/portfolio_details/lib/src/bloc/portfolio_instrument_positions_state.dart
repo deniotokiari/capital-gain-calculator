@@ -23,21 +23,30 @@ class PortfolioInstrumentPositionsViewModel {
   factory PortfolioInstrumentPositionsViewModel.fromPositions(List<Position> items) =>
       PortfolioInstrumentPositionsViewModel([
         ...items.map((e) => PortfolioInstrumentPositionViewModel(
-              count: e.count.toString(),
-              price: e.averagePrice,
               date: _dateFormatter.format(e.date),
+              count: e.count.toString(),
+              currency: e.price.currency.sign,
+              marketValue: e.price.value + e.returnValue,
+              returnValue: e.returnValue,
+              returnPercent: e.returnPercent,
             ))
       ]);
 }
 
 class PortfolioInstrumentPositionViewModel {
-  final String count;
-  final String price;
   final String date;
+  final String count;
+  final String currency;
+  final double marketValue;
+  final double returnValue;
+  final double returnPercent;
 
   PortfolioInstrumentPositionViewModel({
-    required this.count,
-    required this.price,
     required this.date,
+    required this.count,
+    required this.currency,
+    required this.marketValue,
+    required this.returnValue,
+    required this.returnPercent,
   });
 }

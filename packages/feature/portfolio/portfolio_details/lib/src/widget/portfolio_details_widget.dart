@@ -78,6 +78,7 @@ class PortfolioDetailsWidget extends StatelessWidget {
                               returnPercent: item.returnPercent,
                             ),
                             children: [
+                              PortfolioInstrumentPositionsWidget(item.instrumentId),
                               TextButton(
                                 onPressed: () async {
                                   await showDialog(
@@ -87,7 +88,6 @@ class PortfolioDetailsWidget extends StatelessWidget {
                                 },
                                 child: const Text('+ Add Position'),
                               ),
-                              PortfolioInstrumentPositionsWidget(item.instrumentId),
                             ],
                           ),
                         );
