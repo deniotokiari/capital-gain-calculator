@@ -25,6 +25,8 @@ dependencies:
     path: ./packages/stock_service
   db:
     path: ./packages/db
+  cloud_sync_service:
+    path: ./packages/cloud_sync_service
 
   flutter:
     sdk: flutter

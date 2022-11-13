@@ -1,4 +1,4 @@
-name: stock_service
+name: cloud_sync_service
 description: A new Flutter package project.
 version: 0.0.1
 publish_to: 'none' 
@@ -23,5 +23,3 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner:  ^2.2.0
   json_serializable: ^6.3.1
-
-flutter:
