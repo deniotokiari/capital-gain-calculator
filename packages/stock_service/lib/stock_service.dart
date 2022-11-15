@@ -13,6 +13,10 @@ export 'src/model/news_and_sentiment_response.dart';
 class StockServiceModule extends DependencyModule {
   @override
   void init() {
-    registerLazySingleton<StockServiceApi>(() => AlphaVantageService());
+    registerLazySingleton<StockServiceApi>(
+      () => AlphaVantageService(
+        () => get(instanceName: 'alphavantage_api_key'),
+      ),
+    );
   }
 }

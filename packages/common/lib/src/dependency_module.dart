@@ -5,7 +5,10 @@ abstract class DependencyModule {
 
   void init();
 
-  T get<T extends Object>() => _getIt.get<T>();
+  T get<T extends Object>({
+    String? instanceName,
+  }) =>
+      _getIt.get<T>(instanceName: instanceName);
 
   void registerFactory<T extends Object>(
     FactoryFunc<T> factoryFunc, {
@@ -31,7 +34,13 @@ abstract class DependencyModule {
     _getIt.registerSingleton(instance);
   }
 
-  void registerLazySingleton<T extends Object>(FactoryFunc<T> factoryFunc) {
-    _getIt.registerLazySingleton(factoryFunc);
+  void registerLazySingleton<T extends Object>(
+    FactoryFunc<T> factoryFunc, {
+    String? instanceName,
+  }) {
+    _getIt.registerLazySingleton(
+      factoryFunc,
+      instanceName: instanceName,
+    );
   }
 }

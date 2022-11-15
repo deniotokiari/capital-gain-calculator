@@ -26,9 +26,7 @@ class MainDependencyModule extends DependencyModule {
   void init() {
     registerLazySingleton<LocalStorage>(() => LocalStorage());
     registerFactory<MainBloc>(
-      () => MainBloc(
-        get(),
-      ),
+      () => MainBloc(),
     );
 
     for (var module in _modules) {

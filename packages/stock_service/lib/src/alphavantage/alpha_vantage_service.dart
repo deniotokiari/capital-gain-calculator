@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:stock_service/src/alphavantage/models/global_quote_response.dart';
 import 'package:synchronized/synchronized.dart' as synchronized;
 
@@ -20,7 +21,6 @@ const _limit = 'limit';
 class AlphaVantageService implements StockServiceApi {
   final _stockApiDio = Dio(BaseOptions(
     baseUrl: 'https://www.alphavantage.co',
-    queryParameters: {'apikey': 'YE5DPYCSWSMC689Q'},
   ));
   final _currencyApiDio = Dio(BaseOptions(
     baseUrl: 'https://www.alphavantage.co',
@@ -32,6 +32,12 @@ class AlphaVantageService implements StockServiceApi {
     rate: const Duration(minutes: 1),
   );
 
+  final ValueGetter<Future<String>> _apiKey;
+
+  AlphaVantageService(
+    this._apiKey,
+  );
+
   Future<T> executeWithRequestsLimitCheck<T>(Future<T> Function() future) =>
       _rateLimit.withRateLimit(future);
 
@@ -40,10 +46,11 @@ class AlphaVantageService implements StockServiceApi {
     Map<String, dynamic> queryParameters,
     T Function(Map<String, dynamic> json) convert,
   ) async {
-    final response = await executeWithRequestsLimitCheck(() => _stockApiDio.get(
+    final response = await executeWithRequestsLimitCheck(() async => _stockApiDio.get(
           '/query',
           queryParameters: {
             _function: function,
+            'apikey': await _apiKey(),
             ...queryParameters,
           },
         ));
