@@ -213,27 +213,24 @@ class PortfolioDetailsWidget extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Text(
-              returnValue > 0
-                  ? '+$currency${returnValue.toStringAsFixed(2)}'
-                  : '-$currency${returnValue.abs().toStringAsFixed(2)}',
-              style: TextStyle(
+            child: CurrencyValueWidget(
+              currency: currency,
+              value: returnValue,
+              percent: false,
+              style: const TextStyle(
                 inherit: true,
                 fontSize: 14,
-                color: returnValue > 0 ? Colors.green : Colors.red,
               ),
             ),
           ),
           Expanded(
-            child: Text(
-              returnPercent > 0
-                  ? '+${(returnPercent * 100).toStringAsFixed(2)}%'
-                  : '${(returnPercent * 100).toStringAsFixed(2)}%',
-              textAlign: TextAlign.end,
-              style: TextStyle(
+            child: CurrencyValueWidget(
+              currency: '',
+              value: returnPercent,
+              percent: true,
+              style: const TextStyle(
                 inherit: true,
                 fontSize: 14,
-                color: returnPercent > 0 ? Colors.green : Colors.red,
               ),
             ),
           ),

@@ -10,6 +10,7 @@ class AllPortfoliosModule extends DependencyModule {
       () => AllPortfoliosBloc(
         get(),
         get(),
+        get(),
       ),
     );
   }
