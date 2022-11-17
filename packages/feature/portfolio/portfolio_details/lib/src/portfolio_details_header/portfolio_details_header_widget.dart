@@ -2,6 +2,7 @@ import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio_details/src/portfolio_details_header/portfolio_details_header_bloc.dart';
+import 'package:portfolio_details/src/portfolio_details_header/portfolio_details_header_event.dart';
 import 'package:portfolio_details/src/portfolio_details_header/portfolio_details_header_state.dart';
 
 class PortfolioDetailsHeaderWidget extends StatelessWidget {
@@ -18,12 +19,8 @@ class PortfolioDetailsHeaderWidget extends StatelessWidget {
         color: Colors.blue,
         padding: const EdgeInsets.all(8),
         child: BlocProvider<PortfolioDetailsHeaderBloc>(
-          create: (_) => get<PortfolioDetailsHeaderBloc>(),
+          create: (_) => get<PortfolioDetailsHeaderBloc>()..add(PortfolioDetailsHeaderEvent.init(_portfolioId)),
           child: BlocBuilder<PortfolioDetailsHeaderBloc, PortfolioDetailsHeaderState>(
-            buildWhen: (previous, current) {
-              print('LOG_: $previous => $current');
-              return previous.mapOrNull(loading: (_) => true) ?? false;
-            },
             builder: (context, state) => state.map(
               idle: (idle) => _buildHeader(idle),
               refreshing: (refreshing) => _buildHeader(refreshing),
@@ -33,7 +30,13 @@ class PortfolioDetailsHeaderWidget extends StatelessWidget {
         ),
       );
 
-  Widget _buildHeader(PortfolioDetailsHeaderStateViewModel viewModel) {
-    return SizedBox();
+  Widget _buildHeader(PortfolioDetailsHeaderStateViewModel state) {
+    final model = state.viewModel.mapOrNull(model: (model) => model);
+
+    if (model != null) {
+      return Text('${model.portfolioName} => ${model.marketValue.market}');
+    } else {
+      return const SizedBox();
+    }
   }
 }

@@ -14,6 +14,8 @@ class PhysicalCurrency {
   String get sign {
     if (code == 'USD') {
       return '\$';
+    } else if (code == 'EUR') {
+      return '£';
     } else {
       return '';
     }

@@ -22,7 +22,22 @@ class PortfolioDetailsHeaderBloc
     on<PortfolioDetailsHeaderEventInit>((event, emit) async {
       _portfolioId = event.portfolioId;
 
-      
+      final marketValue = await _getPortfolioMarketValueUseCase.execute(
+        GetPortfolioMarketValueUseCaseArguments(
+          portfolioId: _portfolioId,
+        ),
+      );
+
+      emit(
+        PortfolioDetailsHeaderState.idle(
+          PortfolioDetailsHeaderViewModel.model(
+            portfolioName: await _getPortfolioNameByIdUseCase.execute(_portfolioId),
+            marketValue: marketValue.value,
+            returnValue: marketValue.value,
+            returnPercent: 0,
+          ),
+        ),
+      );
     });
     on<PortfolioDetailsHeaderEventRefresh>((event, emit) {});
   }
