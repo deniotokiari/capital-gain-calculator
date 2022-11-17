@@ -5,6 +5,7 @@ import 'package:news_api/news_api.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_bloc.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_event.dart';
 import 'package:portfolio_details/src/bloc/portfolio_details_state.dart';
+import 'package:portfolio_details/src/portfolio_details_header/portfolio_details_header_widget.dart';
 import 'package:portfolio_details/src/widget/portfolio_add_position_widget.dart';
 import 'package:portfolio_details/src/widget/portfolio_instrument_positions_widget.dart';
 import 'package:symbol_api/symbol_api.dart';
@@ -26,7 +27,7 @@ class PortfolioDetailsWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BlocBuilder<PortfolioDetailsBloc, PortfolioDetailsState>(
-                  builder: (context, state) => Container(
+                  builder: (context, state) => PortfolioDetailsHeaderWidget(_portfolioId)/*Container(
                     width: double.infinity,
                     color: Colors.blue,
                     padding: const EdgeInsets.all(8),
@@ -110,7 +111,7 @@ class PortfolioDetailsWidget extends StatelessWidget {
                             : const SizedBox(),
                       ],
                     ),
-                  ),
+                  )*/,
                 ),
                 Builder(
                   builder: ((context) => TextButton(
