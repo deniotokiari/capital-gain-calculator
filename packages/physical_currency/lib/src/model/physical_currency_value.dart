@@ -11,5 +11,5 @@ class PhysicalCurrencyValue {
 
   String get market => '${currency.sign}${value.toStringAsFixed(2)}';
 
-  String get gain => '${currency.sign}${value < 0 ? '-' : '+'}${value.abs().toStringAsFixed(2)}';
+  String get gainOrLoss => '${value < 0 ? '-' : '+'}${currency.sign}${value.abs().toStringAsFixed(2)}';
 }

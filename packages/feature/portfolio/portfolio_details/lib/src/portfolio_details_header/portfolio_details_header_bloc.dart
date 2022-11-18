@@ -10,10 +10,12 @@ class PortfolioDetailsHeaderBloc
 
   final GetPortfolioNameByIdUseCase _getPortfolioNameByIdUseCase;
   final GetPortfolioMarketValueUseCase _getPortfolioMarketValueUseCase;
+  final GetQuotesByPortfolioIdUseCase _getQuotesByPortfolioIdUseCase;
 
   PortfolioDetailsHeaderBloc(
     this._getPortfolioNameByIdUseCase,
     this._getPortfolioMarketValueUseCase,
+    this._getQuotesByPortfolioIdUseCase,
   ) : super(
           PortfolioDetailsHeaderState.loading(
             PortfolioDetailsHeaderViewModel.empty(),
@@ -22,23 +24,34 @@ class PortfolioDetailsHeaderBloc
     on<PortfolioDetailsHeaderEventInit>((event, emit) async {
       _portfolioId = event.portfolioId;
 
-      final marketValue = await _getPortfolioMarketValueUseCase.execute(
-        GetPortfolioMarketValueUseCaseArguments(
+      emit(PortfolioDetailsHeaderState.idle(await _getViewModel()));
+    });
+    on<PortfolioDetailsHeaderEventRefresh>((event, emit) async {
+      emit(PortfolioDetailsHeaderState.refreshing(state.viewModel));
+
+      await _getQuotesByPortfolioIdUseCase.execute(
+        GetQuotesByPortfolioIdUseCaseArguments(
           portfolioId: _portfolioId,
+          force: true,
         ),
       );
 
-      emit(
-        PortfolioDetailsHeaderState.idle(
-          PortfolioDetailsHeaderViewModel.model(
-            portfolioName: await _getPortfolioNameByIdUseCase.execute(_portfolioId),
-            marketValue: marketValue.value,
-            returnValue: marketValue.value,
-            returnPercent: 0,
-          ),
-        ),
-      );
+      emit(PortfolioDetailsHeaderState.idle(await _getViewModel()));
     });
-    on<PortfolioDetailsHeaderEventRefresh>((event, emit) {});
+  }
+
+  Future<PortfolioDetailsHeaderViewModel> _getViewModel() async {
+    final marketValue = await _getPortfolioMarketValueUseCase.execute(
+      GetPortfolioMarketValueUseCaseArguments(
+        portfolioId: _portfolioId,
+      ),
+    );
+
+    return PortfolioDetailsHeaderViewModel.model(
+      portfolioName: await _getPortfolioNameByIdUseCase.execute(_portfolioId),
+      marketValue: marketValue.value,
+      returnValue: marketValue.value,
+      returnPercent: 0,
+    );
   }
 }

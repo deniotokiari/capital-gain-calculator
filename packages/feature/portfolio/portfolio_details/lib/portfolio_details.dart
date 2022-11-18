@@ -40,6 +40,7 @@ class PortfolioDetailsModule extends DependencyModule {
       () => PortfolioDetailsHeaderBloc(
         get(),
         get(),
+        get(),
       ),
     );
   }
