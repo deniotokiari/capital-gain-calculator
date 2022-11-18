@@ -10,3 +10,4 @@ export 'src/pair.dart';
 export 'src/result.dart';
 export 'src/use_case.dart';
 export 'src/widget/currency_value_widget.dart';
+export 'src/percent_value.dart';

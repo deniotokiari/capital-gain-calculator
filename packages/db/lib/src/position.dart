@@ -29,8 +29,9 @@ class Position extends DbEntity {
   Iterable get itemsForId => [
         instrumentId,
         count,
-        date,
-        price,
+        _dateFormatter.format(date),
+        price.value,
+        price.currencyId,
       ];
 
   @override

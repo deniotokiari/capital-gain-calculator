@@ -22,74 +22,75 @@ class PortfolioDetailsHeaderWidget extends StatelessWidget {
           create: (_) => get<PortfolioDetailsHeaderBloc>()
             ..add(PortfolioDetailsHeaderEvent.init(_portfolioId)),
           child: BlocBuilder<PortfolioDetailsHeaderBloc, PortfolioDetailsHeaderState>(
-            builder: (context, state) => state.maybeMap(
-              orElse: () => _buildHeader(context, state),
-              loading: (_) => const CircularProgressIndicator.adaptive(),
-            ),
+            builder: (context, state) {
+              if (state.viewModel.loading) {
+                return const CircularProgressIndicator.adaptive();
+              } else {
+                return _buildHeader(context, state);
+              }
+            },
           ),
         ),
       );
 
   Widget _buildHeader(BuildContext context, PortfolioDetailsHeaderState state) {
-    final model = state.viewModel.mapOrNull(model: (model) => model);
+    final portfolioName = state.viewModel.portfolioName;
+    final marketValue = state.viewModel.marketValue;
+    final returnValue = state.viewModel.returnValue;
+    final returnPercent = state.viewModel.returnPercent;
 
-    if (model != null) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (portfolioName != null)
           Text(
-            model.portfolioName,
+            portfolioName,
             style: const TextStyle(inherit: true, color: Colors.white),
           ),
-          if (model.marketValue.value > 0)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: Text(
-                model.marketValue.market,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  inherit: true,
-                  color: Colors.white,
-                ),
+        if (marketValue != null && marketValue.value > 0)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            child: Text(
+              marketValue.market,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                inherit: true,
+                color: Colors.white,
               ),
             ),
-          if (model.marketValue.value > 0)
-            _getGainLossWidget(
-              model.returnValue.value,
-              model.returnValue.gainOrLoss,
-            ),
-          if (model.marketValue.value > 0)
-            _getGainLossWidget(
-              model.returnPercent,
-              '${model.returnPercent > 0 ? '+' : '-'}${model.returnPercent.abs()}%',
-            ),
-          state.maybeMap(
-            refreshing: (_) => const Padding(
-              padding: EdgeInsets.only(left: 2),
-              child: CircularProgressIndicator.adaptive(),
-            ),
-            orElse: () => IconButton(
-              hoverColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              iconSize: 20,
-              constraints: const BoxConstraints(),
-              padding: const EdgeInsets.only(left: 2),
-              onPressed: () {
-                context
-                    .read<PortfolioDetailsHeaderBloc>()
-                    .add(PortfolioDetailsHeaderEvent.refresh());
-              },
-              tooltip: 'Refresh',
-              icon: const Icon(Icons.refresh, color: Colors.white),
-            ),
           ),
-        ],
-      );
-    } else {
-      return const SizedBox();
-    }
+        if (returnValue != null && returnValue.value != 0)
+          _getGainLossWidget(
+            returnValue.value,
+            returnValue.gainOrLoss,
+          ),
+        if (returnPercent != null && returnPercent.value != 0)
+          _getGainLossWidget(
+            returnPercent.value,
+            returnPercent.formatted,
+          ),
+        if (state.viewModel.refreshing)
+          const Padding(
+            padding: EdgeInsets.only(left: 2),
+            child: CircularProgressIndicator.adaptive(),
+          )
+        else if ([marketValue, returnValue, returnPercent].every((e) => e != null))
+          IconButton(
+            hoverColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            iconSize: 20,
+            constraints: const BoxConstraints(),
+            padding: const EdgeInsets.only(left: 2),
+            onPressed: () {
+              context.read<PortfolioDetailsHeaderBloc>().add(PortfolioDetailsHeaderEvent.refresh());
+            },
+            tooltip: 'Refresh',
+            icon: const Icon(Icons.refresh, color: Colors.white),
+          ),
+      ],
+    );
   }
 
   Widget _getGainLossWidget(double value, String text) => Padding(

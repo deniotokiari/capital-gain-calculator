@@ -20,18 +20,21 @@ mixin _$PortfolioDetailsHeaderEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String portfolioId) init,
     required TResult Function() refresh,
+    required TResult Function() update,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String portfolioId)? init,
     TResult Function()? refresh,
+    TResult Function()? update,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String portfolioId)? init,
     TResult Function()? refresh,
+    TResult Function()? update,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$PortfolioDetailsHeaderEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioDetailsHeaderEventInit value) init,
     required TResult Function(PortfolioDetailsHeaderEventRefresh value) refresh,
+    required TResult Function(PortfolioDetailsHeaderEventUpdate value) update,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PortfolioDetailsHeaderEventInit value)? init,
     TResult Function(PortfolioDetailsHeaderEventRefresh value)? refresh,
+    TResult Function(PortfolioDetailsHeaderEventUpdate value)? update,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioDetailsHeaderEventInit value)? init,
     TResult Function(PortfolioDetailsHeaderEventRefresh value)? refresh,
+    TResult Function(PortfolioDetailsHeaderEventUpdate value)? update,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -147,6 +153,7 @@ class _$PortfolioDetailsHeaderEventInit
   TResult when<TResult extends Object?>({
     required TResult Function(String portfolioId) init,
     required TResult Function() refresh,
+    required TResult Function() update,
   }) {
     return init(portfolioId);
   }
@@ -156,6 +163,7 @@ class _$PortfolioDetailsHeaderEventInit
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String portfolioId)? init,
     TResult Function()? refresh,
+    TResult Function()? update,
   }) {
     return init?.call(portfolioId);
   }
@@ -165,6 +173,7 @@ class _$PortfolioDetailsHeaderEventInit
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String portfolioId)? init,
     TResult Function()? refresh,
+    TResult Function()? update,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -178,6 +187,7 @@ class _$PortfolioDetailsHeaderEventInit
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioDetailsHeaderEventInit value) init,
     required TResult Function(PortfolioDetailsHeaderEventRefresh value) refresh,
+    required TResult Function(PortfolioDetailsHeaderEventUpdate value) update,
   }) {
     return init(this);
   }
@@ -187,6 +197,7 @@ class _$PortfolioDetailsHeaderEventInit
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PortfolioDetailsHeaderEventInit value)? init,
     TResult Function(PortfolioDetailsHeaderEventRefresh value)? refresh,
+    TResult Function(PortfolioDetailsHeaderEventUpdate value)? update,
   }) {
     return init?.call(this);
   }
@@ -196,6 +207,7 @@ class _$PortfolioDetailsHeaderEventInit
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioDetailsHeaderEventInit value)? init,
     TResult Function(PortfolioDetailsHeaderEventRefresh value)? refresh,
+    TResult Function(PortfolioDetailsHeaderEventUpdate value)? update,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -264,6 +276,7 @@ class _$PortfolioDetailsHeaderEventRefresh
   TResult when<TResult extends Object?>({
     required TResult Function(String portfolioId) init,
     required TResult Function() refresh,
+    required TResult Function() update,
   }) {
     return refresh();
   }
@@ -273,6 +286,7 @@ class _$PortfolioDetailsHeaderEventRefresh
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String portfolioId)? init,
     TResult Function()? refresh,
+    TResult Function()? update,
   }) {
     return refresh?.call();
   }
@@ -282,6 +296,7 @@ class _$PortfolioDetailsHeaderEventRefresh
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String portfolioId)? init,
     TResult Function()? refresh,
+    TResult Function()? update,
     required TResult orElse(),
   }) {
     if (refresh != null) {
@@ -295,6 +310,7 @@ class _$PortfolioDetailsHeaderEventRefresh
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioDetailsHeaderEventInit value) init,
     required TResult Function(PortfolioDetailsHeaderEventRefresh value) refresh,
+    required TResult Function(PortfolioDetailsHeaderEventUpdate value) update,
   }) {
     return refresh(this);
   }
@@ -304,6 +320,7 @@ class _$PortfolioDetailsHeaderEventRefresh
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PortfolioDetailsHeaderEventInit value)? init,
     TResult Function(PortfolioDetailsHeaderEventRefresh value)? refresh,
+    TResult Function(PortfolioDetailsHeaderEventUpdate value)? update,
   }) {
     return refresh?.call(this);
   }
@@ -313,6 +330,7 @@ class _$PortfolioDetailsHeaderEventRefresh
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioDetailsHeaderEventInit value)? init,
     TResult Function(PortfolioDetailsHeaderEventRefresh value)? refresh,
+    TResult Function(PortfolioDetailsHeaderEventUpdate value)? update,
     required TResult orElse(),
   }) {
     if (refresh != null) {
@@ -326,4 +344,122 @@ abstract class PortfolioDetailsHeaderEventRefresh
     implements PortfolioDetailsHeaderEvent {
   factory PortfolioDetailsHeaderEventRefresh() =
       _$PortfolioDetailsHeaderEventRefresh;
+}
+
+/// @nodoc
+abstract class _$$PortfolioDetailsHeaderEventUpdateCopyWith<$Res> {
+  factory _$$PortfolioDetailsHeaderEventUpdateCopyWith(
+          _$PortfolioDetailsHeaderEventUpdate value,
+          $Res Function(_$PortfolioDetailsHeaderEventUpdate) then) =
+      __$$PortfolioDetailsHeaderEventUpdateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PortfolioDetailsHeaderEventUpdateCopyWithImpl<$Res>
+    extends _$PortfolioDetailsHeaderEventCopyWithImpl<$Res>
+    implements _$$PortfolioDetailsHeaderEventUpdateCopyWith<$Res> {
+  __$$PortfolioDetailsHeaderEventUpdateCopyWithImpl(
+      _$PortfolioDetailsHeaderEventUpdate _value,
+      $Res Function(_$PortfolioDetailsHeaderEventUpdate) _then)
+      : super(_value, (v) => _then(v as _$PortfolioDetailsHeaderEventUpdate));
+
+  @override
+  _$PortfolioDetailsHeaderEventUpdate get _value =>
+      super._value as _$PortfolioDetailsHeaderEventUpdate;
+}
+
+/// @nodoc
+
+class _$PortfolioDetailsHeaderEventUpdate
+    implements PortfolioDetailsHeaderEventUpdate {
+  _$PortfolioDetailsHeaderEventUpdate();
+
+  @override
+  String toString() {
+    return 'PortfolioDetailsHeaderEvent.update()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PortfolioDetailsHeaderEventUpdate);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String portfolioId) init,
+    required TResult Function() refresh,
+    required TResult Function() update,
+  }) {
+    return update();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String portfolioId)? init,
+    TResult Function()? refresh,
+    TResult Function()? update,
+  }) {
+    return update?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String portfolioId)? init,
+    TResult Function()? refresh,
+    TResult Function()? update,
+    required TResult orElse(),
+  }) {
+    if (update != null) {
+      return update();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PortfolioDetailsHeaderEventInit value) init,
+    required TResult Function(PortfolioDetailsHeaderEventRefresh value) refresh,
+    required TResult Function(PortfolioDetailsHeaderEventUpdate value) update,
+  }) {
+    return update(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PortfolioDetailsHeaderEventInit value)? init,
+    TResult Function(PortfolioDetailsHeaderEventRefresh value)? refresh,
+    TResult Function(PortfolioDetailsHeaderEventUpdate value)? update,
+  }) {
+    return update?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PortfolioDetailsHeaderEventInit value)? init,
+    TResult Function(PortfolioDetailsHeaderEventRefresh value)? refresh,
+    TResult Function(PortfolioDetailsHeaderEventUpdate value)? update,
+    required TResult orElse(),
+  }) {
+    if (update != null) {
+      return update(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PortfolioDetailsHeaderEventUpdate
+    implements PortfolioDetailsHeaderEvent {
+  factory PortfolioDetailsHeaderEventUpdate() =
+      _$PortfolioDetailsHeaderEventUpdate;
 }

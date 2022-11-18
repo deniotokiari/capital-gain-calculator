@@ -16,53 +16,70 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PortfolioDetailsHeaderViewModel {
+  String? get portfolioName => throw _privateConstructorUsedError;
+  PhysicalCurrencyValue? get marketValue => throw _privateConstructorUsedError;
+  PhysicalCurrencyValue? get returnValue => throw _privateConstructorUsedError;
+  PercentValue? get returnPercent => throw _privateConstructorUsedError;
+  bool get refreshing => throw _privateConstructorUsedError;
+  bool get loading => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String portfolioName,
-            PhysicalCurrencyValue marketValue,
-            PhysicalCurrencyValue returnValue,
-            double returnPercent)
-        model,
-    required TResult Function() empty,
+            String? portfolioName,
+            PhysicalCurrencyValue? marketValue,
+            PhysicalCurrencyValue? returnValue,
+            PercentValue? returnPercent,
+            bool refreshing,
+            bool loading)
+        values,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String portfolioName, PhysicalCurrencyValue marketValue,
-            PhysicalCurrencyValue returnValue, double returnPercent)?
-        model,
-    TResult Function()? empty,
+    TResult Function(
+            String? portfolioName,
+            PhysicalCurrencyValue? marketValue,
+            PhysicalCurrencyValue? returnValue,
+            PercentValue? returnPercent,
+            bool refreshing,
+            bool loading)?
+        values,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String portfolioName, PhysicalCurrencyValue marketValue,
-            PhysicalCurrencyValue returnValue, double returnPercent)?
-        model,
-    TResult Function()? empty,
+    TResult Function(
+            String? portfolioName,
+            PhysicalCurrencyValue? marketValue,
+            PhysicalCurrencyValue? returnValue,
+            PercentValue? returnPercent,
+            bool refreshing,
+            bool loading)?
+        values,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(PortfolioDetailsHeaderViewModelModel value) model,
-    required TResult Function(PortfolioDetailsHeaderViewModelEmpty value) empty,
+    required TResult Function(PortfolioDetailsHeaderViewModelValues value)
+        values,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PortfolioDetailsHeaderViewModelModel value)? model,
-    TResult Function(PortfolioDetailsHeaderViewModelEmpty value)? empty,
+    TResult Function(PortfolioDetailsHeaderViewModelValues value)? values,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(PortfolioDetailsHeaderViewModelModel value)? model,
-    TResult Function(PortfolioDetailsHeaderViewModelEmpty value)? empty,
+    TResult Function(PortfolioDetailsHeaderViewModelValues value)? values,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $PortfolioDetailsHeaderViewModelCopyWith<PortfolioDetailsHeaderViewModel>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -71,6 +88,13 @@ abstract class $PortfolioDetailsHeaderViewModelCopyWith<$Res> {
           PortfolioDetailsHeaderViewModel value,
           $Res Function(PortfolioDetailsHeaderViewModel) then) =
       _$PortfolioDetailsHeaderViewModelCopyWithImpl<$Res>;
+  $Res call(
+      {String? portfolioName,
+      PhysicalCurrencyValue? marketValue,
+      PhysicalCurrencyValue? returnValue,
+      PercentValue? returnPercent,
+      bool refreshing,
+      bool loading});
 }
 
 /// @nodoc
@@ -81,34 +105,6 @@ class _$PortfolioDetailsHeaderViewModelCopyWithImpl<$Res>
   final PortfolioDetailsHeaderViewModel _value;
   // ignore: unused_field
   final $Res Function(PortfolioDetailsHeaderViewModel) _then;
-}
-
-/// @nodoc
-abstract class _$$PortfolioDetailsHeaderViewModelModelCopyWith<$Res> {
-  factory _$$PortfolioDetailsHeaderViewModelModelCopyWith(
-          _$PortfolioDetailsHeaderViewModelModel value,
-          $Res Function(_$PortfolioDetailsHeaderViewModelModel) then) =
-      __$$PortfolioDetailsHeaderViewModelModelCopyWithImpl<$Res>;
-  $Res call(
-      {String portfolioName,
-      PhysicalCurrencyValue marketValue,
-      PhysicalCurrencyValue returnValue,
-      double returnPercent});
-}
-
-/// @nodoc
-class __$$PortfolioDetailsHeaderViewModelModelCopyWithImpl<$Res>
-    extends _$PortfolioDetailsHeaderViewModelCopyWithImpl<$Res>
-    implements _$$PortfolioDetailsHeaderViewModelModelCopyWith<$Res> {
-  __$$PortfolioDetailsHeaderViewModelModelCopyWithImpl(
-      _$PortfolioDetailsHeaderViewModelModel _value,
-      $Res Function(_$PortfolioDetailsHeaderViewModelModel) _then)
-      : super(
-            _value, (v) => _then(v as _$PortfolioDetailsHeaderViewModelModel));
-
-  @override
-  _$PortfolioDetailsHeaderViewModelModel get _value =>
-      super._value as _$PortfolioDetailsHeaderViewModelModel;
 
   @override
   $Res call({
@@ -116,57 +112,142 @@ class __$$PortfolioDetailsHeaderViewModelModelCopyWithImpl<$Res>
     Object? marketValue = freezed,
     Object? returnValue = freezed,
     Object? returnPercent = freezed,
+    Object? refreshing = freezed,
+    Object? loading = freezed,
   }) {
-    return _then(_$PortfolioDetailsHeaderViewModelModel(
+    return _then(_value.copyWith(
       portfolioName: portfolioName == freezed
           ? _value.portfolioName
           : portfolioName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       marketValue: marketValue == freezed
           ? _value.marketValue
           : marketValue // ignore: cast_nullable_to_non_nullable
-              as PhysicalCurrencyValue,
+              as PhysicalCurrencyValue?,
       returnValue: returnValue == freezed
           ? _value.returnValue
           : returnValue // ignore: cast_nullable_to_non_nullable
-              as PhysicalCurrencyValue,
+              as PhysicalCurrencyValue?,
       returnPercent: returnPercent == freezed
           ? _value.returnPercent
           : returnPercent // ignore: cast_nullable_to_non_nullable
-              as double,
+              as PercentValue?,
+      refreshing: refreshing == freezed
+          ? _value.refreshing
+          : refreshing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      loading: loading == freezed
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$PortfolioDetailsHeaderViewModelValuesCopyWith<$Res>
+    implements $PortfolioDetailsHeaderViewModelCopyWith<$Res> {
+  factory _$$PortfolioDetailsHeaderViewModelValuesCopyWith(
+          _$PortfolioDetailsHeaderViewModelValues value,
+          $Res Function(_$PortfolioDetailsHeaderViewModelValues) then) =
+      __$$PortfolioDetailsHeaderViewModelValuesCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String? portfolioName,
+      PhysicalCurrencyValue? marketValue,
+      PhysicalCurrencyValue? returnValue,
+      PercentValue? returnPercent,
+      bool refreshing,
+      bool loading});
+}
+
+/// @nodoc
+class __$$PortfolioDetailsHeaderViewModelValuesCopyWithImpl<$Res>
+    extends _$PortfolioDetailsHeaderViewModelCopyWithImpl<$Res>
+    implements _$$PortfolioDetailsHeaderViewModelValuesCopyWith<$Res> {
+  __$$PortfolioDetailsHeaderViewModelValuesCopyWithImpl(
+      _$PortfolioDetailsHeaderViewModelValues _value,
+      $Res Function(_$PortfolioDetailsHeaderViewModelValues) _then)
+      : super(
+            _value, (v) => _then(v as _$PortfolioDetailsHeaderViewModelValues));
+
+  @override
+  _$PortfolioDetailsHeaderViewModelValues get _value =>
+      super._value as _$PortfolioDetailsHeaderViewModelValues;
+
+  @override
+  $Res call({
+    Object? portfolioName = freezed,
+    Object? marketValue = freezed,
+    Object? returnValue = freezed,
+    Object? returnPercent = freezed,
+    Object? refreshing = freezed,
+    Object? loading = freezed,
+  }) {
+    return _then(_$PortfolioDetailsHeaderViewModelValues(
+      portfolioName: portfolioName == freezed
+          ? _value.portfolioName
+          : portfolioName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      marketValue: marketValue == freezed
+          ? _value.marketValue
+          : marketValue // ignore: cast_nullable_to_non_nullable
+              as PhysicalCurrencyValue?,
+      returnValue: returnValue == freezed
+          ? _value.returnValue
+          : returnValue // ignore: cast_nullable_to_non_nullable
+              as PhysicalCurrencyValue?,
+      returnPercent: returnPercent == freezed
+          ? _value.returnPercent
+          : returnPercent // ignore: cast_nullable_to_non_nullable
+              as PercentValue?,
+      refreshing: refreshing == freezed
+          ? _value.refreshing
+          : refreshing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      loading: loading == freezed
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 
-class _$PortfolioDetailsHeaderViewModelModel
-    implements PortfolioDetailsHeaderViewModelModel {
-  _$PortfolioDetailsHeaderViewModelModel(
+class _$PortfolioDetailsHeaderViewModelValues
+    implements PortfolioDetailsHeaderViewModelValues {
+  _$PortfolioDetailsHeaderViewModelValues(
       {required this.portfolioName,
       required this.marketValue,
       required this.returnValue,
-      required this.returnPercent});
+      required this.returnPercent,
+      required this.refreshing,
+      required this.loading});
 
   @override
-  final String portfolioName;
+  final String? portfolioName;
   @override
-  final PhysicalCurrencyValue marketValue;
+  final PhysicalCurrencyValue? marketValue;
   @override
-  final PhysicalCurrencyValue returnValue;
+  final PhysicalCurrencyValue? returnValue;
   @override
-  final double returnPercent;
+  final PercentValue? returnPercent;
+  @override
+  final bool refreshing;
+  @override
+  final bool loading;
 
   @override
   String toString() {
-    return 'PortfolioDetailsHeaderViewModel.model(portfolioName: $portfolioName, marketValue: $marketValue, returnValue: $returnValue, returnPercent: $returnPercent)';
+    return 'PortfolioDetailsHeaderViewModel.values(portfolioName: $portfolioName, marketValue: $marketValue, returnValue: $returnValue, returnPercent: $returnPercent, refreshing: $refreshing, loading: $loading)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PortfolioDetailsHeaderViewModelModel &&
+            other is _$PortfolioDetailsHeaderViewModelValues &&
             const DeepCollectionEquality()
                 .equals(other.portfolioName, portfolioName) &&
             const DeepCollectionEquality()
@@ -174,7 +255,10 @@ class _$PortfolioDetailsHeaderViewModelModel
             const DeepCollectionEquality()
                 .equals(other.returnValue, returnValue) &&
             const DeepCollectionEquality()
-                .equals(other.returnPercent, returnPercent));
+                .equals(other.returnPercent, returnPercent) &&
+            const DeepCollectionEquality()
+                .equals(other.refreshing, refreshing) &&
+            const DeepCollectionEquality().equals(other.loading, loading));
   }
 
   @override
@@ -183,51 +267,65 @@ class _$PortfolioDetailsHeaderViewModelModel
       const DeepCollectionEquality().hash(portfolioName),
       const DeepCollectionEquality().hash(marketValue),
       const DeepCollectionEquality().hash(returnValue),
-      const DeepCollectionEquality().hash(returnPercent));
+      const DeepCollectionEquality().hash(returnPercent),
+      const DeepCollectionEquality().hash(refreshing),
+      const DeepCollectionEquality().hash(loading));
 
   @JsonKey(ignore: true)
   @override
-  _$$PortfolioDetailsHeaderViewModelModelCopyWith<
-          _$PortfolioDetailsHeaderViewModelModel>
-      get copyWith => __$$PortfolioDetailsHeaderViewModelModelCopyWithImpl<
-          _$PortfolioDetailsHeaderViewModelModel>(this, _$identity);
+  _$$PortfolioDetailsHeaderViewModelValuesCopyWith<
+          _$PortfolioDetailsHeaderViewModelValues>
+      get copyWith => __$$PortfolioDetailsHeaderViewModelValuesCopyWithImpl<
+          _$PortfolioDetailsHeaderViewModelValues>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String portfolioName,
-            PhysicalCurrencyValue marketValue,
-            PhysicalCurrencyValue returnValue,
-            double returnPercent)
-        model,
-    required TResult Function() empty,
+            String? portfolioName,
+            PhysicalCurrencyValue? marketValue,
+            PhysicalCurrencyValue? returnValue,
+            PercentValue? returnPercent,
+            bool refreshing,
+            bool loading)
+        values,
   }) {
-    return model(portfolioName, marketValue, returnValue, returnPercent);
+    return values(portfolioName, marketValue, returnValue, returnPercent,
+        refreshing, loading);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String portfolioName, PhysicalCurrencyValue marketValue,
-            PhysicalCurrencyValue returnValue, double returnPercent)?
-        model,
-    TResult Function()? empty,
+    TResult Function(
+            String? portfolioName,
+            PhysicalCurrencyValue? marketValue,
+            PhysicalCurrencyValue? returnValue,
+            PercentValue? returnPercent,
+            bool refreshing,
+            bool loading)?
+        values,
   }) {
-    return model?.call(portfolioName, marketValue, returnValue, returnPercent);
+    return values?.call(portfolioName, marketValue, returnValue, returnPercent,
+        refreshing, loading);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String portfolioName, PhysicalCurrencyValue marketValue,
-            PhysicalCurrencyValue returnValue, double returnPercent)?
-        model,
-    TResult Function()? empty,
+    TResult Function(
+            String? portfolioName,
+            PhysicalCurrencyValue? marketValue,
+            PhysicalCurrencyValue? returnValue,
+            PercentValue? returnPercent,
+            bool refreshing,
+            bool loading)?
+        values,
     required TResult orElse(),
   }) {
-    if (model != null) {
-      return model(portfolioName, marketValue, returnValue, returnPercent);
+    if (values != null) {
+      return values(portfolioName, marketValue, returnValue, returnPercent,
+          refreshing, loading);
     }
     return orElse();
   }
@@ -235,172 +333,58 @@ class _$PortfolioDetailsHeaderViewModelModel
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(PortfolioDetailsHeaderViewModelModel value) model,
-    required TResult Function(PortfolioDetailsHeaderViewModelEmpty value) empty,
+    required TResult Function(PortfolioDetailsHeaderViewModelValues value)
+        values,
   }) {
-    return model(this);
+    return values(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PortfolioDetailsHeaderViewModelModel value)? model,
-    TResult Function(PortfolioDetailsHeaderViewModelEmpty value)? empty,
+    TResult Function(PortfolioDetailsHeaderViewModelValues value)? values,
   }) {
-    return model?.call(this);
+    return values?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(PortfolioDetailsHeaderViewModelModel value)? model,
-    TResult Function(PortfolioDetailsHeaderViewModelEmpty value)? empty,
+    TResult Function(PortfolioDetailsHeaderViewModelValues value)? values,
     required TResult orElse(),
   }) {
-    if (model != null) {
-      return model(this);
+    if (values != null) {
+      return values(this);
     }
     return orElse();
   }
 }
 
-abstract class PortfolioDetailsHeaderViewModelModel
+abstract class PortfolioDetailsHeaderViewModelValues
     implements PortfolioDetailsHeaderViewModel {
-  factory PortfolioDetailsHeaderViewModelModel(
-          {required final String portfolioName,
-          required final PhysicalCurrencyValue marketValue,
-          required final PhysicalCurrencyValue returnValue,
-          required final double returnPercent}) =
-      _$PortfolioDetailsHeaderViewModelModel;
+  factory PortfolioDetailsHeaderViewModelValues(
+      {required final String? portfolioName,
+      required final PhysicalCurrencyValue? marketValue,
+      required final PhysicalCurrencyValue? returnValue,
+      required final PercentValue? returnPercent,
+      required final bool refreshing,
+      required final bool loading}) = _$PortfolioDetailsHeaderViewModelValues;
 
-  String get portfolioName;
-  PhysicalCurrencyValue get marketValue;
-  PhysicalCurrencyValue get returnValue;
-  double get returnPercent;
+  @override
+  String? get portfolioName;
+  @override
+  PhysicalCurrencyValue? get marketValue;
+  @override
+  PhysicalCurrencyValue? get returnValue;
+  @override
+  PercentValue? get returnPercent;
+  @override
+  bool get refreshing;
+  @override
+  bool get loading;
+  @override
   @JsonKey(ignore: true)
-  _$$PortfolioDetailsHeaderViewModelModelCopyWith<
-          _$PortfolioDetailsHeaderViewModelModel>
+  _$$PortfolioDetailsHeaderViewModelValuesCopyWith<
+          _$PortfolioDetailsHeaderViewModelValues>
       get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$PortfolioDetailsHeaderViewModelEmptyCopyWith<$Res> {
-  factory _$$PortfolioDetailsHeaderViewModelEmptyCopyWith(
-          _$PortfolioDetailsHeaderViewModelEmpty value,
-          $Res Function(_$PortfolioDetailsHeaderViewModelEmpty) then) =
-      __$$PortfolioDetailsHeaderViewModelEmptyCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$PortfolioDetailsHeaderViewModelEmptyCopyWithImpl<$Res>
-    extends _$PortfolioDetailsHeaderViewModelCopyWithImpl<$Res>
-    implements _$$PortfolioDetailsHeaderViewModelEmptyCopyWith<$Res> {
-  __$$PortfolioDetailsHeaderViewModelEmptyCopyWithImpl(
-      _$PortfolioDetailsHeaderViewModelEmpty _value,
-      $Res Function(_$PortfolioDetailsHeaderViewModelEmpty) _then)
-      : super(
-            _value, (v) => _then(v as _$PortfolioDetailsHeaderViewModelEmpty));
-
-  @override
-  _$PortfolioDetailsHeaderViewModelEmpty get _value =>
-      super._value as _$PortfolioDetailsHeaderViewModelEmpty;
-}
-
-/// @nodoc
-
-class _$PortfolioDetailsHeaderViewModelEmpty
-    implements PortfolioDetailsHeaderViewModelEmpty {
-  _$PortfolioDetailsHeaderViewModelEmpty();
-
-  @override
-  String toString() {
-    return 'PortfolioDetailsHeaderViewModel.empty()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PortfolioDetailsHeaderViewModelEmpty);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            String portfolioName,
-            PhysicalCurrencyValue marketValue,
-            PhysicalCurrencyValue returnValue,
-            double returnPercent)
-        model,
-    required TResult Function() empty,
-  }) {
-    return empty();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String portfolioName, PhysicalCurrencyValue marketValue,
-            PhysicalCurrencyValue returnValue, double returnPercent)?
-        model,
-    TResult Function()? empty,
-  }) {
-    return empty?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String portfolioName, PhysicalCurrencyValue marketValue,
-            PhysicalCurrencyValue returnValue, double returnPercent)?
-        model,
-    TResult Function()? empty,
-    required TResult orElse(),
-  }) {
-    if (empty != null) {
-      return empty();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PortfolioDetailsHeaderViewModelModel value) model,
-    required TResult Function(PortfolioDetailsHeaderViewModelEmpty value) empty,
-  }) {
-    return empty(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PortfolioDetailsHeaderViewModelModel value)? model,
-    TResult Function(PortfolioDetailsHeaderViewModelEmpty value)? empty,
-  }) {
-    return empty?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PortfolioDetailsHeaderViewModelModel value)? model,
-    TResult Function(PortfolioDetailsHeaderViewModelEmpty value)? empty,
-    required TResult orElse(),
-  }) {
-    if (empty != null) {
-      return empty(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class PortfolioDetailsHeaderViewModelEmpty
-    implements PortfolioDetailsHeaderViewModel {
-  factory PortfolioDetailsHeaderViewModelEmpty() =
-      _$PortfolioDetailsHeaderViewModelEmpty;
 }

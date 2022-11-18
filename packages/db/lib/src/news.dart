@@ -35,7 +35,7 @@ class News extends DbEntity {
         ticker,
         title,
         url,
-        timePublished,
+        _dateFormatter.format(timePublished),
         summary,
         overallSentimentScore,
       ];

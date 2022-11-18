@@ -41,6 +41,7 @@ class PortfolioDetailsModule extends DependencyModule {
         get(),
         get(),
         get(),
+        get(),
       ),
     );
   }

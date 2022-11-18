@@ -7,4 +7,6 @@ class PortfolioDetailsHeaderEvent with _$PortfolioDetailsHeaderEvent {
   factory PortfolioDetailsHeaderEvent.init(String portfolioId) = PortfolioDetailsHeaderEventInit;
 
   factory PortfolioDetailsHeaderEvent.refresh() = PortfolioDetailsHeaderEventRefresh;
+
+  factory PortfolioDetailsHeaderEvent.update() = PortfolioDetailsHeaderEventUpdate;
 }
