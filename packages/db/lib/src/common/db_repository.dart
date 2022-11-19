@@ -56,5 +56,22 @@ abstract class DbRepository<T extends DbEntity> {
           .doc(item.id)
           .delete());
 
-  Stream<T> stream() => _db.collection(_getName(T)).stream.map(converter);
+  bool _contains(Map<String, dynamic> a, List<Map<String, dynamic>>? b) {
+    return b?.any((e) => a.toString() == e.toString()) ?? false;
+  }
+
+  Stream<T> stream() async* {
+    final items = await _db
+        .collection(_getName(T))
+        .get()
+        .then((value) => value?.entries.map<Map<String, dynamic>>((e) => e.value).toList());
+
+    await for (final item in _db.collection(_getName(T)).stream) {
+      if (!_contains(item, items)) {
+        items?.add(item);
+
+        yield converter(item);
+      }
+    }
+  }
 }
