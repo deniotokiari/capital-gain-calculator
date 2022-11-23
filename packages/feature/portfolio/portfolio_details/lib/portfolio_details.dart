@@ -7,6 +7,7 @@ import 'package:portfolio_details/src/bloc/portfolio_details_bloc.dart';
 import 'package:portfolio_details/src/bloc/portfolio_instrument_positions_bloc.dart';
 import 'package:portfolio_details/src/navigation/portfolio_details_navigation_widget_builder.dart';
 import 'package:portfolio_details/src/portfolio_details_header/portfolio_details_header_bloc.dart';
+import 'package:portfolio_details/src/portfolio_details_instrument/portfolio_details_instrument_bloc.dart';
 
 class PortfolioDetailsModule extends DependencyModule {
   @override
@@ -39,6 +40,13 @@ class PortfolioDetailsModule extends DependencyModule {
     registerFactory<PortfolioDetailsHeaderBloc>(
       () => PortfolioDetailsHeaderBloc(
         get(),
+        get(),
+        get(),
+        get(),
+      ),
+    );
+    registerFactory<PortfolioDetailsInstrumentBloc>(
+      () => PortfolioDetailsInstrumentBloc(
         get(),
         get(),
         get(),
