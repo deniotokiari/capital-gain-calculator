@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio_data/portfolio_data.dart';
-import 'package:portfolio_details/src/bloc/portfolio_instrument_positions_event.dart';
-import 'package:portfolio_details/src/bloc/portfolio_instrument_positions_state.dart';
+import 'package:portfolio_details/src/portfolio_details_instrument_position/portfolio_instrument_positions_event.dart';
+import 'package:portfolio_details/src/portfolio_details_instrument_position/portfolio_instrument_positions_state.dart';
 import 'package:portfolio_use_case/portfolio_use_case.dart';
 
 class PortfolioInstrumentPositionsBloc

@@ -14,7 +14,7 @@ class PortfolioDetailsInstrumentBloc
   final InstrumentPositionsUpdatesUseCase _instrumentPositionsUpdatesUseCase;
 
   late String _instrumentId;
-  StreamSubscription<dynamic>? _streamSubscription;
+  final List<StreamSubscription<dynamic>> _streamSubscription = [];
 
   PortfolioDetailsInstrumentBloc(
     this._getInstrumentTickerUseCase,
@@ -26,10 +26,13 @@ class PortfolioDetailsInstrumentBloc
 
       emit(await _getState());
 
-      _streamSubscription =
-          _instrumentPositionsUpdatesUseCase.execute(_instrumentId).listen((event) {
-        add(PortfolioDetailsInstrumentEvent.refresh());
-      });
+      _streamSubscription.add(
+        _instrumentPositionsUpdatesUseCase.execute(_instrumentId).listen(
+          (event) {
+            add(PortfolioDetailsInstrumentEvent.refresh());
+          },
+        ),
+      );
     });
     on<PortfolioDetailsInstrumentEventRefresh>((event, emit) async {
       emit(await _getState());
@@ -60,7 +63,7 @@ class PortfolioDetailsInstrumentBloc
 
   @override
   Future<void> close() async {
-    await _streamSubscription?.cancel();
+    await Future.wait(_streamSubscription.map((e) => e.cancel()));
 
     return super.close();
   }

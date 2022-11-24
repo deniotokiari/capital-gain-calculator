@@ -1,15 +1,15 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portfolio_details/src/bloc/portfolio_instrument_positions_event.dart';
-import 'package:portfolio_details/src/bloc/portfolio_instrument_positions_state.dart';
+import 'package:portfolio_details/src/portfolio_details_instrument_position/portfolio_instrument_positions_event.dart';
+import 'package:portfolio_details/src/portfolio_details_instrument_position/portfolio_instrument_positions_state.dart';
 
-import '../bloc/portfolio_instrument_positions_bloc.dart';
+import 'portfolio_details_instrument_positions_bloc.dart';
 
-class PortfolioInstrumentPositionsWidget extends StatelessWidget {
+class PortfolioDetailsInstrumentPositionsWidget extends StatelessWidget {
   final String _instrumentId;
 
-  const PortfolioInstrumentPositionsWidget(
+  const PortfolioDetailsInstrumentPositionsWidget(
     this._instrumentId, {
     Key? key,
   }) : super(key: key);

@@ -8,7 +8,7 @@ import 'package:portfolio_details/src/bloc/portfolio_details_state.dart';
 import 'package:portfolio_details/src/portfolio_details_header/portfolio_details_header_widget.dart';
 import 'package:portfolio_details/src/portfolio_details_instrument/portfolio_details_instrument_widget.dart';
 import 'package:portfolio_details/src/widget/portfolio_add_position_widget.dart';
-import 'package:portfolio_details/src/widget/portfolio_instrument_positions_widget.dart';
+import 'package:portfolio_details/src/portfolio_details_instrument_position/portfolio_details_instrument_positions_widget.dart';
 import 'package:symbol_api/symbol_api.dart';
 
 class PortfolioDetailsWidget extends StatelessWidget {
@@ -63,7 +63,7 @@ class PortfolioDetailsWidget extends StatelessWidget {
                             expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
                             title: PortfolioDetailsInstrumentWidget(item.instrumentId),
                             children: [
-                              PortfolioInstrumentPositionsWidget(item.instrumentId),
+                              PortfolioDetailsInstrumentPositionsWidget(item.instrumentId),
                               TextButton(
                                 onPressed: () async {
                                   await showDialog(
