@@ -30,6 +30,15 @@ class News extends DbEntity {
         overallSentimentScore: map['overallSentimentScore'],
       );
 
+  factory News.empty(String ticker) => News(
+        ticker: ticker,
+        title: '',
+        url: '',
+        timePublished: DateTime.now(),
+        summary: '',
+        overallSentimentScore: 0,
+      );
+
   @override
   Iterable get itemsForId => [
         ticker,

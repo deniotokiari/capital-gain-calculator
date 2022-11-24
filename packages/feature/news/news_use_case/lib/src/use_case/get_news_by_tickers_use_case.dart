@@ -24,12 +24,12 @@ class GetNewsByTickersUseCase
 
 // // 20221027T123000
   DateTime _parseDataTime(String dateTime) => DateTime(
-    int.parse(dateTime.substring(0, 5)),
-    int.parse(dateTime.substring(4, 6)),
-    int.parse(dateTime.substring(5, 7)),
-    int.parse(dateTime.substring(9, 11)),
-    int.parse(dateTime.substring(10, 12)),
-  );
+        int.parse(dateTime.substring(0, 5)),
+        int.parse(dateTime.substring(4, 6)),
+        int.parse(dateTime.substring(5, 7)),
+        int.parse(dateTime.substring(9, 11)),
+        int.parse(dateTime.substring(10, 12)),
+      );
 
   Future<List<News>> _newsForTicker({
     required String ticker,
@@ -44,15 +44,15 @@ class GetNewsByTickersUseCase
         (value) => value.map(
           success: (success) => [
             ...success.data.feed.take(5).map(
-              (e) => db.News(
-                ticker: ticker,
-                title: e.title,
-                url: e.url,
-                timePublished: _parseDataTime(e.timePublished),
-                summary: e.summary,
-                overallSentimentScore: e.overallSentimentScore,
-              ),
-            ),
+                  (e) => db.News(
+                    ticker: ticker,
+                    title: e.title,
+                    url: e.url,
+                    timePublished: _parseDataTime(e.timePublished),
+                    summary: e.summary,
+                    overallSentimentScore: e.overallSentimentScore,
+                  ),
+                ),
           ],
           failed: (_) => [],
         ),
@@ -63,11 +63,13 @@ class GetNewsByTickersUseCase
         await _newsRepository.addAll(fromRemote);
 
         fromCache = fromRemote;
+      } else {
+        await _newsRepository.add(db.News.empty(ticker));
       }
     }
 
     return [
-      ...fromCache.map((e) => News(
+      ...fromCache.where((e) => e.title.isNotEmpty).map((e) => News(
             ticker: ticker,
             title: e.title,
             url: e.url,
