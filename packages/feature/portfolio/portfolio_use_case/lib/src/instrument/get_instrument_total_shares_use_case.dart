@@ -8,7 +8,12 @@ class GetInstrumentTotalSharesUseCase implements UseCase<String, Future<double>>
 
   @override
   Future<double> execute(String args) async {
-    final positions = await _getPositionsByInstrumentIdUseCase.execute(args);
+    final result = await _getPositionsByInstrumentIdUseCase.execute(
+      GetPositionsByInstrumentIdUseCaseArguments(
+        instrumentId: args,
+      ),
+    );
+    final positions = result?.items ?? [];
 
     return positions.fold<double>(
       0,

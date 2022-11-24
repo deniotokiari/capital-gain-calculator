@@ -59,34 +59,30 @@ class PortfolioDetailsInstrumentPositionsWidget extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                '${item.currency}${item.marketValue.toStringAsFixed(2)}',
+                item.marketValue.market,
                 textAlign: TextAlign.end,
                 style: const TextStyle(inherit: true, fontSize: 13),
               ),
             ),
             Expanded(
               child: Text(
-                item.returnValue > 0
-                    ? '+${item.currency}${item.returnValue.toStringAsFixed(2)}'
-                    : '-${item.currency}${item.returnValue.abs().toStringAsFixed(2)}',
+                item.returnValue.gainOrLoss,
                 textAlign: TextAlign.end,
                 style: TextStyle(
                   inherit: true,
                   fontSize: 14,
-                  color: item.returnValue > 0 ? Colors.green : Colors.red,
+                  color: item.returnValue.value > 0 ? Colors.green : Colors.red,
                 ),
               ),
             ),
             Expanded(
               child: Text(
-                item.returnPercent > 0
-                    ? '+${(item.returnPercent * 100).toStringAsFixed(2)}%'
-                    : '${(item.returnPercent * 100).toStringAsFixed(2)}%',
+                item.returnPercent.formatted,
                 textAlign: TextAlign.end,
                 style: TextStyle(
                   inherit: true,
                   fontSize: 13,
-                  color: item.returnPercent > 0 ? Colors.green : Colors.red,
+                  color: item.returnPercent.value > 0 ? Colors.green : Colors.red,
                 ),
               ),
             ),

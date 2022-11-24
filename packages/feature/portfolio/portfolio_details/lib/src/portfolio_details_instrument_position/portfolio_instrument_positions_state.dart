@@ -1,6 +1,8 @@
+import 'package:common/common.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
-import 'package:portfolio_data/portfolio_data.dart';
+import 'package:physical_currency/physical_currency.dart';
+import 'package:portfolio_use_case/portfolio_use_case.dart';
 
 part 'portfolio_instrument_positions_state.freezed.dart';
 
@@ -20,33 +22,34 @@ class PortfolioInstrumentPositionsViewModel {
   factory PortfolioInstrumentPositionsViewModel.initial() =>
       PortfolioInstrumentPositionsViewModel([]);
 
-  factory PortfolioInstrumentPositionsViewModel.fromPositions(List<Position> items) =>
+  factory PortfolioInstrumentPositionsViewModel.fromPositions(
+          GetPositionsByInstrumentIdUseCaseResult? result) =>
       PortfolioInstrumentPositionsViewModel([
-        ...items.map((e) => PortfolioInstrumentPositionViewModel(
-              date: _dateFormatter.format(e.date),
-              count: e.count.toString(),
-              currency: e.price.currency.sign,
-              marketValue: e.price.value + e.returnValue,
-              returnValue: e.returnValue,
-              returnPercent: e.returnPercent,
-            ))
+        ...result?.items.map(
+              (e) => PortfolioInstrumentPositionViewModel(
+                date: _dateFormatter.format(e.date),
+                marketValue: e.marketValue,
+                returnValue: e.returnValue,
+                count: e.count.toString(),
+                returnPercent: e.returnPercent,
+              ),
+            ) ??
+            []
       ]);
 }
 
 class PortfolioInstrumentPositionViewModel {
-  final String date;
+  final PhysicalCurrencyValue marketValue;
+  final PhysicalCurrencyValue returnValue;
+  final PercentValue returnPercent;
   final String count;
-  final String currency;
-  final double marketValue;
-  final double returnValue;
-  final double returnPercent;
+  final String date;
 
   PortfolioInstrumentPositionViewModel({
-    required this.date,
-    required this.count,
-    required this.currency,
     required this.marketValue,
     required this.returnValue,
     required this.returnPercent,
+    required this.count,
+    required this.date,
   });
 }

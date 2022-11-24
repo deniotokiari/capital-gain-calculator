@@ -23,7 +23,11 @@ class PortfolioInstrumentPositionsBloc
       (event, emit) async {
         _instrumentId = event.instrumentId;
 
-        final positions = await _getPositionsByInstrumentIdUseCase.execute(event.instrumentId);
+        final positions = await _getPositionsByInstrumentIdUseCase.execute(
+          GetPositionsByInstrumentIdUseCaseArguments(
+            instrumentId: event.instrumentId,
+          ),
+        );
 
         _subscription ??= _instrumentPositionsUpdatesUseCase.execute(_instrumentId).listen((item) {
           add(PortfolioInstrumentPositionsEvent.init(_instrumentId));
