@@ -19,32 +19,38 @@ mixin _$AllPortfoliosEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
+    required TResult Function() refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? init,
+    TResult Function()? refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
+    TResult Function()? refresh,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AllPortfoliosEventInit value) init,
+    required TResult Function(AllPortfoliosEventRefresh value) refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(AllPortfoliosEventInit value)? init,
+    TResult Function(AllPortfoliosEventRefresh value)? refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AllPortfoliosEventInit value)? init,
+    TResult Function(AllPortfoliosEventRefresh value)? refresh,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -110,6 +116,7 @@ class _$AllPortfoliosEventInit implements AllPortfoliosEventInit {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
+    required TResult Function() refresh,
   }) {
     return init();
   }
@@ -118,6 +125,7 @@ class _$AllPortfoliosEventInit implements AllPortfoliosEventInit {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? init,
+    TResult Function()? refresh,
   }) {
     return init?.call();
   }
@@ -126,6 +134,7 @@ class _$AllPortfoliosEventInit implements AllPortfoliosEventInit {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
+    TResult Function()? refresh,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -138,6 +147,7 @@ class _$AllPortfoliosEventInit implements AllPortfoliosEventInit {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AllPortfoliosEventInit value) init,
+    required TResult Function(AllPortfoliosEventRefresh value) refresh,
   }) {
     return init(this);
   }
@@ -146,6 +156,7 @@ class _$AllPortfoliosEventInit implements AllPortfoliosEventInit {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(AllPortfoliosEventInit value)? init,
+    TResult Function(AllPortfoliosEventRefresh value)? refresh,
   }) {
     return init?.call(this);
   }
@@ -154,6 +165,7 @@ class _$AllPortfoliosEventInit implements AllPortfoliosEventInit {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AllPortfoliosEventInit value)? init,
+    TResult Function(AllPortfoliosEventRefresh value)? refresh,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -165,4 +177,112 @@ class _$AllPortfoliosEventInit implements AllPortfoliosEventInit {
 
 abstract class AllPortfoliosEventInit implements AllPortfoliosEvent {
   factory AllPortfoliosEventInit() = _$AllPortfoliosEventInit;
+}
+
+/// @nodoc
+abstract class _$$AllPortfoliosEventRefreshCopyWith<$Res> {
+  factory _$$AllPortfoliosEventRefreshCopyWith(
+          _$AllPortfoliosEventRefresh value,
+          $Res Function(_$AllPortfoliosEventRefresh) then) =
+      __$$AllPortfoliosEventRefreshCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AllPortfoliosEventRefreshCopyWithImpl<$Res>
+    extends _$AllPortfoliosEventCopyWithImpl<$Res>
+    implements _$$AllPortfoliosEventRefreshCopyWith<$Res> {
+  __$$AllPortfoliosEventRefreshCopyWithImpl(_$AllPortfoliosEventRefresh _value,
+      $Res Function(_$AllPortfoliosEventRefresh) _then)
+      : super(_value, (v) => _then(v as _$AllPortfoliosEventRefresh));
+
+  @override
+  _$AllPortfoliosEventRefresh get _value =>
+      super._value as _$AllPortfoliosEventRefresh;
+}
+
+/// @nodoc
+
+class _$AllPortfoliosEventRefresh implements AllPortfoliosEventRefresh {
+  _$AllPortfoliosEventRefresh();
+
+  @override
+  String toString() {
+    return 'AllPortfoliosEvent.refresh()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AllPortfoliosEventRefresh);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function() refresh,
+  }) {
+    return refresh();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function()? refresh,
+  }) {
+    return refresh?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function()? refresh,
+    required TResult orElse(),
+  }) {
+    if (refresh != null) {
+      return refresh();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AllPortfoliosEventInit value) init,
+    required TResult Function(AllPortfoliosEventRefresh value) refresh,
+  }) {
+    return refresh(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AllPortfoliosEventInit value)? init,
+    TResult Function(AllPortfoliosEventRefresh value)? refresh,
+  }) {
+    return refresh?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AllPortfoliosEventInit value)? init,
+    TResult Function(AllPortfoliosEventRefresh value)? refresh,
+    required TResult orElse(),
+  }) {
+    if (refresh != null) {
+      return refresh(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AllPortfoliosEventRefresh implements AllPortfoliosEvent {
+  factory AllPortfoliosEventRefresh() = _$AllPortfoliosEventRefresh;
 }

@@ -5,6 +5,7 @@ import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:navigation/navigation.dart';
+import 'package:physical_currency/physical_currency.dart';
 
 class AllPortfoliosWidget extends StatelessWidget {
   const AllPortfoliosWidget({Key? key}) : super(key: key);
@@ -19,33 +20,34 @@ class AllPortfoliosWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
                       children: [
-                        Text(
-                          '\$${state.model.marketValue.toStringAsFixed(2)}',
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: CurrencyValueWidget(
-                            value: state.model.returnValue,
-                            currency: '\$',
-                            percent: false,
+                        if (state.model.marketValue != null)
+                          Text(
+                            state.model.marketValue.require.market,
                             style: const TextStyle(fontSize: 18),
                           ),
-                        ),
-                        const Text(
-                          '(',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        CurrencyValueWidget(
-                          value: state.model.returnPercent,
-                          currency: '',
-                          percent: true,
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        const Text(
-                          ')',
-                          style: TextStyle(fontSize: 18),
-                        ),
+                        if (state.model.returnValue != null)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: PhysicalCurrencyValueWidget(
+                              currency: state.model.returnValue.require,
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        if (state.model.returnPercent != null)
+                          const Text(
+                            '(',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        if (state.model.returnPercent != null)
+                          PercentValueWidget(
+                            value: state.model.returnPercent.require,
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                        if (state.model.returnPercent != null)
+                          const Text(
+                            ')',
+                            style: TextStyle(fontSize: 18),
+                          ),
                       ],
                     ),
                   ),
@@ -56,40 +58,36 @@ class AllPortfoliosWidget extends StatelessWidget {
                       final item = state.model.portfolios[index];
 
                       return ListTile(
-                        onTap: () {
-                          NavigationRoute.portfolio(item.portfolioId).push(context);
-                        },
-                        title: item.marketValue > 0
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(child: Text(item.name)),
-                                  Expanded(
-                                    child: Text(
-                                      '${item.currency}${item.marketValue.toStringAsFixed(2)}',
-                                      textAlign: TextAlign.end,
-                                    ),
+                          onTap: () {
+                            NavigationRoute.portfolio(item.portfolioId).push(context);
+                          },
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(child: Text(item.name)),
+                              if (item.marketValue != null)
+                                Expanded(
+                                  child: Text(
+                                    item.marketValue.require.market,
+                                    textAlign: TextAlign.end,
                                   ),
-                                  Expanded(
-                                    child: CurrencyValueWidget(
-                                      value: item.returnValue,
-                                      currency: item.currency,
-                                      percent: false,
-                                      textAlign: TextAlign.end,
-                                    ),
+                                ),
+                              if (item.returnValue != null)
+                                Expanded(
+                                  child: PhysicalCurrencyValueWidget(
+                                    currency: item.returnValue.require,
+                                    textAlign: TextAlign.end,
                                   ),
-                                  Expanded(
-                                    child: CurrencyValueWidget(
-                                      value: item.returnPercent,
-                                      currency: '',
-                                      percent: true,
-                                      textAlign: TextAlign.end,
-                                    ),
+                                ),
+                              if (item.returnPercent != null)
+                                Expanded(
+                                  child: PercentValueWidget(
+                                    value: item.returnPercent.require,
+                                    textAlign: TextAlign.end,
                                   ),
-                                ],
-                              )
-                            : Text(item.name),
-                      );
+                                ),
+                            ],
+                          ));
                     },
                   ),
                 ],

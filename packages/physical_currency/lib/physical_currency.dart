@@ -6,6 +6,7 @@ export 'src/use_case/get_physical_currency_by_id_use_case.dart';
 export 'src/use_case/get_physical_currency_by_code_use_case.dart';
 export 'src/use_case/get_portfolio_physical_currency_by_instrument_id_use_case.dart';
 export 'src/model/physical_currency_value.dart';
+export 'src/widget/currency_value_widget.dart';
 
 import 'package:common/common.dart';
 import 'package:physical_currency/src/use_case/get_physical_currency_by_code_use_case.dart';

@@ -10,72 +10,74 @@ import 'package:portfolio_use_case/portfolio_use_case.dart';
 class AllPortfoliosBloc extends Bloc<AllPortfoliosEvent, AllPortfoliosState> {
   final GetAllPortfoliosUseCase _getAllPortfoliosUseCase;
   final PortfoliosUpdatesUseCase _portfoliosUpdatesUseCase;
-  final GetInstrumentsByPortfolioId _getInstrumentsByPortfolioId;
+  final GetPortfolioMarketValueReturnValueReturnPercentUseCase
+      _getPortfolioMarketValueReturnValueReturnPercentUseCase;
+  final ConvertPhysicalCurrencyUseCaseUseCase _convertPhysicalCurrencyUseCaseUseCase;
 
   StreamSubscription<Portfolio>? _streamSubscription;
 
   AllPortfoliosBloc(
     this._getAllPortfoliosUseCase,
     this._portfoliosUpdatesUseCase,
-    this._getInstrumentsByPortfolioId,
+    this._getPortfolioMarketValueReturnValueReturnPercentUseCase,
+    this._convertPhysicalCurrencyUseCaseUseCase,
   ) : super(
           AllPortfoliosState.idle(
             AllPortfoliosViewModel(
               portfolios: [],
-              marketValue: 0,
-              returnValue: 0,
-              returnPercent: 0,
+              marketValue: null,
+              returnValue: null,
+              returnPercent: null,
             ),
           ),
         ) {
     on<AllPortfoliosEventInit>((event, emit) async {
-      final portfolios = await _getAllPortfoliosUseCase.execute(null);
-      final models = <PortfolioViewModel>[];
-
-      for (var i = 0; i < portfolios.length; i++) {
-        final instruments = await _getInstrumentsByPortfolioId.execute(portfolios[i].id);
-        final marketPrice = instruments.fold<double>(
-          0,
-          (p, e) => p + e.lastPrice * e.count,
-        );
-        final returnValue = instruments.fold<double>(
-          0,
-          (p, e) => p + (e.count * e.lastPrice - e.invested),
-        );
-        final invested = instruments.fold<double>(
-          0,
-          (p, e) => p + e.invested,
-        );
-        final returnPercent = invested == 0 ? 0.0 : returnValue / invested;
-
-        models.add(PortfolioViewModel(
-          name: portfolios[i].name,
-          currency: portfolios[i].physicalCurrency.sign,
-          portfolioId: portfolios[i].id,
-          marketValue: marketPrice,
-          returnValue: returnValue,
-          returnPercent: returnPercent,
-        ));
-      }
-
-      final marketValue =
-          models.fold<double>(0.0, (previousValue, element) => previousValue + element.marketValue);
-      final returnValue =
-          models.fold<double>(0.0, (previousValue, element) => previousValue + element.returnValue);
-      final invested = marketValue - returnValue;
-      final returnPercent = invested == 0 ? 0.0 : returnValue / invested;
-
-      emit(AllPortfoliosState.idle(AllPortfoliosViewModel(
-        marketValue: marketValue,
-        returnValue: returnValue,
-        returnPercent: returnPercent,
-        portfolios: models,
-      )));
+      emit(await _getState());
+    });
+    on<AllPortfoliosEventRefresh>((event, emit) async {
+      emit(await _getState());
     });
 
     _streamSubscription = _portfoliosUpdatesUseCase.execute(null).listen((_) {
-      add(AllPortfoliosEvent.init());
+      add(AllPortfoliosEvent.refresh());
     });
+  }
+
+  Future<AllPortfoliosState> _getState() async {
+    final portfolios = await _getAllPortfoliosUseCase.execute(null);
+    final models = <PortfolioViewModel>[];
+
+    double marketValue = 0;
+    double returnValue = 0;
+    double invested = 0;
+
+    for (final portfolio in portfolios) {
+      final values = await _getPortfolioMarketValueReturnValueReturnPercentUseCase.execute(
+        GetPortfolioMarketValueReturnValueReturnPercentUseCaseArguments(
+          portfolioId: portfolio.id,
+        ),
+      );
+
+      if (values != null) {
+      }
+
+      models.add(PortfolioViewModel(
+        portfolioId: portfolio.id,
+        name: portfolio.name,
+        marketValue: values?.marketValue,
+        returnValue: values?.returnValue,
+        returnPercent: values?.returnPercent,
+      ));
+    }
+
+    return AllPortfoliosState.idle(
+      AllPortfoliosViewModel(
+        portfolios: models,
+        marketValue: null,
+        returnValue: null,
+        returnPercent: null,
+      ),
+    );
   }
 
   @override

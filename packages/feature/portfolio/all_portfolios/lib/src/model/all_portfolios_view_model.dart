@@ -1,13 +1,14 @@
-import 'package:portfolio_data/portfolio_data.dart';
+import 'package:common/common.dart';
+import 'package:physical_currency/physical_currency.dart';
 
 class AllPortfoliosViewModel {
   final List<PortfolioViewModel> portfolios;
-  final double marketValue;
-  final double returnValue;
-  final double returnPercent;
+  final PhysicalCurrencyValue? marketValue;
+  final PhysicalCurrencyValue? returnValue;
+  final PercentValue? returnPercent;
 
   AllPortfoliosViewModel({
-   required this.portfolios,
+    required this.portfolios,
     required this.marketValue,
     required this.returnValue,
     required this.returnPercent,
@@ -16,33 +17,16 @@ class AllPortfoliosViewModel {
 
 class PortfolioViewModel {
   final String name;
-  final String currency;
   final String portfolioId;
-  final double marketValue;
-  final double returnValue;
-  final double returnPercent;
+  final PhysicalCurrencyValue? marketValue;
+  final PhysicalCurrencyValue? returnValue;
+  final PercentValue? returnPercent;
 
   PortfolioViewModel({
     required this.name,
-    required this.currency,
     required this.portfolioId,
     required this.marketValue,
     required this.returnValue,
     required this.returnPercent,
   });
-
-  factory PortfolioViewModel.fromPortfolio(
-    Portfolio portfolio,
-    double marketValue,
-    double returnValue,
-    double returnPercent,
-  ) =>
-      PortfolioViewModel(
-        name: portfolio.name,
-        currency: portfolio.physicalCurrency.code,
-        portfolioId: portfolio.id,
-        marketValue: marketValue,
-        returnValue: returnValue,
-        returnPercent: returnPercent,
-      );
 }
