@@ -1,77 +1,58 @@
 import 'package:db/src/common/db_entity.dart';
-import 'package:localstore/localstore.dart';
 
 abstract class DbRepository<T extends DbEntity> {
-  final _db = Localstore.instance;
+  static Storage? _storage;
+
+  static setStorage(Storage storage) {
+    _storage = storage;
+  }
 
   T converter(Map<String, dynamic> map);
 
-  String _getName(Type type) => type.toString();
+  Future<String> add(T entity) => _storage!.add(entity);
 
-  Future<String> add(T entity) async {
-    await _db
-        .collection(
-          _getName(T),
-        )
-        .doc(entity.id)
-        .set(
-          entity.toMap,
-          SetOptions(merge: true),
-        );
-
-    return entity.id;
-  }
-
-  Future addAll(Iterable<T> items) => Future.forEach(items, add);
+  Future addAll(Iterable<T> items) => _storage!.addAll(items);
 
   Future<T> get(String id) async {
-    final result = await _db.collection(_getName(T)).doc(id).get();
+    final result = await _storage!.get(T, id);
 
-    return converter(result!);
+    return converter(result);
   }
 
   Future<Iterable<T>> where(
     bool Function(Map<String, dynamic>) where,
   ) async {
-    final dbResult = await _db.collection(_getName(T)).get();
+    final dbResult = await _storage!.where(T, where);
 
-    return dbResult?.entries
-            .where((item) => where(item.value))
-            .map((item) => converter(item.value)) ??
-        [];
+    return dbResult.map((item) => converter(item));
   }
 
   Future<Iterable<T>> all() async {
-    final dbResult = await _db.collection(_getName(T)).get();
+    final dbResult = await _storage!.all(T);
 
-    return dbResult?.entries.map((item) => converter(item.value)) ?? [];
+    return dbResult.map((item) => converter(item));
   }
 
-  Future<void> delete(Iterable<T> items) => Future.forEach<T>(
-      items,
-      (item) => _db
-          .collection(
-            _getName(T),
-          )
-          .doc(item.id)
-          .delete());
+  Future<void> delete(Iterable<T> items) => _storage!.delete(items);
 
-  bool _contains(Map<String, dynamic> a, List<Map<String, dynamic>>? b) {
-    return b?.any((e) => a.toString() == e.toString()) ?? false;
-  }
+  Stream<T> stream() => _storage!.stream(T).map((item) => converter(item));
+}
 
-  Stream<T> stream() async* {
-    final items = await _db
-        .collection(_getName(T))
-        .get()
-        .then((value) => value?.entries.map<Map<String, dynamic>>((e) => e.value).toList());
+abstract class Storage {
+  Future<String> add(DbEntity entity);
 
-    await for (final item in _db.collection(_getName(T)).stream) {
-      if (!_contains(item, items)) {
-        items?.add(item);
+  Future addAll(Iterable<DbEntity> items);
 
-        yield converter(item);
-      }
-    }
-  }
+  Future<Map<String, dynamic>> get(Type type, String id);
+
+  Future<Iterable<Map<String, dynamic>>> where(
+    Type type,
+    bool Function(Map<String, dynamic>) where,
+  );
+
+  Future<Iterable<Map<String, dynamic>>> all(Type type);
+
+  Future<void> delete(Iterable<DbEntity> items);
+
+  Stream<Map<String, dynamic>> stream(Type type);
 }

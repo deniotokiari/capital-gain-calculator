@@ -11,6 +11,7 @@ class AllPortfoliosModule extends DependencyModule {
         get(),
         get(),
         get(),
+        get(),
       ),
     );
   }

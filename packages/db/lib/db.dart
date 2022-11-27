@@ -10,6 +10,8 @@ export 'package:db/src/physical_currency_value.dart';
 export 'src/quote.dart';
 
 import 'package:common/common.dart';
+import 'package:db/src/common/db_repository.dart';
+import 'package:db/src/db/local_store.dart';
 import 'package:db/src/instrument.dart';
 import 'package:db/src/news.dart';
 import 'package:db/src/physical_currency.dart';
@@ -21,6 +23,8 @@ import 'package:db/src/symbol.dart';
 class DbModule extends DependencyModule {
   @override
   void init() {
+    DbRepository.setStorage(LocalStore());
+
     registerLazySingleton<InstrumentRepository>(() => InstrumentRepository());
     registerLazySingleton<NewsRepository>(() => NewsRepository());
     registerLazySingleton<PhysicalCurrencyRepository>(() => PhysicalCurrencyRepository());
