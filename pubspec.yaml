@@ -1,51 +1,25 @@
 name: capital_gain_calculator
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.3 <3.0.0"
+  sdk: ">=2.16.1 <3.0.0"
 
 dependencies:
-  common:
-    path: ./packages/common
-  physical_currency:
-    path: ./packages/physical_currency
-  portfolio_api:
-    path: ./packages/feature/portfolio/portfolio_api
-  symbol_api:
-    path: ./packages/feature/symbol/symbol_api
-  news_api:
-    path: ./packages/feature/news/news_api
-  navigation:
-    path: ./packages/navigation
-  stock_service:
-    path: ./packages/stock_service
-  db:
-    path: ./packages/db
-  cloud_sync_service:
-    path: ./packages/cloud_sync_service
-
   flutter:
     sdk: flutter
+
+
   cupertino_icons: ^1.0.2
-  flutter_bloc: ^8.1.1
-  freezed: ^2.1.0+1
-  freezed_annotation: ^2.1.0
-  collection: ^1.16.0
-  localstore: ^1.2.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
-  build_runner:  ^2.2.0
+
+  flutter_lints: ^1.0.0
 
 flutter:
   uses-material-design: true
-
-analyzer:
-  errors:
-    invalid_annotation_target: ignore

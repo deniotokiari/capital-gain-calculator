@@ -1,4 +1,4 @@
-name: common
+name: trading_212_report_parser
 description: A new Flutter package project.
 version: 0.0.1
 publish_to: none
@@ -10,6 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  intl: ^0.18.0
+  fast_csv: ^0.1.44
+
+  common:
+    path: ../../common
 
 dev_dependencies:
   flutter_test:

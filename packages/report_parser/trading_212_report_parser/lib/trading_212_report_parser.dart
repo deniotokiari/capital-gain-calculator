@@ -1,0 +1,1 @@
+library trading_212_report_parser;
