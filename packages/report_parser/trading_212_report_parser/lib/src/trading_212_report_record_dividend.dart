@@ -25,20 +25,11 @@ class Trading212ReportRecordDividend {
     required this.withholdingTax,
   });
 
+  String get countryCode => isin.substring(0, 2);
+
   CurrencyValue get gross => priceShare * noOfShares + withholdingTax;
 
-  double get taxPercent {
-    if (withholdingTax.value == 0.0) {
-      return 0.0;
-    } else {
-      final gross = this.gross;
-      final result = [0.15, 0.19, 0.21, 0.25, 0.26375, 0.35]
-          .map((e) => [(gross.value * e - withholdingTax.value).abs(), e])
-          .reduce((c, n) => c.first < n.first ? c : n);
-
-      return result.last;
-    }
-  }
+  CurrencyValue get net => priceShare * noOfShares;
 
   factory Trading212ReportRecordDividend.fromRecord(Trading212ReportRecord record) =>
       Trading212ReportRecordDividend(
