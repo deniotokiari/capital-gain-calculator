@@ -47,7 +47,7 @@ class Trading212ReportRecordDividend {
           currency: 'EUR',
         ),
         withholdingTax: CurrencyValue(
-          value: double.parse(record.withholdingTax),
+          value: double.parse(record.withholdingTax).abs(),
           currency: record.currencyWithholdingTax,
         ),
       );

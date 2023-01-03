@@ -11,6 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  common:
+    path: ../common
+  currency_converter: 
+    path: ../currency_converter
   common_report_parser:
     path: ../report_parser/common_report_parser
 
@@ -18,5 +22,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  mocktail: ^0.3.0
 
 flutter:

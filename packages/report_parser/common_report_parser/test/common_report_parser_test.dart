@@ -20,6 +20,6 @@ void main() {
 
     final dividends = result.dividends;
 
-    expect(dividends.length, 126);
+    expect(dividends.length, 130);
   });
 }

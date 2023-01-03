@@ -1,4 +1,5 @@
 import 'package:common/common.dart';
+import 'package:common_report_parser/src/origin.dart';
 import 'package:revolut_report_parser/revolut_report_parser.dart';
 import 'package:trading_212_report_parser/trading_212_report_parser.dart';
 
@@ -10,6 +11,7 @@ class DividendRecord {
   final CurrencyValue withholdingTax;
   final CurrencyValue homeTax;
   final double agreementPercent;
+  final Origin origin;
 
   DividendRecord({
     required this.dateTime,
@@ -19,6 +21,7 @@ class DividendRecord {
     required this.withholdingTax,
     required this.homeTax,
     required this.agreementPercent,
+    required this.origin,
   });
 
   factory DividendRecord.fromRevolut(RevolutReportRecordDividend dividend) {
@@ -36,6 +39,7 @@ class DividendRecord {
       withholdingTax: dividend.gross - dividend.totalAmount,
       homeTax: dividend.totalAmount * agreementPercent,
       agreementPercent: agreementPercent,
+      origin: Origin.revolut,
     );
   }
 
@@ -52,8 +56,9 @@ class DividendRecord {
       gross: dividend.gross,
       net: dividend.net,
       withholdingTax: dividend.withholdingTax,
-      homeTax: dividend.net * agreementPercent,
+      homeTax: dividend.gross * agreementPercent,
       agreementPercent: agreementPercent,
+      origin: Origin.trading212,
     );
   }
 

@@ -52,7 +52,7 @@ class NbpCurrencyConverter implements CurrencyConverter {
       valueToConvert = from;
     }
 
-    var previousDate = date;
+    var previousDate = DateTime(date.year, date.month, date.day);
     double? value;
 
     while (value == null) {
