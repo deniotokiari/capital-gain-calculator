@@ -30,13 +30,11 @@ class TaxReport {
         'Net',
         'Withholding Tax',
         'Agreement Percent',
-        'Poland Tax',
-        'Pay in Poland',
-        'App',
+        'Tax 19%',
+        'Withholding Tax With Tax Agreement',
+        'Broker',
       ],
     ];
-
-    CurrencyValue totalPolandTax = CurrencyValue(value: 0.0, currency: 'PLN');
 
     report.dividends.sort((a, b) {
       final result = a.ticker.compareTo(b.ticker);
@@ -48,9 +46,24 @@ class TaxReport {
       }
     });
 
+    var totalTax = CurrencyValue(value: 0.0, currency: 'PLN');
+    var totalWithholdingTaxWithTaxAgreement = CurrencyValue(value: 0.0, currency: 'PLN');
+
+    String? previousTicker;
+
     for (final e in report.dividends) {
-      final payInPoland = await _anyCurrencyToPlnConverter.convert(e.homeTax, 'PLN', e.dateTime);
-      totalPolandTax += payInPoland;
+      final tax = await _anyCurrencyToPlnConverter.convert(e.gross, 'PLN', e.dateTime) * 0.19;
+      final withholdingTaxWithTaxAgreement =
+          await _anyCurrencyToPlnConverter.convert(e.gross, 'PLN', e.dateTime) * e.agreementPercent;
+
+      totalTax += tax;
+      totalWithholdingTaxWithTaxAgreement += withholdingTaxWithTaxAgreement;
+
+      if (previousTicker != null && previousTicker != e.ticker) {
+        result.add(['', '', '', '', '', '', '', '', '']);
+      }
+
+      previousTicker = e.ticker;
 
       result.add([
         e.dateTime.toString().split(' ').first,
@@ -59,8 +72,8 @@ class TaxReport {
         e.net,
         e.withholdingTax,
         '${(e.agreementPercent * 100).toInt()}%',
-        e.homeTax,
-        payInPoland,
+        tax,
+        withholdingTaxWithTaxAgreement,
         e.origin.name,
       ]);
     }
@@ -72,9 +85,9 @@ class TaxReport {
       '',
       '',
       '',
-      '',
-      totalPolandTax,
-      '',
+      totalTax,
+      totalWithholdingTaxWithTaxAgreement,
+      totalTax - totalWithholdingTaxWithTaxAgreement
     ]);
 
     return result;

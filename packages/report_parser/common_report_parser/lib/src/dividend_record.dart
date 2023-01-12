@@ -86,34 +86,34 @@ class DividendRecord {
 
     if (countryCode == 'US' && withholdingTaxPercent == 0.15) {
       // 0.19 - 0.15
-      return 0.04;
+      return 0.15;
     } else if (countryCode == 'DE' && withholdingTaxPercent == 0.26375) {
       // 0.19 - 0.15
-      return 0.04;
+      return 0.15;
     } else if (countryCode == 'FR' && withholdingTaxPercent == 0.25) {
       // 0.19 - 0.15
-      return 0.04;
+      return 0.15;
     } else if (countryCode == 'NL' && withholdingTaxPercent == 0.15) {
       // 0.19 - 0.15
-      return 0.04;
+      return 0.15;
     } else if (countryCode == 'CH' && withholdingTaxPercent == 0.35) {
       // 0.19 - 0.15
-      return 0.04;
+      return 0.15;
     } else if (countryCode == 'CA' && withholdingTaxPercent == 0.15) {
       // 0.19 - 0.15
-      return 0.04;
+      return 0.15;
     } else if (countryCode == 'ES' && withholdingTaxPercent == 0.19) {
       // 0.19 - 0.15
-      return 0.04;
+      return 0.15;
     } else if (countryCode == 'IE' && withholdingTaxPercent == 0.25) {
       // 0.19 - 0.15
-      return 0.04;
+      return 0.15;
     } else if (withholdingTaxPercent == 0.21) {
       // 0.19 - 0.10
-      return 0.09;
+      return 0.10;
     } else {
       // 0.19 - 0.0
-      return 0.19;
+      return 0.0;
     }
   }
 }
