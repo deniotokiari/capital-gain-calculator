@@ -13,6 +13,13 @@ dependencies:
   firebase_core: ^2.4.1
   flutter:
     sdk: flutter
+  
+  alphavantage:
+    path: ./packages/data/alphavantage
+  auth:
+    path: ./packages/data/auth
+  utility: 
+    path: ./packages/core/utility
 
 dev_dependencies:
   flutter_lints: ^2.0.0
