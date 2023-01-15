@@ -7,7 +7,7 @@ export 'repository/alphavantage_key_repository.dart';
 
 class AlphavantageModule extends DependencyModule {
   @override
-  void init() {
-    registerLazySingleton(() => AlphavantageKeyRepository());
+  Future<void> init() async {
+    registerLazySingleton(() => AlphavantageKeyRepository(get()));
   }
 }

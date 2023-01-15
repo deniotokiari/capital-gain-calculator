@@ -10,6 +10,8 @@ environment:
 dependencies:
   utility: 
     path: ../../core/utility
+  cloud_store:
+    path: ../cloud_store
   flutter:
     sdk: flutter
 

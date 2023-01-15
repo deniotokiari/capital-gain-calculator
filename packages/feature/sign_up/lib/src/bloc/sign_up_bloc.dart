@@ -3,15 +3,21 @@ import 'package:sign_up/src/bloc/sign_up_event.dart';
 import 'package:sign_up/src/bloc/sign_up_state.dart';
 import 'package:sign_up_usecase/sign_up.dart';
 
-class CreateUserBloc extends Bloc<SignUpEvent, SignUpState> {
+class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final SignUpUseCase _signUpUseCase;
 
-  CreateUserBloc(
+  SignUpBloc(
     this._signUpUseCase,
   ) : super(SignUpState.empty()) {
-    on<SignUpEventEventEmailChanged>((event, emit) {});
-    on<SignUpEventPasswordChanged>((event, emit) {});
-    on<SignUpEventAlphavantageKeyChanged>((event, emit) {});
+    on<SignUpEventEventEmailChanged>((event, emit) {
+      emit(state.copyWith(email: event.email));
+    });
+    on<SignUpEventPasswordChanged>((event, emit) {
+      emit(state.copyWith(password: event.password));
+    });
+    on<SignUpEventAlphavantageKeyChanged>((event, emit) {
+      emit(state.copyWith(alphavantageKey: event.alphavantageKey));
+    });
     on<SignUpEventSignUp>((event, emit) async {
       final result = await _signUpUseCase.execute(SignUpUseCaseArguments(
         email: state.email!,

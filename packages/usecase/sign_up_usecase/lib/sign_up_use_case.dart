@@ -20,7 +20,10 @@ class SignUpUseCase extends UseCase<SignUpUseCaseArguments, Future<SignUpUseCase
 
     switch (signUpResult) {
       case CreateUserResult.success:
-        await _alphavantageKeyRepository.saveKey(arg.alphavantageKey);
+        await _alphavantageKeyRepository.saveKey(
+          userId: arg.email,
+          key: arg.alphavantageKey,
+        );
 
         return SignUpUseCaseResult.success;
       case CreateUserResult.failed:

@@ -14,12 +14,16 @@ dependencies:
   flutter:
     sdk: flutter
   
+  sign_up:
+    path: ./packages/feature/sign_up
   alphavantage:
     path: ./packages/data/alphavantage
   auth:
     path: ./packages/data/auth
   utility: 
     path: ./packages/core/utility
+  cloud_store:
+    path: ./packages/data/cloud_store
 
 dev_dependencies:
   flutter_lints: ^2.0.0

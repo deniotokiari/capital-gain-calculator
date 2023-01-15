@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 abstract class DependencyModule {
   final GetIt _getIt = GetIt.I;
 
-  void init();
+  Future<void> init();
 
   T get<T extends Object>({
     String? instanceName,
@@ -45,7 +45,7 @@ abstract class DependencyModule {
   }
 }
 
-extension on Object {
+extension Dependency on Object {
   P get<P extends Object>({
     String? instanceName,
     dynamic param1,

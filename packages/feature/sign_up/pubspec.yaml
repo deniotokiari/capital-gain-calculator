@@ -8,6 +8,8 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  utility:
+    path: ../../core/utility
   sign_up_usecase:
     path: ../../usecase/sign_up_usecase
   flutter:
