@@ -1,32 +1,18 @@
-import 'package:cloud_store/source/cloud_prefs_source.dart';
+import 'package:store/repository/prefs_repository.dart';
 
 class AlphavantageKeyRepository {
-  final CloudPrefsStoreSource _cloudFireStoreSource;
+  final PrefsRepository _prefsRepository;
 
-  AlphavantageKeyRepository(this._cloudFireStoreSource);
+  AlphavantageKeyRepository(this._prefsRepository);
 
   Future<void> saveKey({
-    required String userId,
     required String key,
   }) async {
-    await _cloudFireStoreSource.add(
-      userId: userId,
-      name: 'alphavantage',
-      value: {
-        'key': key,
-      },
+    await _prefsRepository.save(
+      key: 'alphavantage',
+      value: key,
     );
   }
 
-  Future<String?> getKey({
-    required String userId,
-    required String name,
-  }) async {
-    return await _cloudFireStoreSource
-        .get(
-          userId: userId,
-          name: name,
-        )
-        .then((value) => value?['key']);
-  }
+  Future<String?> getKey() => _prefsRepository.getString('alphavantage');
 }

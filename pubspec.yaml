@@ -22,8 +22,8 @@ dependencies:
     path: ./packages/data/auth
   utility: 
     path: ./packages/core/utility
-  cloud_store:
-    path: ./packages/data/cloud_store
+  store:
+    path: ./packages/data/store
 
 dev_dependencies:
   flutter_lints: ^2.0.0

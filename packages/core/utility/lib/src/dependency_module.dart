@@ -56,4 +56,14 @@ extension Dependency on Object {
         param1: param1,
         param2: param2,
       );
+
+  void registerFactory<T extends Object>(
+    FactoryFunc<T> factoryFunc, {
+    String? instanceName,
+  }) {
+    GetIt.I.registerFactory(
+      factoryFunc,
+      instanceName: instanceName,
+    );
+  }
 }
