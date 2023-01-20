@@ -16,13 +16,55 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SignUpState {
-  String? get email => throw _privateConstructorUsedError;
-  String? get password => throw _privateConstructorUsedError;
-  String? get alphavantageKey => throw _privateConstructorUsedError;
-  String? get failedReason => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $SignUpStateCopyWith<SignUpState> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? failedReason)
+        $default, {
+    required TResult Function() loading,
+    required TResult Function() signUpSuccess,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String? email, String? password, String? alphavantageKey,
+            String? failedReason)?
+        $default, {
+    TResult? Function()? loading,
+    TResult? Function()? signUpSuccess,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? failedReason)?
+        $default, {
+    TResult Function()? loading,
+    TResult Function()? signUpSuccess,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_SignUpState value) $default, {
+    required TResult Function(_SignUpStateLoading value) loading,
+    required TResult Function(_SignUpStateSignUpSuccess value) signUpSuccess,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_SignUpState value)? $default, {
+    TResult? Function(_SignUpStateLoading value)? loading,
+    TResult? Function(_SignUpStateSignUpSuccess value)? signUpSuccess,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_SignUpState value)? $default, {
+    TResult Function(_SignUpStateLoading value)? loading,
+    TResult Function(_SignUpStateSignUpSuccess value)? signUpSuccess,
+    required TResult orElse(),
+  }) =>
       throw _privateConstructorUsedError;
 }
 
@@ -31,12 +73,6 @@ abstract class $SignUpStateCopyWith<$Res> {
   factory $SignUpStateCopyWith(
           SignUpState value, $Res Function(SignUpState) then) =
       _$SignUpStateCopyWithImpl<$Res, SignUpState>;
-  @useResult
-  $Res call(
-      {String? email,
-      String? password,
-      String? alphavantageKey,
-      String? failedReason});
 }
 
 /// @nodoc
@@ -48,43 +84,13 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? email = freezed,
-    Object? password = freezed,
-    Object? alphavantageKey = freezed,
-    Object? failedReason = freezed,
-  }) {
-    return _then(_value.copyWith(
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String?,
-      alphavantageKey: freezed == alphavantageKey
-          ? _value.alphavantageKey
-          : alphavantageKey // ignore: cast_nullable_to_non_nullable
-              as String?,
-      failedReason: freezed == failedReason
-          ? _value.failedReason
-          : failedReason // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_SignUpStateCopyWith<$Res>
-    implements $SignUpStateCopyWith<$Res> {
+abstract class _$$_SignUpStateCopyWith<$Res> {
   factory _$$_SignUpStateCopyWith(
           _$_SignUpState value, $Res Function(_$_SignUpState) then) =
       __$$_SignUpStateCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
       {String? email,
@@ -176,6 +182,80 @@ class _$_SignUpState implements _SignUpState {
   @pragma('vm:prefer-inline')
   _$$_SignUpStateCopyWith<_$_SignUpState> get copyWith =>
       __$$_SignUpStateCopyWithImpl<_$_SignUpState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? failedReason)
+        $default, {
+    required TResult Function() loading,
+    required TResult Function() signUpSuccess,
+  }) {
+    return $default(email, password, alphavantageKey, failedReason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String? email, String? password, String? alphavantageKey,
+            String? failedReason)?
+        $default, {
+    TResult? Function()? loading,
+    TResult? Function()? signUpSuccess,
+  }) {
+    return $default?.call(email, password, alphavantageKey, failedReason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? failedReason)?
+        $default, {
+    TResult Function()? loading,
+    TResult Function()? signUpSuccess,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(email, password, alphavantageKey, failedReason);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_SignUpState value) $default, {
+    required TResult Function(_SignUpStateLoading value) loading,
+    required TResult Function(_SignUpStateSignUpSuccess value) signUpSuccess,
+  }) {
+    return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_SignUpState value)? $default, {
+    TResult? Function(_SignUpStateLoading value)? loading,
+    TResult? Function(_SignUpStateSignUpSuccess value)? signUpSuccess,
+  }) {
+    return $default?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_SignUpState value)? $default, {
+    TResult Function(_SignUpStateLoading value)? loading,
+    TResult Function(_SignUpStateSignUpSuccess value)? signUpSuccess,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(this);
+    }
+    return orElse();
+  }
 }
 
 abstract class _SignUpState implements SignUpState {
@@ -185,16 +265,241 @@ abstract class _SignUpState implements SignUpState {
       required final String? alphavantageKey,
       required final String? failedReason}) = _$_SignUpState;
 
-  @override
   String? get email;
-  @override
   String? get password;
-  @override
   String? get alphavantageKey;
-  @override
   String? get failedReason;
-  @override
   @JsonKey(ignore: true)
   _$$_SignUpStateCopyWith<_$_SignUpState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SignUpStateLoadingCopyWith<$Res> {
+  factory _$$_SignUpStateLoadingCopyWith(_$_SignUpStateLoading value,
+          $Res Function(_$_SignUpStateLoading) then) =
+      __$$_SignUpStateLoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SignUpStateLoadingCopyWithImpl<$Res>
+    extends _$SignUpStateCopyWithImpl<$Res, _$_SignUpStateLoading>
+    implements _$$_SignUpStateLoadingCopyWith<$Res> {
+  __$$_SignUpStateLoadingCopyWithImpl(
+      _$_SignUpStateLoading _value, $Res Function(_$_SignUpStateLoading) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SignUpStateLoading implements _SignUpStateLoading {
+  _$_SignUpStateLoading();
+
+  @override
+  String toString() {
+    return 'SignUpState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_SignUpStateLoading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? failedReason)
+        $default, {
+    required TResult Function() loading,
+    required TResult Function() signUpSuccess,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String? email, String? password, String? alphavantageKey,
+            String? failedReason)?
+        $default, {
+    TResult? Function()? loading,
+    TResult? Function()? signUpSuccess,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? failedReason)?
+        $default, {
+    TResult Function()? loading,
+    TResult Function()? signUpSuccess,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_SignUpState value) $default, {
+    required TResult Function(_SignUpStateLoading value) loading,
+    required TResult Function(_SignUpStateSignUpSuccess value) signUpSuccess,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_SignUpState value)? $default, {
+    TResult? Function(_SignUpStateLoading value)? loading,
+    TResult? Function(_SignUpStateSignUpSuccess value)? signUpSuccess,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_SignUpState value)? $default, {
+    TResult Function(_SignUpStateLoading value)? loading,
+    TResult Function(_SignUpStateSignUpSuccess value)? signUpSuccess,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SignUpStateLoading implements SignUpState {
+  factory _SignUpStateLoading() = _$_SignUpStateLoading;
+}
+
+/// @nodoc
+abstract class _$$_SignUpStateSignUpSuccessCopyWith<$Res> {
+  factory _$$_SignUpStateSignUpSuccessCopyWith(
+          _$_SignUpStateSignUpSuccess value,
+          $Res Function(_$_SignUpStateSignUpSuccess) then) =
+      __$$_SignUpStateSignUpSuccessCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SignUpStateSignUpSuccessCopyWithImpl<$Res>
+    extends _$SignUpStateCopyWithImpl<$Res, _$_SignUpStateSignUpSuccess>
+    implements _$$_SignUpStateSignUpSuccessCopyWith<$Res> {
+  __$$_SignUpStateSignUpSuccessCopyWithImpl(_$_SignUpStateSignUpSuccess _value,
+      $Res Function(_$_SignUpStateSignUpSuccess) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_SignUpStateSignUpSuccess implements _SignUpStateSignUpSuccess {
+  _$_SignUpStateSignUpSuccess();
+
+  @override
+  String toString() {
+    return 'SignUpState.signUpSuccess()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SignUpStateSignUpSuccess);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? failedReason)
+        $default, {
+    required TResult Function() loading,
+    required TResult Function() signUpSuccess,
+  }) {
+    return signUpSuccess();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String? email, String? password, String? alphavantageKey,
+            String? failedReason)?
+        $default, {
+    TResult? Function()? loading,
+    TResult? Function()? signUpSuccess,
+  }) {
+    return signUpSuccess?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? failedReason)?
+        $default, {
+    TResult Function()? loading,
+    TResult Function()? signUpSuccess,
+    required TResult orElse(),
+  }) {
+    if (signUpSuccess != null) {
+      return signUpSuccess();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_SignUpState value) $default, {
+    required TResult Function(_SignUpStateLoading value) loading,
+    required TResult Function(_SignUpStateSignUpSuccess value) signUpSuccess,
+  }) {
+    return signUpSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_SignUpState value)? $default, {
+    TResult? Function(_SignUpStateLoading value)? loading,
+    TResult? Function(_SignUpStateSignUpSuccess value)? signUpSuccess,
+  }) {
+    return signUpSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_SignUpState value)? $default, {
+    TResult Function(_SignUpStateLoading value)? loading,
+    TResult Function(_SignUpStateSignUpSuccess value)? signUpSuccess,
+    required TResult orElse(),
+  }) {
+    if (signUpSuccess != null) {
+      return signUpSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SignUpStateSignUpSuccess implements SignUpState {
+  factory _SignUpStateSignUpSuccess() = _$_SignUpStateSignUpSuccess;
 }

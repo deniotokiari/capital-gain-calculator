@@ -11,6 +11,10 @@ class SignUpState with _$SignUpState {
     required final String? failedReason,
   }) = _SignUpState;
 
+  factory SignUpState.loading() = _SignUpStateLoading;
+
+  factory SignUpState.signUpSuccess() = _SignUpStateSignUpSuccess;
+
   factory SignUpState.empty() => SignUpState(
         email: null,
         password: null,
@@ -19,10 +23,21 @@ class SignUpState with _$SignUpState {
       );
 }
 
-extension on SignUpState {
-  bool get isSignUpButtonEnabled =>
-      email != null &&
-      password != null &&
-      email?.isNotEmpty == true &&
-      password?.isNotEmpty == true;
+extension SignUpStateExt on SignUpState {
+  bool get isSignUpButtonEnabled => map(
+        (value) {
+          final email = value.email;
+          final password = value.password;
+          final alphavantageKey = value.alphavantageKey;
+
+          return email != null &&
+              email.isNotEmpty &&
+              password != null &&
+              password.isNotEmpty &&
+              alphavantageKey != null &&
+              alphavantageKey.isNotEmpty;
+        },
+        loading: (_) => false,
+        signUpSuccess: (_) => false,
+      );
 }

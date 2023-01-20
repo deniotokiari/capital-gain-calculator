@@ -1,45 +1,64 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sign_up/src/bloc/sign_up_event.dart';
 import 'package:sign_up/src/bloc/sign_up_state.dart';
-import 'package:sign_up_usecase/sign_up.dart';
+import 'package:sign_up_usecase/sign_up_use_case.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final SignUpUseCase _signUpUseCase;
+
+  String? _email;
+  String? _password;
+  String? _alphavantageKey;
+  String? _failedReason;
 
   SignUpBloc(
     this._signUpUseCase,
   ) : super(SignUpState.empty()) {
     on<SignUpEventEventEmailChanged>((event, emit) {
-      emit(state.copyWith(email: event.email));
+      _email = event.email;
+
+      emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey, failedReason: _failedReason));
     });
     on<SignUpEventPasswordChanged>((event, emit) {
-      emit(state.copyWith(password: event.password));
+      _password = event.password;
+
+      emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey, failedReason: _failedReason));
     });
     on<SignUpEventAlphavantageKeyChanged>((event, emit) {
-      emit(state.copyWith(alphavantageKey: event.alphavantageKey));
+      _alphavantageKey = event.alphavantageKey;
+
+      emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey, failedReason: _failedReason));
     });
     on<SignUpEventSignUp>((event, emit) async {
+      emit(SignUpState.loading());
+
       final result = await _signUpUseCase.execute(SignUpUseCaseArguments(
-        email: state.email!,
-        password: state.password!,
-        alphavantageKey: state.alphavantageKey!,
+        email: _email!,
+        password: _password!,
+        alphavantageKey: _alphavantageKey!,
       ));
 
       switch (result) {
         case SignUpUseCaseResult.success:
-          // TODO: navigate to main screen
+          emit(SignUpState.signUpSuccess());
 
           break;
         case SignUpUseCaseResult.failed:
-          emit(state.copyWith(failedReason: 'Unknown reason!'));
+          _failedReason = 'Unknown reason!';
+
+          emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey, failedReason: _failedReason));
 
           break;
         case SignUpUseCaseResult.weakPassword:
-          emit(state.copyWith(failedReason: 'Weak password!'));
+          _failedReason = 'Weak password!';
+
+          emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey, failedReason: _failedReason));
 
           break;
         case SignUpUseCaseResult.emailAlreadyInUse:
-          emit(state.copyWith(failedReason: 'Email already in use!'));
+          _failedReason = 'Email already in use!';
+
+          emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey, failedReason: _failedReason));
 
           break;
       }
