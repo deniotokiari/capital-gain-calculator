@@ -15,16 +15,13 @@ class SignUpPage extends StatelessWidget with AppWidget {
         child: BlocListener<SignUpBloc, SignUpState>(
           listener: (context, state) {
             state.whenOrNull(
-              (_, __, ___, failedReason) {
-                if (failedReason != null) {
-                  AppSnackBar.fail(context, failedReason);
-                }
-              },
+              null,
               signUpSuccess: (message) {
                 AppSnackBar.success(context, message);
 
                 // TODO navigate to app
               },
+              signUpFailed: (message) => AppSnackBar.fail(context, message),
             );
           },
           child: buildAppWidget(Column(
@@ -40,6 +37,7 @@ class SignUpPage extends StatelessWidget with AppWidget {
               }),
               Builder(builder: (context) {
                 return TextFormField(
+                  obscureText: true,
                   onChanged: (value) => context.read<SignUpBloc>().add(SignUpEvent.passwordChanged(value)),
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
@@ -58,16 +56,19 @@ class SignUpPage extends StatelessWidget with AppWidget {
               }),
               BlocBuilder<SignUpBloc, SignUpState>(
                 builder: (context, state) => state.map(
-                  (_) => TextButton(
-                    onPressed: state.isSignUpButtonEnabled ? () => context.read<SignUpBloc>().add(SignUpEvent.signUp()) : null,
-                    child: const Text('SIGN UP'),
-                  ),
+                  (_) => _getSignUpButton(context, state),
                   loading: (_) => const CircularProgressIndicator.adaptive(),
                   signUpSuccess: (_) => const SizedBox(),
+                  signUpFailed: (_) => _getSignUpButton(context, state),
                 ),
               ),
             ],
           )),
         ),
+      );
+
+  Widget _getSignUpButton(BuildContext context, SignUpState state) => TextButton(
+        onPressed: state.isSignUpButtonEnabled ? () => context.read<SignUpBloc>().add(SignUpEvent.signUp()) : null,
+        child: const Text('SIGN UP'),
       );
 }

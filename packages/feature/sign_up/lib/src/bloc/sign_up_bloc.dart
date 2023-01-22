@@ -9,7 +9,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   String? _email;
   String? _password;
   String? _alphavantageKey;
-  String? _failedReason;
 
   SignUpBloc(
     this._signUpUseCase,
@@ -17,17 +16,17 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<SignUpEventEventEmailChanged>((event, emit) {
       _email = event.email;
 
-      emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey, failedReason: _failedReason));
+      emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey));
     });
     on<SignUpEventPasswordChanged>((event, emit) {
       _password = event.password;
 
-      emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey, failedReason: _failedReason));
+      emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey));
     });
     on<SignUpEventAlphavantageKeyChanged>((event, emit) {
       _alphavantageKey = event.alphavantageKey;
 
-      emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey, failedReason: _failedReason));
+      emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey));
     });
     on<SignUpEventSignUp>((event, emit) async {
       emit(SignUpState.loading());
@@ -44,21 +43,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
           break;
         case SignUpUseCaseResult.failed:
-          _failedReason = 'Unknown reason!';
-
-          emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey, failedReason: _failedReason));
+          emit(SignUpState.signUpFailed('Unknown reason!'));
 
           break;
         case SignUpUseCaseResult.weakPassword:
-          _failedReason = 'Weak password!';
-
-          emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey, failedReason: _failedReason));
+          emit(SignUpState.signUpFailed('Weak password!'));
 
           break;
         case SignUpUseCaseResult.emailAlreadyInUse:
-          _failedReason = 'Email already in use!';
-
-          emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey, failedReason: _failedReason));
+          emit(SignUpState.signUpFailed('Email already in use!'));
 
           break;
       }

@@ -23,9 +23,9 @@ void main() {
       ..add(SignUpEvent.passwordChanged('password'))
       ..add(SignUpEvent.alphavantageKeyChanged('alphavantageKey')),
     expect: () => [
-      equals(SignUpState(email: 'test@test.com', password: null, alphavantageKey: null, failedReason: null)),
-      equals(SignUpState(email: 'test@test.com', password: 'password', alphavantageKey: null, failedReason: null)),
-      equals(SignUpState(email: 'test@test.com', password: 'password', alphavantageKey: 'alphavantageKey', failedReason: null)),
+      equals(SignUpState(email: 'test@test.com', password: null, alphavantageKey: null)),
+      equals(SignUpState(email: 'test@test.com', password: 'password', alphavantageKey: null)),
+      equals(SignUpState(email: 'test@test.com', password: 'password', alphavantageKey: 'alphavantageKey')),
     ],
     verify: (bloc) {
       expect(bloc.state.isSignUpButtonEnabled, true);
@@ -37,7 +37,11 @@ void main() {
     build: () => sut,
     act: (bloc) => bloc..add(SignUpEvent.emailChanged('test@test.com')),
     expect: () => [
-      equals(SignUpState(email: 'test@test.com', password: null, alphavantageKey: null, failedReason: null)),
+      equals(SignUpState(
+        email: 'test@test.com',
+        password: null,
+        alphavantageKey: null,
+      )),
     ],
     verify: (bloc) {
       expect(bloc.state.isSignUpButtonEnabled, false);
@@ -78,25 +82,16 @@ void main() {
     skip: 3,
     expect: () => [
       equals(SignUpState.loading()),
-      equals(SignUpState(
-        email: 'test@test.com',
-        password: 'password',
-        alphavantageKey: 'alphavantageKey',
-        failedReason: 'Email already in use!',
+      equals(SignUpState.signUpFailed(
+        'Email already in use!',
       )),
       equals(SignUpState.loading()),
-      equals(SignUpState(
-        email: 'test@test.com',
-        password: 'password',
-        alphavantageKey: 'alphavantageKey',
-        failedReason: 'Weak password!',
+      equals(SignUpState.signUpFailed(
+        'Weak password!',
       )),
       equals(SignUpState.loading()),
-      equals(SignUpState(
-        email: 'test@test.com',
-        password: 'password',
-        alphavantageKey: 'alphavantageKey',
-        failedReason: 'Unknown reason!',
+      equals(SignUpState.signUpFailed(
+        'Unknown reason!',
       )),
     ],
   );

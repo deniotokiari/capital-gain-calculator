@@ -8,18 +8,18 @@ class SignUpState with _$SignUpState {
     required final String? email,
     required final String? password,
     required final String? alphavantageKey,
-    required final String? failedReason,
   }) = _SignUpState;
 
   factory SignUpState.loading() = _SignUpStateLoading;
 
   factory SignUpState.signUpSuccess(String message) = _SignUpStateSignUpSuccess;
 
+  factory SignUpState.signUpFailed(String message) = _SignUpStateSignUpFailed;
+
   factory SignUpState.empty() => SignUpState(
         email: null,
         password: null,
         alphavantageKey: null,
-        failedReason: null,
       );
 }
 
@@ -39,5 +39,6 @@ extension SignUpStateExt on SignUpState {
         },
         loading: (_) => false,
         signUpSuccess: (_) => false,
+        signUpFailed: (_) => true,
       );
 }

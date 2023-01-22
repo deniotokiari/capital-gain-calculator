@@ -66,4 +66,18 @@ extension Dependency on Object {
       instanceName: instanceName,
     );
   }
+
+  void unregister<T extends Object>({
+    String? instanceName,
+  }) {
+    GetIt.I.unregister<T>(instance: instanceName);
+  }
+
+  void pushNewScope(Function action) {
+    GetIt.I.pushNewScope(init: (getIt) {
+      action();
+    });
+  }
+
+  Future<void> popScope() => GetIt.I.popScope();
 }

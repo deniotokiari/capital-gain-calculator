@@ -18,7 +18,7 @@ class StoreModule extends DependencyModule {
     registerLazySingleton(
       () => PrefsRepository(
         CloudFirestorePrefsSource(
-          get(
+          () => get(
             instanceName: 'userId',
           ),
         ),
