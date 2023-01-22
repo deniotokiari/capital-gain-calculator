@@ -22,7 +22,7 @@ mixin _$SignUpState {
             String? failedReason)
         $default, {
     required TResult Function() loading,
-    required TResult Function() signUpSuccess,
+    required TResult Function(String message) signUpSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,7 +31,7 @@ mixin _$SignUpState {
             String? failedReason)?
         $default, {
     TResult? Function()? loading,
-    TResult? Function()? signUpSuccess,
+    TResult? Function(String message)? signUpSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,7 +40,7 @@ mixin _$SignUpState {
             String? failedReason)?
         $default, {
     TResult Function()? loading,
-    TResult Function()? signUpSuccess,
+    TResult Function(String message)? signUpSuccess,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -190,7 +190,7 @@ class _$_SignUpState implements _SignUpState {
             String? failedReason)
         $default, {
     required TResult Function() loading,
-    required TResult Function() signUpSuccess,
+    required TResult Function(String message) signUpSuccess,
   }) {
     return $default(email, password, alphavantageKey, failedReason);
   }
@@ -202,7 +202,7 @@ class _$_SignUpState implements _SignUpState {
             String? failedReason)?
         $default, {
     TResult? Function()? loading,
-    TResult? Function()? signUpSuccess,
+    TResult? Function(String message)? signUpSuccess,
   }) {
     return $default?.call(email, password, alphavantageKey, failedReason);
   }
@@ -214,7 +214,7 @@ class _$_SignUpState implements _SignUpState {
             String? failedReason)?
         $default, {
     TResult Function()? loading,
-    TResult Function()? signUpSuccess,
+    TResult Function(String message)? signUpSuccess,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -316,7 +316,7 @@ class _$_SignUpStateLoading implements _SignUpStateLoading {
             String? failedReason)
         $default, {
     required TResult Function() loading,
-    required TResult Function() signUpSuccess,
+    required TResult Function(String message) signUpSuccess,
   }) {
     return loading();
   }
@@ -328,7 +328,7 @@ class _$_SignUpStateLoading implements _SignUpStateLoading {
             String? failedReason)?
         $default, {
     TResult? Function()? loading,
-    TResult? Function()? signUpSuccess,
+    TResult? Function(String message)? signUpSuccess,
   }) {
     return loading?.call();
   }
@@ -340,7 +340,7 @@ class _$_SignUpStateLoading implements _SignUpStateLoading {
             String? failedReason)?
         $default, {
     TResult Function()? loading,
-    TResult Function()? signUpSuccess,
+    TResult Function(String message)? signUpSuccess,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -394,6 +394,8 @@ abstract class _$$_SignUpStateSignUpSuccessCopyWith<$Res> {
           _$_SignUpStateSignUpSuccess value,
           $Res Function(_$_SignUpStateSignUpSuccess) then) =
       __$$_SignUpStateSignUpSuccessCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -403,27 +405,51 @@ class __$$_SignUpStateSignUpSuccessCopyWithImpl<$Res>
   __$$_SignUpStateSignUpSuccessCopyWithImpl(_$_SignUpStateSignUpSuccess _value,
       $Res Function(_$_SignUpStateSignUpSuccess) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$_SignUpStateSignUpSuccess(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_SignUpStateSignUpSuccess implements _SignUpStateSignUpSuccess {
-  _$_SignUpStateSignUpSuccess();
+  _$_SignUpStateSignUpSuccess(this.message);
+
+  @override
+  final String message;
 
   @override
   String toString() {
-    return 'SignUpState.signUpSuccess()';
+    return 'SignUpState.signUpSuccess(message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignUpStateSignUpSuccess);
+            other is _$_SignUpStateSignUpSuccess &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SignUpStateSignUpSuccessCopyWith<_$_SignUpStateSignUpSuccess>
+      get copyWith => __$$_SignUpStateSignUpSuccessCopyWithImpl<
+          _$_SignUpStateSignUpSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -432,9 +458,9 @@ class _$_SignUpStateSignUpSuccess implements _SignUpStateSignUpSuccess {
             String? failedReason)
         $default, {
     required TResult Function() loading,
-    required TResult Function() signUpSuccess,
+    required TResult Function(String message) signUpSuccess,
   }) {
-    return signUpSuccess();
+    return signUpSuccess(message);
   }
 
   @override
@@ -444,9 +470,9 @@ class _$_SignUpStateSignUpSuccess implements _SignUpStateSignUpSuccess {
             String? failedReason)?
         $default, {
     TResult? Function()? loading,
-    TResult? Function()? signUpSuccess,
+    TResult? Function(String message)? signUpSuccess,
   }) {
-    return signUpSuccess?.call();
+    return signUpSuccess?.call(message);
   }
 
   @override
@@ -456,11 +482,11 @@ class _$_SignUpStateSignUpSuccess implements _SignUpStateSignUpSuccess {
             String? failedReason)?
         $default, {
     TResult Function()? loading,
-    TResult Function()? signUpSuccess,
+    TResult Function(String message)? signUpSuccess,
     required TResult orElse(),
   }) {
     if (signUpSuccess != null) {
-      return signUpSuccess();
+      return signUpSuccess(message);
     }
     return orElse();
   }
@@ -501,5 +527,11 @@ class _$_SignUpStateSignUpSuccess implements _SignUpStateSignUpSuccess {
 }
 
 abstract class _SignUpStateSignUpSuccess implements SignUpState {
-  factory _SignUpStateSignUpSuccess() = _$_SignUpStateSignUpSuccess;
+  factory _SignUpStateSignUpSuccess(final String message) =
+      _$_SignUpStateSignUpSuccess;
+
+  String get message;
+  @JsonKey(ignore: true)
+  _$$_SignUpStateSignUpSuccessCopyWith<_$_SignUpStateSignUpSuccess>
+      get copyWith => throw _privateConstructorUsedError;
 }

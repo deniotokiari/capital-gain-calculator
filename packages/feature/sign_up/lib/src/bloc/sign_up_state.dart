@@ -13,7 +13,7 @@ class SignUpState with _$SignUpState {
 
   factory SignUpState.loading() = _SignUpStateLoading;
 
-  factory SignUpState.signUpSuccess() = _SignUpStateSignUpSuccess;
+  factory SignUpState.signUpSuccess(String message) = _SignUpStateSignUpSuccess;
 
   factory SignUpState.empty() => SignUpState(
         email: null,

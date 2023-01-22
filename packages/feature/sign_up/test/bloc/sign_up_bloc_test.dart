@@ -119,7 +119,7 @@ void main() {
     skip: 3,
     expect: () => [
       equals(SignUpState.loading()),
-      equals(SignUpState.signUpSuccess()),
+      equals(SignUpState.signUpSuccess('Successful')),
     ],
   );
 }

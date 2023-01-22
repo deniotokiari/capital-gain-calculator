@@ -40,7 +40,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
       switch (result) {
         case SignUpUseCaseResult.success:
-          emit(SignUpState.signUpSuccess());
+          emit(SignUpState.signUpSuccess('Successful'));
 
           break;
         case SignUpUseCaseResult.failed:
