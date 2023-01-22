@@ -11,4 +11,10 @@ class FirebaseAuthSource {
         email: email,
         password: password,
       );
+
+  Future<UserCredential> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) =>
+      firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
 }

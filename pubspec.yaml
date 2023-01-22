@@ -15,8 +15,14 @@ dependencies:
   flutter:
     sdk: flutter
   
+  home:
+    path: ./packages/feature/home
+  sign_in:
+    path: ./packages/feature/sign_in
   sign_up:
     path: ./packages/feature/sign_up
+  splash:
+    path: ./packages/feature/splash
   alphavantage:
     path: ./packages/data/alphavantage
   auth:

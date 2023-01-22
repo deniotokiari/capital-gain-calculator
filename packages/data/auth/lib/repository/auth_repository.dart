@@ -20,6 +20,10 @@ class AuthRepository {
         return CreateUserResult.weakPassword;
       } else if (e.code == 'email-already-in-use') {
         return CreateUserResult.emailAlreadyInUse;
+      } else if (e.code == 'invalid-email') {
+        return CreateUserResult.invalidEmail;
+      } else if (e.code == 'operation-not-allowed') {
+        return CreateUserResult.operationNotAllowed;
       } else {
         return CreateUserResult.failed;
       }
@@ -27,13 +31,17 @@ class AuthRepository {
       return CreateUserResult.failed;
     }
   }
+
+  Future<SignInResult> signIn(Credential credential) async {}
 }
 
 enum CreateUserResult {
   success,
   failed,
   weakPassword,
-  emailAlreadyInUse;
+  emailAlreadyInUse,
+  invalidEmail,
+  operationNotAllowed,
 }
 
 enum SignInResult {
@@ -41,4 +49,6 @@ enum SignInResult {
   failed,
   userNotFound,
   wrongPassword,
+  invalidEmail,
+  userDisabled;
 }

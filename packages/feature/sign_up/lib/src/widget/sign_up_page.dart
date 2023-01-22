@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sign_up/src/bloc/sign_up_bloc.dart';
@@ -19,41 +20,42 @@ class SignUpPage extends StatelessWidget with AppWidget {
               signUpSuccess: (message) {
                 AppSnackBar.success(context, message);
 
-                // TODO navigate to app
+                context.router.popUntilRoot();
+                context.router.pushNamed('/sign-in');
               },
               signUpFailed: (message) => AppSnackBar.fail(context, message),
             );
           },
           child: buildAppWidget(Column(
             children: [
-              Builder(builder: (context) {
-                return TextFormField(
+              Builder(
+                builder: (context) => TextFormField(
                   onChanged: (value) => context.read<SignUpBloc>().add(SignUpEvent.emailChanged(value)),
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     labelText: 'EMAIL',
                   ),
-                );
-              }),
-              Builder(builder: (context) {
-                return TextFormField(
+                ),
+              ),
+              Builder(
+                builder: (context) => TextFormField(
                   obscureText: true,
                   onChanged: (value) => context.read<SignUpBloc>().add(SignUpEvent.passwordChanged(value)),
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     labelText: 'PASSWORD',
                   ),
-                );
-              }),
-              Builder(builder: (context) {
-                return TextFormField(
+                ),
+              ),
+              Builder(
+                builder: (context) => TextFormField(
                   onChanged: (value) => context.read<SignUpBloc>().add(SignUpEvent.alphavantageKeyChanged(value)),
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     labelText: 'ALPHAVANTAGE KEY',
                   ),
-                );
-              }),
+                ),
+              ),
               BlocBuilder<SignUpBloc, SignUpState>(
                 builder: (context, state) => state.map(
                   (_) => _getSignUpButton(context, state),
