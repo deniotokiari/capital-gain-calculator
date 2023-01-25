@@ -10,7 +10,7 @@ class SignInState with _$SignInState {
 
   factory SignInState.loading() = _SignInStateLoading;
 
-  factory SignInState.idle() = _SignInStateIdle;
+  factory SignInState.idle({required bool isSignInButtonEnabled}) = _SignInStateIdle;
 }
 
 extension SignInStateExt on SignInState {
@@ -18,6 +18,6 @@ extension SignInStateExt on SignInState {
         signInSuccess: (_) => false,
         signInFailed: (_) => true,
         loading: (_) => false,
-        idle: (_) => true,
+        idle: (idle) => idle.isSignInButtonEnabled,
       );
 }

@@ -54,6 +54,14 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           emit(SignUpState.signUpFailed('Email already in use!'));
 
           break;
+        case SignUpUseCaseResult.invalidEmail:
+          emit(SignUpState.signUpFailed('Invalid email!'));
+
+          break;
+        case SignUpUseCaseResult.operationNotAllowed:
+          emit(SignUpState.signUpFailed('Operation not allowed!'));
+
+          break;
       }
     });
   }

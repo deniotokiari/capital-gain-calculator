@@ -32,7 +32,28 @@ class AuthRepository {
     }
   }
 
-  Future<SignInResult> signIn(Credential credential) async {}
+  Future<SignInResult> signIn(Credential credential) async {
+    try {
+      await _firebaseAuthSource.signInWithEmailAndPassword(email: credential.email, password: credential.password);
+
+      return SignInResult.success;
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'invalid-email':
+          return SignInResult.invalidEmail;
+        case 'user-disabled':
+          return SignInResult.userDisabled;
+        case 'user-not-found':
+          return SignInResult.userNotFound;
+        case 'wrong-password':
+          return SignInResult.wrongPassword;
+      }
+
+      return SignInResult.failed;
+    } catch (_) {
+      return SignInResult.failed;
+    }
+  }
 }
 
 enum CreateUserResult {
@@ -41,7 +62,7 @@ enum CreateUserResult {
   weakPassword,
   emailAlreadyInUse,
   invalidEmail,
-  operationNotAllowed,
+  operationNotAllowed;
 }
 
 enum SignInResult {

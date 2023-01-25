@@ -17,7 +17,6 @@ part 'app_navigation.gr.dart';
     AutoRoute(path: '/home', page: HomePage, guards: [AuthGuard]),
   ],
 )
-
 class AppRouter extends _$AppRouter {
   AppRouter({required super.authGuard});
 }

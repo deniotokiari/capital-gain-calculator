@@ -21,7 +21,7 @@ mixin _$SignInState {
     required TResult Function(String message) signInSuccess,
     required TResult Function(String message) signInFailed,
     required TResult Function() loading,
-    required TResult Function() idle,
+    required TResult Function(bool isSignInButtonEnabled) idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$SignInState {
     TResult? Function(String message)? signInSuccess,
     TResult? Function(String message)? signInFailed,
     TResult? Function()? loading,
-    TResult? Function()? idle,
+    TResult? Function(bool isSignInButtonEnabled)? idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$SignInState {
     TResult Function(String message)? signInSuccess,
     TResult Function(String message)? signInFailed,
     TResult Function()? loading,
-    TResult Function()? idle,
+    TResult Function(bool isSignInButtonEnabled)? idle,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,7 +155,7 @@ class _$SignInStateSignInSuccess implements SignInStateSignInSuccess {
     required TResult Function(String message) signInSuccess,
     required TResult Function(String message) signInFailed,
     required TResult Function() loading,
-    required TResult Function() idle,
+    required TResult Function(bool isSignInButtonEnabled) idle,
   }) {
     return signInSuccess(message);
   }
@@ -166,7 +166,7 @@ class _$SignInStateSignInSuccess implements SignInStateSignInSuccess {
     TResult? Function(String message)? signInSuccess,
     TResult? Function(String message)? signInFailed,
     TResult? Function()? loading,
-    TResult? Function()? idle,
+    TResult? Function(bool isSignInButtonEnabled)? idle,
   }) {
     return signInSuccess?.call(message);
   }
@@ -177,7 +177,7 @@ class _$SignInStateSignInSuccess implements SignInStateSignInSuccess {
     TResult Function(String message)? signInSuccess,
     TResult Function(String message)? signInFailed,
     TResult Function()? loading,
-    TResult Function()? idle,
+    TResult Function(bool isSignInButtonEnabled)? idle,
     required TResult orElse(),
   }) {
     if (signInSuccess != null) {
@@ -303,7 +303,7 @@ class _$_SignInStateSignInFailed implements _SignInStateSignInFailed {
     required TResult Function(String message) signInSuccess,
     required TResult Function(String message) signInFailed,
     required TResult Function() loading,
-    required TResult Function() idle,
+    required TResult Function(bool isSignInButtonEnabled) idle,
   }) {
     return signInFailed(message);
   }
@@ -314,7 +314,7 @@ class _$_SignInStateSignInFailed implements _SignInStateSignInFailed {
     TResult? Function(String message)? signInSuccess,
     TResult? Function(String message)? signInFailed,
     TResult? Function()? loading,
-    TResult? Function()? idle,
+    TResult? Function(bool isSignInButtonEnabled)? idle,
   }) {
     return signInFailed?.call(message);
   }
@@ -325,7 +325,7 @@ class _$_SignInStateSignInFailed implements _SignInStateSignInFailed {
     TResult Function(String message)? signInSuccess,
     TResult Function(String message)? signInFailed,
     TResult Function()? loading,
-    TResult Function()? idle,
+    TResult Function(bool isSignInButtonEnabled)? idle,
     required TResult orElse(),
   }) {
     if (signInFailed != null) {
@@ -423,7 +423,7 @@ class _$_SignInStateLoading implements _SignInStateLoading {
     required TResult Function(String message) signInSuccess,
     required TResult Function(String message) signInFailed,
     required TResult Function() loading,
-    required TResult Function() idle,
+    required TResult Function(bool isSignInButtonEnabled) idle,
   }) {
     return loading();
   }
@@ -434,7 +434,7 @@ class _$_SignInStateLoading implements _SignInStateLoading {
     TResult? Function(String message)? signInSuccess,
     TResult? Function(String message)? signInFailed,
     TResult? Function()? loading,
-    TResult? Function()? idle,
+    TResult? Function(bool isSignInButtonEnabled)? idle,
   }) {
     return loading?.call();
   }
@@ -445,7 +445,7 @@ class _$_SignInStateLoading implements _SignInStateLoading {
     TResult Function(String message)? signInSuccess,
     TResult Function(String message)? signInFailed,
     TResult Function()? loading,
-    TResult Function()? idle,
+    TResult Function(bool isSignInButtonEnabled)? idle,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -501,6 +501,8 @@ abstract class _$$_SignInStateIdleCopyWith<$Res> {
   factory _$$_SignInStateIdleCopyWith(
           _$_SignInStateIdle value, $Res Function(_$_SignInStateIdle) then) =
       __$$_SignInStateIdleCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isSignInButtonEnabled});
 }
 
 /// @nodoc
@@ -510,26 +512,51 @@ class __$$_SignInStateIdleCopyWithImpl<$Res>
   __$$_SignInStateIdleCopyWithImpl(
       _$_SignInStateIdle _value, $Res Function(_$_SignInStateIdle) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isSignInButtonEnabled = null,
+  }) {
+    return _then(_$_SignInStateIdle(
+      isSignInButtonEnabled: null == isSignInButtonEnabled
+          ? _value.isSignInButtonEnabled
+          : isSignInButtonEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_SignInStateIdle implements _SignInStateIdle {
-  _$_SignInStateIdle();
+  _$_SignInStateIdle({required this.isSignInButtonEnabled});
+
+  @override
+  final bool isSignInButtonEnabled;
 
   @override
   String toString() {
-    return 'SignInState.idle()';
+    return 'SignInState.idle(isSignInButtonEnabled: $isSignInButtonEnabled)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_SignInStateIdle);
+        (other.runtimeType == runtimeType &&
+            other is _$_SignInStateIdle &&
+            (identical(other.isSignInButtonEnabled, isSignInButtonEnabled) ||
+                other.isSignInButtonEnabled == isSignInButtonEnabled));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isSignInButtonEnabled);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SignInStateIdleCopyWith<_$_SignInStateIdle> get copyWith =>
+      __$$_SignInStateIdleCopyWithImpl<_$_SignInStateIdle>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -537,9 +564,9 @@ class _$_SignInStateIdle implements _SignInStateIdle {
     required TResult Function(String message) signInSuccess,
     required TResult Function(String message) signInFailed,
     required TResult Function() loading,
-    required TResult Function() idle,
+    required TResult Function(bool isSignInButtonEnabled) idle,
   }) {
-    return idle();
+    return idle(isSignInButtonEnabled);
   }
 
   @override
@@ -548,9 +575,9 @@ class _$_SignInStateIdle implements _SignInStateIdle {
     TResult? Function(String message)? signInSuccess,
     TResult? Function(String message)? signInFailed,
     TResult? Function()? loading,
-    TResult? Function()? idle,
+    TResult? Function(bool isSignInButtonEnabled)? idle,
   }) {
-    return idle?.call();
+    return idle?.call(isSignInButtonEnabled);
   }
 
   @override
@@ -559,11 +586,11 @@ class _$_SignInStateIdle implements _SignInStateIdle {
     TResult Function(String message)? signInSuccess,
     TResult Function(String message)? signInFailed,
     TResult Function()? loading,
-    TResult Function()? idle,
+    TResult Function(bool isSignInButtonEnabled)? idle,
     required TResult orElse(),
   }) {
     if (idle != null) {
-      return idle();
+      return idle(isSignInButtonEnabled);
     }
     return orElse();
   }
@@ -607,5 +634,11 @@ class _$_SignInStateIdle implements _SignInStateIdle {
 }
 
 abstract class _SignInStateIdle implements SignInState {
-  factory _SignInStateIdle() = _$_SignInStateIdle;
+  factory _SignInStateIdle({required final bool isSignInButtonEnabled}) =
+      _$_SignInStateIdle;
+
+  bool get isSignInButtonEnabled;
+  @JsonKey(ignore: true)
+  _$$_SignInStateIdleCopyWith<_$_SignInStateIdle> get copyWith =>
+      throw _privateConstructorUsedError;
 }

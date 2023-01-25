@@ -20,7 +20,7 @@ class SignUpPage extends StatelessWidget with AppWidget {
               signUpSuccess: (message) {
                 AppSnackBar.success(context, message);
 
-                context.router.popUntilRoot();
+                context.router.popUntil((route) => false);
                 context.router.pushNamed('/sign-in');
               },
               signUpFailed: (message) => AppSnackBar.fail(context, message),
@@ -63,6 +63,10 @@ class SignUpPage extends StatelessWidget with AppWidget {
                   signUpSuccess: (_) => const SizedBox(),
                   signUpFailed: (_) => _getSignUpButton(context, state),
                 ),
+              ),
+              TextButton(
+                onPressed: () => context.router.pushNamed('/sign-in'),
+                child: const Text('SIGN IN'),
               ),
             ],
           )),

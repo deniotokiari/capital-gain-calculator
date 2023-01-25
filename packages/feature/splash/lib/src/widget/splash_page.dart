@@ -6,6 +6,7 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.router.popUntil((_) => false);
     context.router.pushNamed('/home');
 
     return const SizedBox();

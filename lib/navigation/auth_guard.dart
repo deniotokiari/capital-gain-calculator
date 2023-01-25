@@ -9,7 +9,7 @@ class AuthGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
     if (_userId().isEmpty) {
-      router.popUntilRoot();
+      router.popUntil((_) => false);
       router.pushNamed('/sign-in');
     } else {
       resolver.next();

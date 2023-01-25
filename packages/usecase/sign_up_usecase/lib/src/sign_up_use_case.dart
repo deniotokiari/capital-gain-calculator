@@ -35,6 +35,10 @@ class SignUpUseCase extends UseCase<SignUpUseCaseArguments, Future<SignUpUseCase
         return SignUpUseCaseResult.weakPassword;
       case CreateUserResult.emailAlreadyInUse:
         return SignUpUseCaseResult.emailAlreadyInUse;
+      case CreateUserResult.invalidEmail:
+        return SignUpUseCaseResult.invalidEmail;
+      case CreateUserResult.operationNotAllowed:
+        return SignUpUseCaseResult.operationNotAllowed;
     }
   }
 }
@@ -55,5 +59,7 @@ enum SignUpUseCaseResult {
   success,
   failed,
   weakPassword,
-  emailAlreadyInUse;
+  emailAlreadyInUse,
+  invalidEmail,
+  operationNotAllowed,
 }

@@ -20,7 +20,7 @@ class SignInPage extends StatelessWidget with AppWidget {
               signInSuccess: (message) {
                 AppSnackBar.success(context, message);
 
-                context.router.popUntilRoot();
+                context.router.popUntil((route) => false);
                 context.router.pushNamed('/home');
               },
             );

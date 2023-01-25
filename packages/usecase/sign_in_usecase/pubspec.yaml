@@ -1,4 +1,4 @@
-name: sign_in
+name: sign_in_usecase
 description: A new Flutter package project.
 version: 0.0.1
 publish_to: none
@@ -8,21 +8,14 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  auto_route: ^5.0.4
   flutter:
     sdk: flutter
-  ui:
-    path: ../../core/ui
-  utility:
+  auth:
+    path: ../../data/auth
+  utility: 
     path: ../../core/utility
-  flutter_bloc: ^8.1.1
-  freezed: ^2.3.2
-  freezed_annotation: ^2.2.0
-  sign_in_usecase:
-    path: ../../usecase/sign_in_usecase
 
 dev_dependencies:
-  build_runner: ^2.3.3
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
