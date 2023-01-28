@@ -17,4 +17,8 @@ class FirebaseAuthSource {
     required String password,
   }) =>
       firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+
+  bool get isSignIn => firebaseAuth.currentUser != null;
+
+  Stream<String?> get userEmail => firebaseAuth.authStateChanges().map((event) => event?.email);
 }

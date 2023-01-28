@@ -54,6 +54,10 @@ class AuthRepository {
       return SignInResult.failed;
     }
   }
+
+  bool get isSignIn => _firebaseAuthSource.isSignIn;
+
+  Stream<String?> get userEmail => _firebaseAuthSource.userEmail;
 }
 
 enum CreateUserResult {

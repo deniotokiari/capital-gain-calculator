@@ -15,7 +15,7 @@ class SignUpUseCase extends UseCase<SignUpUseCaseArguments, Future<SignUpUseCase
   Future<SignUpUseCaseResult> execute(SignUpUseCaseArguments arg) async {
     final signUpResult = await _authRepository.createUser(Credential(
       email: arg.email,
-      password: arg.email,
+      password: arg.password,
     ));
 
     switch (signUpResult) {

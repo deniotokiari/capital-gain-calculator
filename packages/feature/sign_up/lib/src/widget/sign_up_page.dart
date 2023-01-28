@@ -21,7 +21,7 @@ class SignUpPage extends StatelessWidget with AppWidget {
                 AppSnackBar.success(context, message);
 
                 context.router.popUntil((route) => false);
-                context.router.pushNamed('/sign-in');
+                context.router.pushNamed('/');
               },
               signUpFailed: (message) => AppSnackBar.fail(context, message),
             );

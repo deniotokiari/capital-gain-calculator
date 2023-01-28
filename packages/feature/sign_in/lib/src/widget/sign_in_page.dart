@@ -46,7 +46,7 @@ class SignInPage extends StatelessWidget with AppWidget {
               ),
             ),
             BlocBuilder<SignInBloc, SignInState>(
-              builder: (_, state) => state.maybeMap(
+              builder: (context, state) => state.maybeMap(
                 orElse: () => _getSignInButton(context, state),
                 loading: (_) => const CircularProgressIndicator.adaptive(),
               ),
