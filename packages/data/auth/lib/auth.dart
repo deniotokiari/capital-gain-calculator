@@ -16,7 +16,7 @@ class AuthModule extends DependencyModule {
       await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
     }
 
-    registerFactory(() => '', instanceName: 'userId');
     registerLazySingleton(() => AuthRepository(FirebaseAuthSource()));
+    registerFactory(() => get<AuthRepository>().userEmail ?? '', instanceName: 'userId');
   }
 }

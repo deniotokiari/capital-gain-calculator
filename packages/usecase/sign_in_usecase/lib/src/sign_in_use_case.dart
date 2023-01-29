@@ -12,10 +12,6 @@ class SignInUseCase extends UseCase<SignInUseCaseArguments, Future<SignInUseCase
 
     switch (result) {
       case SignInResult.success:
-        pushNewScope(() {
-          registerFactory(() => arg.email, instanceName: 'userId');
-        });
-
         return SignInUseCaseResult.success;
       case SignInResult.failed:
         return SignInUseCaseResult.failed;

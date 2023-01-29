@@ -20,10 +20,6 @@ class SignUpUseCase extends UseCase<SignUpUseCaseArguments, Future<SignUpUseCase
 
     switch (signUpResult) {
       case CreateUserResult.success:
-        pushNewScope(() {
-          registerFactory(() => arg.email, instanceName: 'userId');
-        });
-
         await _alphavantageKeyRepository.saveKey(
           key: arg.alphavantageKey,
         );

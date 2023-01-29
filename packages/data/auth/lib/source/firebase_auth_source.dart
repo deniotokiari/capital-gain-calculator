@@ -20,5 +20,5 @@ class FirebaseAuthSource {
 
   bool get isSignIn => firebaseAuth.currentUser != null;
 
-  Stream<String?> get userEmail => firebaseAuth.authStateChanges().map((event) => event?.email);
+  String? get userEmail => firebaseAuth.currentUser?.email;
 }

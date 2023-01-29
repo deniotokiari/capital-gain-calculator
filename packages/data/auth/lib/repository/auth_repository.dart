@@ -57,7 +57,7 @@ class AuthRepository {
 
   bool get isSignIn => _firebaseAuthSource.isSignIn;
 
-  Stream<String?> get userEmail => _firebaseAuthSource.userEmail;
+  String? get userEmail => _firebaseAuthSource.userEmail;
 }
 
 enum CreateUserResult {
