@@ -18,7 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SignUpState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String? email, String? password, String? alphavantageKey)
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)
         $default, {
     required TResult Function() loading,
     required TResult Function(String message) signUpSuccess,
@@ -27,7 +28,8 @@ mixin _$SignUpState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? email, String? password, String? alphavantageKey)?
+    TResult? Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)?
         $default, {
     TResult? Function()? loading,
     TResult? Function(String message)? signUpSuccess,
@@ -36,7 +38,8 @@ mixin _$SignUpState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? email, String? password, String? alphavantageKey)?
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)?
         $default, {
     TResult Function()? loading,
     TResult Function(String message)? signUpSuccess,
@@ -95,7 +98,12 @@ abstract class _$$_SignUpStateCopyWith<$Res> {
           _$_SignUpState value, $Res Function(_$_SignUpState) then) =
       __$$_SignUpStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? email, String? password, String? alphavantageKey});
+  $Res call(
+      {String? email,
+      String? password,
+      String? alphavantageKey,
+      String? selectedCurrency,
+      List<String>? listOfCurrency});
 }
 
 /// @nodoc
@@ -112,6 +120,8 @@ class __$$_SignUpStateCopyWithImpl<$Res>
     Object? email = freezed,
     Object? password = freezed,
     Object? alphavantageKey = freezed,
+    Object? selectedCurrency = freezed,
+    Object? listOfCurrency = freezed,
   }) {
     return _then(_$_SignUpState(
       email: freezed == email
@@ -126,6 +136,14 @@ class __$$_SignUpStateCopyWithImpl<$Res>
           ? _value.alphavantageKey
           : alphavantageKey // ignore: cast_nullable_to_non_nullable
               as String?,
+      selectedCurrency: freezed == selectedCurrency
+          ? _value.selectedCurrency
+          : selectedCurrency // ignore: cast_nullable_to_non_nullable
+              as String?,
+      listOfCurrency: freezed == listOfCurrency
+          ? _value._listOfCurrency
+          : listOfCurrency // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -136,7 +154,10 @@ class _$_SignUpState implements _SignUpState {
   _$_SignUpState(
       {required this.email,
       required this.password,
-      required this.alphavantageKey});
+      required this.alphavantageKey,
+      required this.selectedCurrency,
+      required final List<String>? listOfCurrency})
+      : _listOfCurrency = listOfCurrency;
 
   @override
   final String? email;
@@ -144,10 +165,21 @@ class _$_SignUpState implements _SignUpState {
   final String? password;
   @override
   final String? alphavantageKey;
+  @override
+  final String? selectedCurrency;
+  final List<String>? _listOfCurrency;
+  @override
+  List<String>? get listOfCurrency {
+    final value = _listOfCurrency;
+    if (value == null) return null;
+    if (_listOfCurrency is EqualUnmodifiableListView) return _listOfCurrency;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'SignUpState(email: $email, password: $password, alphavantageKey: $alphavantageKey)';
+    return 'SignUpState(email: $email, password: $password, alphavantageKey: $alphavantageKey, selectedCurrency: $selectedCurrency, listOfCurrency: $listOfCurrency)';
   }
 
   @override
@@ -159,12 +191,16 @@ class _$_SignUpState implements _SignUpState {
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.alphavantageKey, alphavantageKey) ||
-                other.alphavantageKey == alphavantageKey));
+                other.alphavantageKey == alphavantageKey) &&
+            (identical(other.selectedCurrency, selectedCurrency) ||
+                other.selectedCurrency == selectedCurrency) &&
+            const DeepCollectionEquality()
+                .equals(other._listOfCurrency, _listOfCurrency));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, email, password, alphavantageKey);
+  int get hashCode => Object.hash(runtimeType, email, password, alphavantageKey,
+      selectedCurrency, const DeepCollectionEquality().hash(_listOfCurrency));
 
   @JsonKey(ignore: true)
   @override
@@ -175,31 +211,36 @@ class _$_SignUpState implements _SignUpState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String? email, String? password, String? alphavantageKey)
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)
         $default, {
     required TResult Function() loading,
     required TResult Function(String message) signUpSuccess,
     required TResult Function(String message) signUpFailed,
   }) {
-    return $default(email, password, alphavantageKey);
+    return $default(
+        email, password, alphavantageKey, selectedCurrency, listOfCurrency);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? email, String? password, String? alphavantageKey)?
+    TResult? Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)?
         $default, {
     TResult? Function()? loading,
     TResult? Function(String message)? signUpSuccess,
     TResult? Function(String message)? signUpFailed,
   }) {
-    return $default?.call(email, password, alphavantageKey);
+    return $default?.call(
+        email, password, alphavantageKey, selectedCurrency, listOfCurrency);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? email, String? password, String? alphavantageKey)?
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)?
         $default, {
     TResult Function()? loading,
     TResult Function(String message)? signUpSuccess,
@@ -207,7 +248,8 @@ class _$_SignUpState implements _SignUpState {
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(email, password, alphavantageKey);
+      return $default(
+          email, password, alphavantageKey, selectedCurrency, listOfCurrency);
     }
     return orElse();
   }
@@ -254,11 +296,15 @@ abstract class _SignUpState implements SignUpState {
   factory _SignUpState(
       {required final String? email,
       required final String? password,
-      required final String? alphavantageKey}) = _$_SignUpState;
+      required final String? alphavantageKey,
+      required final String? selectedCurrency,
+      required final List<String>? listOfCurrency}) = _$_SignUpState;
 
   String? get email;
   String? get password;
   String? get alphavantageKey;
+  String? get selectedCurrency;
+  List<String>? get listOfCurrency;
   @JsonKey(ignore: true)
   _$$_SignUpStateCopyWith<_$_SignUpState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -302,7 +348,8 @@ class _$_SignUpStateLoading implements _SignUpStateLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String? email, String? password, String? alphavantageKey)
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)
         $default, {
     required TResult Function() loading,
     required TResult Function(String message) signUpSuccess,
@@ -314,7 +361,8 @@ class _$_SignUpStateLoading implements _SignUpStateLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? email, String? password, String? alphavantageKey)?
+    TResult? Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)?
         $default, {
     TResult? Function()? loading,
     TResult? Function(String message)? signUpSuccess,
@@ -326,7 +374,8 @@ class _$_SignUpStateLoading implements _SignUpStateLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? email, String? password, String? alphavantageKey)?
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)?
         $default, {
     TResult Function()? loading,
     TResult Function(String message)? signUpSuccess,
@@ -447,7 +496,8 @@ class _$_SignUpStateSignUpSuccess implements _SignUpStateSignUpSuccess {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String? email, String? password, String? alphavantageKey)
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)
         $default, {
     required TResult Function() loading,
     required TResult Function(String message) signUpSuccess,
@@ -459,7 +509,8 @@ class _$_SignUpStateSignUpSuccess implements _SignUpStateSignUpSuccess {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? email, String? password, String? alphavantageKey)?
+    TResult? Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)?
         $default, {
     TResult? Function()? loading,
     TResult? Function(String message)? signUpSuccess,
@@ -471,7 +522,8 @@ class _$_SignUpStateSignUpSuccess implements _SignUpStateSignUpSuccess {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? email, String? password, String? alphavantageKey)?
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)?
         $default, {
     TResult Function()? loading,
     TResult Function(String message)? signUpSuccess,
@@ -598,7 +650,8 @@ class _$_SignUpStateSignUpFailed implements _SignUpStateSignUpFailed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String? email, String? password, String? alphavantageKey)
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)
         $default, {
     required TResult Function() loading,
     required TResult Function(String message) signUpSuccess,
@@ -610,7 +663,8 @@ class _$_SignUpStateSignUpFailed implements _SignUpStateSignUpFailed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? email, String? password, String? alphavantageKey)?
+    TResult? Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)?
         $default, {
     TResult? Function()? loading,
     TResult? Function(String message)? signUpSuccess,
@@ -622,7 +676,8 @@ class _$_SignUpStateSignUpFailed implements _SignUpStateSignUpFailed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? email, String? password, String? alphavantageKey)?
+    TResult Function(String? email, String? password, String? alphavantageKey,
+            String? selectedCurrency, List<String>? listOfCurrency)?
         $default, {
     TResult Function()? loading,
     TResult Function(String message)? signUpSuccess,

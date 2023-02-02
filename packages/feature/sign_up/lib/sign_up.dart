@@ -16,6 +16,7 @@ class SignUpModule extends DependencyModule {
           get(),
           get(),
         ),
+        get(),
       ),
     );
   }

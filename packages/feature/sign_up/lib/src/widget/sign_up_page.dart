@@ -12,7 +12,7 @@ class SignUpPage extends StatelessWidget with AppWidget {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-        create: (_) => get<SignUpBloc>(),
+        create: (_) => get<SignUpBloc>()..add(SignUpEvent.init()),
         child: BlocListener<SignUpBloc, SignUpState>(
           listener: (context, state) {
             state.whenOrNull(
@@ -55,6 +55,27 @@ class SignUpPage extends StatelessWidget with AppWidget {
                     labelText: 'ALPHAVANTAGE KEY',
                   ),
                 ),
+              ),
+              BlocBuilder<SignUpBloc, SignUpState>(
+                buildWhen: (previous, current) => current.mapOrNull((value) => value.listOfCurrency != null) ?? false,
+                builder: (context, state) =>
+                    state.mapOrNull(
+                      (value) {
+                        final listOfCurrency = value.listOfCurrency ?? [];
+
+                        return DropdownButton<String>(
+                          isExpanded: true,
+                          value: value.selectedCurrency,
+                          items: listOfCurrency.map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(growable: false),
+                          onChanged: (value) {
+                            if (value != null) {
+                              context.read<SignUpBloc>().add(SignUpEvent.currencyChanged(value));
+                            }
+                          },
+                        );
+                      },
+                    ) ??
+                    const CircularProgressIndicator.adaptive(),
               ),
               BlocBuilder<SignUpBloc, SignUpState>(
                 builder: (context, state) => state.map(

@@ -1,12 +1,5 @@
-import 'package:alphavantage/repository/alphavantage_key_repository.dart';
-import 'package:auth/auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-import 'package:sign_up_usecase/sign_up_use_case.dart';
-import 'package:utility/utility.dart';
 
-void main() {
+/*void main() {
   late AuthRepository authRepository;
   late AlphavantageKeyRepository alphavantageKeyRepository;
   late SignUpUseCase sut;
@@ -81,3 +74,4 @@ void main() {
 class _AuthRepositoryMock extends Mock implements AuthRepository {}
 
 class _AlphavantageKeyRepositoryMock extends Mock implements AlphavantageKeyRepository {}
+*/

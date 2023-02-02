@@ -1,3 +1,4 @@
+import 'package:currency/currency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sign_up/src/bloc/sign_up_event.dart';
 import 'package:sign_up/src/bloc/sign_up_state.dart';
@@ -5,28 +6,77 @@ import 'package:sign_up_usecase/sign_up_use_case.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final SignUpUseCase _signUpUseCase;
+  final CurrencyListRepository _currencyListRepository;
 
   String? _email;
   String? _password;
   String? _alphavantageKey;
+  String? _selectedCurrency;
+  final List<Currency> _listOfCurrency = [];
 
   SignUpBloc(
     this._signUpUseCase,
+    this._currencyListRepository,
   ) : super(SignUpState.empty()) {
+    on<SignUpEventEventInit>((event, emit) async {
+      _listOfCurrency.clear();
+
+      final listOfCurrency = await _currencyListRepository.getCurrencyList();
+
+      _listOfCurrency.addAll(listOfCurrency);
+      _selectedCurrency = _formatCurrency(_listOfCurrency.firstWhere((e) => e.isUsd));
+
+      emit(SignUpState(
+        email: _email,
+        password: _password,
+        alphavantageKey: _alphavantageKey,
+        listOfCurrency: _listOfCurrency.map(_formatCurrency).toList(growable: false),
+        selectedCurrency: _selectedCurrency,
+      ));
+    });
     on<SignUpEventEventEmailChanged>((event, emit) {
       _email = event.email;
 
-      emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey));
+      emit(SignUpState(
+        email: _email,
+        password: _password,
+        alphavantageKey: _alphavantageKey,
+        selectedCurrency: _selectedCurrency,
+        listOfCurrency: _listOfCurrency.map(_formatCurrency).toList(growable: false),
+      ));
     });
     on<SignUpEventPasswordChanged>((event, emit) {
       _password = event.password;
 
-      emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey));
+      emit(SignUpState(
+        email: _email,
+        password: _password,
+        alphavantageKey: _alphavantageKey,
+        selectedCurrency: _selectedCurrency,
+        listOfCurrency: _listOfCurrency.map(_formatCurrency).toList(growable: false),
+      ));
     });
     on<SignUpEventAlphavantageKeyChanged>((event, emit) {
       _alphavantageKey = event.alphavantageKey;
 
-      emit(SignUpState(email: _email, password: _password, alphavantageKey: _alphavantageKey));
+      emit(SignUpState(
+        email: _email,
+        password: _password,
+        alphavantageKey: _alphavantageKey,
+        selectedCurrency: _selectedCurrency,
+        listOfCurrency: _listOfCurrency.map(_formatCurrency).toList(growable: false),
+      ));
+    });
+    on<SignUpEventEventCurrencyChanged>((event, emit) {
+      _selectedCurrency = event.currency;
+
+      emit(SignUpState(
+        email: _email,
+        password: _password,
+        alphavantageKey: _alphavantageKey,
+        selectedCurrency: _selectedCurrency,
+        listOfCurrency: _listOfCurrency.map(_formatCurrency).toList(growable: false),
+      ));
     });
     on<SignUpEventSignUp>((event, emit) async {
       emit(SignUpState.loading());
@@ -35,6 +85,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         email: _email!,
         password: _password!,
         alphavantageKey: _alphavantageKey!,
+        currencyCode: _selectedCurrency!,
       ));
 
       switch (result) {
@@ -65,4 +116,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       }
     });
   }
+
+  String _formatCurrency(Currency currency) => '${currency.name} (${currency.code})';
 }

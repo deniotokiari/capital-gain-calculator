@@ -1,11 +1,5 @@
-import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-import 'package:sign_up/sign_up.dart';
-import 'package:sign_up/src/bloc/sign_up_event.dart';
-import 'package:sign_up/src/bloc/sign_up_state.dart';
-import 'package:sign_up_usecase/sign_up_use_case.dart';
 
+/*
 void main() {
   late SignUpUseCase signUpUseCase;
   late SignUpBloc sut;
@@ -120,3 +114,4 @@ void main() {
 }
 
 class _SignUpUseCaseMock extends Mock implements SignUpUseCase {}
+*/

@@ -9,6 +9,8 @@ environment:
 
 dependencies:
   auto_route: ^5.0.4
+  currency:
+    path: ../../data/currency
   ui:
     path: ../../core/ui
   utility:

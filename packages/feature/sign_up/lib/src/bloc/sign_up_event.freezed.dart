@@ -18,53 +18,66 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SignUpEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() init,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String alphavantageKey) alphavantageKeyChanged,
+    required TResult Function(String currency) currencyChanged,
     required TResult Function() signUp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult? Function(String currency)? currencyChanged,
     TResult? Function()? signUp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult Function(String currency)? currencyChanged,
     TResult Function()? signUp,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SignUpEventEventInit value) init,
     required TResult Function(SignUpEventEventEmailChanged value) emailChanged,
     required TResult Function(SignUpEventPasswordChanged value) passwordChanged,
     required TResult Function(SignUpEventAlphavantageKeyChanged value)
         alphavantageKeyChanged,
+    required TResult Function(SignUpEventEventCurrencyChanged value)
+        currencyChanged,
     required TResult Function(SignUpEventSignUp value) signUp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignUpEventEventInit value)? init,
     TResult? Function(SignUpEventEventEmailChanged value)? emailChanged,
     TResult? Function(SignUpEventPasswordChanged value)? passwordChanged,
     TResult? Function(SignUpEventAlphavantageKeyChanged value)?
         alphavantageKeyChanged,
+    TResult? Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
     TResult? Function(SignUpEventSignUp value)? signUp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignUpEventEventInit value)? init,
     TResult Function(SignUpEventEventEmailChanged value)? emailChanged,
     TResult Function(SignUpEventPasswordChanged value)? passwordChanged,
     TResult Function(SignUpEventAlphavantageKeyChanged value)?
         alphavantageKeyChanged,
+    TResult Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
     TResult Function(SignUpEventSignUp value)? signUp,
     required TResult orElse(),
   }) =>
@@ -87,6 +100,136 @@ class _$SignUpEventCopyWithImpl<$Res, $Val extends SignUpEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$SignUpEventEventInitCopyWith<$Res> {
+  factory _$$SignUpEventEventInitCopyWith(_$SignUpEventEventInit value,
+          $Res Function(_$SignUpEventEventInit) then) =
+      __$$SignUpEventEventInitCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignUpEventEventInitCopyWithImpl<$Res>
+    extends _$SignUpEventCopyWithImpl<$Res, _$SignUpEventEventInit>
+    implements _$$SignUpEventEventInitCopyWith<$Res> {
+  __$$SignUpEventEventInitCopyWithImpl(_$SignUpEventEventInit _value,
+      $Res Function(_$SignUpEventEventInit) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignUpEventEventInit implements SignUpEventEventInit {
+  _$SignUpEventEventInit();
+
+  @override
+  String toString() {
+    return 'SignUpEvent.init()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SignUpEventEventInit);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function(String email) emailChanged,
+    required TResult Function(String password) passwordChanged,
+    required TResult Function(String alphavantageKey) alphavantageKeyChanged,
+    required TResult Function(String currency) currencyChanged,
+    required TResult Function() signUp,
+  }) {
+    return init();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
+    TResult? Function(String email)? emailChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult? Function(String currency)? currencyChanged,
+    TResult? Function()? signUp,
+  }) {
+    return init?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function(String email)? emailChanged,
+    TResult Function(String password)? passwordChanged,
+    TResult Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult Function(String currency)? currencyChanged,
+    TResult Function()? signUp,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignUpEventEventInit value) init,
+    required TResult Function(SignUpEventEventEmailChanged value) emailChanged,
+    required TResult Function(SignUpEventPasswordChanged value) passwordChanged,
+    required TResult Function(SignUpEventAlphavantageKeyChanged value)
+        alphavantageKeyChanged,
+    required TResult Function(SignUpEventEventCurrencyChanged value)
+        currencyChanged,
+    required TResult Function(SignUpEventSignUp value) signUp,
+  }) {
+    return init(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignUpEventEventInit value)? init,
+    TResult? Function(SignUpEventEventEmailChanged value)? emailChanged,
+    TResult? Function(SignUpEventPasswordChanged value)? passwordChanged,
+    TResult? Function(SignUpEventAlphavantageKeyChanged value)?
+        alphavantageKeyChanged,
+    TResult? Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
+    TResult? Function(SignUpEventSignUp value)? signUp,
+  }) {
+    return init?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignUpEventEventInit value)? init,
+    TResult Function(SignUpEventEventEmailChanged value)? emailChanged,
+    TResult Function(SignUpEventPasswordChanged value)? passwordChanged,
+    TResult Function(SignUpEventAlphavantageKeyChanged value)?
+        alphavantageKeyChanged,
+    TResult Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
+    TResult Function(SignUpEventSignUp value)? signUp,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignUpEventEventInit implements SignUpEvent {
+  factory SignUpEventEventInit() = _$SignUpEventEventInit;
 }
 
 /// @nodoc
@@ -156,9 +299,11 @@ class _$SignUpEventEventEmailChanged implements SignUpEventEventEmailChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() init,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String alphavantageKey) alphavantageKeyChanged,
+    required TResult Function(String currency) currencyChanged,
     required TResult Function() signUp,
   }) {
     return emailChanged(email);
@@ -167,9 +312,11 @@ class _$SignUpEventEventEmailChanged implements SignUpEventEventEmailChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult? Function(String currency)? currencyChanged,
     TResult? Function()? signUp,
   }) {
     return emailChanged?.call(email);
@@ -178,9 +325,11 @@ class _$SignUpEventEventEmailChanged implements SignUpEventEventEmailChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult Function(String currency)? currencyChanged,
     TResult Function()? signUp,
     required TResult orElse(),
   }) {
@@ -193,10 +342,13 @@ class _$SignUpEventEventEmailChanged implements SignUpEventEventEmailChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SignUpEventEventInit value) init,
     required TResult Function(SignUpEventEventEmailChanged value) emailChanged,
     required TResult Function(SignUpEventPasswordChanged value) passwordChanged,
     required TResult Function(SignUpEventAlphavantageKeyChanged value)
         alphavantageKeyChanged,
+    required TResult Function(SignUpEventEventCurrencyChanged value)
+        currencyChanged,
     required TResult Function(SignUpEventSignUp value) signUp,
   }) {
     return emailChanged(this);
@@ -205,10 +357,12 @@ class _$SignUpEventEventEmailChanged implements SignUpEventEventEmailChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignUpEventEventInit value)? init,
     TResult? Function(SignUpEventEventEmailChanged value)? emailChanged,
     TResult? Function(SignUpEventPasswordChanged value)? passwordChanged,
     TResult? Function(SignUpEventAlphavantageKeyChanged value)?
         alphavantageKeyChanged,
+    TResult? Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
     TResult? Function(SignUpEventSignUp value)? signUp,
   }) {
     return emailChanged?.call(this);
@@ -217,10 +371,12 @@ class _$SignUpEventEventEmailChanged implements SignUpEventEventEmailChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignUpEventEventInit value)? init,
     TResult Function(SignUpEventEventEmailChanged value)? emailChanged,
     TResult Function(SignUpEventPasswordChanged value)? passwordChanged,
     TResult Function(SignUpEventAlphavantageKeyChanged value)?
         alphavantageKeyChanged,
+    TResult Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
     TResult Function(SignUpEventSignUp value)? signUp,
     required TResult orElse(),
   }) {
@@ -309,9 +465,11 @@ class _$SignUpEventPasswordChanged implements SignUpEventPasswordChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() init,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String alphavantageKey) alphavantageKeyChanged,
+    required TResult Function(String currency) currencyChanged,
     required TResult Function() signUp,
   }) {
     return passwordChanged(password);
@@ -320,9 +478,11 @@ class _$SignUpEventPasswordChanged implements SignUpEventPasswordChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult? Function(String currency)? currencyChanged,
     TResult? Function()? signUp,
   }) {
     return passwordChanged?.call(password);
@@ -331,9 +491,11 @@ class _$SignUpEventPasswordChanged implements SignUpEventPasswordChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult Function(String currency)? currencyChanged,
     TResult Function()? signUp,
     required TResult orElse(),
   }) {
@@ -346,10 +508,13 @@ class _$SignUpEventPasswordChanged implements SignUpEventPasswordChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SignUpEventEventInit value) init,
     required TResult Function(SignUpEventEventEmailChanged value) emailChanged,
     required TResult Function(SignUpEventPasswordChanged value) passwordChanged,
     required TResult Function(SignUpEventAlphavantageKeyChanged value)
         alphavantageKeyChanged,
+    required TResult Function(SignUpEventEventCurrencyChanged value)
+        currencyChanged,
     required TResult Function(SignUpEventSignUp value) signUp,
   }) {
     return passwordChanged(this);
@@ -358,10 +523,12 @@ class _$SignUpEventPasswordChanged implements SignUpEventPasswordChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignUpEventEventInit value)? init,
     TResult? Function(SignUpEventEventEmailChanged value)? emailChanged,
     TResult? Function(SignUpEventPasswordChanged value)? passwordChanged,
     TResult? Function(SignUpEventAlphavantageKeyChanged value)?
         alphavantageKeyChanged,
+    TResult? Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
     TResult? Function(SignUpEventSignUp value)? signUp,
   }) {
     return passwordChanged?.call(this);
@@ -370,10 +537,12 @@ class _$SignUpEventPasswordChanged implements SignUpEventPasswordChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignUpEventEventInit value)? init,
     TResult Function(SignUpEventEventEmailChanged value)? emailChanged,
     TResult Function(SignUpEventPasswordChanged value)? passwordChanged,
     TResult Function(SignUpEventAlphavantageKeyChanged value)?
         alphavantageKeyChanged,
+    TResult Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
     TResult Function(SignUpEventSignUp value)? signUp,
     required TResult orElse(),
   }) {
@@ -464,9 +633,11 @@ class _$SignUpEventAlphavantageKeyChanged
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() init,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String alphavantageKey) alphavantageKeyChanged,
+    required TResult Function(String currency) currencyChanged,
     required TResult Function() signUp,
   }) {
     return alphavantageKeyChanged(alphavantageKey);
@@ -475,9 +646,11 @@ class _$SignUpEventAlphavantageKeyChanged
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult? Function(String currency)? currencyChanged,
     TResult? Function()? signUp,
   }) {
     return alphavantageKeyChanged?.call(alphavantageKey);
@@ -486,9 +659,11 @@ class _$SignUpEventAlphavantageKeyChanged
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult Function(String currency)? currencyChanged,
     TResult Function()? signUp,
     required TResult orElse(),
   }) {
@@ -501,10 +676,13 @@ class _$SignUpEventAlphavantageKeyChanged
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SignUpEventEventInit value) init,
     required TResult Function(SignUpEventEventEmailChanged value) emailChanged,
     required TResult Function(SignUpEventPasswordChanged value) passwordChanged,
     required TResult Function(SignUpEventAlphavantageKeyChanged value)
         alphavantageKeyChanged,
+    required TResult Function(SignUpEventEventCurrencyChanged value)
+        currencyChanged,
     required TResult Function(SignUpEventSignUp value) signUp,
   }) {
     return alphavantageKeyChanged(this);
@@ -513,10 +691,12 @@ class _$SignUpEventAlphavantageKeyChanged
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignUpEventEventInit value)? init,
     TResult? Function(SignUpEventEventEmailChanged value)? emailChanged,
     TResult? Function(SignUpEventPasswordChanged value)? passwordChanged,
     TResult? Function(SignUpEventAlphavantageKeyChanged value)?
         alphavantageKeyChanged,
+    TResult? Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
     TResult? Function(SignUpEventSignUp value)? signUp,
   }) {
     return alphavantageKeyChanged?.call(this);
@@ -525,10 +705,12 @@ class _$SignUpEventAlphavantageKeyChanged
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignUpEventEventInit value)? init,
     TResult Function(SignUpEventEventEmailChanged value)? emailChanged,
     TResult Function(SignUpEventPasswordChanged value)? passwordChanged,
     TResult Function(SignUpEventAlphavantageKeyChanged value)?
         alphavantageKeyChanged,
+    TResult Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
     TResult Function(SignUpEventSignUp value)? signUp,
     required TResult orElse(),
   }) {
@@ -547,6 +729,173 @@ abstract class SignUpEventAlphavantageKeyChanged implements SignUpEvent {
   @JsonKey(ignore: true)
   _$$SignUpEventAlphavantageKeyChangedCopyWith<
           _$SignUpEventAlphavantageKeyChanged>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SignUpEventEventCurrencyChangedCopyWith<$Res> {
+  factory _$$SignUpEventEventCurrencyChangedCopyWith(
+          _$SignUpEventEventCurrencyChanged value,
+          $Res Function(_$SignUpEventEventCurrencyChanged) then) =
+      __$$SignUpEventEventCurrencyChangedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String currency});
+}
+
+/// @nodoc
+class __$$SignUpEventEventCurrencyChangedCopyWithImpl<$Res>
+    extends _$SignUpEventCopyWithImpl<$Res, _$SignUpEventEventCurrencyChanged>
+    implements _$$SignUpEventEventCurrencyChangedCopyWith<$Res> {
+  __$$SignUpEventEventCurrencyChangedCopyWithImpl(
+      _$SignUpEventEventCurrencyChanged _value,
+      $Res Function(_$SignUpEventEventCurrencyChanged) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? currency = null,
+  }) {
+    return _then(_$SignUpEventEventCurrencyChanged(
+      null == currency
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SignUpEventEventCurrencyChanged
+    implements SignUpEventEventCurrencyChanged {
+  _$SignUpEventEventCurrencyChanged(this.currency);
+
+  @override
+  final String currency;
+
+  @override
+  String toString() {
+    return 'SignUpEvent.currencyChanged(currency: $currency)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignUpEventEventCurrencyChanged &&
+            (identical(other.currency, currency) ||
+                other.currency == currency));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, currency);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SignUpEventEventCurrencyChangedCopyWith<_$SignUpEventEventCurrencyChanged>
+      get copyWith => __$$SignUpEventEventCurrencyChangedCopyWithImpl<
+          _$SignUpEventEventCurrencyChanged>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function(String email) emailChanged,
+    required TResult Function(String password) passwordChanged,
+    required TResult Function(String alphavantageKey) alphavantageKeyChanged,
+    required TResult Function(String currency) currencyChanged,
+    required TResult Function() signUp,
+  }) {
+    return currencyChanged(currency);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
+    TResult? Function(String email)? emailChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult? Function(String currency)? currencyChanged,
+    TResult? Function()? signUp,
+  }) {
+    return currencyChanged?.call(currency);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function(String email)? emailChanged,
+    TResult Function(String password)? passwordChanged,
+    TResult Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult Function(String currency)? currencyChanged,
+    TResult Function()? signUp,
+    required TResult orElse(),
+  }) {
+    if (currencyChanged != null) {
+      return currencyChanged(currency);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignUpEventEventInit value) init,
+    required TResult Function(SignUpEventEventEmailChanged value) emailChanged,
+    required TResult Function(SignUpEventPasswordChanged value) passwordChanged,
+    required TResult Function(SignUpEventAlphavantageKeyChanged value)
+        alphavantageKeyChanged,
+    required TResult Function(SignUpEventEventCurrencyChanged value)
+        currencyChanged,
+    required TResult Function(SignUpEventSignUp value) signUp,
+  }) {
+    return currencyChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignUpEventEventInit value)? init,
+    TResult? Function(SignUpEventEventEmailChanged value)? emailChanged,
+    TResult? Function(SignUpEventPasswordChanged value)? passwordChanged,
+    TResult? Function(SignUpEventAlphavantageKeyChanged value)?
+        alphavantageKeyChanged,
+    TResult? Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
+    TResult? Function(SignUpEventSignUp value)? signUp,
+  }) {
+    return currencyChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignUpEventEventInit value)? init,
+    TResult Function(SignUpEventEventEmailChanged value)? emailChanged,
+    TResult Function(SignUpEventPasswordChanged value)? passwordChanged,
+    TResult Function(SignUpEventAlphavantageKeyChanged value)?
+        alphavantageKeyChanged,
+    TResult Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
+    TResult Function(SignUpEventSignUp value)? signUp,
+    required TResult orElse(),
+  }) {
+    if (currencyChanged != null) {
+      return currencyChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignUpEventEventCurrencyChanged implements SignUpEvent {
+  factory SignUpEventEventCurrencyChanged(final String currency) =
+      _$SignUpEventEventCurrencyChanged;
+
+  String get currency;
+  @JsonKey(ignore: true)
+  _$$SignUpEventEventCurrencyChangedCopyWith<_$SignUpEventEventCurrencyChanged>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -588,9 +937,11 @@ class _$SignUpEventSignUp implements SignUpEventSignUp {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() init,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String alphavantageKey) alphavantageKeyChanged,
+    required TResult Function(String currency) currencyChanged,
     required TResult Function() signUp,
   }) {
     return signUp();
@@ -599,9 +950,11 @@ class _$SignUpEventSignUp implements SignUpEventSignUp {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult? Function(String currency)? currencyChanged,
     TResult? Function()? signUp,
   }) {
     return signUp?.call();
@@ -610,9 +963,11 @@ class _$SignUpEventSignUp implements SignUpEventSignUp {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String alphavantageKey)? alphavantageKeyChanged,
+    TResult Function(String currency)? currencyChanged,
     TResult Function()? signUp,
     required TResult orElse(),
   }) {
@@ -625,10 +980,13 @@ class _$SignUpEventSignUp implements SignUpEventSignUp {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SignUpEventEventInit value) init,
     required TResult Function(SignUpEventEventEmailChanged value) emailChanged,
     required TResult Function(SignUpEventPasswordChanged value) passwordChanged,
     required TResult Function(SignUpEventAlphavantageKeyChanged value)
         alphavantageKeyChanged,
+    required TResult Function(SignUpEventEventCurrencyChanged value)
+        currencyChanged,
     required TResult Function(SignUpEventSignUp value) signUp,
   }) {
     return signUp(this);
@@ -637,10 +995,12 @@ class _$SignUpEventSignUp implements SignUpEventSignUp {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignUpEventEventInit value)? init,
     TResult? Function(SignUpEventEventEmailChanged value)? emailChanged,
     TResult? Function(SignUpEventPasswordChanged value)? passwordChanged,
     TResult? Function(SignUpEventAlphavantageKeyChanged value)?
         alphavantageKeyChanged,
+    TResult? Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
     TResult? Function(SignUpEventSignUp value)? signUp,
   }) {
     return signUp?.call(this);
@@ -649,10 +1009,12 @@ class _$SignUpEventSignUp implements SignUpEventSignUp {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignUpEventEventInit value)? init,
     TResult Function(SignUpEventEventEmailChanged value)? emailChanged,
     TResult Function(SignUpEventPasswordChanged value)? passwordChanged,
     TResult Function(SignUpEventAlphavantageKeyChanged value)?
         alphavantageKeyChanged,
+    TResult Function(SignUpEventEventCurrencyChanged value)? currencyChanged,
     TResult Function(SignUpEventSignUp value)? signUp,
     required TResult orElse(),
   }) {

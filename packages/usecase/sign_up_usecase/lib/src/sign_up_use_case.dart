@@ -43,11 +43,13 @@ class SignUpUseCaseArguments {
   final String email;
   final String password;
   final String alphavantageKey;
+  final String currencyCode;
 
   SignUpUseCaseArguments({
     required this.email,
     required this.password,
     required this.alphavantageKey,
+    required this.currencyCode,
   });
 }
 
