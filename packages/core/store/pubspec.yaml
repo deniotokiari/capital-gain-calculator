@@ -10,7 +10,7 @@ environment:
 dependencies:
   cloud_firestore: ^4.3.1
   utility: 
-    path: ../../core/utility
+    path: ../utility
   flutter:
     sdk: flutter
 

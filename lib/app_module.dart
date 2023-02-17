@@ -7,8 +7,8 @@ import 'package:home/home.dart';
 import 'package:portfolio/portfolio.dart';
 import 'package:sign_in/sign_in.dart';
 import 'package:splash/splash.dart';
-import 'package:store/store.dart';
 import 'package:sign_up/sign_up.dart';
+import 'package:store/store.dart';
 import 'package:utility/utility.dart';
 
 class AppModule extends DependencyModule {

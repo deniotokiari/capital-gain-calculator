@@ -11,7 +11,7 @@ dependencies:
   utility: 
     path: ../../core/utility
   store:
-    path: ../store
+    path: ../../core/store
   flutter:
     sdk: flutter
 

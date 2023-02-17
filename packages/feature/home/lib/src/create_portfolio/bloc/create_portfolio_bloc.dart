@@ -1,7 +1,7 @@
 import 'package:currency/currency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:home/src/create_portfolio/cubit/create_portfolio_event.dart';
-import 'package:home/src/create_portfolio/cubit/create_portfolio_state.dart';
+import 'package:home/src/create_portfolio/bloc/create_portfolio_event.dart';
+import 'package:home/src/create_portfolio/bloc/create_portfolio_state.dart';
 
 class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioState> {
   final CurrencyListRepository _currencyListRepository;

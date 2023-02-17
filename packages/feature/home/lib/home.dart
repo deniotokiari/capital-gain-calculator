@@ -1,6 +1,6 @@
 library home;
 
-import 'package:home/src/create_portfolio/cubit/create_portfolio_bloc.dart';
+import 'package:home/src/create_portfolio/bloc/create_portfolio_bloc.dart';
 import 'package:utility/utility.dart';
 
 export 'src/widget/home_page.dart';

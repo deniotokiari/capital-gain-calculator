@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:home/src/create_portfolio/cubit/create_portfolio_bloc.dart';
-import 'package:home/src/create_portfolio/cubit/create_portfolio_event.dart';
-import 'package:home/src/create_portfolio/cubit/create_portfolio_state.dart';
+import 'package:home/src/create_portfolio/bloc/create_portfolio_bloc.dart';
+import 'package:home/src/create_portfolio/bloc/create_portfolio_event.dart';
+import 'package:home/src/create_portfolio/bloc/create_portfolio_state.dart';
 import 'package:utility/utility.dart';
 
 class CreatePortfolioWidget extends StatelessWidget {

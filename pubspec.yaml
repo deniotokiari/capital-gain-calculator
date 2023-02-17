@@ -30,7 +30,7 @@ dependencies:
   utility: 
     path: ./packages/core/utility
   store:
-    path: ./packages/data/store
+    path: ./packages/core/store
   currency:
     path: ./packages/data/currency
   portfolio:
