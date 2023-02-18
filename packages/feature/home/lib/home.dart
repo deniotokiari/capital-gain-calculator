@@ -8,6 +8,11 @@ export 'src/widget/home_page.dart';
 class HomeModule extends DependencyModule {
   @override
   Future<void> init() async {
-    registerFactory(() => CreatePortfolioBloc(get()));
+    registerFactory(
+      () => CreatePortfolioBloc(
+        get(),
+        get(),
+      ),
+    );
   }
 }

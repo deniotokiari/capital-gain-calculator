@@ -12,6 +12,8 @@ dependencies:
     path: ../../core/utility
   store:
     path: ../../core/store
+  currency:
+    path: ../currency
   flutter:
     sdk: flutter
 

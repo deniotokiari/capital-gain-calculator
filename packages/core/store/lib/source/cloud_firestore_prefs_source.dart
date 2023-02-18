@@ -10,19 +10,11 @@ class CloudFirestorePrefsSource {
   Future<void> add({
     required String name,
     required Map<String, dynamic> value,
-  }) async {
-    await _db.collection('user_data').doc('prefs').collection(_userId()!).doc(name).set(value);
-  }
+  }) =>
+      _db.collection('user_data').doc('prefs').collection(_userId()!).doc(name).set(value);
 
   Future<Map<String, dynamic>?> get({
     required String name,
-  }) async {
-    return await _db
-        .collection('user_data')
-        .doc('prefs')
-        .collection(_userId()!)
-        .doc(name)
-        .get()
-        .then((value) => value.data());
-  }
+  }) =>
+      _db.collection('user_data').doc('prefs').collection(_userId()!).doc(name).get().then((value) => value.data());
 }
