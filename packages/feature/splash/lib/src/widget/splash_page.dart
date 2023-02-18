@@ -12,18 +12,14 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocProvider(
         create: (_) => get<SplashBloc>()..add(SplashEvent.init()),
-        child: Center(
-          child: BlocBuilder<SplashBloc, SplashState>(
-            builder: (context, state) => state.map(
-              loading: (_) => const CircularProgressIndicator.adaptive(),
-              done: (_) {
-                context.router.popUntil((route) => false);
-                context.router.pushNamed('/home');
-
-                return const CircularProgressIndicator.adaptive();
-              },
-            ),
-          ),
+        child: BlocListener<SplashBloc, SplashState>(
+          listener: (context, state) {
+            state.mapOrNull(done: (_) {
+              context.router.popUntil((route) => false);
+              context.router.pushNamed('/home');
+            });
+          },
+          child: const Center(child: CircularProgressIndicator.adaptive()),
         ),
       );
 }

@@ -23,7 +23,6 @@
       password: '',
       alphavantageKey: 'alphavantageKey',
     ));
-    final userId = result.get<ValueGetter<String>>(instanceName: 'userId');
 
     verify(() => alphavantageKeyRepository.saveKey(key: any(named: 'key', that: equals('alphavantageKey')))).called(1);
     expect(userId, isNotNull);

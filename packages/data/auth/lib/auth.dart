@@ -17,6 +17,5 @@ class AuthModule extends DependencyModule {
     }
 
     registerLazySingleton(() => AuthRepository(FirebaseAuthSource()));
-    registerFactory(() => get<AuthRepository>().userEmail ?? '', instanceName: 'userId');
   }
 }

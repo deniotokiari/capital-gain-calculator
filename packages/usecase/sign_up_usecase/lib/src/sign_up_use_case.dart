@@ -1,14 +1,15 @@
-import 'package:alphavantage/alphavantage.dart';
 import 'package:auth/auth.dart';
+import 'package:currency/currency.dart';
+import 'package:user/user.dart';
 import 'package:utility/utility.dart';
 
 class SignUpUseCase extends UseCase<SignUpUseCaseArguments, Future<SignUpUseCaseResult>> {
   final AuthRepository _authRepository;
-  final AlphavantageKeyRepository _alphavantageKeyRepository;
+  final UserSettingsRepository _userSettingsRepository;
 
   SignUpUseCase(
     this._authRepository,
-    this._alphavantageKeyRepository,
+    this._userSettingsRepository,
   );
 
   @override
@@ -20,9 +21,8 @@ class SignUpUseCase extends UseCase<SignUpUseCaseArguments, Future<SignUpUseCase
 
     switch (signUpResult) {
       case CreateUserResult.success:
-        await _alphavantageKeyRepository.saveKey(
-          key: arg.alphavantageKey,
-        );
+        await _userSettingsRepository.setAlphavantageKey(arg.alphavantageKey);
+        await _userSettingsRepository.setUserCurrency(arg.currency);
 
         return SignUpUseCaseResult.success;
       case CreateUserResult.failed:
@@ -43,13 +43,13 @@ class SignUpUseCaseArguments {
   final String email;
   final String password;
   final String alphavantageKey;
-  final String currencyCode;
+  final Currency currency;
 
   SignUpUseCaseArguments({
     required this.email,
     required this.password,
     required this.alphavantageKey,
-    required this.currencyCode,
+    required this.currency,
   });
 }
 

@@ -8,12 +8,14 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  alphavantage:
-    path: ../../data/alphavantage
+  currency:
+    path: ../../data/currency
   auth:
     path: ../../data/auth
   utility: 
     path: ../../core/utility
+  user:
+    path: ../../data/user
   flutter:
     sdk: flutter
 

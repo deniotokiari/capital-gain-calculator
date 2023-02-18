@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 
 class CloudFirestorePrefsSource {
   final _db = FirebaseFirestore.instance;
-  final ValueGetter<String> _userId;
+  final ValueGetter<String?> _userId;
 
   CloudFirestorePrefsSource(this._userId);
 
@@ -11,7 +11,7 @@ class CloudFirestorePrefsSource {
     required String name,
     required Map<String, dynamic> value,
   }) async {
-    await _db.collection('user_data').doc('prefs').collection(_userId()).doc(name).set(value);
+    await _db.collection('user_data').doc('prefs').collection(_userId()!).doc(name).set(value);
   }
 
   Future<Map<String, dynamic>?> get({
@@ -20,7 +20,7 @@ class CloudFirestorePrefsSource {
     return await _db
         .collection('user_data')
         .doc('prefs')
-        .collection(_userId())
+        .collection(_userId()!)
         .doc(name)
         .get()
         .then((value) => value.data());

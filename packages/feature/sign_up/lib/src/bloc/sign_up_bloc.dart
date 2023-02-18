@@ -85,7 +85,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         email: _email!,
         password: _password!,
         alphavantageKey: _alphavantageKey!,
-        currencyCode: _selectedCurrency!,
+        currency: _listOfCurrency.firstWhere((element) => _selectedCurrency!.contains(element.code)),
       ));
 
       switch (result) {

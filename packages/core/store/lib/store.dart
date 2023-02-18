@@ -9,6 +9,10 @@ import 'package:utility/utility.dart';
 export 'repository/prefs_repository.dart';
 
 class StoreModule extends DependencyModule {
+  final ValueGetter<String?> _userId;
+
+  StoreModule(this._userId);
+
   @override
   Future<void> init() async {
     if (kDebugMode) {
@@ -16,13 +20,7 @@ class StoreModule extends DependencyModule {
     }
 
     registerLazySingleton(
-      () => PrefsRepository(
-        CloudFirestorePrefsSource(
-          () => get(
-            instanceName: 'userId',
-          ),
-        ),
-      ),
+      () => PrefsRepository(CloudFirestorePrefsSource(_userId)),
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:alphavantage/alphavantage.dart';
 import 'package:auth/auth.dart';
 import 'package:capital_gain_calculator/navigation/app_navigation.dart';
 import 'package:capital_gain_calculator/navigation/auth_guard.dart';
@@ -9,6 +8,7 @@ import 'package:sign_in/sign_in.dart';
 import 'package:splash/splash.dart';
 import 'package:sign_up/sign_up.dart';
 import 'package:store/store.dart';
+import 'package:user/user.dart';
 import 'package:utility/utility.dart';
 
 class AppModule extends DependencyModule {
@@ -16,18 +16,19 @@ class AppModule extends DependencyModule {
   Future<void> init() async {
     for (var e in <DependencyModule>[
       CurrencyModule(),
-      StoreModule(),
-      AlphavantageModule(),
+      StoreModule(() => get<UserIdRepository>().getUserId()),
       AuthModule(),
       SplashModule(),
       SignInModule(),
       SignUpModule(),
       HomeModule(),
       PortfolioModule(),
+      UserModule(),
     ]) {
       await e.init();
     }
 
-    registerSingleton(AppRouter(authGuard: AuthGuard(() => get(instanceName: 'userId'))));
+    registerSingleton(
+        AppRouter(authGuard: AuthGuard(() => get<UserIdRepository>().getUserId())));
   }
 }
