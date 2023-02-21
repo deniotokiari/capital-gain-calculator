@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:capital_gain_calculator/navigation/auth_guard.dart';
+import 'package:feature_home/home.dart';
+import 'package:feature_sign_in/sign_in.dart';
+import 'package:feature_sign_up/sign_up.dart';
+import 'package:feature_splash/splash.dart';
 import 'package:flutter/material.dart';
-import 'package:home/home.dart';
-import 'package:sign_in/sign_in.dart';
-import 'package:sign_up/sign_up.dart';
-import 'package:splash/splash.dart';
 
 part 'app_navigation.gr.dart';
 

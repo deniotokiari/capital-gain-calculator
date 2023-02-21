@@ -1,7 +1,5 @@
-import 'package:store/common/query.dart';
-import 'package:store/common/space.dart';
-import 'package:store/model/db_entity.dart';
 import 'package:store/source/cloud_firestore_db_source.dart';
+import 'package:store/store.dart';
 
 class DbRepository<T extends DbEntity> {
   final Space _space;
@@ -20,5 +18,5 @@ class DbRepository<T extends DbEntity> {
 
   Future<List<T>> all([List<Query> query = const []]) => _db.all(_space, _map, query);
 
-  Stream<List<T>> updates() => _db.updates(_space, _map);
+  Stream<UpdateData<T>> updates() => _db.updates(_space, _map);
 }

@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as db;
 import 'package:flutter/foundation.dart';
-import 'package:store/common/query.dart';
-import 'package:store/common/space.dart';
-import 'package:store/model/db_entity.dart';
+import 'package:store/store.dart';
 
 class CloudFirestoreDbSource {
   final _db = db.FirebaseFirestore.instance;
@@ -10,17 +8,36 @@ class CloudFirestoreDbSource {
 
   CloudFirestoreDbSource(this._userId);
 
-  Stream<List<T>> updates<T extends DbEntity>(Space space, T Function(Map<String, dynamic>) map) async* {
+  Stream<UpdateData<T>> updates<T extends DbEntity>(Space space, T Function(Map<String, dynamic>) map) async* {
     final collection = _getSpace(space).collection(_dbName(T));
 
     await for (final snapshot in collection.snapshots()) {
-      final items = <T>[];
+      final added = <T>[];
+      final removed = <T>[];
+      final modified = <T>[];
 
       for (final change in snapshot.docChanges) {
-        items.add(map(change.doc.data()!));
+        switch (change.type) {
+          case db.DocumentChangeType.added:
+            added.add(map(change.doc.data()!));
+
+            break;
+          case db.DocumentChangeType.removed:
+            removed.add(map(change.doc.data()!));
+
+            break;
+          case db.DocumentChangeType.modified:
+            modified.add(map(change.doc.data()!));
+
+            break;
+        }
       }
 
-      yield items;
+      yield UpdateData(
+        added: added,
+        removed: removed,
+        modifayed: modified,
+      );
     }
   }
 

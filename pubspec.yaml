@@ -15,26 +15,26 @@ dependencies:
   flutter:
     sdk: flutter
   
-  home:
-    path: ./packages/feature/home
-  sign_in:
-    path: ./packages/feature/sign_in
-  sign_up:
-    path: ./packages/feature/sign_up
-  splash:
-    path: ./packages/feature/splash
-  auth:
-    path: ./packages/data/auth
+  feature_home:
+    path: ./packages/feature/feature_home
+  feature_sign_in:
+    path: ./packages/feature/feature_sign_in
+  feature_sign_up:
+    path: ./packages/feature/feature_sign_up
+  feature_splash:
+    path: ./packages/feature/feature_splash
+  data_auth:
+    path: ./packages/data/data_auth
   utility: 
     path: ./packages/core/utility
   store:
     path: ./packages/core/store
-  currency:
-    path: ./packages/data/currency
-  portfolio:
-    path: ./packages/data/portfolio
-  user:
-    path: ./packages/data/user
+  data_currency:
+    path: ./packages/data/data_currency
+  data_portfolio:
+    path: ./packages/data/data_portfolio
+  data_user:
+    path: ./packages/data/data_user
 
 dev_dependencies:
   build_runner: ^2.3.3

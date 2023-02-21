@@ -12,6 +12,7 @@ export 'common/query.dart';
 export 'common/space.dart';
 export 'model/db_entity.dart';
 export 'repository/db_repository.dart';
+export 'common/update_data.dart';
 
 class StoreModule extends DependencyModule {
   final ValueGetter<String?> _userId;
