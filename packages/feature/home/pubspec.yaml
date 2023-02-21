@@ -11,6 +11,8 @@ dependencies:
   auto_route: ^5.0.4
   flutter:
     sdk: flutter
+  home_usecase:
+    path: ../../usecase/home_usecase
   ui:
     path: ../../core/ui
   utility:

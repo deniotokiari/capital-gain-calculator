@@ -19,4 +19,6 @@ class DbRepository<T extends DbEntity> {
   Future<T> get(String id) => _db.get(_space, id, _map);
 
   Future<List<T>> all([List<Query> query = const []]) => _db.all(_space, _map, query);
+
+  Stream<List<T>> updates() => _db.updates(_space, _map);
 }

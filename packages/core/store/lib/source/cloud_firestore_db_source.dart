@@ -10,6 +10,20 @@ class CloudFirestoreDbSource {
 
   CloudFirestoreDbSource(this._userId);
 
+  Stream<List<T>> updates<T extends DbEntity>(Space space, T Function(Map<String, dynamic>) map) async* {
+    final collection = _getSpace(space).collection(_dbName(T));
+
+    await for (final snapshot in collection.snapshots()) {
+      final items = <T>[];
+
+      for (final change in snapshot.docChanges) {
+        items.add(map(change.doc.data()!));
+      }
+
+      yield items;
+    }
+  }
+
   Future<void> add(Space space, DbEntity entity) async {
     await _getSpace(space).collection(_dbName(entity.runtimeType)).doc(entity.id).set(entity.map);
   }

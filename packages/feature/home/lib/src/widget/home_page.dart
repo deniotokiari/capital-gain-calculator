@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:home/src/create_portfolio/create_portfolio_widget.dart';
+import 'package:home/src/portfolios_list/portfolios_list_widget.dart';
 import 'package:ui/ui.dart';
 
 class HomePage extends StatelessWidget with AppWidget {
@@ -12,7 +13,12 @@ class HomePage extends StatelessWidget with AppWidget {
             onPressed: () {
               showDialog(context: context, builder: (_) => const CreatePortfolioWidget());
             },
-            child: const Text('+ Create Portfolio'),
+            child: Column(
+              children: const [
+                Text('+ Create Portfolio'),
+                PortfoliosListWidget(),
+              ],
+            ),
           ),
         ],
       ));
