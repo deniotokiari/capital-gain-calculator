@@ -27,10 +27,16 @@ class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioStat
       ));
     });
     on<CreatePortfolioEventOnPortfolioNameChanged>((event, emit) {
-      emit(state.copyWith(portfolioName: event.name, submitEnabled: _submitState()));
+      emit(state.copyWith(portfolioName: event.name, submitEnabled: _submitState(name: event.name, currency: state.selectedCurrency)));
     });
     on<CreatePortfolioEventOnPortfolioCurrencyChanged>((event, emit) {
-      emit(state.copyWith(selectedCurrency: event.currency, submitEnabled: _submitState()));
+      emit(state.copyWith(
+        selectedCurrency: event.currency,
+        submitEnabled: _submitState(
+          name: state.portfolioName,
+          currency: event.currency,
+        ),
+      ));
     });
     on<CreatePortfolioEventOnSubmit>((event, emit) async {
       await _portfolioRepository.add(
@@ -42,11 +48,8 @@ class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioStat
     });
   }
 
-  bool _submitState() {
-    final portfolioName = state.portfolioName;
-    final currency = state.selectedCurrency;
-
-    return portfolioName != null && portfolioName.isNotEmpty && currency != null && currency.isNotEmpty;
+  bool _submitState({required String? name, required String? currency}) {
+    return name != null && name.isNotEmpty && currency != null && currency.isNotEmpty;
   }
 
   String _formatCurrency(Currency currency) => '${currency.name} (${currency.code})';

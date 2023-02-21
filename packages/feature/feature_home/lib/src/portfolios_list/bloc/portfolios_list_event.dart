@@ -7,4 +7,6 @@ class PortfoliosListEvent with _$PortfoliosListEvent {
   factory PortfoliosListEvent.init() = PortfoliosListEventInit;
 
   factory PortfoliosListEvent.update() = PortfoliosListEventUpdate;
+
+  factory PortfoliosListEvent.delete(String id) = PortfoliosListEventDelete;
 }

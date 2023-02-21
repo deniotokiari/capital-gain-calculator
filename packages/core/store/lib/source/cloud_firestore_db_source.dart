@@ -80,6 +80,10 @@ class CloudFirestoreDbSource {
     }
   }
 
+  Future<void> delete<T extends DbEntity>(Space space, String id) async {
+    await _getSpace(space).collection(_dbName(T)).doc(id).delete();
+  }
+
   db.DocumentReference _getSpace(Space space) {
     switch (space) {
       case Space.user:

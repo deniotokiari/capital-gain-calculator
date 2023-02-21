@@ -10,7 +10,11 @@ class PortfoliosListState with _$PortfoliosListState {
 }
 
 class PortfolioViewModel {
+  final String id;
   final String name;
 
-  PortfolioViewModel(this.name);
+  PortfolioViewModel({
+    required this.id,
+    required this.name,
+  });
 }

@@ -20,6 +20,7 @@ class HomeModule extends DependencyModule {
       () => PortfoliosListBloc(
         GetAllPortfoliosUseCase(get()),
         PortfoliosUpdatesUseCase(get()),
+        DeletePortfolioByIdUseCase(get()),
       ),
     );
   }

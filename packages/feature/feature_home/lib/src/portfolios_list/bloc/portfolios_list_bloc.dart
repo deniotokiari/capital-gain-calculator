@@ -8,12 +8,14 @@ import 'package:usecase_home/home_usecase.dart';
 class PortfoliosListBloc extends Bloc<PortfoliosListEvent, PortfoliosListState> {
   final GetAllPortfoliosUseCase _getAllPortfoliosUseCase;
   final PortfoliosUpdatesUseCase _portfoliosUpdatesUseCase;
+  final DeletePortfolioByIdUseCase _deletePortfolioByIdUseCase;
 
   StreamSubscription? _streamSubscription;
 
   PortfoliosListBloc(
     this._getAllPortfoliosUseCase,
     this._portfoliosUpdatesUseCase,
+    this._deletePortfolioByIdUseCase,
   ) : super(PortfoliosListState.initial()) {
     on<PortfoliosListEventInit>((event, emit) async {
       await _update(emit);
@@ -26,12 +28,30 @@ class PortfoliosListBloc extends Bloc<PortfoliosListEvent, PortfoliosListState> 
     on<PortfoliosListEventUpdate>((event, emit) async {
       await _update(emit);
     });
+    on<PortfoliosListEventDelete>((event, emit) async {
+      await _onDelete(event.id);
+    });
   }
 
   Future<void> _update(dynamic emit) async {
     final model = await _getAllPortfoliosUseCase.execute(GetAllPortfoliosUseCaseArguments());
 
-    emit(state.copyWith(portfolios: [...model.portfolios.map((e) => PortfolioViewModel(e))]));
+    emit(
+      state.copyWith(
+        portfolios: [
+          ...model.portfolios.map(
+            (e) => PortfolioViewModel(
+              id: e.id,
+              name: e.name,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Future<void> _onDelete(String id) async {
+    await _deletePortfolioByIdUseCase.execute(DeletePortfolioByIdUseCaseArguments(id));
   }
 
   @override

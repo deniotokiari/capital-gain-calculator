@@ -7,19 +7,18 @@ class HomePage extends StatelessWidget with AppWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) => buildAppWidget(Column(
-        children: [
-          TextButton(
-            onPressed: () {
-              showDialog(context: context, builder: (_) => const CreatePortfolioWidget());
-            },
-            child: Column(
-              children: const [
-                Text('+ Create Portfolio'),
-                PortfoliosListWidget(),
-              ],
+  Widget build(BuildContext context) => buildAppWidget(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextButton(
+              onPressed: () {
+                showDialog(context: context, builder: (_) => const CreatePortfolioWidget());
+              },
+              child: const Text('+ Create Portfolio'),
             ),
-          ),
-        ],
-      ));
+            const PortfoliosListWidget()
+          ],
+        ),
+      );
 }
