@@ -7,7 +7,7 @@ import 'package:utility/utility.dart';
 export 'src/bloc/sign_up_bloc.dart';
 export 'src/widget/sign_up_page.dart';
 
-class SignUpModule extends DependencyModule {
+class FeatureSignUpModule extends DependencyModule {
   @override
   Future<void> init() async {
     registerFactory(

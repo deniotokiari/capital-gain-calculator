@@ -9,7 +9,7 @@ import 'package:utility/utility.dart';
 export 'repository/auth_repository.dart';
 export 'repository/credential.dart';
 
-class AuthModule extends DependencyModule {
+class DataAuthModule extends DependencyModule {
   @override
   Future<void> init() async {
     if (kDebugMode) {

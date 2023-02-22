@@ -46,6 +46,19 @@ class _$AppRouter extends RootStackRouter {
         child: const HomePage(),
       );
     },
+    PortfolioDetailsRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<PortfolioDetailsRouteArgs>(
+          orElse: () =>
+              PortfolioDetailsRouteArgs(id: pathParams.getString('id')));
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: PortfolioDetailsPage(
+          id: args.id,
+          key: args.key,
+        ),
+      );
+    },
   };
 
   @override
@@ -53,6 +66,7 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(
           SplashRoute.name,
           path: '/',
+          guards: [authGuard],
         ),
         RouteConfig(
           SignInRoute.name,
@@ -65,6 +79,11 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(
           HomeRoute.name,
           path: '/home',
+          guards: [authGuard],
+        ),
+        RouteConfig(
+          PortfolioDetailsRoute.name,
+          path: '/portfolio/:id',
           guards: [authGuard],
         ),
       ];
@@ -116,4 +135,39 @@ class HomeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeRoute';
+}
+
+/// generated route for
+/// [PortfolioDetailsPage]
+class PortfolioDetailsRoute extends PageRouteInfo<PortfolioDetailsRouteArgs> {
+  PortfolioDetailsRoute({
+    required String id,
+    Key? key,
+  }) : super(
+          PortfolioDetailsRoute.name,
+          path: '/portfolio/:id',
+          args: PortfolioDetailsRouteArgs(
+            id: id,
+            key: key,
+          ),
+          rawPathParams: {'id': id},
+        );
+
+  static const String name = 'PortfolioDetailsRoute';
+}
+
+class PortfolioDetailsRouteArgs {
+  const PortfolioDetailsRouteArgs({
+    required this.id,
+    this.key,
+  });
+
+  final String id;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'PortfolioDetailsRouteArgs{id: $id, key: $key}';
+  }
 }

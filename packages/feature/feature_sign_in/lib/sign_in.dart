@@ -6,7 +6,7 @@ import 'package:utility/utility.dart';
 
 export 'src/widget/sign_in_page.dart';
 
-class SignInModule extends DependencyModule {
+class FeatureSignInModule extends DependencyModule {
   @override
   Future<void> init() async {
     registerFactory(() => SignInBloc(SignInUseCase(get())));

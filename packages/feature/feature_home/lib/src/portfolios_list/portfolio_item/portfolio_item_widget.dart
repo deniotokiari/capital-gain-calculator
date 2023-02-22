@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:feature_home/src/portfolios_list/bloc/portfolios_list_state.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ class PortfolioItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListTile(
+        onTap: () => context.router.pushNamed('/portfolio/${_item.id}'),
         onLongPress: () {
           showDialog(
               context: context,

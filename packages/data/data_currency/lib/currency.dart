@@ -9,7 +9,7 @@ export 'src/currency.dart';
 export 'src/currency_value.dart';
 export 'src/repository/currency_list_repository.dart';
 
-class CurrencyModule extends DependencyModule {
+class DataCurrencyModule extends DependencyModule {
   @override
   Future<void> init() async {
     registerLazySingleton(

@@ -8,7 +8,7 @@ import 'package:utility/utility.dart';
 export 'src/repository/portfolio_repository.dart';
 export 'src/model/portfolio.dart';
 
-class PortfolioModule extends DependencyModule {
+class DataPortfolioModule extends DependencyModule {
   @override
   Future<void> init() async {
     registerLazySingleton(
