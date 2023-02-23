@@ -24,8 +24,10 @@ dependencies:
     path: ./packages/feature/feature_sign_up
   feature_splash:
     path: ./packages/feature/feature_splash
-  feature_portfolio:
-    path: ./packages/feature/feature_portfolio
+  feature_portfolio_details:
+    path: ./packages/feature/feature_portfolio_details
+  feature_symbol_search:
+    path: ./packages/feature/feature_symbol_search
   
   # DATA
   data_auth:
@@ -36,6 +38,12 @@ dependencies:
     path: ./packages/data/data_portfolio
   data_user:
     path: ./packages/data/data_user
+  data_symbol:
+    path: ./packages/data/data_symbol
+  data_stock:
+    path: ./packages/data/data_stock
+  data_instrument:
+    path: ./packages/data/data_instrument
   
   # CORE
   utility: 

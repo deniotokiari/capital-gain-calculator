@@ -1,6 +1,7 @@
-library feature_portfolio;
+library feature_portfolio_details;
 
-import 'package:feature_portfolio/src/bloc/portfolio_details_bloc.dart';
+import 'package:feature_portfolio_details/src/bloc/portfolio_details_bloc.dart';
+import 'package:usecase_portfolio_details/usecase_portfolio_details.dart';
 import 'package:utility/utility.dart';
 
 export 'src/widget/portfolio_details_page.dart';
@@ -11,6 +12,7 @@ class FeaturePortfoluiModule extends DependencyModule {
     registerFactory(
       () => PortfolioDetailsBloc(
         get(),
+        AddSymbolToPortfolioUseCase(get(), get()),
       ),
     );
   }

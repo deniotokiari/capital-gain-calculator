@@ -6,6 +6,7 @@ class CurrencyListRepository {
   final CurrencyListSource _localCurrencyListSource;
 
   final List<Currency> _memoryCurrencyList = [];
+  final Map<String, Currency> _currencyMap = {};
 
   CurrencyListRepository(
     this._remoteCurrencyListSource,
@@ -31,5 +32,16 @@ class CurrencyListRepository {
     await loadCurrencyList();
 
     return _memoryCurrencyList;
+  }
+
+  Future<Currency> getCurrencyByCode(String code) async {
+    _currencyMap[code] ??= _currencyMap[code] ??
+        await getCurrencyList().then(
+          (value) => value.firstWhere(
+            (element) => element.code.toLowerCase() == code.toLowerCase(),
+          ),
+        );
+
+    return _currencyMap[code]!;
   }
 }

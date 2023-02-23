@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:feature_portfolio/src/bloc/portfolio_details_bloc.dart';
-import 'package:feature_portfolio/src/bloc/portfolio_details_event.dart';
-import 'package:feature_portfolio/src/bloc/portfolio_details_state.dart';
+import 'package:feature_portfolio_details/src/bloc/portfolio_details_bloc.dart';
+import 'package:feature_portfolio_details/src/bloc/portfolio_details_event.dart';
+import 'package:feature_portfolio_details/src/bloc/portfolio_details_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:data_symbol/data_symbol.dart';
 import 'package:ui/ui.dart';
 import 'package:utility/utility.dart';
 
@@ -27,7 +28,17 @@ class PortfolioDetailsPage extends StatelessWidget with AppWidget {
                 children: [
                   Text(idle.model.portfolioName), // with gain, loss and market value
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final result = await showModalBottomSheet<Symbol?>(
+                        context: context,
+                        builder: (context) => get(instanceName: 'symbol_search'),
+                      );
+
+                      // ignore: use_build_context_synchronously
+                      if (result != null && context.mounted) {
+                        context.read<PortfolioDetailsBloc>().add(PortfolioDetailsEvent.addSymbol(result));
+                      }
+                    },
                     child: const Text('+ Add Symbol'),
                   ),
                 ],

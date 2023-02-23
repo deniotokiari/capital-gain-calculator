@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:capital_gain_calculator/navigation/auth_guard.dart';
 import 'package:feature_home/home.dart';
-import 'package:feature_portfolio/feature_portfolio.dart';
+import 'package:feature_portfolio_details/feature_portfolio.dart';
 import 'package:feature_sign_in/sign_in.dart';
 import 'package:feature_sign_up/sign_up.dart';
 import 'package:feature_splash/splash.dart';
