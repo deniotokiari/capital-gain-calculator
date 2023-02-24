@@ -26,6 +26,10 @@ class PortfolioDetailsViewModelItem with _$PortfolioDetailsViewModelItem {
   factory PortfolioDetailsViewModelItem.instrument(String instrumentId) = PortfolioDetailsViewModelItemInstrument;
 
   factory PortfolioDetailsViewModelItem.news(List<PortfolioDetailsViewModelItemNewsItem> news) = PortfolioDetailsViewModelItemNews;
+
+  factory PortfolioDetailsViewModelItem.newsHeader() = PortfolioDetailsViewModelItemNewsHeader;
+
+  factory PortfolioDetailsViewModelItem.addSymbol() = PortfolioDetailsViewModelItemAddSymbol;
 }
 
 class PortfolioDetailsViewModelItemNewsItem {}

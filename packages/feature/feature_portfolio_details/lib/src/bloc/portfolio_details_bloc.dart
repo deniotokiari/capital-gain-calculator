@@ -72,6 +72,7 @@ class PortfolioDetailsBloc extends Bloc<PortfolioDetailsEvent, PortfolioDetailsS
           portfolioName: portfolio.name,
           items: [
             ...instruments,
+            PortfolioDetailsViewModelItem.addSymbol(),
           ],
         ),
       ),

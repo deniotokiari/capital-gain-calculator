@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:feature_portfolio_details/src/bloc/portfolio_details_bloc.dart';
 import 'package:feature_portfolio_details/src/bloc/portfolio_details_event.dart';
 import 'package:feature_portfolio_details/src/bloc/portfolio_details_state.dart';
+import 'package:feature_portfolio_details/src/instrument/widget/instrument_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:data_symbol/data_symbol.dart';
@@ -27,8 +28,7 @@ class PortfolioDetailsPage extends StatelessWidget with AppWidget {
               idle: (idle) => Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(idle.model.portfolioName), // with gain, loss and market value
-                  _getAddSymbolWidget(context),
+                  Center(child: Text(idle.model.portfolioName)), // with gain, loss and market value
                   _getInstrumentsAndNewsWidget(idle.model.items),
                 ],
               ),
@@ -52,29 +52,23 @@ class PortfolioDetailsPage extends StatelessWidget with AppWidget {
         child: const Text('+ Add Symbol'),
       );
 
-  Widget _getInstrumentWidget(PortfolioDetailsViewModelItemInstrument item) => ExpansionTile(
-        expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-        title: Text(item.instrumentId),
-        children: [
-          Text('Sub item of $item'),
-          TextButton(onPressed: () {}, child: const Text('+ Add Position')),
-        ],
-      );
+  Widget _getInstrumentWidget(PortfolioDetailsViewModelItemInstrument item) => InstrumentWidget(item.instrumentId);
 
   Widget _getNewsWidget(PortfolioDetailsViewModelItemNews item) => const Text('News item');
+
+  Widget _getNewsHeader() => const Text('News');
 
   Widget _getInstrumentsAndNewsWidget(List<PortfolioDetailsViewModelItem> items) => Expanded(
         child: ListView.builder(
           itemCount: items.length,
           itemBuilder: (context, index) {
             final item = items[index];
-            late Widget widget;
-
-            if (item is PortfolioDetailsViewModelItemInstrument) {
-              widget = _getInstrumentWidget(item);
-            } else if (item is PortfolioDetailsViewModelItemNews) {
-              widget = _getNewsWidget(item);
-            }
+            final widget = item.map(
+              instrument: (item) => _getInstrumentWidget(item),
+              news: (item) => _getNewsWidget(item),
+              newsHeader: (_) => _getNewsHeader(),
+              addSymbol: (_) => _getAddSymbolWidget(context),
+            );
 
             return ListTile(
               contentPadding: const EdgeInsets.all(0),

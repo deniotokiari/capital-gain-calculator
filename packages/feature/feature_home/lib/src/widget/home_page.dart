@@ -11,13 +11,13 @@ class HomePage extends StatelessWidget with AppWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const PortfoliosListWidget(),
             TextButton(
               onPressed: () {
                 showDialog(context: context, builder: (_) => const CreatePortfolioWidget());
               },
               child: const Text('+ Create Portfolio'),
             ),
-            const PortfoliosListWidget()
           ],
         ),
       );

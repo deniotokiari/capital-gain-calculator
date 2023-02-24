@@ -488,18 +488,24 @@ mixin _$PortfolioDetailsViewModelItem {
     required TResult Function(String instrumentId) instrument,
     required TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)
         news,
+    required TResult Function() newsHeader,
+    required TResult Function() addSymbol,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String instrumentId)? instrument,
     TResult? Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+    TResult? Function()? newsHeader,
+    TResult? Function()? addSymbol,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? instrument,
     TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+    TResult Function()? newsHeader,
+    TResult Function()? addSymbol,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -508,6 +514,10 @@ mixin _$PortfolioDetailsViewModelItem {
     required TResult Function(PortfolioDetailsViewModelItemInstrument value)
         instrument,
     required TResult Function(PortfolioDetailsViewModelItemNews value) news,
+    required TResult Function(PortfolioDetailsViewModelItemNewsHeader value)
+        newsHeader,
+    required TResult Function(PortfolioDetailsViewModelItemAddSymbol value)
+        addSymbol,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -515,12 +525,17 @@ mixin _$PortfolioDetailsViewModelItem {
     TResult? Function(PortfolioDetailsViewModelItemInstrument value)?
         instrument,
     TResult? Function(PortfolioDetailsViewModelItemNews value)? news,
+    TResult? Function(PortfolioDetailsViewModelItemNewsHeader value)?
+        newsHeader,
+    TResult? Function(PortfolioDetailsViewModelItemAddSymbol value)? addSymbol,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioDetailsViewModelItemInstrument value)? instrument,
     TResult Function(PortfolioDetailsViewModelItemNews value)? news,
+    TResult Function(PortfolioDetailsViewModelItemNewsHeader value)? newsHeader,
+    TResult Function(PortfolioDetailsViewModelItemAddSymbol value)? addSymbol,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -621,6 +636,8 @@ class _$PortfolioDetailsViewModelItemInstrument
     required TResult Function(String instrumentId) instrument,
     required TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)
         news,
+    required TResult Function() newsHeader,
+    required TResult Function() addSymbol,
   }) {
     return instrument(instrumentId);
   }
@@ -630,6 +647,8 @@ class _$PortfolioDetailsViewModelItemInstrument
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String instrumentId)? instrument,
     TResult? Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+    TResult? Function()? newsHeader,
+    TResult? Function()? addSymbol,
   }) {
     return instrument?.call(instrumentId);
   }
@@ -639,6 +658,8 @@ class _$PortfolioDetailsViewModelItemInstrument
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? instrument,
     TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+    TResult Function()? newsHeader,
+    TResult Function()? addSymbol,
     required TResult orElse(),
   }) {
     if (instrument != null) {
@@ -653,6 +674,10 @@ class _$PortfolioDetailsViewModelItemInstrument
     required TResult Function(PortfolioDetailsViewModelItemInstrument value)
         instrument,
     required TResult Function(PortfolioDetailsViewModelItemNews value) news,
+    required TResult Function(PortfolioDetailsViewModelItemNewsHeader value)
+        newsHeader,
+    required TResult Function(PortfolioDetailsViewModelItemAddSymbol value)
+        addSymbol,
   }) {
     return instrument(this);
   }
@@ -663,6 +688,9 @@ class _$PortfolioDetailsViewModelItemInstrument
     TResult? Function(PortfolioDetailsViewModelItemInstrument value)?
         instrument,
     TResult? Function(PortfolioDetailsViewModelItemNews value)? news,
+    TResult? Function(PortfolioDetailsViewModelItemNewsHeader value)?
+        newsHeader,
+    TResult? Function(PortfolioDetailsViewModelItemAddSymbol value)? addSymbol,
   }) {
     return instrument?.call(this);
   }
@@ -672,6 +700,8 @@ class _$PortfolioDetailsViewModelItemInstrument
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioDetailsViewModelItemInstrument value)? instrument,
     TResult Function(PortfolioDetailsViewModelItemNews value)? news,
+    TResult Function(PortfolioDetailsViewModelItemNewsHeader value)? newsHeader,
+    TResult Function(PortfolioDetailsViewModelItemAddSymbol value)? addSymbol,
     required TResult orElse(),
   }) {
     if (instrument != null) {
@@ -774,6 +804,8 @@ class _$PortfolioDetailsViewModelItemNews
     required TResult Function(String instrumentId) instrument,
     required TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)
         news,
+    required TResult Function() newsHeader,
+    required TResult Function() addSymbol,
   }) {
     return news(this.news);
   }
@@ -783,6 +815,8 @@ class _$PortfolioDetailsViewModelItemNews
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String instrumentId)? instrument,
     TResult? Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+    TResult? Function()? newsHeader,
+    TResult? Function()? addSymbol,
   }) {
     return news?.call(this.news);
   }
@@ -792,6 +826,8 @@ class _$PortfolioDetailsViewModelItemNews
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? instrument,
     TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+    TResult Function()? newsHeader,
+    TResult Function()? addSymbol,
     required TResult orElse(),
   }) {
     if (news != null) {
@@ -806,6 +842,10 @@ class _$PortfolioDetailsViewModelItemNews
     required TResult Function(PortfolioDetailsViewModelItemInstrument value)
         instrument,
     required TResult Function(PortfolioDetailsViewModelItemNews value) news,
+    required TResult Function(PortfolioDetailsViewModelItemNewsHeader value)
+        newsHeader,
+    required TResult Function(PortfolioDetailsViewModelItemAddSymbol value)
+        addSymbol,
   }) {
     return news(this);
   }
@@ -816,6 +856,9 @@ class _$PortfolioDetailsViewModelItemNews
     TResult? Function(PortfolioDetailsViewModelItemInstrument value)?
         instrument,
     TResult? Function(PortfolioDetailsViewModelItemNews value)? news,
+    TResult? Function(PortfolioDetailsViewModelItemNewsHeader value)?
+        newsHeader,
+    TResult? Function(PortfolioDetailsViewModelItemAddSymbol value)? addSymbol,
   }) {
     return news?.call(this);
   }
@@ -825,6 +868,8 @@ class _$PortfolioDetailsViewModelItemNews
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioDetailsViewModelItemInstrument value)? instrument,
     TResult Function(PortfolioDetailsViewModelItemNews value)? news,
+    TResult Function(PortfolioDetailsViewModelItemNewsHeader value)? newsHeader,
+    TResult Function(PortfolioDetailsViewModelItemAddSymbol value)? addSymbol,
     required TResult orElse(),
   }) {
     if (news != null) {
@@ -845,4 +890,258 @@ abstract class PortfolioDetailsViewModelItemNews
   _$$PortfolioDetailsViewModelItemNewsCopyWith<
           _$PortfolioDetailsViewModelItemNews>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PortfolioDetailsViewModelItemNewsHeaderCopyWith<$Res> {
+  factory _$$PortfolioDetailsViewModelItemNewsHeaderCopyWith(
+          _$PortfolioDetailsViewModelItemNewsHeader value,
+          $Res Function(_$PortfolioDetailsViewModelItemNewsHeader) then) =
+      __$$PortfolioDetailsViewModelItemNewsHeaderCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PortfolioDetailsViewModelItemNewsHeaderCopyWithImpl<$Res>
+    extends _$PortfolioDetailsViewModelItemCopyWithImpl<$Res,
+        _$PortfolioDetailsViewModelItemNewsHeader>
+    implements _$$PortfolioDetailsViewModelItemNewsHeaderCopyWith<$Res> {
+  __$$PortfolioDetailsViewModelItemNewsHeaderCopyWithImpl(
+      _$PortfolioDetailsViewModelItemNewsHeader _value,
+      $Res Function(_$PortfolioDetailsViewModelItemNewsHeader) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$PortfolioDetailsViewModelItemNewsHeader
+    implements PortfolioDetailsViewModelItemNewsHeader {
+  _$PortfolioDetailsViewModelItemNewsHeader();
+
+  @override
+  String toString() {
+    return 'PortfolioDetailsViewModelItem.newsHeader()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PortfolioDetailsViewModelItemNewsHeader);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String instrumentId) instrument,
+    required TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)
+        news,
+    required TResult Function() newsHeader,
+    required TResult Function() addSymbol,
+  }) {
+    return newsHeader();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String instrumentId)? instrument,
+    TResult? Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+    TResult? Function()? newsHeader,
+    TResult? Function()? addSymbol,
+  }) {
+    return newsHeader?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String instrumentId)? instrument,
+    TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+    TResult Function()? newsHeader,
+    TResult Function()? addSymbol,
+    required TResult orElse(),
+  }) {
+    if (newsHeader != null) {
+      return newsHeader();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PortfolioDetailsViewModelItemInstrument value)
+        instrument,
+    required TResult Function(PortfolioDetailsViewModelItemNews value) news,
+    required TResult Function(PortfolioDetailsViewModelItemNewsHeader value)
+        newsHeader,
+    required TResult Function(PortfolioDetailsViewModelItemAddSymbol value)
+        addSymbol,
+  }) {
+    return newsHeader(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PortfolioDetailsViewModelItemInstrument value)?
+        instrument,
+    TResult? Function(PortfolioDetailsViewModelItemNews value)? news,
+    TResult? Function(PortfolioDetailsViewModelItemNewsHeader value)?
+        newsHeader,
+    TResult? Function(PortfolioDetailsViewModelItemAddSymbol value)? addSymbol,
+  }) {
+    return newsHeader?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PortfolioDetailsViewModelItemInstrument value)? instrument,
+    TResult Function(PortfolioDetailsViewModelItemNews value)? news,
+    TResult Function(PortfolioDetailsViewModelItemNewsHeader value)? newsHeader,
+    TResult Function(PortfolioDetailsViewModelItemAddSymbol value)? addSymbol,
+    required TResult orElse(),
+  }) {
+    if (newsHeader != null) {
+      return newsHeader(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PortfolioDetailsViewModelItemNewsHeader
+    implements PortfolioDetailsViewModelItem {
+  factory PortfolioDetailsViewModelItemNewsHeader() =
+      _$PortfolioDetailsViewModelItemNewsHeader;
+}
+
+/// @nodoc
+abstract class _$$PortfolioDetailsViewModelItemAddSymbolCopyWith<$Res> {
+  factory _$$PortfolioDetailsViewModelItemAddSymbolCopyWith(
+          _$PortfolioDetailsViewModelItemAddSymbol value,
+          $Res Function(_$PortfolioDetailsViewModelItemAddSymbol) then) =
+      __$$PortfolioDetailsViewModelItemAddSymbolCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PortfolioDetailsViewModelItemAddSymbolCopyWithImpl<$Res>
+    extends _$PortfolioDetailsViewModelItemCopyWithImpl<$Res,
+        _$PortfolioDetailsViewModelItemAddSymbol>
+    implements _$$PortfolioDetailsViewModelItemAddSymbolCopyWith<$Res> {
+  __$$PortfolioDetailsViewModelItemAddSymbolCopyWithImpl(
+      _$PortfolioDetailsViewModelItemAddSymbol _value,
+      $Res Function(_$PortfolioDetailsViewModelItemAddSymbol) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$PortfolioDetailsViewModelItemAddSymbol
+    implements PortfolioDetailsViewModelItemAddSymbol {
+  _$PortfolioDetailsViewModelItemAddSymbol();
+
+  @override
+  String toString() {
+    return 'PortfolioDetailsViewModelItem.addSymbol()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PortfolioDetailsViewModelItemAddSymbol);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String instrumentId) instrument,
+    required TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)
+        news,
+    required TResult Function() newsHeader,
+    required TResult Function() addSymbol,
+  }) {
+    return addSymbol();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String instrumentId)? instrument,
+    TResult? Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+    TResult? Function()? newsHeader,
+    TResult? Function()? addSymbol,
+  }) {
+    return addSymbol?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String instrumentId)? instrument,
+    TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+    TResult Function()? newsHeader,
+    TResult Function()? addSymbol,
+    required TResult orElse(),
+  }) {
+    if (addSymbol != null) {
+      return addSymbol();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PortfolioDetailsViewModelItemInstrument value)
+        instrument,
+    required TResult Function(PortfolioDetailsViewModelItemNews value) news,
+    required TResult Function(PortfolioDetailsViewModelItemNewsHeader value)
+        newsHeader,
+    required TResult Function(PortfolioDetailsViewModelItemAddSymbol value)
+        addSymbol,
+  }) {
+    return addSymbol(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PortfolioDetailsViewModelItemInstrument value)?
+        instrument,
+    TResult? Function(PortfolioDetailsViewModelItemNews value)? news,
+    TResult? Function(PortfolioDetailsViewModelItemNewsHeader value)?
+        newsHeader,
+    TResult? Function(PortfolioDetailsViewModelItemAddSymbol value)? addSymbol,
+  }) {
+    return addSymbol?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PortfolioDetailsViewModelItemInstrument value)? instrument,
+    TResult Function(PortfolioDetailsViewModelItemNews value)? news,
+    TResult Function(PortfolioDetailsViewModelItemNewsHeader value)? newsHeader,
+    TResult Function(PortfolioDetailsViewModelItemAddSymbol value)? addSymbol,
+    required TResult orElse(),
+  }) {
+    if (addSymbol != null) {
+      return addSymbol(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PortfolioDetailsViewModelItemAddSymbol
+    implements PortfolioDetailsViewModelItem {
+  factory PortfolioDetailsViewModelItemAddSymbol() =
+      _$PortfolioDetailsViewModelItemAddSymbol;
 }
