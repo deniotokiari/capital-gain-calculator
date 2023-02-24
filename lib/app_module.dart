@@ -4,6 +4,7 @@ import 'package:data_auth/auth.dart';
 import 'package:data_currency/currency.dart';
 import 'package:data_instrument/data_instrument.dart';
 import 'package:data_portfolio/portfolio.dart';
+import 'package:data_position/data_position.dart';
 import 'package:data_stock/data_stock.dart';
 import 'package:data_symbol/data_symbol.dart';
 import 'package:data_user/user.dart';
@@ -33,6 +34,7 @@ class AppModule extends DependencyModule {
       DataSymbolModule(),
       DataStockModule(() => get<UserSettingsRepository>().getAlphavantageKey()),
       DataInstrumentModule(),
+      DataPositionModule(),
     ], (element) async => await element.init());
 
     // FEATURE

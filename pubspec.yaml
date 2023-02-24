@@ -44,6 +44,8 @@ dependencies:
     path: ./packages/data/data_stock
   data_instrument:
     path: ./packages/data/data_instrument
+  data_position:
+    path: ./packages/data/data_position
   
   # CORE
   utility: 

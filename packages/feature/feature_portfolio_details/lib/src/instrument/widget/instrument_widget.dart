@@ -1,3 +1,4 @@
+import 'package:feature_portfolio_details/src/instrument/add_position/widget/add_position_widget.dart';
 import 'package:feature_portfolio_details/src/instrument/bloc/instrument_bloc.dart';
 import 'package:feature_portfolio_details/src/instrument/bloc/instrument_event.dart';
 import 'package:feature_portfolio_details/src/instrument/bloc/instrument_state.dart';
@@ -21,7 +22,10 @@ class InstrumentWidget extends StatelessWidget {
               title: _getTitleWidget(idle.title),
               children: [
                 ..._getPositionWidgets(idle.positions),
-                TextButton(onPressed: () {}, child: const Text('+ Add Position')),
+                TextButton(
+                  onPressed: () => showDialog(context: context, builder: (_) => AddPositionWidget(_instrumentId)),
+                  child: const Text('+ Add Position'),
+                ),
               ],
             ),
           ),

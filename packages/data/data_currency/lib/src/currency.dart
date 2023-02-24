@@ -14,4 +14,10 @@ class Currency {
   bool operator ==(Object other) => other is Currency && code == other.code && name == other.name;
 
   bool get isUsd => code.toLowerCase() == 'usd';
+
+  String get formatted => '$name ($code)';
+}
+
+extension CurrencyExt on List<Currency> {
+  List<String> get formatted => map((e) => e.formatted).toList(growable: false);
 }

@@ -22,8 +22,8 @@ class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioStat
       _listOfCurrency.addAll(listOfCurrency);
 
       emit(state.copyWith(
-        listOfCurrency: _listOfCurrency.map(_formatCurrency).toList(growable: false),
-        selectedCurrency: _formatCurrency(_listOfCurrency.firstWhere((e) => e.isUsd)),
+        listOfCurrency: _listOfCurrency.formatted,
+        selectedCurrency: _listOfCurrency.firstWhere((e) => e.isUsd).formatted,
       ));
     });
     on<CreatePortfolioEventOnPortfolioNameChanged>((event, emit) {
@@ -51,6 +51,4 @@ class CreatePortfolioBloc extends Bloc<CreatePortfolioEvent, CreatePortfolioStat
   bool _submitState({required String? name, required String? currency}) {
     return name != null && name.isNotEmpty && currency != null && currency.isNotEmpty;
   }
-
-  String _formatCurrency(Currency currency) => '${currency.name} (${currency.code})';
 }

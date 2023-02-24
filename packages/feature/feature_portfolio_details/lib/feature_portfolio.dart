@@ -1,6 +1,7 @@
 library feature_portfolio_details;
 
 import 'package:feature_portfolio_details/src/bloc/portfolio_details_bloc.dart';
+import 'package:feature_portfolio_details/src/instrument/add_position/bloc/add_position_bloc.dart';
 import 'package:feature_portfolio_details/src/instrument/bloc/instrument_bloc.dart';
 import 'package:usecase_portfolio_details/usecase_portfolio_details.dart';
 import 'package:utility/utility.dart';
@@ -18,8 +19,17 @@ class FeaturePortfoluiModule extends DependencyModule {
         InstrumentsUpdatesUseCase(get()),
       ),
     );
-    registerFactory(() => InstrumentBloc(
-          GetSymbolByInstrumentIdUseCase(get(), get()),
-        ));
+    registerFactory(
+      () => InstrumentBloc(
+        GetSymbolByInstrumentIdUseCase(get(), get()),
+      ),
+    );
+    registerFactory(
+      () => AddPositionBloc(
+        get(),
+        get(),
+        GetSymbolByInstrumentIdUseCase(get(), get()),
+      ),
+    );
   }
 }

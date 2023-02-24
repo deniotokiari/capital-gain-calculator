@@ -24,13 +24,13 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       final listOfCurrency = await _currencyListRepository.getCurrencyList();
 
       _listOfCurrency.addAll(listOfCurrency);
-      _selectedCurrency = _formatCurrency(_listOfCurrency.firstWhere((e) => e.isUsd));
+      _selectedCurrency = _listOfCurrency.firstWhere((e) => e.isUsd).formatted;
 
       emit(SignUpState(
         email: _email,
         password: _password,
         alphavantageKey: _alphavantageKey,
-        listOfCurrency: _listOfCurrency.map(_formatCurrency).toList(growable: false),
+        listOfCurrency: _listOfCurrency.formatted,
         selectedCurrency: _selectedCurrency,
       ));
     });
@@ -42,7 +42,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         password: _password,
         alphavantageKey: _alphavantageKey,
         selectedCurrency: _selectedCurrency,
-        listOfCurrency: _listOfCurrency.map(_formatCurrency).toList(growable: false),
+        listOfCurrency: _listOfCurrency.formatted,
       ));
     });
     on<SignUpEventPasswordChanged>((event, emit) {
@@ -53,7 +53,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         password: _password,
         alphavantageKey: _alphavantageKey,
         selectedCurrency: _selectedCurrency,
-        listOfCurrency: _listOfCurrency.map(_formatCurrency).toList(growable: false),
+        listOfCurrency: _listOfCurrency.formatted,
       ));
     });
     on<SignUpEventAlphavantageKeyChanged>((event, emit) {
@@ -64,7 +64,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         password: _password,
         alphavantageKey: _alphavantageKey,
         selectedCurrency: _selectedCurrency,
-        listOfCurrency: _listOfCurrency.map(_formatCurrency).toList(growable: false),
+        listOfCurrency: _listOfCurrency.formatted,
       ));
     });
     on<SignUpEventEventCurrencyChanged>((event, emit) {
@@ -75,7 +75,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         password: _password,
         alphavantageKey: _alphavantageKey,
         selectedCurrency: _selectedCurrency,
-        listOfCurrency: _listOfCurrency.map(_formatCurrency).toList(growable: false),
+        listOfCurrency: _listOfCurrency.formatted,
       ));
     });
     on<SignUpEventSignUp>((event, emit) async {
@@ -116,6 +116,4 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       }
     });
   }
-
-  String _formatCurrency(Currency currency) => '${currency.name} (${currency.code})';
 }
