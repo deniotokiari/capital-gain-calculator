@@ -18,7 +18,7 @@ class DbRepository<T extends DbEntity> {
 
   Future<List<T>> all([List<Query> query = const []]) => _db.all(_space, _map, query);
 
-  Stream<UpdateData<T>> updates() => _db.updates(_space, _map);
+  Stream<UpdateData<T>> updates([List<Query> query = const []]) => _db.updates(_space, _map, query);
 
   Future<void> delete(String id) => _db.delete<T>(_space, id);
 }

@@ -20,18 +20,21 @@ mixin _$PortfolioDetailsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String id) init,
     required TResult Function(Symbol symbol) addSymbol,
+    required TResult Function() updateInatruments,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String id)? init,
     TResult? Function(Symbol symbol)? addSymbol,
+    TResult? Function()? updateInatruments,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String id)? init,
     TResult Function(Symbol symbol)? addSymbol,
+    TResult Function()? updateInatruments,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,24 @@ mixin _$PortfolioDetailsEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioDetailsEventInit value) init,
     required TResult Function(PortfolioDetailsEventAddSymbol value) addSymbol,
+    required TResult Function(PortfolioDetailsEventUpdateInatruments value)
+        updateInatruments,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PortfolioDetailsEventInit value)? init,
     TResult? Function(PortfolioDetailsEventAddSymbol value)? addSymbol,
+    TResult? Function(PortfolioDetailsEventUpdateInatruments value)?
+        updateInatruments,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioDetailsEventInit value)? init,
     TResult Function(PortfolioDetailsEventAddSymbol value)? addSymbol,
+    TResult Function(PortfolioDetailsEventUpdateInatruments value)?
+        updateInatruments,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -144,6 +153,7 @@ class _$PortfolioDetailsEventInit implements PortfolioDetailsEventInit {
   TResult when<TResult extends Object?>({
     required TResult Function(String id) init,
     required TResult Function(Symbol symbol) addSymbol,
+    required TResult Function() updateInatruments,
   }) {
     return init(id);
   }
@@ -153,6 +163,7 @@ class _$PortfolioDetailsEventInit implements PortfolioDetailsEventInit {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String id)? init,
     TResult? Function(Symbol symbol)? addSymbol,
+    TResult? Function()? updateInatruments,
   }) {
     return init?.call(id);
   }
@@ -162,6 +173,7 @@ class _$PortfolioDetailsEventInit implements PortfolioDetailsEventInit {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String id)? init,
     TResult Function(Symbol symbol)? addSymbol,
+    TResult Function()? updateInatruments,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -175,6 +187,8 @@ class _$PortfolioDetailsEventInit implements PortfolioDetailsEventInit {
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioDetailsEventInit value) init,
     required TResult Function(PortfolioDetailsEventAddSymbol value) addSymbol,
+    required TResult Function(PortfolioDetailsEventUpdateInatruments value)
+        updateInatruments,
   }) {
     return init(this);
   }
@@ -184,6 +198,8 @@ class _$PortfolioDetailsEventInit implements PortfolioDetailsEventInit {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PortfolioDetailsEventInit value)? init,
     TResult? Function(PortfolioDetailsEventAddSymbol value)? addSymbol,
+    TResult? Function(PortfolioDetailsEventUpdateInatruments value)?
+        updateInatruments,
   }) {
     return init?.call(this);
   }
@@ -193,6 +209,8 @@ class _$PortfolioDetailsEventInit implements PortfolioDetailsEventInit {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioDetailsEventInit value)? init,
     TResult Function(PortfolioDetailsEventAddSymbol value)? addSymbol,
+    TResult Function(PortfolioDetailsEventUpdateInatruments value)?
+        updateInatruments,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -283,6 +301,7 @@ class _$PortfolioDetailsEventAddSymbol
   TResult when<TResult extends Object?>({
     required TResult Function(String id) init,
     required TResult Function(Symbol symbol) addSymbol,
+    required TResult Function() updateInatruments,
   }) {
     return addSymbol(symbol);
   }
@@ -292,6 +311,7 @@ class _$PortfolioDetailsEventAddSymbol
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String id)? init,
     TResult? Function(Symbol symbol)? addSymbol,
+    TResult? Function()? updateInatruments,
   }) {
     return addSymbol?.call(symbol);
   }
@@ -301,6 +321,7 @@ class _$PortfolioDetailsEventAddSymbol
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String id)? init,
     TResult Function(Symbol symbol)? addSymbol,
+    TResult Function()? updateInatruments,
     required TResult orElse(),
   }) {
     if (addSymbol != null) {
@@ -314,6 +335,8 @@ class _$PortfolioDetailsEventAddSymbol
   TResult map<TResult extends Object?>({
     required TResult Function(PortfolioDetailsEventInit value) init,
     required TResult Function(PortfolioDetailsEventAddSymbol value) addSymbol,
+    required TResult Function(PortfolioDetailsEventUpdateInatruments value)
+        updateInatruments,
   }) {
     return addSymbol(this);
   }
@@ -323,6 +346,8 @@ class _$PortfolioDetailsEventAddSymbol
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PortfolioDetailsEventInit value)? init,
     TResult? Function(PortfolioDetailsEventAddSymbol value)? addSymbol,
+    TResult? Function(PortfolioDetailsEventUpdateInatruments value)?
+        updateInatruments,
   }) {
     return addSymbol?.call(this);
   }
@@ -332,6 +357,8 @@ class _$PortfolioDetailsEventAddSymbol
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PortfolioDetailsEventInit value)? init,
     TResult Function(PortfolioDetailsEventAddSymbol value)? addSymbol,
+    TResult Function(PortfolioDetailsEventUpdateInatruments value)?
+        updateInatruments,
     required TResult orElse(),
   }) {
     if (addSymbol != null) {
@@ -349,4 +376,122 @@ abstract class PortfolioDetailsEventAddSymbol implements PortfolioDetailsEvent {
   @JsonKey(ignore: true)
   _$$PortfolioDetailsEventAddSymbolCopyWith<_$PortfolioDetailsEventAddSymbol>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PortfolioDetailsEventUpdateInatrumentsCopyWith<$Res> {
+  factory _$$PortfolioDetailsEventUpdateInatrumentsCopyWith(
+          _$PortfolioDetailsEventUpdateInatruments value,
+          $Res Function(_$PortfolioDetailsEventUpdateInatruments) then) =
+      __$$PortfolioDetailsEventUpdateInatrumentsCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PortfolioDetailsEventUpdateInatrumentsCopyWithImpl<$Res>
+    extends _$PortfolioDetailsEventCopyWithImpl<$Res,
+        _$PortfolioDetailsEventUpdateInatruments>
+    implements _$$PortfolioDetailsEventUpdateInatrumentsCopyWith<$Res> {
+  __$$PortfolioDetailsEventUpdateInatrumentsCopyWithImpl(
+      _$PortfolioDetailsEventUpdateInatruments _value,
+      $Res Function(_$PortfolioDetailsEventUpdateInatruments) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$PortfolioDetailsEventUpdateInatruments
+    implements PortfolioDetailsEventUpdateInatruments {
+  _$PortfolioDetailsEventUpdateInatruments();
+
+  @override
+  String toString() {
+    return 'PortfolioDetailsEvent.updateInatruments()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PortfolioDetailsEventUpdateInatruments);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String id) init,
+    required TResult Function(Symbol symbol) addSymbol,
+    required TResult Function() updateInatruments,
+  }) {
+    return updateInatruments();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String id)? init,
+    TResult? Function(Symbol symbol)? addSymbol,
+    TResult? Function()? updateInatruments,
+  }) {
+    return updateInatruments?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String id)? init,
+    TResult Function(Symbol symbol)? addSymbol,
+    TResult Function()? updateInatruments,
+    required TResult orElse(),
+  }) {
+    if (updateInatruments != null) {
+      return updateInatruments();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PortfolioDetailsEventInit value) init,
+    required TResult Function(PortfolioDetailsEventAddSymbol value) addSymbol,
+    required TResult Function(PortfolioDetailsEventUpdateInatruments value)
+        updateInatruments,
+  }) {
+    return updateInatruments(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PortfolioDetailsEventInit value)? init,
+    TResult? Function(PortfolioDetailsEventAddSymbol value)? addSymbol,
+    TResult? Function(PortfolioDetailsEventUpdateInatruments value)?
+        updateInatruments,
+  }) {
+    return updateInatruments?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PortfolioDetailsEventInit value)? init,
+    TResult Function(PortfolioDetailsEventAddSymbol value)? addSymbol,
+    TResult Function(PortfolioDetailsEventUpdateInatruments value)?
+        updateInatruments,
+    required TResult orElse(),
+  }) {
+    if (updateInatruments != null) {
+      return updateInatruments(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PortfolioDetailsEventUpdateInatruments
+    implements PortfolioDetailsEvent {
+  factory PortfolioDetailsEventUpdateInatruments() =
+      _$PortfolioDetailsEventUpdateInatruments;
 }

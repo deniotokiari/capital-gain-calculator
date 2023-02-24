@@ -13,18 +13,21 @@ class AlphavantageCurrencyListSource implements CurrencyListSource {
     try {
       final response = await _service.get('/physical_currency_list').then((value) => value.data as String);
 
-      return response.split('\n').skip(1).where((e) => e.isNotEmpty).map(
-        (e) {
-          final row = e.split(',');
-          final code = row.first;
-          final name = row.last;
+      return [
+        Currency(code: 'GBX', name: 'British Penny Sterling'),
+        ...response.split('\n').skip(1).where((e) => e.isNotEmpty).map(
+          (e) {
+            final row = e.split(',');
+            final code = row.first;
+            final name = row.last;
 
-          return Currency(
-            code: code,
-            name: name,
-          );
-        },
-      ).toList(growable: false);
+            return Currency(
+              code: code,
+              name: name,
+            );
+          },
+        )
+      ]..sort((a, b) => a.code.compareTo(b.code));
     } catch (_) {
       return [];
     }

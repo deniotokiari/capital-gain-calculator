@@ -13,8 +13,19 @@ class PortfolioDetailsState with _$PortfolioDetailsState {
 
 class PortfolioDetailsViewModel {
   final String portfolioName;
+  final List<PortfolioDetailsViewModelItem> items;
 
   PortfolioDetailsViewModel({
     required this.portfolioName,
+    required this.items,
   });
 }
+
+@freezed
+class PortfolioDetailsViewModelItem with _$PortfolioDetailsViewModelItem {
+  factory PortfolioDetailsViewModelItem.instrument(String instrumentId) = PortfolioDetailsViewModelItemInstrument;
+
+  factory PortfolioDetailsViewModelItem.news(List<PortfolioDetailsViewModelItemNewsItem> news) = PortfolioDetailsViewModelItemNews;
+}
+
+class PortfolioDetailsViewModelItemNewsItem {}

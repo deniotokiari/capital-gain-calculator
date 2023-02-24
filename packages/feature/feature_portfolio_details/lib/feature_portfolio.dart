@@ -12,7 +12,9 @@ class FeaturePortfoluiModule extends DependencyModule {
     registerFactory(
       () => PortfolioDetailsBloc(
         get(),
+        get(),
         AddSymbolToPortfolioUseCase(get(), get()),
+        InstrumentsUpdatesUseCase(get()),
       ),
     );
   }

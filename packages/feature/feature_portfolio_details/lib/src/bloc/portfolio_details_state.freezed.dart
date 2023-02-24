@@ -480,3 +480,369 @@ abstract class _PortfolioDetailsStateIdle implements PortfolioDetailsState {
   _$$_PortfolioDetailsStateIdleCopyWith<_$_PortfolioDetailsStateIdle>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+mixin _$PortfolioDetailsViewModelItem {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String instrumentId) instrument,
+    required TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)
+        news,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String instrumentId)? instrument,
+    TResult? Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String instrumentId)? instrument,
+    TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PortfolioDetailsViewModelItemInstrument value)
+        instrument,
+    required TResult Function(PortfolioDetailsViewModelItemNews value) news,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PortfolioDetailsViewModelItemInstrument value)?
+        instrument,
+    TResult? Function(PortfolioDetailsViewModelItemNews value)? news,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PortfolioDetailsViewModelItemInstrument value)? instrument,
+    TResult Function(PortfolioDetailsViewModelItemNews value)? news,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PortfolioDetailsViewModelItemCopyWith<$Res> {
+  factory $PortfolioDetailsViewModelItemCopyWith(
+          PortfolioDetailsViewModelItem value,
+          $Res Function(PortfolioDetailsViewModelItem) then) =
+      _$PortfolioDetailsViewModelItemCopyWithImpl<$Res,
+          PortfolioDetailsViewModelItem>;
+}
+
+/// @nodoc
+class _$PortfolioDetailsViewModelItemCopyWithImpl<$Res,
+        $Val extends PortfolioDetailsViewModelItem>
+    implements $PortfolioDetailsViewModelItemCopyWith<$Res> {
+  _$PortfolioDetailsViewModelItemCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$PortfolioDetailsViewModelItemInstrumentCopyWith<$Res> {
+  factory _$$PortfolioDetailsViewModelItemInstrumentCopyWith(
+          _$PortfolioDetailsViewModelItemInstrument value,
+          $Res Function(_$PortfolioDetailsViewModelItemInstrument) then) =
+      __$$PortfolioDetailsViewModelItemInstrumentCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String instrumentId});
+}
+
+/// @nodoc
+class __$$PortfolioDetailsViewModelItemInstrumentCopyWithImpl<$Res>
+    extends _$PortfolioDetailsViewModelItemCopyWithImpl<$Res,
+        _$PortfolioDetailsViewModelItemInstrument>
+    implements _$$PortfolioDetailsViewModelItemInstrumentCopyWith<$Res> {
+  __$$PortfolioDetailsViewModelItemInstrumentCopyWithImpl(
+      _$PortfolioDetailsViewModelItemInstrument _value,
+      $Res Function(_$PortfolioDetailsViewModelItemInstrument) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? instrumentId = null,
+  }) {
+    return _then(_$PortfolioDetailsViewModelItemInstrument(
+      null == instrumentId
+          ? _value.instrumentId
+          : instrumentId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PortfolioDetailsViewModelItemInstrument
+    implements PortfolioDetailsViewModelItemInstrument {
+  _$PortfolioDetailsViewModelItemInstrument(this.instrumentId);
+
+  @override
+  final String instrumentId;
+
+  @override
+  String toString() {
+    return 'PortfolioDetailsViewModelItem.instrument(instrumentId: $instrumentId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PortfolioDetailsViewModelItemInstrument &&
+            (identical(other.instrumentId, instrumentId) ||
+                other.instrumentId == instrumentId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, instrumentId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PortfolioDetailsViewModelItemInstrumentCopyWith<
+          _$PortfolioDetailsViewModelItemInstrument>
+      get copyWith => __$$PortfolioDetailsViewModelItemInstrumentCopyWithImpl<
+          _$PortfolioDetailsViewModelItemInstrument>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String instrumentId) instrument,
+    required TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)
+        news,
+  }) {
+    return instrument(instrumentId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String instrumentId)? instrument,
+    TResult? Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+  }) {
+    return instrument?.call(instrumentId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String instrumentId)? instrument,
+    TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+    required TResult orElse(),
+  }) {
+    if (instrument != null) {
+      return instrument(instrumentId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PortfolioDetailsViewModelItemInstrument value)
+        instrument,
+    required TResult Function(PortfolioDetailsViewModelItemNews value) news,
+  }) {
+    return instrument(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PortfolioDetailsViewModelItemInstrument value)?
+        instrument,
+    TResult? Function(PortfolioDetailsViewModelItemNews value)? news,
+  }) {
+    return instrument?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PortfolioDetailsViewModelItemInstrument value)? instrument,
+    TResult Function(PortfolioDetailsViewModelItemNews value)? news,
+    required TResult orElse(),
+  }) {
+    if (instrument != null) {
+      return instrument(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PortfolioDetailsViewModelItemInstrument
+    implements PortfolioDetailsViewModelItem {
+  factory PortfolioDetailsViewModelItemInstrument(final String instrumentId) =
+      _$PortfolioDetailsViewModelItemInstrument;
+
+  String get instrumentId;
+  @JsonKey(ignore: true)
+  _$$PortfolioDetailsViewModelItemInstrumentCopyWith<
+          _$PortfolioDetailsViewModelItemInstrument>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PortfolioDetailsViewModelItemNewsCopyWith<$Res> {
+  factory _$$PortfolioDetailsViewModelItemNewsCopyWith(
+          _$PortfolioDetailsViewModelItemNews value,
+          $Res Function(_$PortfolioDetailsViewModelItemNews) then) =
+      __$$PortfolioDetailsViewModelItemNewsCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<PortfolioDetailsViewModelItemNewsItem> news});
+}
+
+/// @nodoc
+class __$$PortfolioDetailsViewModelItemNewsCopyWithImpl<$Res>
+    extends _$PortfolioDetailsViewModelItemCopyWithImpl<$Res,
+        _$PortfolioDetailsViewModelItemNews>
+    implements _$$PortfolioDetailsViewModelItemNewsCopyWith<$Res> {
+  __$$PortfolioDetailsViewModelItemNewsCopyWithImpl(
+      _$PortfolioDetailsViewModelItemNews _value,
+      $Res Function(_$PortfolioDetailsViewModelItemNews) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? news = null,
+  }) {
+    return _then(_$PortfolioDetailsViewModelItemNews(
+      null == news
+          ? _value._news
+          : news // ignore: cast_nullable_to_non_nullable
+              as List<PortfolioDetailsViewModelItemNewsItem>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PortfolioDetailsViewModelItemNews
+    implements PortfolioDetailsViewModelItemNews {
+  _$PortfolioDetailsViewModelItemNews(
+      final List<PortfolioDetailsViewModelItemNewsItem> news)
+      : _news = news;
+
+  final List<PortfolioDetailsViewModelItemNewsItem> _news;
+  @override
+  List<PortfolioDetailsViewModelItemNewsItem> get news {
+    if (_news is EqualUnmodifiableListView) return _news;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_news);
+  }
+
+  @override
+  String toString() {
+    return 'PortfolioDetailsViewModelItem.news(news: $news)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PortfolioDetailsViewModelItemNews &&
+            const DeepCollectionEquality().equals(other._news, _news));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_news));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PortfolioDetailsViewModelItemNewsCopyWith<
+          _$PortfolioDetailsViewModelItemNews>
+      get copyWith => __$$PortfolioDetailsViewModelItemNewsCopyWithImpl<
+          _$PortfolioDetailsViewModelItemNews>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String instrumentId) instrument,
+    required TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)
+        news,
+  }) {
+    return news(this.news);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String instrumentId)? instrument,
+    TResult? Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+  }) {
+    return news?.call(this.news);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String instrumentId)? instrument,
+    TResult Function(List<PortfolioDetailsViewModelItemNewsItem> news)? news,
+    required TResult orElse(),
+  }) {
+    if (news != null) {
+      return news(this.news);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PortfolioDetailsViewModelItemInstrument value)
+        instrument,
+    required TResult Function(PortfolioDetailsViewModelItemNews value) news,
+  }) {
+    return news(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PortfolioDetailsViewModelItemInstrument value)?
+        instrument,
+    TResult? Function(PortfolioDetailsViewModelItemNews value)? news,
+  }) {
+    return news?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PortfolioDetailsViewModelItemInstrument value)? instrument,
+    TResult Function(PortfolioDetailsViewModelItemNews value)? news,
+    required TResult orElse(),
+  }) {
+    if (news != null) {
+      return news(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PortfolioDetailsViewModelItemNews
+    implements PortfolioDetailsViewModelItem {
+  factory PortfolioDetailsViewModelItemNews(
+          final List<PortfolioDetailsViewModelItemNewsItem> news) =
+      _$PortfolioDetailsViewModelItemNews;
+
+  List<PortfolioDetailsViewModelItemNewsItem> get news;
+  @JsonKey(ignore: true)
+  _$$PortfolioDetailsViewModelItemNewsCopyWith<
+          _$PortfolioDetailsViewModelItemNews>
+      get copyWith => throw _privateConstructorUsedError;
+}

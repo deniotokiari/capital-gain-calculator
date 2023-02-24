@@ -15,10 +15,14 @@ dependencies:
     path: ../../core/ui
   utility:
     path: ../../core/utility
+  store:
+    path: ../../core/store
   data_portfolio:
     path: ../../data/data_portfolio
   data_symbol:
     path: ../../data/data_symbol
+  data_instrument:
+    path: ../../data/data_instrument
   flutter_bloc: ^8.1.1
   freezed: ^2.3.2
   freezed_annotation: ^2.2.0

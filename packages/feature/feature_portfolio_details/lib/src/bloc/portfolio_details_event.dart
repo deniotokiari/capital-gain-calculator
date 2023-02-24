@@ -8,4 +8,6 @@ class PortfolioDetailsEvent with _$PortfolioDetailsEvent {
   factory PortfolioDetailsEvent.init(String id) = PortfolioDetailsEventInit;
 
   factory PortfolioDetailsEvent.addSymbol(Symbol symbol) = PortfolioDetailsEventAddSymbol;
+
+  factory PortfolioDetailsEvent.updateInatruments() = PortfolioDetailsEventUpdateInatruments;
 }

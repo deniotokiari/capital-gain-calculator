@@ -9,6 +9,8 @@ environment:
 
 
 dependencies:
+  store:
+    path: ../../core/store
   utility: 
     path: ../../core/utility
   data_portfolio:

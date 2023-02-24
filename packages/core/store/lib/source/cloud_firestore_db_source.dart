@@ -8,8 +8,34 @@ class CloudFirestoreDbSource {
 
   CloudFirestoreDbSource(this._userId);
 
-  Stream<UpdateData<T>> updates<T extends DbEntity>(Space space, T Function(Map<String, dynamic>) map) async* {
-    final collection = _getSpace(space).collection(_dbName(T));
+  Stream<UpdateData<T>> updates<T extends DbEntity>(
+    Space space,
+    T Function(Map<String, dynamic>) map, [
+    List<Query> query = const [],
+  ]) async* {
+    late dynamic collection;
+
+    if (query.isEmpty) {
+      collection = _getSpace(space).collection(_dbName(T));
+    } else {
+      collection = _getSpace(space).collection(_dbName(T));
+
+      for (final item in query) {
+        collection = collection.where(
+          item.field,
+          isEqualTo: item.isEqualTo,
+          isNotEqualTo: item.isNotEqualTo,
+          isLessThan: item.isLessThan,
+          isLessThanOrEqualTo: item.isLessThanOrEqualTo,
+          isGreaterThan: item.isGreaterThan,
+          isGreaterThanOrEqualTo: item.isGreaterThanOrEqualTo,
+          arrayContains: item.arrayContains,
+          arrayContainsAny: item.arrayContainsAny,
+          whereIn: item.whereIn,
+          whereNotIn: item.whereNotIn,
+        );
+      }
+    }
 
     await for (final snapshot in collection.snapshots()) {
       final added = <T>[];
@@ -58,7 +84,7 @@ class CloudFirestoreDbSource {
     if (query.isEmpty) {
       return await collection.get().then((value) => value.docs.map((e) => map(e.data())).toList(growable: false));
     } else {
-      late dynamic subQuery;
+      late db.Query<Map<String, dynamic>> subQuery;
 
       for (final item in query) {
         subQuery = collection.where(
