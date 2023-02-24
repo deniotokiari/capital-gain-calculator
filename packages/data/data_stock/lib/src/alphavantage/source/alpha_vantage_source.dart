@@ -1,3 +1,4 @@
+import 'package:data_stock/src/alphavantage/models/global_quote_response.dart';
 import 'package:data_stock/src/alphavantage/models/symbol_search_response.dart';
 import 'package:data_stock/src/source/stock_remote_source.dart';
 import 'package:dio/dio.dart';
@@ -50,6 +51,13 @@ class AlphaVantageSource implements StockRemoteSource {
         _Functions.symbolSearch,
         {_keywords: query},
         SymbolSearchResponse.fromJson,
+      );
+
+  @override
+  Future<GlobalQuoteContainerResponse> globalQuote(String symbol) => executeWithJsonParsing(
+        _Functions.globalQuote,
+        {_symbol: symbol},
+        GlobalQuoteContainerResponse.fromJson,
       );
 }
 

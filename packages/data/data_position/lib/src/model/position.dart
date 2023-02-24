@@ -17,13 +17,7 @@ class Position extends DbEntity {
   factory Position.fromMap(Map<String, dynamic> map) => Position(
         instrumentId: map['instrument_id'],
         count: map['count'],
-        price: CurrencyValue(
-          value: map['price_value'],
-          currency: Currency(
-            code: map['price_currency_code'],
-            name: map['price_currency_name'],
-          ),
-        ),
+        price: CurrencyValue.fromMap(map['price']),
         date: DateTime(
           map['date_year'],
           map['date_month'],
@@ -52,9 +46,7 @@ class Position extends DbEntity {
   Map<String, dynamic> get map => {
         'instrument_id': instrumentId,
         'count': count,
-        'price_value': price.value,
-        'price_currency_code': price.currency.code,
-        'price_currency_name': price.currency.name,
+        'price': price.toMap,
         'date_year': date.year,
         'date_month': date.month,
         'date_day': date.day,

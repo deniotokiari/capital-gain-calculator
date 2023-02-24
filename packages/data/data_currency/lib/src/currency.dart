@@ -7,6 +7,16 @@ class Currency {
     required this.name,
   });
 
+  factory Currency.fromMap(Map<String, dynamic> map) => Currency(
+        code: map['code'],
+        name: map['name'],
+      );
+
+  Map<String, dynamic> get toMap => {
+        'code': code,
+        'name': name,
+      };
+
   @override
   int get hashCode => Object.hash(code, name);
 

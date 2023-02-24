@@ -1,3 +1,4 @@
+import 'package:data_market_value/data_market_value.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'instrument_state.freezed.dart';
@@ -17,4 +18,15 @@ class InstrumentStateTitle {
   });
 }
 
-class InstrumentStatePositions {}
+class InstrumentStatePositions {
+  final List<InstrumentStatePositionsItem> items;
+
+  InstrumentStatePositions(this.items);
+}
+
+class InstrumentStatePositionsItem {
+  final String date;
+  final MarketValue? marketValue;
+
+  InstrumentStatePositionsItem(this.date, this.marketValue);
+}

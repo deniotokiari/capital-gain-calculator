@@ -15,6 +15,7 @@ class AddSymbolToPortfolioUseCase extends UseCase<AddSymbolToPortfolioUseCaseArg
   Future<AddSymbolToPortfolioUseCaseResult> execute(AddSymbolToPortfolioUseCaseArguments arg) async {
     await _symbolRepository.add(arg.symbol);
     await _instrumentRepository.add(Instrument(portfolioId: arg.portfolioId, symbolId: arg.symbol.id));
+    await _symbolRepository.globalQuote(arg.symbol.id, force: true);
 
     return AddSymbolToPortfolioUseCaseResult();
   }

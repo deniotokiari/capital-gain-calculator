@@ -9,6 +9,16 @@ class CurrencyValue {
     required this.currency,
   });
 
+  factory CurrencyValue.fromMap(Map<String, dynamic> map) => CurrencyValue(
+        value: map['value'],
+        currency: Currency.fromMap(map['currency']),
+      );
+
+  Map<String, dynamic> get toMap => {
+        'value': value,
+        'currency': currency.toMap,
+      };
+
   CurrencyValue operator +(CurrencyValue other) {
     if (currency != other.currency) {
       throw ArgumentError.value(other.currency);
@@ -34,5 +44,5 @@ class CurrencyValue {
   }
 
   @override
-  String toString() => "${value.toStringAsFixed(2)}${currency.code}";
+  String toString() => '${value.toStringAsFixed(2)}${currency.code}';
 }

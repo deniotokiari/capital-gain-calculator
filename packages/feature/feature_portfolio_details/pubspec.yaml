@@ -15,6 +15,8 @@ dependencies:
     path: ../../data/data_currency
   data_position:
     path: ../../data/data_position
+  data_market_value:
+    path: ../../data/data_market_value
   ui:
     path: ../../core/ui
   utility:

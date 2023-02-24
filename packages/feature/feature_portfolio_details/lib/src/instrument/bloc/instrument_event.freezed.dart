@@ -16,42 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$InstrumentEvent {
-  String get instrumentId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
+    required TResult Function() update,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String instrumentId)? init,
+    TResult? Function()? update,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
+    TResult Function()? update,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InstrumentEventInit value) init,
+    required TResult Function(InstrumentEventUpdate value) update,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InstrumentEventInit value)? init,
+    TResult? Function(InstrumentEventUpdate value)? update,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InstrumentEventInit value)? init,
+    TResult Function(InstrumentEventUpdate value)? update,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $InstrumentEventCopyWith<InstrumentEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,8 +61,6 @@ abstract class $InstrumentEventCopyWith<$Res> {
   factory $InstrumentEventCopyWith(
           InstrumentEvent value, $Res Function(InstrumentEvent) then) =
       _$InstrumentEventCopyWithImpl<$Res, InstrumentEvent>;
-  @useResult
-  $Res call({String instrumentId});
 }
 
 /// @nodoc
@@ -73,28 +72,13 @@ class _$InstrumentEventCopyWithImpl<$Res, $Val extends InstrumentEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? instrumentId = null,
-  }) {
-    return _then(_value.copyWith(
-      instrumentId: null == instrumentId
-          ? _value.instrumentId
-          : instrumentId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$InstrumentEventInitCopyWith<$Res>
-    implements $InstrumentEventCopyWith<$Res> {
+abstract class _$$InstrumentEventInitCopyWith<$Res> {
   factory _$$InstrumentEventInitCopyWith(_$InstrumentEventInit value,
           $Res Function(_$InstrumentEventInit) then) =
       __$$InstrumentEventInitCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String instrumentId});
 }
@@ -157,6 +141,7 @@ class _$InstrumentEventInit implements InstrumentEventInit {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
+    required TResult Function() update,
   }) {
     return init(instrumentId);
   }
@@ -165,6 +150,7 @@ class _$InstrumentEventInit implements InstrumentEventInit {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String instrumentId)? init,
+    TResult? Function()? update,
   }) {
     return init?.call(instrumentId);
   }
@@ -173,6 +159,7 @@ class _$InstrumentEventInit implements InstrumentEventInit {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
+    TResult Function()? update,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -185,6 +172,7 @@ class _$InstrumentEventInit implements InstrumentEventInit {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InstrumentEventInit value) init,
+    required TResult Function(InstrumentEventUpdate value) update,
   }) {
     return init(this);
   }
@@ -193,6 +181,7 @@ class _$InstrumentEventInit implements InstrumentEventInit {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InstrumentEventInit value)? init,
+    TResult? Function(InstrumentEventUpdate value)? update,
   }) {
     return init?.call(this);
   }
@@ -201,6 +190,7 @@ class _$InstrumentEventInit implements InstrumentEventInit {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InstrumentEventInit value)? init,
+    TResult Function(InstrumentEventUpdate value)? update,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -214,10 +204,110 @@ abstract class InstrumentEventInit implements InstrumentEvent {
   factory InstrumentEventInit(final String instrumentId) =
       _$InstrumentEventInit;
 
-  @override
   String get instrumentId;
-  @override
   @JsonKey(ignore: true)
   _$$InstrumentEventInitCopyWith<_$InstrumentEventInit> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$InstrumentEventUpdateCopyWith<$Res> {
+  factory _$$InstrumentEventUpdateCopyWith(_$InstrumentEventUpdate value,
+          $Res Function(_$InstrumentEventUpdate) then) =
+      __$$InstrumentEventUpdateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InstrumentEventUpdateCopyWithImpl<$Res>
+    extends _$InstrumentEventCopyWithImpl<$Res, _$InstrumentEventUpdate>
+    implements _$$InstrumentEventUpdateCopyWith<$Res> {
+  __$$InstrumentEventUpdateCopyWithImpl(_$InstrumentEventUpdate _value,
+      $Res Function(_$InstrumentEventUpdate) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$InstrumentEventUpdate implements InstrumentEventUpdate {
+  _$InstrumentEventUpdate();
+
+  @override
+  String toString() {
+    return 'InstrumentEvent.update()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$InstrumentEventUpdate);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String instrumentId) init,
+    required TResult Function() update,
+  }) {
+    return update();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String instrumentId)? init,
+    TResult? Function()? update,
+  }) {
+    return update?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String instrumentId)? init,
+    TResult Function()? update,
+    required TResult orElse(),
+  }) {
+    if (update != null) {
+      return update();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InstrumentEventInit value) init,
+    required TResult Function(InstrumentEventUpdate value) update,
+  }) {
+    return update(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InstrumentEventInit value)? init,
+    TResult? Function(InstrumentEventUpdate value)? update,
+  }) {
+    return update?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InstrumentEventInit value)? init,
+    TResult Function(InstrumentEventUpdate value)? update,
+    required TResult orElse(),
+  }) {
+    if (update != null) {
+      return update(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InstrumentEventUpdate implements InstrumentEvent {
+  factory InstrumentEventUpdate() = _$InstrumentEventUpdate;
 }

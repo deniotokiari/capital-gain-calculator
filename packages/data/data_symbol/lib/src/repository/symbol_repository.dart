@@ -25,9 +25,37 @@ class SymbolRepository extends DbRepository<Symbol> {
         ticker: item.symbol,
         region: item.region,
         currency: await _currencyListRepository.getCurrencyByCode(item.currency),
+        globalQuote: null,
       ));
     }
 
     return result;
+  }
+
+  Future<GlobalQuote?> globalQuote(String symbolId, {bool force = false}) async {
+    final symbol = await get(symbolId);
+
+    if (force) {
+      final response = await _stockRemoteSource.globalQuote(symbol.ticker);
+      final globalQuote = GlobalQuote(
+        open: CurrencyValue(value: double.parse(response.globalQuote.open), currency: symbol.currency),
+        high: CurrencyValue(value: double.parse(response.globalQuote.high), currency: symbol.currency),
+        low: CurrencyValue(value: double.parse(response.globalQuote.low), currency: symbol.currency),
+        price: CurrencyValue(value: double.parse(response.globalQuote.price), currency: symbol.currency),
+        close: CurrencyValue(value: double.parse(response.globalQuote.previousClose), currency: symbol.currency),
+      );
+
+      await add(Symbol(
+        name: symbol.name,
+        ticker: symbol.ticker,
+        region: symbol.region,
+        currency: symbol.currency,
+        globalQuote: globalQuote,
+      ));
+
+      return globalQuote;
+    } else {
+      return symbol.globalQuote;
+    }
   }
 }

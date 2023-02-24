@@ -22,6 +22,7 @@ class FeaturePortfoluiModule extends DependencyModule {
     registerFactory(
       () => InstrumentBloc(
         GetSymbolByInstrumentIdUseCase(get(), get()),
+        get(),
       ),
     );
     registerFactory(

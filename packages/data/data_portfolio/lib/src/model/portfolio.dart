@@ -13,15 +13,11 @@ class Portfolio extends DbEntity {
   @override
   Map<String, dynamic> get map => {
         'name': name,
-        'currency_code': currency.code,
-        'currency_name': currency.name,
+        'currency': currency.toMap,
       };
 
   factory Portfolio.fromMap(Map<String, dynamic> map) => Portfolio(
         map['name'],
-        Currency(
-          code: map['currency_code'],
-          name: map['currency_name'],
-        ),
+        Currency.fromMap(map['currency']),
       );
 }
