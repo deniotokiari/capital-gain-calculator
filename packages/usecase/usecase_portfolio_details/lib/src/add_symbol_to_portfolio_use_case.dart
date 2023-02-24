@@ -13,9 +13,17 @@ class AddSymbolToPortfolioUseCase extends UseCase<AddSymbolToPortfolioUseCaseArg
 
   @override
   Future<AddSymbolToPortfolioUseCaseResult> execute(AddSymbolToPortfolioUseCaseArguments arg) async {
+    bool force = false;
+
+    try {
+      await _symbolRepository.globalQuote(arg.symbol.id);
+    } catch (_) {
+      force = true;
+    }
+
     await _symbolRepository.add(arg.symbol);
     await _instrumentRepository.add(Instrument(portfolioId: arg.portfolioId, symbolId: arg.symbol.id));
-    await _symbolRepository.globalQuote(arg.symbol.id, force: true);
+    await _symbolRepository.globalQuote(arg.symbol.id, force: force);
 
     return AddSymbolToPortfolioUseCaseResult();
   }

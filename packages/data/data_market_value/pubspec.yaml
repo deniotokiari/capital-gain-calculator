@@ -10,6 +10,14 @@ environment:
 dependencies:
   utility: 
     path: ../../core/utility
+  store:
+    path: ../../core/store
+  data_position:
+    path: ../data_position
+  data_instrument:
+    path: ../data_instrument
+  data_symbol:
+    path: ../data_symbol
   data_currency:
     path: ../data_currency
   flutter:
