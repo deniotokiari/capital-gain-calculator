@@ -44,5 +44,5 @@ class CurrencyValue {
   }
 
   @override
-  String toString() => '${value.toStringAsFixed(2)}${currency.code}';
+  String toString() => '${value.abs().toStringAsFixed(2)}${currency.code}';
 }

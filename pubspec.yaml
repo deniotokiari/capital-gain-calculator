@@ -46,6 +46,8 @@ dependencies:
     path: ./packages/data/data_instrument
   data_position:
     path: ./packages/data/data_position
+  data_market_value:
+    path: ./packages/data/data_market_value
   
   # CORE
   utility: 

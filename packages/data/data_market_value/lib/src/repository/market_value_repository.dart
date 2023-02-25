@@ -17,6 +17,19 @@ class MarketValueRepository {
     this._symbolRepository,
   );
 
+  Future<Map<String, MarketValue?>> getPositionsMarketValue(String instrumentId, {bool force = false}) async {
+    final positions = await _positionRepository.all([Query('instrument_id', isEqualTo: instrumentId)]);
+    final instrument = await _instrumentRepository.get(instrumentId);
+    final globalQuote = await _symbolRepository.globalQuote(instrument.symbolId, force: force);
+    final map = <String, MarketValue?>{};
+
+    for (final item in positions) {
+      map[item.id] = globalQuote?.let((that) => MarketValue(count: item.count, current: that.close, invested: item.price));
+    }
+
+    return map;
+  }
+
   Future<MarketValue?> getPositionMarketValue(String positionId, {bool force = false}) async {
     final position = await _positionRepository.get(positionId);
     final instrument = await _instrumentRepository.get(position.instrumentId);

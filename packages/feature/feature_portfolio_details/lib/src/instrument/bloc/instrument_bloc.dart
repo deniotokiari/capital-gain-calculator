@@ -12,6 +12,7 @@ import 'package:utility/utility.dart';
 class InstrumentBloc extends Bloc<InstrumentEvent, InstrumentState> {
   final GetSymbolByInstrumentIdUseCase _getSymbolByInstrumentIdUseCase;
   final PositionRepository _positionRepository;
+  final MarketValueRepository _marketValueRepository;
 
   late String _instrumentId;
   StreamSubscription? _streamSubscription;
@@ -19,6 +20,7 @@ class InstrumentBloc extends Bloc<InstrumentEvent, InstrumentState> {
   InstrumentBloc(
     this._getSymbolByInstrumentIdUseCase,
     this._positionRepository,
+    this._marketValueRepository,
   ) : super(InstrumentState.loading()) {
     on<InstrumentEventInit>((event, emit) async {
       _instrumentId = event.instrumentId;
@@ -36,26 +38,23 @@ class InstrumentBloc extends Bloc<InstrumentEvent, InstrumentState> {
   }
 
   Future<void> _update(String instrumentId, dynamic emit) async {
-    final result = await _getSymbolByInstrumentIdUseCase.execute(
-      GetSymbolByInstrumentIdUseCaseArguments(instrumentId: instrumentId),
-    );
-    final globalQuote = result.symbol.globalQuote;
+    final result = await _getSymbolByInstrumentIdUseCase.execute(GetSymbolByInstrumentIdUseCaseArguments(instrumentId: instrumentId));
     final positions = await _positionRepository.all([Query('instrument_id', isEqualTo: instrumentId)]);
+    final marketValues = await _marketValueRepository.getPositionsMarketValue(instrumentId);
+
+    positions.sort((a, b) => a.date.compareTo(b.date));
 
     emit(InstrumentState.idle(
       InstrumentStateTitle(title: '${result.symbol.ticker} - ${result.symbol.name}'),
       InstrumentStatePositions([
-        ...positions.map(
-          (e) => InstrumentStatePositionsItem(
-            _formatDate(e.date),
-            globalQuote?.let((that) => MarketValue(count: e.count, current: that.close, invested: e.price)),
+        for (var i = 0; i < positions.length; i++)
+          InstrumentStatePositionsItem(
+            positions[i].date.ddMMYYYY,
+            marketValues[positions[i].id],
           ),
-        )
       ]),
     ));
   }
-
-  String _formatDate(DateTime date) => '${date.day}/${date.month}/${date.year}';
 
   @override
   Future<void> close() async {

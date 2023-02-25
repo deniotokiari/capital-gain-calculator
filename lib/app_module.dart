@@ -3,6 +3,7 @@ import 'package:capital_gain_calculator/navigation/auth_guard.dart';
 import 'package:data_auth/auth.dart';
 import 'package:data_currency/currency.dart';
 import 'package:data_instrument/data_instrument.dart';
+import 'package:data_market_value/data_market_value.dart';
 import 'package:data_portfolio/portfolio.dart';
 import 'package:data_position/data_position.dart';
 import 'package:data_stock/data_stock.dart';
@@ -35,6 +36,7 @@ class AppModule extends DependencyModule {
       DataStockModule(() => get<UserSettingsRepository>().getAlphavantageKey()),
       DataInstrumentModule(),
       DataPositionModule(),
+      DataMarketValueModule(),
     ], (element) async => await element.init());
 
     // FEATURE

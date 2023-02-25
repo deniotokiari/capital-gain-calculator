@@ -21,5 +21,5 @@ class MarketValue {
 
   String get formattedInterest => '${interest.value > 0 ? '+' : '-'}${interest.toString()}';
 
-  String get formattedPercent => '${percent > 0 ? '+' : '-'}${(percent * 100).toStringAsFixed(2)}%';
+  String get formattedPercent => '${percent > 0 ? '+' : '-'}${(percent * 100).abs().toStringAsFixed(2)}%';
 }
