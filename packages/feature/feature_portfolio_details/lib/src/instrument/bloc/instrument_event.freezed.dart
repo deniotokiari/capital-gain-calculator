@@ -20,18 +20,21 @@ mixin _$InstrumentEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() update,
+    required TResult Function(String positionId) deletePosition,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String instrumentId)? init,
     TResult? Function()? update,
+    TResult? Function(String positionId)? deletePosition,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? update,
+    TResult Function(String positionId)? deletePosition,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,22 @@ mixin _$InstrumentEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(InstrumentEventInit value) init,
     required TResult Function(InstrumentEventUpdate value) update,
+    required TResult Function(InstrumentEventDeletePosition value)
+        deletePosition,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InstrumentEventInit value)? init,
     TResult? Function(InstrumentEventUpdate value)? update,
+    TResult? Function(InstrumentEventDeletePosition value)? deletePosition,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InstrumentEventInit value)? init,
     TResult Function(InstrumentEventUpdate value)? update,
+    TResult Function(InstrumentEventDeletePosition value)? deletePosition,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -142,6 +149,7 @@ class _$InstrumentEventInit implements InstrumentEventInit {
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() update,
+    required TResult Function(String positionId) deletePosition,
   }) {
     return init(instrumentId);
   }
@@ -151,6 +159,7 @@ class _$InstrumentEventInit implements InstrumentEventInit {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String instrumentId)? init,
     TResult? Function()? update,
+    TResult? Function(String positionId)? deletePosition,
   }) {
     return init?.call(instrumentId);
   }
@@ -160,6 +169,7 @@ class _$InstrumentEventInit implements InstrumentEventInit {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? update,
+    TResult Function(String positionId)? deletePosition,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -173,6 +183,8 @@ class _$InstrumentEventInit implements InstrumentEventInit {
   TResult map<TResult extends Object?>({
     required TResult Function(InstrumentEventInit value) init,
     required TResult Function(InstrumentEventUpdate value) update,
+    required TResult Function(InstrumentEventDeletePosition value)
+        deletePosition,
   }) {
     return init(this);
   }
@@ -182,6 +194,7 @@ class _$InstrumentEventInit implements InstrumentEventInit {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InstrumentEventInit value)? init,
     TResult? Function(InstrumentEventUpdate value)? update,
+    TResult? Function(InstrumentEventDeletePosition value)? deletePosition,
   }) {
     return init?.call(this);
   }
@@ -191,6 +204,7 @@ class _$InstrumentEventInit implements InstrumentEventInit {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InstrumentEventInit value)? init,
     TResult Function(InstrumentEventUpdate value)? update,
+    TResult Function(InstrumentEventDeletePosition value)? deletePosition,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -250,6 +264,7 @@ class _$InstrumentEventUpdate implements InstrumentEventUpdate {
   TResult when<TResult extends Object?>({
     required TResult Function(String instrumentId) init,
     required TResult Function() update,
+    required TResult Function(String positionId) deletePosition,
   }) {
     return update();
   }
@@ -259,6 +274,7 @@ class _$InstrumentEventUpdate implements InstrumentEventUpdate {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String instrumentId)? init,
     TResult? Function()? update,
+    TResult? Function(String positionId)? deletePosition,
   }) {
     return update?.call();
   }
@@ -268,6 +284,7 @@ class _$InstrumentEventUpdate implements InstrumentEventUpdate {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instrumentId)? init,
     TResult Function()? update,
+    TResult Function(String positionId)? deletePosition,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -281,6 +298,8 @@ class _$InstrumentEventUpdate implements InstrumentEventUpdate {
   TResult map<TResult extends Object?>({
     required TResult Function(InstrumentEventInit value) init,
     required TResult Function(InstrumentEventUpdate value) update,
+    required TResult Function(InstrumentEventDeletePosition value)
+        deletePosition,
   }) {
     return update(this);
   }
@@ -290,6 +309,7 @@ class _$InstrumentEventUpdate implements InstrumentEventUpdate {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InstrumentEventInit value)? init,
     TResult? Function(InstrumentEventUpdate value)? update,
+    TResult? Function(InstrumentEventDeletePosition value)? deletePosition,
   }) {
     return update?.call(this);
   }
@@ -299,6 +319,7 @@ class _$InstrumentEventUpdate implements InstrumentEventUpdate {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InstrumentEventInit value)? init,
     TResult Function(InstrumentEventUpdate value)? update,
+    TResult Function(InstrumentEventDeletePosition value)? deletePosition,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -310,4 +331,149 @@ class _$InstrumentEventUpdate implements InstrumentEventUpdate {
 
 abstract class InstrumentEventUpdate implements InstrumentEvent {
   factory InstrumentEventUpdate() = _$InstrumentEventUpdate;
+}
+
+/// @nodoc
+abstract class _$$InstrumentEventDeletePositionCopyWith<$Res> {
+  factory _$$InstrumentEventDeletePositionCopyWith(
+          _$InstrumentEventDeletePosition value,
+          $Res Function(_$InstrumentEventDeletePosition) then) =
+      __$$InstrumentEventDeletePositionCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String positionId});
+}
+
+/// @nodoc
+class __$$InstrumentEventDeletePositionCopyWithImpl<$Res>
+    extends _$InstrumentEventCopyWithImpl<$Res, _$InstrumentEventDeletePosition>
+    implements _$$InstrumentEventDeletePositionCopyWith<$Res> {
+  __$$InstrumentEventDeletePositionCopyWithImpl(
+      _$InstrumentEventDeletePosition _value,
+      $Res Function(_$InstrumentEventDeletePosition) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? positionId = null,
+  }) {
+    return _then(_$InstrumentEventDeletePosition(
+      null == positionId
+          ? _value.positionId
+          : positionId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$InstrumentEventDeletePosition implements InstrumentEventDeletePosition {
+  _$InstrumentEventDeletePosition(this.positionId);
+
+  @override
+  final String positionId;
+
+  @override
+  String toString() {
+    return 'InstrumentEvent.deletePosition(positionId: $positionId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InstrumentEventDeletePosition &&
+            (identical(other.positionId, positionId) ||
+                other.positionId == positionId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, positionId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InstrumentEventDeletePositionCopyWith<_$InstrumentEventDeletePosition>
+      get copyWith => __$$InstrumentEventDeletePositionCopyWithImpl<
+          _$InstrumentEventDeletePosition>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String instrumentId) init,
+    required TResult Function() update,
+    required TResult Function(String positionId) deletePosition,
+  }) {
+    return deletePosition(positionId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String instrumentId)? init,
+    TResult? Function()? update,
+    TResult? Function(String positionId)? deletePosition,
+  }) {
+    return deletePosition?.call(positionId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String instrumentId)? init,
+    TResult Function()? update,
+    TResult Function(String positionId)? deletePosition,
+    required TResult orElse(),
+  }) {
+    if (deletePosition != null) {
+      return deletePosition(positionId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InstrumentEventInit value) init,
+    required TResult Function(InstrumentEventUpdate value) update,
+    required TResult Function(InstrumentEventDeletePosition value)
+        deletePosition,
+  }) {
+    return deletePosition(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InstrumentEventInit value)? init,
+    TResult? Function(InstrumentEventUpdate value)? update,
+    TResult? Function(InstrumentEventDeletePosition value)? deletePosition,
+  }) {
+    return deletePosition?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InstrumentEventInit value)? init,
+    TResult Function(InstrumentEventUpdate value)? update,
+    TResult Function(InstrumentEventDeletePosition value)? deletePosition,
+    required TResult orElse(),
+  }) {
+    if (deletePosition != null) {
+      return deletePosition(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InstrumentEventDeletePosition implements InstrumentEvent {
+  factory InstrumentEventDeletePosition(final String positionId) =
+      _$InstrumentEventDeletePosition;
+
+  String get positionId;
+  @JsonKey(ignore: true)
+  _$$InstrumentEventDeletePositionCopyWith<_$InstrumentEventDeletePosition>
+      get copyWith => throw _privateConstructorUsedError;
 }

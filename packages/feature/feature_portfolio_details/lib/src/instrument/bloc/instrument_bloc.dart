@@ -35,6 +35,11 @@ class InstrumentBloc extends Bloc<InstrumentEvent, InstrumentState> {
     on<InstrumentEventUpdate>((event, emit) async {
       await _update(_instrumentId, emit);
     });
+    on<InstrumentEventDeletePosition>((event, emit) async {
+      await _positionRepository.delete(event.positionId);
+
+      await _update(_instrumentId, emit);
+    });
   }
 
   Future<void> _update(String instrumentId, dynamic emit) async {
@@ -45,12 +50,13 @@ class InstrumentBloc extends Bloc<InstrumentEvent, InstrumentState> {
     positions.sort((a, b) => a.date.compareTo(b.date));
 
     emit(InstrumentState.idle(
-      InstrumentStateTitle(title: '${result.symbol.ticker} - ${result.symbol.name}'),
+      InstrumentStateTitle(title: result.symbol.ticker, marketValue: await _marketValueRepository.getInstrumentMarketValue(instrumentId)),
       InstrumentStatePositions([
         for (var i = 0; i < positions.length; i++)
           InstrumentStatePositionsItem(
-            positions[i].date.ddMMYYYY,
-            marketValues[positions[i].id],
+            id: positions[i].id,
+            date: positions[i].date.ddMMYYYY,
+            marketValue: marketValues[positions[i].id],
           ),
       ]),
     ));

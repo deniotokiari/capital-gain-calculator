@@ -24,7 +24,7 @@ class CreatePortfolioWidget extends StatelessWidget {
                   },
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
-                    labelText: 'Enter portfolio name',
+                    labelText: 'Portfolio name',
                   ),
                 );
               }),

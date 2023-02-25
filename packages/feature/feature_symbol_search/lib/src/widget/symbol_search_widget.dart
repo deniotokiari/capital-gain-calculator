@@ -28,7 +28,7 @@ class SymbolSearchWidget extends StatelessWidget {
                   },
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
-                    labelText: 'Enter your query',
+                    labelText: 'Query',
                   ),
                 ),
               );

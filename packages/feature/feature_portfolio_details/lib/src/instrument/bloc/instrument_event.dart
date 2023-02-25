@@ -7,4 +7,6 @@ class InstrumentEvent with _$InstrumentEvent {
   factory InstrumentEvent.init(String instrumentId) = InstrumentEventInit;
 
   factory InstrumentEvent.update() = InstrumentEventUpdate;
+
+  factory InstrumentEvent.deletePosition(String positionId) = InstrumentEventDeletePosition;
 }

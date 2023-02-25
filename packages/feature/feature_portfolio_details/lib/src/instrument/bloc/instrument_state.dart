@@ -12,9 +12,11 @@ class InstrumentState with _$InstrumentState {
 
 class InstrumentStateTitle {
   final String title;
+  final MarketValue? marketValue;
 
   InstrumentStateTitle({
     required this.title,
+    required this.marketValue,
   });
 }
 
@@ -25,8 +27,13 @@ class InstrumentStatePositions {
 }
 
 class InstrumentStatePositionsItem {
+  final String id;
   final String date;
   final MarketValue? marketValue;
 
-  InstrumentStatePositionsItem(this.date, this.marketValue);
+  InstrumentStatePositionsItem({
+    required this.id,
+    required this.date,
+    required this.marketValue,
+  });
 }

@@ -43,16 +43,20 @@ class MarketValueRepository {
     final instrument = await _instrumentRepository.get(instrumentId);
     final globalQuote = await _symbolRepository.globalQuote(instrument.symbolId, force: force);
 
-    return globalQuote?.let((that) => MarketValue(
-          count: positions.fold(0.0, (previousValue, element) => previousValue + element.count),
-          current: that.close,
-          invested: positions.fold(
-              CurrencyValue(
-                value: 0.0,
-                currency: globalQuote.close.currency,
-              ),
-              (previousValue, element) => previousValue + element.price),
-        ));
+    if (positions.isEmpty) {
+      return null;
+    } else {
+      return globalQuote?.let((that) => MarketValue(
+            count: positions.fold(0.0, (previousValue, element) => previousValue + element.count),
+            current: that.close,
+            invested: positions.fold(
+                CurrencyValue(
+                  value: 0.0,
+                  currency: globalQuote.close.currency,
+                ),
+                (previousValue, element) => previousValue + element.price),
+          ));
+    }
   }
 
   // need converter for currency, since portfolio could contain instrument with different positions

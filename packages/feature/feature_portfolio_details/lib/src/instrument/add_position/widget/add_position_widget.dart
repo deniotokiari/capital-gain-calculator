@@ -58,14 +58,15 @@ class AddPositionWidget extends StatelessWidget {
 
   Widget _getCurrencyWidget() => BlocBuilder<AddPositionBloc, AddPositionState>(
         builder: (context, state) {
-          if (state.currencyList.isEmpty) {
+          if (state.currency == null) {
             return const CircularProgressIndicator.adaptive();
           } else {
             return DropdownButton<String>(
+              focusNode: _AlwaysDisabledFocusNode(),
               isExpanded: true,
               value: state.currency,
               items: [...state.currencyList.map((e) => DropdownMenuItem(value: e, child: Text(e)))],
-              onChanged: (value) => context.read<AddPositionBloc>().add(AddPositionEvent.currencyChanged(value)),
+              onChanged: null,
             );
           }
         },
@@ -73,11 +74,7 @@ class AddPositionWidget extends StatelessWidget {
 
   Widget _getDateWidget() => BlocBuilder<AddPositionBloc, AddPositionState>(
         builder: (context, state) {
-          final controller = TextEditingController.fromValue(
-            TextEditingValue(
-              text: '${state.date.year}/${state.date.month}/${state.date.day}',
-            ),
-          );
+          final controller = TextEditingController.fromValue(TextEditingValue(text: state.date.ddMMYYYY));
 
           return TextField(
             focusNode: _AlwaysDisabledFocusNode(),
@@ -95,7 +92,7 @@ class AddPositionWidget extends StatelessWidget {
               );
 
               if (date != null) {
-                controller.text = '${date.year}/${date.month}/${date.day}';
+                controller.text = date.ddMMYYYY;
 
                 if (context.mounted) {
                   context.read<AddPositionBloc>().add(AddPositionEventDateChanged(date));
