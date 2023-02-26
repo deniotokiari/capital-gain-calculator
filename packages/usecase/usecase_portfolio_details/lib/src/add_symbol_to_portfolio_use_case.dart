@@ -21,9 +21,12 @@ class AddSymbolToPortfolioUseCase extends UseCase<AddSymbolToPortfolioUseCaseArg
       force = true;
     }
 
-    await _symbolRepository.add(arg.symbol);
+    if (force) {
+      await _symbolRepository.add(arg.symbol);
+      await _symbolRepository.globalQuote(arg.symbol.id, force: force);
+    }
+
     await _instrumentRepository.add(Instrument(portfolioId: arg.portfolioId, symbolId: arg.symbol.id));
-    await _symbolRepository.globalQuote(arg.symbol.id, force: force);
 
     return AddSymbolToPortfolioUseCaseResult();
   }

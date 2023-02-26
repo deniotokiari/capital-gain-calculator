@@ -1,4 +1,3 @@
-import 'package:data_currency/currency.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'portfolio_details_state.freezed.dart';
@@ -13,17 +12,9 @@ class PortfolioDetailsState with _$PortfolioDetailsState {
 }
 
 class PortfolioDetailsViewModel {
-  final String portfolioName;
-  final CurrencyValue? market;
-  final CurrencyValue? interest;
-  final double? percent;
   final List<PortfolioDetailsViewModelItem> items;
 
   PortfolioDetailsViewModel({
-    required this.portfolioName,
-    required this.market,
-    required this.interest,
-    required this.percent,
     required this.items,
   });
 }

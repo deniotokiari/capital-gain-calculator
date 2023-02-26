@@ -44,9 +44,5 @@ class CurrencyValue {
   }
 
   @override
-  String toString() => '${value.abs().toStringAsFixed(2)}${currency.code}';
-
-  String get market => toString();
-
-  String get interest => '${value > 0 ? '+' : '-'}${toString()}';
+  String toString() => '${value.toStringAsFixed(2)}${currency.code}';
 }

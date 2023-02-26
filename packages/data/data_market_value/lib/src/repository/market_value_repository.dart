@@ -24,12 +24,22 @@ class MarketValueRepository {
 
   Future<Map<String, MarketValue?>> getPositionsMarketValue(String instrumentId, {bool force = false}) async {
     final positions = await _positionRepository.all([Query('instrument_id', isEqualTo: instrumentId)]);
+
+    if (positions.isEmpty) {
+      return {};
+    }
+
     final instrument = await _instrumentRepository.get(instrumentId);
     final globalQuote = await _symbolRepository.globalQuote(instrument.symbolId, force: force);
+
+    if (globalQuote == null) {
+      return {};
+    }
+
     final map = <String, MarketValue?>{};
 
     for (final item in positions) {
-      map[item.id] = globalQuote?.let((that) => MarketValue(count: item.count, current: that.close, invested: item.price));
+      map[item.id] = MarketValue.calculated(count: item.count, current: globalQuote.close, invested: item.price);
     }
 
     return map;
@@ -40,18 +50,19 @@ class MarketValueRepository {
     final instrument = await _instrumentRepository.get(position.instrumentId);
     final globalQuote = await _symbolRepository.globalQuote(instrument.symbolId, force: force);
 
-    return globalQuote?.let((that) => MarketValue(count: position.count, current: that.close, invested: position.price));
+    return globalQuote?.let((that) => MarketValue.calculated(count: position.count, current: that.close, invested: position.price));
   }
 
   Future<MarketValue?> getInstrumentMarketValue(String instrumentId, {bool force = false}) async {
     final positions = await _positionRepository.all([Query('instrument_id', isEqualTo: instrumentId)]);
-    final instrument = await _instrumentRepository.get(instrumentId);
-    final globalQuote = await _symbolRepository.globalQuote(instrument.symbolId, force: force);
 
     if (positions.isEmpty) {
       return null;
     } else {
-      return globalQuote?.let((that) => MarketValue(
+      final instrument = await _instrumentRepository.get(instrumentId);
+      final globalQuote = await _symbolRepository.globalQuote(instrument.symbolId, force: force);
+
+      return globalQuote?.let((that) => MarketValue.calculated(
             count: positions.fold(0.0, (previousValue, element) => previousValue + element.count),
             current: that.close,
             invested: positions.fold(
@@ -64,7 +75,7 @@ class MarketValueRepository {
     }
   }
 
-  Future<List<MarketValue>?> getPortfolioMarketValue(String portfolioId, {bool force = false}) async {
+  Future<MarketValue?> getPortfolioMarketValue(String portfolioId, {bool force = false}) async {
     final portfolio = await _portfolioRepository.get(portfolioId);
     final instruments = await _instrumentRepository.all([Query('portfolio_id', isEqualTo: portfolioId)]);
     final instrumentsMarketValues = <MarketValue>[];
@@ -72,18 +83,35 @@ class MarketValueRepository {
     for (final instrument in instruments) {
       final marketValue = await getInstrumentMarketValue(instrument.id, force: force);
 
-      if (marketValue != null) {
-        final current = await _currencyExchangeRateRepository.convert(from: marketValue.current, to: portfolio.currency);
-        final invested = await _currencyExchangeRateRepository.convert(from: marketValue.invested, to: portfolio.currency);
-
-        instrumentsMarketValues.add(MarketValue(count: marketValue.count, current: current, invested: invested));
-      }
+      await marketValue?.map(
+        (value) => null,
+        calculated: (calculated) async {
+          instrumentsMarketValues.add(
+            calculated.copyWith(
+              current: await _currencyExchangeRateRepository.convert(from: calculated.current, to: portfolio.currency),
+              invested: await _currencyExchangeRateRepository.convert(from: calculated.invested, to: portfolio.currency),
+            ),
+          );
+        },
+      );
     }
 
     if (instrumentsMarketValues.isEmpty) {
       return null;
     } else {
-      return instrumentsMarketValues;
+      final market = instrumentsMarketValues.fold(0.0, (previousValue, element) => previousValue + element.market.value);
+      final interest = instrumentsMarketValues.fold(0.0, (previousValue, element) => previousValue + element.interest.value);
+      final invested = instrumentsMarketValues.fold(
+        0.0,
+        (previousValue, element) => previousValue + element.map((value) => 0.0, calculated: (calculated) => calculated.invested.value),
+      );
+      final percent = interest / invested;
+
+      return MarketValue(
+        market: CurrencyValue(value: market, currency: portfolio.currency),
+        interest: CurrencyValue(value: interest, currency: portfolio.currency),
+        percent: percent,
+      );
     }
   }
 
