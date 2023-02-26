@@ -3,6 +3,7 @@ import 'package:data_position/data_position.dart';
 import 'package:feature_portfolio_details/src/instrument/add_position/bloc/add_position_event.dart';
 import 'package:feature_portfolio_details/src/instrument/add_position/bloc/add_position_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:store/store.dart';
 import 'package:usecase_portfolio_details/usecase_portfolio_details.dart';
 
 class AddPositionBloc extends Bloc<AddPositionEvent, AddPositionState> {
@@ -33,6 +34,13 @@ class AddPositionBloc extends Bloc<AddPositionEvent, AddPositionState> {
       final symbol = await _getSymbolByInstrumentIdUseCase
           .execute(GetSymbolByInstrumentIdUseCaseArguments(instrumentId: _instrumentId))
           .then((value) => value.symbol);
+
+      final positions = await _positionRepository.all([Query('instrument_id', isEqualTo: _instrumentId)]);
+      positions.sort((a, b) => a.date.compareTo(b.date));
+
+      if (positions.isNotEmpty) {
+        emit(state.copyWith(date: positions.last.date));
+      }
 
       emit(state.copyWith(
         currencyList: _currencyList.formatted,

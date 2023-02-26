@@ -39,7 +39,6 @@ class FeaturePortfoluiModule extends DependencyModule {
         get(),
         get(),
         get(),
-        get(),
       ),
     );
   }

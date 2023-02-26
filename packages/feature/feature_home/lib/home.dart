@@ -21,6 +21,7 @@ class FeatureHomeModule extends DependencyModule {
         GetAllPortfoliosUseCase(get()),
         PortfoliosUpdatesUseCase(get()),
         DeletePortfolioByIdUseCase(get()),
+        get(),
       ),
     );
   }

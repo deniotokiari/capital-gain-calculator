@@ -87,8 +87,8 @@ class AddPositionWidget extends StatelessWidget {
               final date = await showDatePicker(
                 context: context,
                 initialDate: state.date,
-                firstDate: state.date.add(const Duration(days: -365 * 100)),
-                lastDate: state.date,
+                firstDate: DateTime.now().add(const Duration(days: -365 * 100)),
+                lastDate: DateTime.now(),
               );
 
               if (date != null) {

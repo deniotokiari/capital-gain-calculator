@@ -4,6 +4,7 @@ import 'package:data_market_value/src/model/market_value.dart';
 import 'package:data_portfolio/portfolio.dart';
 import 'package:data_position/data_position.dart';
 import 'package:data_symbol/data_symbol.dart';
+import 'package:data_user/user.dart';
 import 'package:store/store.dart';
 import 'package:utility/utility.dart';
 
@@ -13,6 +14,7 @@ class MarketValueRepository {
   final SymbolRepository _symbolRepository;
   final PortfolioRepository _portfolioRepository;
   final CurrencyExchangeRateRepository _currencyExchangeRateRepository;
+  final UserSettingsRepository _userSettingsRepository;
 
   MarketValueRepository(
     this._positionRepository,
@@ -20,6 +22,7 @@ class MarketValueRepository {
     this._symbolRepository,
     this._portfolioRepository,
     this._currencyExchangeRateRepository,
+    this._userSettingsRepository,
   );
 
   Future<Map<String, MarketValue?>> getPositionsMarketValue(String instrumentId, {bool force = false}) async {
@@ -115,6 +118,55 @@ class MarketValueRepository {
     }
   }
 
-  // need converter for currency, since portfolio could be in different currency then profile
-  Future<MarketValue?> getProfileMarketValue({bool force = false}) async {}
+  Future<MarketValue?> getProfileMarketValue({bool force = false}) async {
+    final userCurrency = await _userSettingsRepository.getUserCurrency();
+    final portfolios = await _portfolioRepository.all();
+    final portfoliosMarketValues = <MarketValue>[];
+
+    for (final portfolio in portfolios) {
+      final marketValue = await getPortfolioMarketValue(portfolio.id, force: force);
+
+      await marketValue?.map(
+        (value) async {
+          portfoliosMarketValues.add(
+            value.copyWith(
+              market: await _currencyExchangeRateRepository.convert(from: value.market, to: userCurrency),
+              interest: await _currencyExchangeRateRepository.convert(from: value.interest, to: userCurrency),
+            ),
+          );
+        },
+        calculated: (calculated) async {
+          portfoliosMarketValues.add(
+            calculated.copyWith(
+              current: await _currencyExchangeRateRepository.convert(from: calculated.current, to: userCurrency),
+              invested: await _currencyExchangeRateRepository.convert(from: calculated.invested, to: userCurrency),
+            ),
+          );
+        },
+      );
+    }
+
+    if (portfoliosMarketValues.isEmpty) {
+      return null;
+    } else {
+      final market = portfoliosMarketValues.fold(0.0, (previousValue, element) => previousValue + element.market.value);
+      final interest = portfoliosMarketValues.fold(0.0, (previousValue, element) => previousValue + element.interest.value);
+      final invested = portfoliosMarketValues.fold(
+        0.0,
+        (previousValue, element) =>
+            previousValue +
+            element.map(
+              (value) => value.market.value - value.interest.value,
+              calculated: (calculated) => calculated.invested.value,
+            ),
+      );
+      final percent = interest / invested;
+
+      return MarketValue(
+        market: CurrencyValue(value: market, currency: userCurrency),
+        interest: CurrencyValue(value: interest, currency: userCurrency),
+        percent: percent,
+      );
+    }
+  }
 }

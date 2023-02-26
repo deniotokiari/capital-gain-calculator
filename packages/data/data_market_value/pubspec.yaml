@@ -22,6 +22,8 @@ dependencies:
     path: ../data_currency
   data_portfolio:
     path: ../data_portfolio
+  data_user:
+    path: ../data_user
   flutter:
     sdk: flutter
   freezed: ^2.3.2

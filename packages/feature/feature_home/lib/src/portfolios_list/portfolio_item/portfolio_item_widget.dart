@@ -32,6 +32,38 @@ class PortfolioItemWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(child: Text(_item.name)),
+            if (_item.marketValue != null)
+              Expanded(
+                child: Text(
+                  _item.marketValue!.formattedMarket,
+                  style: const TextStyle(
+                    inherit: true,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            if (_item.marketValue != null)
+              Expanded(
+                child: Text(
+                  _item.marketValue!.formattedInterest,
+                  style: TextStyle(
+                    inherit: true,
+                    fontSize: 14,
+                    color: _item.marketValue!.interest.value < 0 ? Colors.red : Colors.green,
+                  ),
+                ),
+              ),
+            if (_item.marketValue != null)
+              Expanded(
+                child: Text(
+                  _item.marketValue!.formattedPercent,
+                  style: TextStyle(
+                    inherit: true,
+                    fontSize: 14,
+                    color: _item.marketValue!.percent < 0 ? Colors.red : Colors.green,
+                  ),
+                ),
+              ),
           ],
         ),
       );

@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PortfoliosListState {
+  MarketValue? get marketValue => throw _privateConstructorUsedError;
   List<PortfolioViewModel> get portfolios => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +30,9 @@ abstract class $PortfoliosListStateCopyWith<$Res> {
           PortfoliosListState value, $Res Function(PortfoliosListState) then) =
       _$PortfoliosListStateCopyWithImpl<$Res, PortfoliosListState>;
   @useResult
-  $Res call({List<PortfolioViewModel> portfolios});
+  $Res call({MarketValue? marketValue, List<PortfolioViewModel> portfolios});
+
+  $MarketValueCopyWith<$Res>? get marketValue;
 }
 
 /// @nodoc
@@ -45,14 +48,31 @@ class _$PortfoliosListStateCopyWithImpl<$Res, $Val extends PortfoliosListState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? marketValue = freezed,
     Object? portfolios = null,
   }) {
     return _then(_value.copyWith(
+      marketValue: freezed == marketValue
+          ? _value.marketValue
+          : marketValue // ignore: cast_nullable_to_non_nullable
+              as MarketValue?,
       portfolios: null == portfolios
           ? _value.portfolios
           : portfolios // ignore: cast_nullable_to_non_nullable
               as List<PortfolioViewModel>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MarketValueCopyWith<$Res>? get marketValue {
+    if (_value.marketValue == null) {
+      return null;
+    }
+
+    return $MarketValueCopyWith<$Res>(_value.marketValue!, (value) {
+      return _then(_value.copyWith(marketValue: value) as $Val);
+    });
   }
 }
 
@@ -64,7 +84,10 @@ abstract class _$$_PortfoliosListStateCopyWith<$Res>
       __$$_PortfoliosListStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<PortfolioViewModel> portfolios});
+  $Res call({MarketValue? marketValue, List<PortfolioViewModel> portfolios});
+
+  @override
+  $MarketValueCopyWith<$Res>? get marketValue;
 }
 
 /// @nodoc
@@ -78,9 +101,14 @@ class __$$_PortfoliosListStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? marketValue = freezed,
     Object? portfolios = null,
   }) {
     return _then(_$_PortfoliosListState(
+      freezed == marketValue
+          ? _value.marketValue
+          : marketValue // ignore: cast_nullable_to_non_nullable
+              as MarketValue?,
       null == portfolios
           ? _value._portfolios
           : portfolios // ignore: cast_nullable_to_non_nullable
@@ -92,9 +120,12 @@ class __$$_PortfoliosListStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PortfoliosListState implements _PortfoliosListState {
-  _$_PortfoliosListState(final List<PortfolioViewModel> portfolios)
+  _$_PortfoliosListState(
+      this.marketValue, final List<PortfolioViewModel> portfolios)
       : _portfolios = portfolios;
 
+  @override
+  final MarketValue? marketValue;
   final List<PortfolioViewModel> _portfolios;
   @override
   List<PortfolioViewModel> get portfolios {
@@ -105,7 +136,7 @@ class _$_PortfoliosListState implements _PortfoliosListState {
 
   @override
   String toString() {
-    return 'PortfoliosListState(portfolios: $portfolios)';
+    return 'PortfoliosListState(marketValue: $marketValue, portfolios: $portfolios)';
   }
 
   @override
@@ -113,13 +144,15 @@ class _$_PortfoliosListState implements _PortfoliosListState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PortfoliosListState &&
+            (identical(other.marketValue, marketValue) ||
+                other.marketValue == marketValue) &&
             const DeepCollectionEquality()
                 .equals(other._portfolios, _portfolios));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_portfolios));
+  int get hashCode => Object.hash(runtimeType, marketValue,
+      const DeepCollectionEquality().hash(_portfolios));
 
   @JsonKey(ignore: true)
   @override
@@ -130,9 +163,11 @@ class _$_PortfoliosListState implements _PortfoliosListState {
 }
 
 abstract class _PortfoliosListState implements PortfoliosListState {
-  factory _PortfoliosListState(final List<PortfolioViewModel> portfolios) =
-      _$_PortfoliosListState;
+  factory _PortfoliosListState(final MarketValue? marketValue,
+      final List<PortfolioViewModel> portfolios) = _$_PortfoliosListState;
 
+  @override
+  MarketValue? get marketValue;
   @override
   List<PortfolioViewModel> get portfolios;
   @override
