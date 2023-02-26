@@ -18,8 +18,6 @@ class PortfoliosListBloc extends Bloc<PortfoliosListEvent, PortfoliosListState> 
     this._deletePortfolioByIdUseCase,
   ) : super(PortfoliosListState.initial()) {
     on<PortfoliosListEventInit>((event, emit) async {
-      await _update(emit);
-
       await _streamSubscription?.cancel();
       _streamSubscription = _portfoliosUpdatesUseCase.execute(PortfoliosUpdatesUseCaseArguments()).listen((event) {
         add(PortfoliosListEvent.update());

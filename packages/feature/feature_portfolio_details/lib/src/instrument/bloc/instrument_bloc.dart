@@ -25,8 +25,6 @@ class InstrumentBloc extends Bloc<InstrumentEvent, InstrumentState> {
     on<InstrumentEventInit>((event, emit) async {
       _instrumentId = event.instrumentId;
 
-      await _update(event.instrumentId, emit);
-
       await _streamSubscription?.cancel();
       _streamSubscription = _positionRepository.updates([Query('instrument_id', isEqualTo: event.instrumentId)]).listen((event) {
         add(InstrumentEvent.update());

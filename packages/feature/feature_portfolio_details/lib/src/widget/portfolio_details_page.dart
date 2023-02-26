@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:data_market_value/data_market_value.dart';
 import 'package:feature_portfolio_details/src/bloc/portfolio_details_bloc.dart';
 import 'package:feature_portfolio_details/src/bloc/portfolio_details_event.dart';
 import 'package:feature_portfolio_details/src/bloc/portfolio_details_state.dart';
@@ -28,7 +29,7 @@ class PortfolioDetailsPage extends StatelessWidget with AppWidget {
               idle: (idle) => Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Center(child: Text(idle.model.portfolioName)), // with gain, loss and market value
+                  _getPortfolioHeader(idle.model),
                   _getInstrumentsAndNewsWidget(idle.model.items),
                 ],
               ),
@@ -36,6 +37,62 @@ class PortfolioDetailsPage extends StatelessWidget with AppWidget {
           },
         ),
       ));
+
+  Widget _getPortfolioHeader(PortfolioDetailsViewModel model) => Container(
+        width: double.infinity,
+        color: Colors.blue,
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(model.portfolioName, style: const TextStyle(inherit: true, color: Colors.white)),
+            if (model.market != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: Text(
+                  model.market!.market,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    inherit: true,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            if (model.interest != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                child: Container(
+                  color: model.interest!.value > 0 ? Colors.green : Colors.red,
+                  padding: const EdgeInsets.all(2),
+                  child: Text(
+                    model.interest!.interest,
+                    style: const TextStyle(
+                      inherit: true,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            if (model.percent != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                child: Container(
+                  color: model.percent! > 0 ? Colors.green : Colors.red,
+                  padding: const EdgeInsets.all(2),
+                  child: Text(
+                    model.percent!.percent,
+                    style: const TextStyle(
+                      inherit: true,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      );
 
   Widget _getAddSymbolWidget(BuildContext context) => TextButton(
         onPressed: () async {

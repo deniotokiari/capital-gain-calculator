@@ -25,6 +25,8 @@ class StoreModule extends DependencyModule {
       FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
     }
 
+    await FirebaseFirestore.instance.enablePersistence(const PersistenceSettings(synchronizeTabs: true));
+
     registerLazySingleton(() => PrefsRepository(CloudFirestorePrefsSource(_userId)));
     registerLazySingleton(() => CloudFirestoreDbSource(_userId));
   }

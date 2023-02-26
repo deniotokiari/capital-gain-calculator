@@ -16,10 +16,8 @@ class MarketValue {
   CurrencyValue get interest => market - invested;
 
   double get percent => interest.value / invested.value;
+}
 
-  String get formattedMarket => market.toString();
-
-  String get formattedInterest => '${interest.value > 0 ? '+' : '-'}${interest.toString()}';
-
-  String get formattedPercent => '${percent > 0 ? '+' : '-'}${(percent * 100).abs().toStringAsFixed(2)}%';
+extension DoubleExt on double {
+  String get percent => '${this > 0 ? '+' : '-'}${(this * 100).abs().toStringAsFixed(2)}%';
 }

@@ -1,3 +1,4 @@
+import 'package:data_market_value/data_market_value.dart';
 import 'package:feature_portfolio_details/src/instrument/add_position/widget/add_position_widget.dart';
 import 'package:feature_portfolio_details/src/instrument/bloc/instrument_bloc.dart';
 import 'package:feature_portfolio_details/src/instrument/bloc/instrument_event.dart';
@@ -44,7 +45,7 @@ class InstrumentWidget extends StatelessWidget {
           if (model.marketValue != null)
             Expanded(
               child: Text(
-                model.marketValue!.formattedMarket,
+                model.marketValue!.market.market,
                 style: const TextStyle(
                   inherit: true,
                   fontSize: 14,
@@ -54,7 +55,7 @@ class InstrumentWidget extends StatelessWidget {
           if (model.marketValue != null)
             Expanded(
               child: Text(
-                model.marketValue!.formattedInterest,
+                model.marketValue!.interest.interest,
                 style: TextStyle(
                   inherit: true,
                   fontSize: 14,
@@ -65,7 +66,7 @@ class InstrumentWidget extends StatelessWidget {
           if (model.marketValue != null)
             Expanded(
               child: Text(
-                model.marketValue!.formattedPercent,
+                model.marketValue!.percent.percent,
                 style: TextStyle(
                   inherit: true,
                   fontSize: 14,
@@ -121,7 +122,7 @@ class InstrumentWidget extends StatelessWidget {
               if (item.marketValue != null)
                 Expanded(
                   child: Text(
-                    item.marketValue!.formattedMarket,
+                    item.marketValue!.market.market,
                     textAlign: TextAlign.end,
                     style: const TextStyle(inherit: true, fontSize: 13),
                   ),
@@ -129,7 +130,7 @@ class InstrumentWidget extends StatelessWidget {
               if (item.marketValue != null)
                 Expanded(
                   child: Text(
-                    item.marketValue!.formattedInterest,
+                    item.marketValue!.interest.interest,
                     textAlign: TextAlign.end,
                     style: TextStyle(
                       inherit: true,
@@ -141,7 +142,7 @@ class InstrumentWidget extends StatelessWidget {
               if (item.marketValue != null)
                 Expanded(
                   child: Text(
-                    item.marketValue!.formattedPercent,
+                    item.marketValue!.percent.percent,
                     textAlign: TextAlign.end,
                     style: TextStyle(
                       inherit: true,

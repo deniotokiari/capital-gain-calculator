@@ -74,6 +74,16 @@ class CloudFirestoreDbSource {
   Future<T> get<T extends DbEntity>(Space space, String id, T Function(Map<String, dynamic>) map) =>
       _getSpace(space).collection(_dbName(T)).doc(id).get().then((value) => map(value.data()!));
 
+  Future<T?> getOrNull<T extends DbEntity>(Space space, String id, T Function(Map<String, dynamic>) map) async {
+    final result = await _getSpace(space).collection(_dbName(T)).doc(id).get().then((value) => value.data());
+
+    if (result != null) {
+      return map(result);
+    } else {
+      return null;
+    }
+  }
+
   Future<List<T>> all<T extends DbEntity>(
     Space space,
     T Function(Map<String, dynamic>) map, [

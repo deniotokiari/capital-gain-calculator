@@ -25,6 +25,8 @@ class Currency {
 
   bool get isUsd => code.toLowerCase() == 'usd';
 
+  bool get isGbx => code.toLowerCase() == 'gbx';
+
   String get formatted => '$name ($code)';
 }
 

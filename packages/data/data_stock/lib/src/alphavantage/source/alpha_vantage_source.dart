@@ -1,3 +1,4 @@
+import 'package:data_stock/src/alphavantage/models/currency_exchange_rate_response.dart';
 import 'package:data_stock/src/alphavantage/models/global_quote_response.dart';
 import 'package:data_stock/src/alphavantage/models/symbol_search_response.dart';
 import 'package:data_stock/src/source/stock_remote_source.dart';
@@ -59,6 +60,16 @@ class AlphaVantageSource implements StockRemoteSource {
         {_symbol: symbol},
         GlobalQuoteContainerResponse.fromJson,
       );
+
+  @override
+  Future<CurrencyExchangeRateContainerResponse> currencyExchangeRate({required String from, required String to}) => executeWithJsonParsing(
+        _Functions.currencyExchangeRate,
+        {
+          'from_currency': from,
+          'to_currency': to,
+        },
+        CurrencyExchangeRateContainerResponse.fromJson,
+      );
 }
 
 class _Functions {
@@ -66,6 +77,7 @@ class _Functions {
   static const symbolSearch = 'SYMBOL_SEARCH';
   static const newsSentiment = 'NEWS_SENTIMENT';
   static const globalQuote = 'GLOBAL_QUOTE';
+  static const currencyExchangeRate = 'CURRENCY_EXCHANGE_RATE';
 }
 
 class RateLimit {

@@ -20,6 +20,8 @@ dependencies:
     path: ../data_symbol
   data_currency:
     path: ../data_currency
+  data_portfolio:
+    path: ../data_portfolio
   flutter:
     sdk: flutter
 

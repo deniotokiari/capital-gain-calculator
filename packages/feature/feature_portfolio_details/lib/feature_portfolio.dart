@@ -17,6 +17,7 @@ class FeaturePortfoluiModule extends DependencyModule {
         get(),
         AddSymbolToPortfolioUseCase(get(), get()),
         InstrumentsUpdatesUseCase(get()),
+        get(),
       ),
     );
     registerFactory(

@@ -13,6 +13,8 @@ class DataMarketValueModule extends DependencyModule {
           get(),
           get(),
           get(),
+          get(),
+          get(),
         ));
   }
 }

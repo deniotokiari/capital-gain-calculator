@@ -14,6 +14,10 @@ dependencies:
     sdk: flutter
   utility: 
     path: ../../core/utility
+  data_stock:
+    path: ../data_stock
+  store:
+    path: ../../core/store
 
 dev_dependencies:
   flutter_test:
