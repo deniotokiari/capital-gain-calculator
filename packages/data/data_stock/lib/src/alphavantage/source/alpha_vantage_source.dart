@@ -1,10 +1,13 @@
 import 'package:data_stock/src/alphavantage/models/currency_exchange_rate_response.dart';
 import 'package:data_stock/src/alphavantage/models/global_quote_response.dart';
+import 'package:data_stock/src/alphavantage/models/new_and_sentiment_response.dart';
+import 'package:data_stock/src/alphavantage/models/overview_response.dart';
 import 'package:data_stock/src/alphavantage/models/symbol_search_response.dart';
 import 'package:data_stock/src/source/stock_remote_source.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:synchronized/synchronized.dart' as synchronized;
+import 'package:utility/utility.dart';
 
 const _function = 'function';
 const _symbol = 'symbol';
@@ -69,6 +72,32 @@ class AlphaVantageSource implements StockRemoteSource {
           'to_currency': to,
         },
         CurrencyExchangeRateContainerResponse.fromJson,
+      );
+
+  @override
+  Future<NewsAndSentimentResponse> newsAndSentiment({
+    DateTime? from,
+    DateTime? to,
+    int limit = 200,
+    List<String> tickers = const [],
+  }) {
+    return executeWithJsonParsing(
+      _Functions.newsSentiment,
+      {
+        _tickers: tickers.join(','),
+        if (from != null) _timeFrom: from.yyyyMMDDTHHMM,
+        if (to != null) _timeTo: to.yyyyMMDDTHHMM,
+        _limit: limit.toString(),
+      },
+      NewsAndSentimentResponse.fromJson,
+    );
+  }
+
+  @override
+  Future<OverviewResponse> overview(String symbol) => executeWithJsonParsing(
+        _Functions.overview,
+        {_symbol: symbol},
+        OverviewResponse.fromJson,
       );
 }
 
