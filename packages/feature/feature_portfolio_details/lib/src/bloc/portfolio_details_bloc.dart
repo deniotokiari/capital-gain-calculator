@@ -5,7 +5,6 @@ import 'package:data_portfolio/portfolio.dart';
 import 'package:feature_portfolio_details/src/bloc/portfolio_details_event.dart';
 import 'package:feature_portfolio_details/src/bloc/portfolio_details_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:store/store.dart';
 import 'package:usecase_portfolio_details/usecase_portfolio_details.dart';
 
 class PortfolioDetailsBloc extends Bloc<PortfolioDetailsEvent, PortfolioDetailsState> {
@@ -28,7 +27,7 @@ class PortfolioDetailsBloc extends Bloc<PortfolioDetailsEvent, PortfolioDetailsS
       Portfolio? portfolio;
 
       try {
-        portfolio = await _portfolioRepository.get(event.id);
+        portfolio = _portfolioRepository.getById(event.id);
       } catch (_) {
         // NOP
       }
@@ -43,6 +42,8 @@ class PortfolioDetailsBloc extends Bloc<PortfolioDetailsEvent, PortfolioDetailsS
             _instrumentsUpdatesUseCase.execute(InstrumentsUpdatesUseCaseArguments(portfolioId: portfolio.id)).listen((event) {
           add(PortfolioDetailsEvent.updateInatruments());
         });
+
+        await _update(portfolio, emit);
       }
     });
     on<PortfolioDetailsEventAddSymbol>((event, emit) async {
@@ -57,11 +58,7 @@ class PortfolioDetailsBloc extends Bloc<PortfolioDetailsEvent, PortfolioDetailsS
   }
 
   Future<void> _update(Portfolio portfolio, dynamic emit) async {
-    final instruments = await _instrumentRepository.all([
-      Query('portfolio_id', isEqualTo: portfolio.id),
-    ]).then(
-      (value) => value.map((e) => PortfolioDetailsViewModelItem.instrument(e.id)),
-    );
+    final instruments = _instrumentRepository.getByPortfolioId(portfolio.id).map((e) => PortfolioDetailsViewModelItem.instrument(e.id));
 
     emit(
       PortfolioDetailsState.idle(

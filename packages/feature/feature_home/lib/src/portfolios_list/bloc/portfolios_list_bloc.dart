@@ -25,6 +25,8 @@ class PortfoliosListBloc extends Bloc<PortfoliosListEvent, PortfoliosListState> 
       _streamSubscription = _portfoliosUpdatesUseCase.execute(PortfoliosUpdatesUseCaseArguments()).listen((event) {
         add(PortfoliosListEvent.update());
       });
+
+      await _update(emit);
     });
     on<PortfoliosListEventUpdate>((event, emit) async {
       await _update(emit);

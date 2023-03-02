@@ -7,4 +7,10 @@ class PortfolioRepository extends DbRepository<Portfolio> {
     super.map,
     super.db,
   );
+
+  Portfolio getById(String id) => get(id);
+
+  Iterable<Portfolio> getAll() => all();
+
+  Stream<Iterable<Portfolio>> getUpdates() => updates();
 }

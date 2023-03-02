@@ -1,5 +1,4 @@
 import 'package:data_instrument/data_instrument.dart';
-import 'package:store/common/query.dart';
 import 'package:utility/utility.dart';
 
 class InstrumentsUpdatesUseCase extends UseCase<InstrumentsUpdatesUseCaseArguments, Stream<InstrumentsUpdatesUseCaseResult>> {
@@ -8,11 +7,10 @@ class InstrumentsUpdatesUseCase extends UseCase<InstrumentsUpdatesUseCaseArgumen
   InstrumentsUpdatesUseCase(this._instrumentRepository);
 
   @override
-  Stream<InstrumentsUpdatesUseCaseResult> execute(InstrumentsUpdatesUseCaseArguments arg) => _instrumentRepository.updates([
-        Query('portfolio_id', isEqualTo: arg.portfolioId),
-      ]).map(
-        (event) => InstrumentsUpdatesUseCaseResult(),
-      );
+  Stream<InstrumentsUpdatesUseCaseResult> execute(InstrumentsUpdatesUseCaseArguments arg) =>
+      _instrumentRepository.getUpdatesByPortfolioId(arg.portfolioId).map(
+            (event) => InstrumentsUpdatesUseCaseResult(),
+          );
 }
 
 class InstrumentsUpdatesUseCaseArguments {

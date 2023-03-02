@@ -14,8 +14,8 @@ class GetSymbolByInstrumentIdUseCase
 
   @override
   Future<GetSymbolByInstrumentIdUseCaseResult> execute(GetSymbolByInstrumentIdUseCaseArguments arg) async {
-    final instrument = await _instrumentRepository.get(arg.instrumentId);
-    final symbol = await _symbolRepository.get(instrument.symbolId);
+    final instrument = _instrumentRepository.getById(arg.instrumentId);
+    final symbol = _symbolRepository.getById(instrument.symbolId);
 
     return GetSymbolByInstrumentIdUseCaseResult(symbol);
   }

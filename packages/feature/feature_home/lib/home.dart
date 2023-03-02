@@ -19,7 +19,7 @@ class FeatureHomeModule extends DependencyModule {
     registerFactory(
       () => PortfoliosListBloc(
         GetAllPortfoliosUseCase(get()),
-        PortfoliosUpdatesUseCase(get()),
+        PortfoliosUpdatesUseCase(get(), get(), get()),
         DeletePortfolioByIdUseCase(get()),
         get(),
       ),

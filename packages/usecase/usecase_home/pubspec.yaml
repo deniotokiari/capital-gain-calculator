@@ -12,6 +12,10 @@ dependencies:
     path: ../../core/utility
   data_portfolio:
     path: ../../data/data_portfolio
+  data_position:
+    path: ../../data/data_position
+  data_symbol:
+    path: ../../data/data_symbol
   flutter:
     sdk: flutter
 

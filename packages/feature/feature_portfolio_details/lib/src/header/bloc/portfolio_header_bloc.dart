@@ -24,7 +24,7 @@ class PortfolioHeaderBloc extends Bloc<PortfolioHeaderEvent, PortfolioHeaderStat
           marketValue: null,
         )) {
     on<PortfolioHeaderEventInit>((event, emit) async {
-      final portfolio = await _portfolioRepository.get(event.porftolioId);
+      final portfolio = _portfolioRepository.getById(event.porftolioId);
 
       _portfolioId = portfolio.id;
 
@@ -32,9 +32,11 @@ class PortfolioHeaderBloc extends Bloc<PortfolioHeaderEvent, PortfolioHeaderStat
 
       await _postionsStreamSubscription?.cancel();
 
-      _postionsStreamSubscription = _positionRepository.updates().listen((event) {
+      _postionsStreamSubscription = _positionRepository.getUpdates().listen((event) {
         add(PortfolioHeaderEvent.update());
       });
+
+      await _update(_portfolioId, emit);
     });
     on<PortfolioHeaderEventUpdate>((event, emit) async {
       await _update(_portfolioId, emit);

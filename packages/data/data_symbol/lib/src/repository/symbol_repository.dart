@@ -15,6 +15,10 @@ class SymbolRepository extends DbRepository<Symbol> {
     super.db,
   );
 
+  Symbol getById(String id) => get(id);
+
+  Stream<Iterable<Symbol>> getUpdates() => updates();
+
   Future<List<Symbol>> search(String query) async {
     final remoteResult = await _stockRemoteSource.searchSymbol(query);
     final result = <Symbol>[];
@@ -33,7 +37,7 @@ class SymbolRepository extends DbRepository<Symbol> {
   }
 
   Future<GlobalQuote?> globalQuote(String symbolId, {bool force = false}) async {
-    final symbol = await get(symbolId);
+    final symbol = get(symbolId);
 
     if (force) {
       final response = await _stockRemoteSource.globalQuote(symbol.ticker);

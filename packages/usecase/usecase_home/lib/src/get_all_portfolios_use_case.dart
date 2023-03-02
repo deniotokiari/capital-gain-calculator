@@ -10,7 +10,7 @@ class GetAllPortfoliosUseCase extends UseCase<GetAllPortfoliosUseCaseArguments, 
 
   @override
   Future<GetAllPortfoliosUseCaseResult> execute(GetAllPortfoliosUseCaseArguments arg) async {
-    final portfolios = await _portfolioRepository.all();
+    final portfolios = _portfolioRepository.getAll();
 
     return GetAllPortfoliosUseCaseResult([
       ...portfolios.map(

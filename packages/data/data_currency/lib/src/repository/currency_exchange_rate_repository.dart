@@ -46,7 +46,7 @@ class CurrencyExchangeRateRepository extends DbRepository<CurrencyExchangeRate> 
       _rateMap[id] = currencyExchangeRate.exchangeRate;
     }
 
-    var rate = _rateMap[id] ?? await getOrNull(id).then((value) => value?.exchangeRate);
+    var rate = _rateMap[id] ?? getOrNull(id)?.exchangeRate;
 
     if (rate == null) {
       return await convert(from: from, to: to, force: true);

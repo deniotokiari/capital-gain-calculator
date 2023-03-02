@@ -5,7 +5,6 @@ import 'package:data_position/data_position.dart';
 import 'package:feature_portfolio_details/src/instrument/bloc/instrument_event.dart';
 import 'package:feature_portfolio_details/src/instrument/bloc/instrument_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:store/store.dart';
 import 'package:usecase_portfolio_details/usecase_portfolio_details.dart';
 import 'package:utility/utility.dart';
 
@@ -26,9 +25,11 @@ class InstrumentBloc extends Bloc<InstrumentEvent, InstrumentState> {
       _instrumentId = event.instrumentId;
 
       await _streamSubscription?.cancel();
-      _streamSubscription = _positionRepository.updates([Query('instrument_id', isEqualTo: event.instrumentId)]).listen((event) {
+      _streamSubscription = _positionRepository.getUpdatesByInstrumentId(event.instrumentId).listen((event) {
         add(InstrumentEvent.update());
       });
+
+      await _update(event.instrumentId, emit);
     });
     on<InstrumentEventUpdate>((event, emit) async {
       await _update(_instrumentId, emit);
@@ -42,7 +43,7 @@ class InstrumentBloc extends Bloc<InstrumentEvent, InstrumentState> {
 
   Future<void> _update(String instrumentId, dynamic emit) async {
     final result = await _getSymbolByInstrumentIdUseCase.execute(GetSymbolByInstrumentIdUseCaseArguments(instrumentId: instrumentId));
-    final positions = await _positionRepository.all([Query('instrument_id', isEqualTo: instrumentId)]);
+    final positions = _positionRepository.getByInstrumentId(instrumentId).toList(growable: false);
     final marketValues = await _marketValueRepository.getPositionsMarketValue(instrumentId);
 
     positions.sort((a, b) => a.date.compareTo(b.date));

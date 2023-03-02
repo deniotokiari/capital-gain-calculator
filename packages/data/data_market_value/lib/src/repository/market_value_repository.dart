@@ -5,7 +5,6 @@ import 'package:data_portfolio/portfolio.dart';
 import 'package:data_position/data_position.dart';
 import 'package:data_symbol/data_symbol.dart';
 import 'package:data_user/user.dart';
-import 'package:store/store.dart';
 import 'package:utility/utility.dart';
 
 class MarketValueRepository {
@@ -26,13 +25,13 @@ class MarketValueRepository {
   );
 
   Future<Map<String, MarketValue?>> getPositionsMarketValue(String instrumentId, {bool force = false}) async {
-    final positions = await _positionRepository.all([Query('instrument_id', isEqualTo: instrumentId)]);
+    final positions = _positionRepository.getByInstrumentId(instrumentId);
 
     if (positions.isEmpty) {
       return {};
     }
 
-    final instrument = await _instrumentRepository.get(instrumentId);
+    final instrument = _instrumentRepository.getById(instrumentId);
     final globalQuote = await _symbolRepository.globalQuote(instrument.symbolId, force: force);
 
     if (globalQuote == null) {
@@ -49,20 +48,20 @@ class MarketValueRepository {
   }
 
   Future<MarketValue?> getPositionMarketValue(String positionId, {bool force = false}) async {
-    final position = await _positionRepository.get(positionId);
-    final instrument = await _instrumentRepository.get(position.instrumentId);
+    final position = _positionRepository.getById(positionId);
+    final instrument = _instrumentRepository.getById(position.instrumentId);
     final globalQuote = await _symbolRepository.globalQuote(instrument.symbolId, force: force);
 
     return globalQuote?.let((that) => MarketValue.calculated(count: position.count, current: that.close, invested: position.price));
   }
 
   Future<MarketValue?> getInstrumentMarketValue(String instrumentId, {bool force = false}) async {
-    final positions = await _positionRepository.all([Query('instrument_id', isEqualTo: instrumentId)]);
+    final positions = _positionRepository.getByInstrumentId(instrumentId);
 
     if (positions.isEmpty) {
       return null;
     } else {
-      final instrument = await _instrumentRepository.get(instrumentId);
+      final instrument = _instrumentRepository.getById(instrumentId);
       final globalQuote = await _symbolRepository.globalQuote(instrument.symbolId, force: force);
 
       return globalQuote?.let((that) => MarketValue.calculated(
@@ -79,8 +78,8 @@ class MarketValueRepository {
   }
 
   Future<MarketValue?> getPortfolioMarketValue(String portfolioId, {bool force = false}) async {
-    final portfolio = await _portfolioRepository.get(portfolioId);
-    final instruments = await _instrumentRepository.all([Query('portfolio_id', isEqualTo: portfolioId)]);
+    final portfolio = _portfolioRepository.getById(portfolioId);
+    final instruments = _instrumentRepository.getByPortfolioId(portfolioId);
     final instrumentsMarketValues = <MarketValue>[];
 
     for (final instrument in instruments) {
@@ -120,7 +119,7 @@ class MarketValueRepository {
 
   Future<MarketValue?> getProfileMarketValue({bool force = false}) async {
     final userCurrency = await _userSettingsRepository.getUserCurrency();
-    final portfolios = await _portfolioRepository.all();
+    final portfolios = _portfolioRepository.getAll();
     final portfoliosMarketValues = <MarketValue>[];
 
     for (final portfolio in portfolios) {
