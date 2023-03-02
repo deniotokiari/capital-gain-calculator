@@ -22,7 +22,7 @@ class StoreModule extends DependencyModule {
   @override
   Future<void> init() async {
     if (kDebugMode) {
-      FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+      FirebaseFirestore.instance.useFirestoreEmulator('localhost', 9098);
     }
 
     await FirebaseFirestore.instance.enablePersistence(const PersistenceSettings(synchronizeTabs: true));

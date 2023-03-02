@@ -17,50 +17,66 @@ class PortfoliosListWidget extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (state.marketValue != null)
-                      Expanded(
-                        child: Text(
-                          state.marketValue!.formattedMarket,
-                          style: const TextStyle(
-                            inherit: true,
-                            fontSize: 14,
+                if (state.marketValue != null)
+                  Container(
+                    width: double.infinity,
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: Text(
+                            state.marketValue!.formattedMarket,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              inherit: true,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      ),
-                    if (state.marketValue != null)
-                      Expanded(
-                        child: Text(
-                          state.marketValue!.formattedInterest,
-                          style: TextStyle(
-                            inherit: true,
-                            fontSize: 14,
-                            color: state.marketValue!.interest.value < 0 ? Colors.red : Colors.green,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                          child: Container(
+                            color: state.marketValue!.interest.value > 0 ? Colors.green : Colors.red,
+                            padding: const EdgeInsets.all(2),
+                            child: Text(
+                              state.marketValue!.formattedInterest,
+                              style: const TextStyle(
+                                inherit: true,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    if (state.marketValue != null)
-                      Expanded(
-                        child: Text(
-                          state.marketValue!.formattedPercent,
-                          style: TextStyle(
-                            inherit: true,
-                            fontSize: 14,
-                            color: state.marketValue!.percent < 0 ? Colors.red : Colors.green,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                          child: Container(
+                            color: state.marketValue!.percent > 0 ? Colors.green : Colors.red,
+                            padding: const EdgeInsets.all(2),
+                            child: Text(
+                              state.marketValue!.formattedPercent,
+                              style: const TextStyle(
+                                inherit: true,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
-                      )
-                  ],
-                ),
-                /*ListView.builder(
+                      ],
+                    ),
+                  ),
+                ListView.builder(
+                  shrinkWrap: true,
                   itemBuilder: (context, index) => PortfolioItemWidget(
                     state.portfolios[index],
                     (id) => context.read<PortfoliosListBloc>().add(PortfoliosListEvent.delete(id)),
                   ),
                   itemCount: state.portfolios.length,
-                ),*/
+                ),
               ],
             );
           },

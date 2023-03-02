@@ -57,6 +57,7 @@ class PortfolioItemWidget extends StatelessWidget {
               Expanded(
                 child: Text(
                   _item.marketValue!.formattedPercent,
+                  textAlign: TextAlign.end,
                   style: TextStyle(
                     inherit: true,
                     fontSize: 14,
