@@ -1,26 +1,31 @@
-import 'package:capital_gain_calculator/main_dependency_module.dart';
+import 'package:capital_gain_calculator/app_module.dart';
+import 'package:capital_gain_calculator/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:navigation/navigation.dart';
+import 'package:utility/utility.dart';
+import 'navigation/app_navigation.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  MainDependencyModule().init();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await AppModule().init();
 
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final appRouter = get<AppRouter>();
+
+    return MaterialApp.router(
       title: 'Capital Gain Calculator',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      initialRoute: RouteDestination.root.title,
-      onGenerateRoute: NavigationRoute.onGenerateRoute,
+      theme: ThemeData(primarySwatch: Colors.blue),
+      routerDelegate: appRouter.delegate(),
+      routeInformationParser: appRouter.defaultRouteParser(),
     );
   }
 }
