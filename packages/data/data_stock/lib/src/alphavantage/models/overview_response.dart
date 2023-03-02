@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:data_stock/src/models//overview_response.dart' as overview_response_interface;
+import 'package:data_stock/src/models/overview_response.dart' as overview_response_interface;
 
 part 'overview_response.g.dart';
 
