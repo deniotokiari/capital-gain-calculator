@@ -35,7 +35,7 @@ fun PositionCreator(onDismiss: () -> Unit, onPosition: (Position) -> Unit) {
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text(text = "Count") }
+                label = { Text(text = "Count") }
             )
         }
     }
