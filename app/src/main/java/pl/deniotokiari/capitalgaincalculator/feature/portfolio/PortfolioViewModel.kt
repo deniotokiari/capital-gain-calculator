@@ -7,14 +7,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import pl.deniotokiari.capitalgaincalculator.feature.portfolio.usecase.AddSymbolToPortfolioUseCase
 import pl.deniotokiari.capitalgaincalculator.feature.portfolio.usecase.GetPortfolioByIdUseCase
-import pl.deniotokiari.capitalgaincalculator.feature.portfolio.usecase.GetPortfolioSymbolsBlockingUseCase
 import pl.deniotokiari.capitalgaincalculator.feature.position.Position
 import pl.deniotokiari.capitalgaincalculator.feature.symbol.Symbol
+import pl.deniotokiari.capitalgaincalculator.feature.symbol.symbolslist.GetSymbolsByPortfolioIdBlockingUseCase
 
 class PortfolioViewModel(
-    private val portfolioId: String,
+    val portfolioId: String,
     private val addSymbolToPortfolioUseCase: AddSymbolToPortfolioUseCase,
-    private val getPortfolioSymbolsBlockingUseCase: GetPortfolioSymbolsBlockingUseCase,
+    private val getSymbolsByPortfolioIdBlockingUseCase: GetSymbolsByPortfolioIdBlockingUseCase,
     private val getPortfolioByIdUseCase: GetPortfolioByIdUseCase
 ) : ViewModel() {
 
@@ -29,7 +29,7 @@ class PortfolioViewModel(
             _uiState.value = _uiState.value.copy(portfolioName = portfolio.name)
         }
         viewModelScope.launch {
-            getPortfolioSymbolsBlockingUseCase(portfolioId).collect {
+            getSymbolsByPortfolioIdBlockingUseCase(portfolioId).collect {
                 _uiState.value = _uiState.value.copy(symbols = it)
             }
         }
