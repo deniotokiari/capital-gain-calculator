@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Capital Gain Calculator</string>
+
+    <string name="alpha_vantage_api_key">Alpha Vantage API key</string>
+    <string name="done">Done</string>
+    <string name="profile_currency">Profile Currency</string>
+</resources>
