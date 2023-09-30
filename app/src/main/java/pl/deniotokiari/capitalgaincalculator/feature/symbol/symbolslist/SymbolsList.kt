@@ -77,7 +77,13 @@ fun SymbolsList(
                         if (addPosition) {
                             PositionCreator(
                                 onDismiss = { addPosition = false },
-                                onPosition = { addPosition = false }
+                                onPosition = {
+                                    viewModel.addPosition(
+                                        symbol = symbol,
+                                        position = it
+                                    )
+                                    addPosition = false
+                                }
                             )
                         }
                     }

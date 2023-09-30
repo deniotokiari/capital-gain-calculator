@@ -9,4 +9,12 @@ class InstrumentRepository(
             symbolId = symbolId
         )
     )
+
+    suspend fun getInstrumentBySymbolIdAndPortfolioId(
+        symbolId: String,
+        portfolioId: String
+    ): Instrument = instrumentDao.getBySymbolIdAndPortfolioId(
+        symbolId = symbolId,
+        portfolioId = portfolioId
+    ).toInstrument()
 }
