@@ -1,5 +1,6 @@
 package pl.deniotokiari.capitalgaincalculator.feature.position
 
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -10,4 +11,5 @@ val positionModule = module {
     factory { get<AppDatabase>().positionDao() }
     singleOf(::PositionRepository)
     factoryOf(::AddPositionToInstrumentUseCase)
+    viewModelOf(::PositionsListViewModel)
 }
