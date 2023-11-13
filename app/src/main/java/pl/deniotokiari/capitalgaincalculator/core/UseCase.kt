@@ -1,5 +1,11 @@
 package pl.deniotokiari.capitalgaincalculator.core
 
-interface UseCase<in T, out P> {
-    suspend operator fun invoke(params: T): P
+import kotlinx.coroutines.flow.Flow
+
+interface UseCase<in A, out B> {
+    suspend operator fun invoke(params: A): B
+}
+
+interface FlowUseCase<in A, out B> {
+    operator fun invoke(params: A): Flow<B>
 }
