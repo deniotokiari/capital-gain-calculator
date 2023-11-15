@@ -2,6 +2,7 @@ package pl.deniotokiari.capitalgaincalculator.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.koin.core.annotation.Factory
 import pl.deniotokiari.capitalgaincalculator.core.FlowUseCase
 import pl.deniotokiari.capitalgaincalculator.core.Result
 import pl.deniotokiari.capitalgaincalculator.core.mapFailure
@@ -10,6 +11,7 @@ import pl.deniotokiari.capitalgaincalculator.data.repository.CurrencyRepository
 import pl.deniotokiari.capitalgaincalculator.domain.model.DomainError
 import pl.deniotokiari.capitalgaincalculator.domain.model.toDomainError
 
+@Factory(binds = [GetCurrenciesUseCase::class])
 class GetCurrenciesUseCase(
     private val currencyRepository: CurrencyRepository
 ) : FlowUseCase<Unit, Result<List<Currency>, DomainError>> {

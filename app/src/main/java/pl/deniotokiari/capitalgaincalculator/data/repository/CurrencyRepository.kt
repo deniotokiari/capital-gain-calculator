@@ -2,6 +2,7 @@ package pl.deniotokiari.capitalgaincalculator.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import org.koin.core.annotation.Factory
 import pl.deniotokiari.capitalgaincalculator.core.Result
 import pl.deniotokiari.capitalgaincalculator.core.flatMap
 import pl.deniotokiari.capitalgaincalculator.core.mapSuccess
@@ -10,6 +11,7 @@ import pl.deniotokiari.capitalgaincalculator.data.datasource.CurrencyLocalDataSo
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.data.model.DataError
 
+@Factory
 class CurrencyRepository(
     private val currencyAlphaVantageDataSource: CurrencyAlphaVantageDataSource,
     private val currencyLocalDataSource: CurrencyLocalDataSource

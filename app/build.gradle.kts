@@ -70,6 +70,8 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     implementation(libs.koin.workmanager)
+    implementation(libs.koin.annotations)
+    ksp(libs.koin.ksp)
     implementation(libs.navigation.compose)
     implementation(libs.okhttp3)
     implementation(libs.room.runtime)

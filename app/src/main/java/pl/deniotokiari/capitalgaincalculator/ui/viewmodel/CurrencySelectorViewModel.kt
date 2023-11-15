@@ -2,26 +2,21 @@ package pl.deniotokiari.capitalgaincalculator.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.work.WorkManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import org.koin.android.annotation.KoinViewModel
 import pl.deniotokiari.capitalgaincalculator.core.fold
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetCurrenciesUseCase
-import pl.deniotokiari.capitalgaincalculator.domain.work.UpdateCurrenciesWorker
 
+@KoinViewModel
 class CurrencySelectorViewModel(
-    workManager: WorkManager,
     getCurrenciesUseCase: GetCurrenciesUseCase
 ) : ViewModel() {
-    init {
-        UpdateCurrenciesWorker.start(workManager)
-    }
-
     private val selectedCurrency: MutableStateFlow<Currency?> = MutableStateFlow(null)
     private val query = MutableStateFlow("")
     val uiState: StateFlow<UiState> = getCurrenciesUseCase(Unit)

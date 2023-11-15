@@ -8,10 +8,12 @@ import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
+import org.koin.android.annotation.KoinWorker
 import pl.deniotokiari.capitalgaincalculator.core.fold
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.UpdateCurrenciesUseCase
 import java.util.concurrent.TimeUnit
 
+@KoinWorker
 class UpdateCurrenciesWorker(
     context: Context,
     parameters: WorkerParameters,

@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.koin.core.annotation.Factory
 import pl.deniotokiari.capitalgaincalculator.AppDispatchers
 import pl.deniotokiari.capitalgaincalculator.core.Result
 import pl.deniotokiari.capitalgaincalculator.core.failed
@@ -17,6 +18,7 @@ import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.data.model.DataError
 import pl.deniotokiari.capitalgaincalculator.data.model.toLocalModel
 
+@Factory
 class CurrencyAlphaVantageDataSource(
     private val okHttpClient: OkHttpClient,
     private val appDispatchers: AppDispatchers
@@ -55,6 +57,7 @@ class CurrencyAlphaVantageDataSource(
     }
 }
 
+@Factory
 class CurrencyLocalDataSource(
     private val dataStore: DataStore<Preferences>
 ) {

@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapNotNull
+import org.koin.core.annotation.Factory
 import pl.deniotokiari.capitalgaincalculator.core.Result
 import pl.deniotokiari.capitalgaincalculator.core.failed
 import pl.deniotokiari.capitalgaincalculator.core.success
@@ -19,6 +20,7 @@ interface ProfileDataSource {
     fun profileCurrency(): Flow<Result<Currency, DataError>>
 }
 
+@Factory
 internal class ProfileLocalDataSource(
     private val dataStore: DataStore<Preferences>
 ) : ProfileDataSource {

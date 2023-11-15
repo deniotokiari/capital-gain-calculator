@@ -4,9 +4,7 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
-import pl.deniotokiari.capitalgaincalculator.data.dataModule
-import pl.deniotokiari.capitalgaincalculator.domain.domainModule
-import pl.deniotokiari.capitalgaincalculator.ui.uiModule
+import org.koin.ksp.generated.defaultModule
 
 class CapitalGainCalculatorApplication : Application() {
     override fun onCreate() {
@@ -18,9 +16,7 @@ class CapitalGainCalculatorApplication : Application() {
 
             modules(
                 appModule,
-                dataModule,
-                domainModule,
-                uiModule
+                defaultModule
             )
         }
     }
