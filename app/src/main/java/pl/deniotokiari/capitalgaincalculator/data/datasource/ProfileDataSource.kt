@@ -5,7 +5,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Factory
 import pl.deniotokiari.capitalgaincalculator.core.Result
 import pl.deniotokiari.capitalgaincalculator.core.failed
@@ -17,7 +18,9 @@ import pl.deniotokiari.capitalgaincalculator.data.model.toLocalModel
 interface ProfileDataSource {
     suspend fun setProfileCurrency(currency: Currency): Result<Unit, DataError>
 
-    fun profileCurrency(): Flow<Result<Currency, DataError>>
+    fun profileCurrency(): Flow<Result<Currency?, DataError>>
+
+    suspend fun hasProfileCurrency(): Boolean
 }
 
 @Factory
@@ -33,9 +36,12 @@ internal class ProfileLocalDataSource(
         onFailure = { DataError(it).failed() }
     )
 
-    override fun profileCurrency(): Flow<Result<Currency, DataError>> = dataStore.data.mapNotNull {
-        it[KEY_PROFILE_CURRENCY]?.let(Currency::fromLocalModel)?.success()
+    override fun profileCurrency(): Flow<Result<Currency?, DataError>> = dataStore.data.map {
+        it[KEY_PROFILE_CURRENCY]?.let(Currency::fromLocalModel).success()
     }
+
+    override suspend fun hasProfileCurrency(): Boolean =
+        dataStore.data.firstOrNull()?.get(KEY_PROFILE_CURRENCY) != null
 
     companion object {
         private val KEY_PROFILE_CURRENCY = stringPreferencesKey("profile_currency")

@@ -25,10 +25,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
-import pl.deniotokiari.capitalgaincalculator.R
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.ui.theme.Purple40
 import pl.deniotokiari.capitalgaincalculator.ui.viewmodel.CurrencySelectorViewModel
@@ -36,6 +34,7 @@ import pl.deniotokiari.capitalgaincalculator.ui.viewmodel.CurrencySelectorViewMo
 @Composable
 fun CurrencySelector(
     selectedCurrency: Currency?,
+    title: String,
     onCurrencySelected: (Currency) -> Unit,
     viewModel: CurrencySelectorViewModel = koinViewModel()
 ) {
@@ -57,7 +56,7 @@ fun CurrencySelector(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 2.dp),
-        placeholder = { Text(text = stringResource(id = R.string.profile_currency)) },
+        placeholder = { Text(text = title) },
         interactionSource = remember { MutableInteractionSource() }.also { interactionSource ->
             LaunchedEffect(interactionSource) {
                 interactionSource.interactions.collect {

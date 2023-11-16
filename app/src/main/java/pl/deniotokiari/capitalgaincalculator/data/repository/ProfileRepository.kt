@@ -14,5 +14,7 @@ class ProfileRepository(
     suspend fun setProfileCurrency(currency: Currency): Result<Unit, DataError> =
         profileDataSource.setProfileCurrency(currency)
 
-    fun profileCurrency(): Flow<Result<Currency, DataError>> = profileDataSource.profileCurrency()
+    fun profileCurrency(): Flow<Result<Currency?, DataError>> = profileDataSource.profileCurrency()
+
+    suspend fun hasProfileCurrency(): Boolean = profileDataSource.hasProfileCurrency()
 }

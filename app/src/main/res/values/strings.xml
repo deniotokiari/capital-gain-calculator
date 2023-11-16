@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Capital Gain Calculator</string>
 
-    <string name="alpha_vantage_api_key">Alpha Vantage API key</string>
     <string name="done">Done</string>
     <string name="profile_currency">Profile Currency</string>
+    <string name="profile_currency_promt">In order to use application you should select profile currency firstly</string>
+    <string name="about_button_description">About</string>
 </resources>
