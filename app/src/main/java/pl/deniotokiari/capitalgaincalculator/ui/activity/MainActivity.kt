@@ -35,6 +35,8 @@ class MainActivity : ComponentActivity() {
                             startDestination = "home"
                         ) {
                             composable("home") { HomeScreen() }
+                            composable("about") { }
+                            composable("settings") { }
                         }
                     }
                 }

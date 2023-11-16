@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -41,6 +42,8 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
             .fillMaxSize()
             .padding(paddingLarge)
     ) {
+        val state by viewModel.uiState.collectAsState()
+
         Box(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -50,58 +53,102 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
                     contentDescription = stringResource(id = R.string.about_button_description)
                 )
             }
-            Text(
-                text = stringResource(id = R.string.app_name),
-                modifier = Modifier.align(Alignment.Center),
-                style = TextStyle(
-                    fontSize = 18.sp,
-                    textAlign = TextAlign.Center
-                )
-            )
-        }
 
-        val state by viewModel.uiState.collectAsState()
-
-        when (state) {
-            is HomeViewModel.UiState.Idle -> {
-
-            }
-
-            HomeViewModel.UiState.InitProfileCurrency -> {
-                Column(
-                    modifier = Modifier.padding(top = paddingMedium),
-                ) {
+            when (state) {
+                is HomeViewModel.UiState.Idle -> {
                     Text(
-                        text = stringResource(id = R.string.profile_currency_promt),
-                        modifier = Modifier.padding(paddingMedium)
+                        text = stringResource(id = R.string.portfolios),
+                        modifier = Modifier.align(Alignment.Center),
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                            textAlign = TextAlign.Center
+                        )
                     )
 
-                    var currency: Currency? by remember { mutableStateOf(null) }
-
-                    CurrencySelector(
-                        selectedCurrency = currency,
-                        title = stringResource(id = R.string.profile_currency),
-                        onCurrencySelected = { currency = it }
-                    )
-
-                    TextButton(
-                        enabled = currency != null,
-                        onClick = { currency?.let { viewModel.onProfileCurrencySelected(it) } },
-                        modifier = Modifier
-                            .padding(paddingMedium)
-                            .align(Alignment.End)
+                    IconButton(
+                        modifier = Modifier.align(Alignment.CenterEnd),
+                        onClick = { navController.navigate("settings") }
                     ) {
-                        Text(text = stringResource(id = android.R.string.ok))
+                        Icon(
+                            imageVector = Icons.Outlined.Settings,
+                            contentDescription = stringResource(id = R.string.about_button_description)
+                        )
                     }
                 }
-            }
 
-            HomeViewModel.UiState.Loading -> Box(modifier = Modifier.fillMaxSize()) {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
+                else -> Text(
+                    text = stringResource(id = R.string.app_name),
+                    modifier = Modifier.align(Alignment.Center),
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Center
+                    )
                 )
             }
+        }
 
+        when (state) {
+            is HomeViewModel.UiState.Idle -> Idle(state as HomeViewModel.UiState.Idle)
+            HomeViewModel.UiState.InitProfileCurrency -> InitProfileCurrency(viewModel::onProfileCurrencySelected)
+            HomeViewModel.UiState.Loading -> Loading()
+        }
+    }
+}
+
+@Composable
+private fun Idle(state: HomeViewModel.UiState.Idle) {
+    when {
+        state.loading -> Loading()
+        state.portfolios.isEmpty() -> Box(modifier = Modifier.fillMaxSize()) {
+            TextButton(
+                modifier = Modifier.align(Alignment.Center),
+                onClick = { }
+            ) {
+                Text(text = stringResource(id = R.string.portfolio_add))
+            }
+        }
+
+        else -> {
+
+        }
+    }
+}
+
+@Composable
+private fun Loading() {
+    Box(modifier = Modifier.fillMaxSize()) {
+        CircularProgressIndicator(
+            modifier = Modifier.align(Alignment.Center)
+        )
+    }
+}
+
+@Composable
+private fun InitProfileCurrency(onProfileCurrencySelected: (Currency) -> Unit) {
+    Column(
+        modifier = Modifier.padding(top = paddingMedium),
+    ) {
+        Text(
+            text = stringResource(id = R.string.profile_currency_promt),
+            modifier = Modifier.padding(paddingMedium)
+        )
+
+        var currency: Currency? by remember { mutableStateOf(null) }
+
+        CurrencySelector(
+            selectedCurrency = currency,
+            title = stringResource(id = R.string.profile_currency),
+            onCurrencySelected = { currency = it }
+        )
+
+        TextButton(
+            enabled = currency != null,
+            onClick = { currency?.let { onProfileCurrencySelected(it) } },
+            modifier = Modifier
+                .padding(paddingMedium)
+                .align(Alignment.End)
+        ) {
+            Text(text = stringResource(id = android.R.string.ok))
         }
     }
 }
