@@ -1,11 +1,8 @@
 package pl.deniotokiari.capitalgaincalculator.data.datasource
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringSetPreferencesKey
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -14,9 +11,11 @@ import pl.deniotokiari.capitalgaincalculator.AppDispatchers
 import pl.deniotokiari.capitalgaincalculator.core.Result
 import pl.deniotokiari.capitalgaincalculator.core.failed
 import pl.deniotokiari.capitalgaincalculator.core.success
+import pl.deniotokiari.capitalgaincalculator.data.db.DbCurrency
+import pl.deniotokiari.capitalgaincalculator.data.db.toDataCurrency
+import pl.deniotokiari.capitalgaincalculator.data.db.toDbCurrency
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.data.model.DataError
-import pl.deniotokiari.capitalgaincalculator.data.model.toLocalModel
 
 @Factory
 class CurrencyAlphaVantageDataSource(
@@ -58,42 +57,17 @@ class CurrencyAlphaVantageDataSource(
 }
 
 @Factory
-class CurrencyLocalDataSource(
-    private val dataStore: DataStore<Preferences>
+class CurrencyRoomDataSource(
+    private val dao: DbCurrency.Dao,
+    private val appDispatchers: AppDispatchers
 ) {
-    private suspend fun setCurrencies(
-        key: Preferences.Key<Set<String>>,
+    suspend fun setCurrencies(
         currencies: List<Currency>
-    ): Result<Unit, DataError> = runCatching {
-        dataStore.edit {
-            it[key] = currencies.map { currency -> currency.toLocalModel() }.toSet()
-        }
-    }.fold(
-        onSuccess = { Unit.success() },
-        onFailure = { DataError(it).failed() }
-    )
-
-    private fun currencies(key: Preferences.Key<Set<String>>): Flow<Result<List<Currency>, DataError>> =
-        dataStore.data.mapNotNull {
-            it[key]?.map { item ->
-                Currency.fromLocalModel(item)
-            }?.success()
-        }
-
-    suspend fun setPhysicalCurrencies(currencies: List<Currency>): Result<Unit, DataError> = setCurrencies(
-        KEY_PHYSICAL_CURRENCIES, currencies
-    )
-
-    suspend fun setDigitalCurrencies(currencies: List<Currency>): Result<Unit, DataError> = setCurrencies(
-        KEY_DIGITAL_CURRENCIES, currencies
-    )
-
-    fun physicalCurrencies(): Flow<Result<List<Currency>, DataError>> = currencies(KEY_PHYSICAL_CURRENCIES)
-
-    fun digitalCurrencies(): Flow<Result<List<Currency>, DataError>> = currencies(KEY_DIGITAL_CURRENCIES)
-
-    companion object {
-        private val KEY_PHYSICAL_CURRENCIES = stringSetPreferencesKey("physical_currencies")
-        private val KEY_DIGITAL_CURRENCIES = stringSetPreferencesKey("digital_currencies")
+    ) = withContext(appDispatchers.io) {
+        dao.addCurrencies(currencies.map { item -> item.toDbCurrency() })
     }
+
+    fun currencies(): Flow<List<Currency>> = dao.currencies().map {
+        it.map { item -> item.toDataCurrency() }
+    }.flowOn(appDispatchers.io)
 }

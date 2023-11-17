@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
+import pl.deniotokiari.capitalgaincalculator.data.model.Portfolio
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.AddPortfolioUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.ValidatePortfolioNameUseCase
 
@@ -47,15 +48,23 @@ class AddPortfolioViewModel(
     }
 
     fun onOk() {
-        viewModelScope.launch {
+        val name = uiState.value.name ?: return
+        val currency = uiState.value.currency ?: return
 
+        viewModelScope.launch {
+            addPortfolioUseCase(
+                Portfolio(
+                    name = name,
+                    currency = currency
+                )
+            )
         }
     }
 
     data class UiState(
         val okEnabled: Boolean,
         internal val currency: Currency?,
-        private val name: String?
+        internal val name: String?
     ) {
         fun isValid(): Boolean = currency != null && name != null
     }

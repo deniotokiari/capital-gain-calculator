@@ -1,5 +1,7 @@
 package pl.deniotokiari.capitalgaincalculator.data.model
 
+import java.math.BigDecimal
+
 data class Currency(
     val name: String,
     val code: Code,
@@ -33,6 +35,11 @@ data class Currency(
         }
     }
 }
+
+data class CurrencyValue(
+    val value: BigDecimal,
+    val currency: Currency
+)
 
 fun Currency.Type.toLocalModel(): String = ordinal.toString()
 

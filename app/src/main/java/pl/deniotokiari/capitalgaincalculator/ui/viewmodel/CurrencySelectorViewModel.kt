@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import org.koin.android.annotation.KoinViewModel
-import pl.deniotokiari.capitalgaincalculator.core.fold
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetCurrenciesUseCase
 
@@ -23,22 +22,15 @@ class CurrencySelectorViewModel(
         .combine(selectedCurrency) { currencies, currency ->
             currencies to currency
         }
-        .map { (result, currency) ->
-            result.fold(
-                success = { currencies ->
-                    UiState(
-                        query = "",
-                        items = currencies.map { item ->
-                            item.toViewModel().copy(selected = item == currency)
-                        },
-                        error = null,
-                        loading = false,
-                        enabled = currencies.isNotEmpty()
-                    )
+        .map { (currencies, currency) ->
+            UiState(
+                query = "",
+                items = currencies.map { item ->
+                    item.toViewModel().copy(selected = item == currency)
                 },
-                failed = {
-                    UiState.error(it.throwable)
-                }
+                error = null,
+                loading = false,
+                enabled = currencies.isNotEmpty()
             )
         }.combine(query) { state, query ->
             if (query.isNotEmpty()) {
@@ -85,9 +77,6 @@ class CurrencySelectorViewModel(
                 loading = true,
                 enabled = false
             )
-
-            fun error(throwable: Throwable): UiState =
-                default().copy(error = throwable.message?.let(::Error), loading = false)
         }
     }
 }

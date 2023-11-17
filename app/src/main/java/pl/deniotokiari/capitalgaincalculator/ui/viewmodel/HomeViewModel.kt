@@ -7,14 +7,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import org.koin.android.annotation.KoinViewModel
+import pl.deniotokiari.capitalgaincalculator.domain.model.MarketData
 import pl.deniotokiari.capitalgaincalculator.domain.model.PortfolioWithMarketData
-import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetAllPortfoliosUseCase
+import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetAllPortfoliosWithMarketDataUseCase
 
 @KoinViewModel
 class HomeViewModel(
-    getAllPortfoliosUseCase: GetAllPortfoliosUseCase
+    getAllPortfoliosWithMarketDataUseCase: GetAllPortfoliosWithMarketDataUseCase
 ) : ViewModel() {
-    val uiState: StateFlow<UiState> = getAllPortfoliosUseCase(Unit).map {
+    val uiState: StateFlow<UiState> = getAllPortfoliosWithMarketDataUseCase(Unit).map {
         UiState(
             portfolios = it.toViewModelList(),
             loading = false
@@ -26,7 +27,8 @@ class HomeViewModel(
         val loading: Boolean
     ) {
         data class PortfolioViewModel(
-            val title: String
+            val name: String,
+            val data: MarketData
         )
 
         companion object {
@@ -43,5 +45,6 @@ private fun List<PortfolioWithMarketData>.toViewModelList(): List<HomeViewModel.
 
 private fun PortfolioWithMarketData.toViewModel(): HomeViewModel.UiState.PortfolioViewModel =
     HomeViewModel.UiState.PortfolioViewModel(
-        title = name
+        name = name,
+        data = data
     )

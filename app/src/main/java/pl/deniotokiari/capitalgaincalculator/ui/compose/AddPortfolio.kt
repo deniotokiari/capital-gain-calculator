@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.koin.androidx.compose.koinViewModel
 import pl.deniotokiari.capitalgaincalculator.R
+import pl.deniotokiari.capitalgaincalculator.core.LocalNavController
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.ui.theme.paddingLarge
 import pl.deniotokiari.capitalgaincalculator.ui.theme.paddingMedium
@@ -56,10 +57,13 @@ fun AddPortfolio(viewModel: AddPortfolioViewModel = koinViewModel()) {
             }
         )
 
+        val navigation = LocalNavController.current
+
         TextButton(
             onClick = {
+                viewModel.onOk()
 
-
+                navigation.popBackStack()
             },
             enabled = state.okEnabled,
             modifier = Modifier

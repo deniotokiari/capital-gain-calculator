@@ -1,10 +1,12 @@
 package pl.deniotokiari.capitalgaincalculator.ui.compose
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Settings
@@ -93,7 +95,19 @@ private fun Idle(state: HomeViewModel.UiState) {
         }
 
         else -> {
-
+            LazyColumn() {
+                state.portfolios.forEach { portfolio ->
+                    item(portfolio.name) {
+                        Box(modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { }) {
+                            MarketValueRow(marketData = portfolio.data) {
+                                Text(text = portfolio.name, fontSize = 14.sp)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

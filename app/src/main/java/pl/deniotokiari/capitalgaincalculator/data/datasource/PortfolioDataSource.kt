@@ -7,8 +7,8 @@ import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Factory
 import pl.deniotokiari.capitalgaincalculator.AppDispatchers
 import pl.deniotokiari.capitalgaincalculator.data.db.DbPortfolio
-import pl.deniotokiari.capitalgaincalculator.data.db.toDataModelList
-import pl.deniotokiari.capitalgaincalculator.data.db.toDbModel
+import pl.deniotokiari.capitalgaincalculator.data.db.toDataCurrency
+import pl.deniotokiari.capitalgaincalculator.data.db.toDbPortfolio
 import pl.deniotokiari.capitalgaincalculator.data.model.Portfolio
 
 interface PortfolioDataSource {
@@ -21,11 +21,11 @@ interface PortfolioDataSource {
 
 @Factory
 class PortfolioRoomDataSource(
-    private val portfolioDao: DbPortfolio.PortfolioDao,
+    private val portfolioDao: DbPortfolio.Dao,
     private val appDispatchers: AppDispatchers
 ) : PortfolioDataSource {
     override fun portfolios(): Flow<List<Portfolio>> = portfolioDao.portfolios().map {
-        it.toDataModelList()
+        it.map { item -> item.toDataCurrency() }
     }.flowOn(appDispatchers.io)
 
     override suspend fun exists(name: String): Boolean = withContext(appDispatchers.io) {
@@ -33,7 +33,7 @@ class PortfolioRoomDataSource(
     }
 
     override suspend fun addPortfolio(portfolio: Portfolio) = withContext(appDispatchers.io) {
-        portfolioDao.addPortfolio(portfolio.toDbModel())
+        portfolioDao.addPortfolio(portfolio.toDbPortfolio())
     }
 }
 

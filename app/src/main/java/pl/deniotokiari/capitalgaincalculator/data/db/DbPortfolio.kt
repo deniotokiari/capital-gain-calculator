@@ -1,44 +1,49 @@
 package pl.deniotokiari.capitalgaincalculator.data.db
 
 import androidx.room.ColumnInfo
-import androidx.room.Dao
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Query
+import androidx.room.Relation
+import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
-import pl.deniotokiari.capitalgaincalculator.data.model.Id
 import pl.deniotokiari.capitalgaincalculator.data.model.Portfolio
 
 class DbPortfolio {
     @Entity(tableName = "portfolio")
-    data class DbPortfolio(
-        @PrimaryKey val id: Long,
-        @ColumnInfo(name = "name") val name: String,
-        
+    data class Model(
+        @PrimaryKey val name: String,
+        @ColumnInfo("currency_code") val currencyCode: String
     )
 
-    @Dao
-    interface PortfolioDao {
+    @androidx.room.Dao
+    interface Dao {
+        @Transaction
         @Query("SELECT * FROM portfolio")
-        fun portfolios(): Flow<List<DbPortfolio>>
+        fun portfolios(): Flow<List<PortfolioWithCurrency>>
 
+        @Transaction
         @Query("SELECT * FROM portfolio WHERE name = :name")
-        fun getPortfolioByName(name: String): DbPortfolio?
+        fun getPortfolioByName(name: String): PortfolioWithCurrency?
 
         @Insert
-        fun addPortfolio(portfolio: DbPortfolio)
+        fun addPortfolio(portfolio: Model)
     }
+
+    data class PortfolioWithCurrency(
+        @Embedded val portfolio: Model,
+        @Relation(parentColumn = "currency_code", entityColumn = "code") val currency: DbCurrency.Model
+    )
 }
 
-fun DbPortfolio.DbPortfolio.toDataModel(): Portfolio = Portfolio(
-    id = Id(id),
-    name = name
+fun DbPortfolio.PortfolioWithCurrency.toDataCurrency() = Portfolio(
+    name = portfolio.name,
+    currency = currency.toDataCurrency()
 )
 
-fun List<DbPortfolio.DbPortfolio>.toDataModelList(): List<Portfolio> = map { it.toDataModel() }
-
-fun Portfolio.toDbModel(): DbPortfolio.DbPortfolio = DbPortfolio.DbPortfolio(
-    id = id.value,
-    name = name
+fun Portfolio.toDbPortfolio(): DbPortfolio.Model = DbPortfolio.Model(
+    name = name,
+    currencyCode = currency.code.value
 )
