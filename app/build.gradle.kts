@@ -84,6 +84,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.moshi)
     implementation(libs.retrofit.moshi)
+    implementation(libs.accompanist)
 
     testImplementation(libs.junit)
 

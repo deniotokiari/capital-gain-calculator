@@ -21,6 +21,7 @@ work = "2.8.1"
 compose-lifecycle = "2.7.0-beta01"
 retrofit = "2.9.0"
 moshi = "1.14.0"
+accompanist = "0.33.2-alpha"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -54,6 +55,7 @@ compose-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-runtime-co
 retrofit =  { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 moshi = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
+accompanist = { group = "com.google.accompanist", name = "accompanist-navigation-material", version.ref = "accompanist" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,0 +1,62 @@
+package pl.deniotokiari.capitalgaincalculator.ui.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
+import pl.deniotokiari.capitalgaincalculator.data.model.Currency
+import pl.deniotokiari.capitalgaincalculator.domain.usecase.AddPortfolioUseCase
+import pl.deniotokiari.capitalgaincalculator.domain.usecase.ValidatePortfolioNameUseCase
+
+@KoinViewModel
+class AddPortfolioViewModel(
+    private val validatePortfolioNameUseCase: ValidatePortfolioNameUseCase,
+    private val addPortfolioUseCase: AddPortfolioUseCase
+) : ViewModel() {
+    private val _uiState = MutableStateFlow(
+        UiState(
+            okEnabled = false,
+            currency = null,
+            name = null
+        )
+    )
+    val uiState: StateFlow<UiState> = _uiState
+
+    fun onPortfolioNameChanged(name: String) {
+        viewModelScope.launch {
+            _uiState.update {
+                val state = it.copy(name = name)
+
+                state.copy(
+                    okEnabled = state.isValid()
+                            && validatePortfolioNameUseCase(name) is ValidatePortfolioNameUseCase.ValidationResult.Valid
+                )
+            }
+        }
+    }
+
+    fun onPortfolioCurrencyChanged(currency: Currency) {
+        _uiState.update {
+            val state = it.copy(currency = currency)
+
+            state.copy(okEnabled = state.isValid())
+        }
+    }
+
+    fun onOk() {
+        viewModelScope.launch {
+
+        }
+    }
+
+    data class UiState(
+        val okEnabled: Boolean,
+        internal val currency: Currency?,
+        private val name: String?
+    ) {
+        fun isValid(): Boolean = currency != null && name != null
+    }
+}

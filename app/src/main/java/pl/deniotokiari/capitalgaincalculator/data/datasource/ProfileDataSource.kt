@@ -20,7 +20,7 @@ interface ProfileDataSource {
 
     fun profileCurrency(): Flow<Result<Currency?, DataError>>
 
-    suspend fun hasProfileCurrency(): Boolean
+    suspend fun hasCurrency(): Boolean
 }
 
 @Factory
@@ -40,7 +40,7 @@ internal class ProfileLocalDataSource(
         it[KEY_PROFILE_CURRENCY]?.let(Currency::fromLocalModel).success()
     }
 
-    override suspend fun hasProfileCurrency(): Boolean =
+    override suspend fun hasCurrency(): Boolean =
         dataStore.data.firstOrNull()?.get(KEY_PROFILE_CURRENCY) != null
 
     companion object {

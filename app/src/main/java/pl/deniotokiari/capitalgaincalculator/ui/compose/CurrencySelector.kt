@@ -14,14 +14,12 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,9 +37,9 @@ fun CurrencySelector(
     viewModel: CurrencySelectorViewModel = koinViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
-    var isExpanded by rememberSaveable { mutableStateOf(false) }
+    var isExpanded by remember { mutableStateOf(false) }
 
-    TextField(
+    OutlinedTextField(
         value = selectedCurrency?.title ?: "",
         onValueChange = {},
         readOnly = true,
@@ -52,7 +50,6 @@ fun CurrencySelector(
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
             }
         },
-        colors = ExposedDropdownMenuDefaults.textFieldColors(),
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 2.dp),
@@ -73,7 +70,7 @@ fun CurrencySelector(
         ModalBottomSheet(
             onDismissRequest = { isExpanded = false }
         ) {
-            var searchInput by rememberSaveable { mutableStateOf("") }
+            var searchInput by remember { mutableStateOf("") }
 
             OutlinedTextField(
                 modifier = Modifier
