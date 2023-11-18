@@ -14,10 +14,12 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import pl.deniotokiari.capitalgaincalculator.data.model.Ticker
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.SearchTickerUseCase
+import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation
 
 @KoinViewModel
 class TickerSearchViewModel(
-    private val searchTickerUseCase: SearchTickerUseCase
+    private val searchTickerUseCase: SearchTickerUseCase,
+    private val appNavigation: AppNavigation
 ) : ViewModel() {
     private val query = MutableStateFlow("")
     private val _uiState = MutableStateFlow(UiState.default())
@@ -57,7 +59,9 @@ class TickerSearchViewModel(
     }
 
     fun onSearchResultClicked(index: Int) {
-
+        uiState.value.items.getOrNull(index)?.let {
+            appNavigation.popBackStack(it.ticker)
+        }
     }
 
     data class UiState(
@@ -66,7 +70,8 @@ class TickerSearchViewModel(
         val noResult: Boolean
     ) {
         data class SearchResult(
-            val title: String
+            val title: String,
+            internal val ticker: Ticker.Search
         )
 
         companion object {
@@ -87,5 +92,6 @@ class TickerSearchViewModel(
 
 private fun Ticker.Search.toViewModel(): TickerSearchViewModel.UiState.SearchResult =
     TickerSearchViewModel.UiState.SearchResult(
-        title = "$symbol - $name - $region - $currency"
+        title = "$symbol - $name - $region - $currency",
+        ticker = this
     )

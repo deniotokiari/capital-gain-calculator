@@ -9,11 +9,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import pl.deniotokiari.capitalgaincalculator.core.network.ALPHA_VANTAGE
 import pl.deniotokiari.capitalgaincalculator.core.network.ANONYMOUS
 import pl.deniotokiari.capitalgaincalculator.core.network.anonymous
-import pl.deniotokiari.capitalgaincalculator.core.network.queryAuthorized
-import pl.deniotokiari.capitalgaincalculator.data.repository.ApiKeyRepository
 import pl.deniotokiari.capitalgaincalculator.data.service.alphavantage.AlphaVantageService
 import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation
 
@@ -23,13 +20,7 @@ val appModule = module {
     single { WorkManager.getInstance(get()) }
     single(named(ANONYMOUS)) { anonymous }
     single { AppNavigation() }
-    single(named(ALPHA_VANTAGE)) {
-        queryAuthorized(
-            param = "apikey",
-            value = get<ApiKeyRepository>().getAlphaVantageApiKey().value
-        )
-    }
-    single { AlphaVantageService.create(get(named(ALPHA_VANTAGE))) }
+    single { AlphaVantageService.create(get(named(ANONYMOUS)), get()) }
 }
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")

@@ -24,7 +24,22 @@ android {
             useSupportLibrary = true
         }
 
-        buildConfigField("String", "ALPHA_VANTAGE_API_KEY", "\"${gradleLocalProperties(rootDir).getProperty("alphavantage.api.key")}\"")
+        fun getAlphaVantageApiKeys(value: String): String {
+            val result = mutableListOf<String>()
+            val items = value.split(",")
+
+            items.forEach { item ->
+                result.add("\"${item}\"")
+            }
+
+            return "{${result.joinToString(",")}}"
+        }
+
+        buildConfigField(
+            "String[]",
+            "ALPHA_VANTAGE_API_KEYS",
+            getAlphaVantageApiKeys(gradleLocalProperties(rootDir).getProperty("alphavantage.api.keys"))
+        )
     }
 
     buildTypes {

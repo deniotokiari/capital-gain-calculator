@@ -9,4 +9,8 @@ class ApiKeyRepository(
     private val apiKeyDataSource: ApiKeyDataSource
 ) {
     fun getAlphaVantageApiKey(): ApiToken = apiKeyDataSource.getAlphaVantageApiKey()
+
+    fun useNextAlphaVantageApiKey() = apiKeyDataSource.useNextApiKey()
+
+    fun isLastAlphaVantageApiKey(): Boolean = apiKeyDataSource.isLastApiKey()
 }
