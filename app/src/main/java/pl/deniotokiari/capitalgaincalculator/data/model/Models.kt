@@ -1,7 +1,7 @@
 package pl.deniotokiari.capitalgaincalculator.data.model
 
 @JvmInline
-value class ApiToke(val value: String)
+value class ApiToken(val value: String)
 
 @JvmInline
 value class Id(val value: Long)

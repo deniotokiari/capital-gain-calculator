@@ -16,7 +16,10 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import com.google.accompanist.navigation.material.bottomSheet
 import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.HomeScreen
 import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.InitProfileCurrencyScreen
+import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.PortfolioScreen
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.AddPortfolioSheet
+import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.TickerSearchSheet
+import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation.Route.Companion.getId
 
 class AppNavigation {
     private var controller: NavHostController? = null
@@ -33,6 +36,8 @@ class AppNavigation {
             composable(Route.Settings.name) { }
             composable(Route.InitProfileCurrency.name) { InitProfileCurrencyScreen() }
             sheet(Route.PortfolioAdd.name) { AddPortfolioSheet() }
+            composable(Route.Portfolio.name) { PortfolioScreen(id = it.getId()) }
+            sheet(Route.TickerSearch.name) { TickerSearchSheet() }
         }
     }
 
@@ -49,7 +54,7 @@ class AppNavigation {
     }
 
     fun navigateToAbout() {
-       controller?.navigate(Route.About.name)
+        controller?.navigate(Route.About.name)
     }
 
     fun navigateToSettings() {
@@ -58,6 +63,14 @@ class AppNavigation {
 
     fun navigateToPortfolioAdd() {
         controller?.navigate(Route.PortfolioAdd.name)
+    }
+
+    fun navigateToPortfolio(id: String) {
+        controller?.navigate(Route.Portfolio.withArgument(id))
+    }
+
+    fun navigateToTickerSearch() {
+        controller?.navigate(Route.TickerSearch.name)
     }
 
     private fun NavGraphBuilder.sheet(
@@ -81,5 +94,15 @@ class AppNavigation {
         object Settings : Route("settings")
         object InitProfileCurrency : Route("init_profile_currency")
         object PortfolioAdd : Route("portfolio_add")
+        object Portfolio : Route("portfolio/{${ARGUMENT_ID}}")
+        object TickerSearch : Route("ticker_search")
+
+        fun withArgument(value: String) = name.replace("{$ARGUMENT_ID}", value)
+
+        companion object {
+            const val ARGUMENT_ID = "id"
+
+            fun NavBackStackEntry.getId(): String = requireNotNull(arguments?.getString(ARGUMENT_ID))
+        }
     }
 }

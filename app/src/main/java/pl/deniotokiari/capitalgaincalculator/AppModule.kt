@@ -7,18 +7,29 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.work.WorkManager
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import okhttp3.OkHttpClient
-import org.koin.core.module.dsl.singleOf
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import pl.deniotokiari.capitalgaincalculator.core.network.ALPHA_VANTAGE
+import pl.deniotokiari.capitalgaincalculator.core.network.ANONYMOUS
+import pl.deniotokiari.capitalgaincalculator.core.network.anonymous
+import pl.deniotokiari.capitalgaincalculator.core.network.queryAuthorized
+import pl.deniotokiari.capitalgaincalculator.data.repository.ApiKeyRepository
+import pl.deniotokiari.capitalgaincalculator.data.service.alphavantage.AlphaVantageService
 import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation
 
 val appModule = module {
     single { get<Context>().dataStore }
     single { AppDispatchers() }
     single { WorkManager.getInstance(get()) }
-    singleOf(::OkHttpClient)
-
+    single(named(ANONYMOUS)) { anonymous }
     single { AppNavigation() }
+    single(named(ALPHA_VANTAGE)) {
+        queryAuthorized(
+            param = "apikey",
+            value = get<ApiKeyRepository>().getAlphaVantageApiKey().value
+        )
+    }
+    single { AlphaVantageService.create(get(named(ALPHA_VANTAGE))) }
 }
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")

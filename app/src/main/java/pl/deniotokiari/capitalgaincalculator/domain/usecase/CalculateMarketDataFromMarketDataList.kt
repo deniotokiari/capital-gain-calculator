@@ -7,7 +7,7 @@ import pl.deniotokiari.capitalgaincalculator.domain.model.MarketData
 import pl.deniotokiari.capitalgaincalculator.domain.model.Percent
 import java.math.BigDecimal
 
-@Factory
+@Factory(binds = [CalculateMarketDataFromMarketDataList::class])
 class CalculateMarketDataFromMarketDataList : UseCase<List<MarketData>, MarketData?> {
     override suspend fun invoke(params: List<MarketData>): MarketData? {
         if (params.isEmpty()) {

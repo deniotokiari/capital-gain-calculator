@@ -27,12 +27,10 @@ class HomeViewModel(
         )
     }.stateIn(viewModelScope, SharingStarted.Lazily, UiState.default())
 
-    fun onAboutClicked() {
-        appNavigation.navigateToAbout()
-    }
-
-    fun onSettingsClicked() {
-        appNavigation.navigateToSettings()
+    fun onPortfolioClicked(index: Int) {
+        uiState.value.portfolios.getOrNull(index)?.let {
+            appNavigation.navigateToPortfolio(it.id)
+        }
     }
 
     fun onAddPortfolioClicked() {
@@ -46,7 +44,8 @@ class HomeViewModel(
     ) {
         data class PortfolioViewModel(
             val name: String,
-            val data: MarketData?
+            val data: MarketData?,
+            internal val id: String
         )
 
         companion object {
@@ -65,5 +64,6 @@ private fun List<PortfolioWithMarketData>.toViewModelList(): List<HomeViewModel.
 private fun PortfolioWithMarketData.toViewModel(): HomeViewModel.UiState.PortfolioViewModel =
     HomeViewModel.UiState.PortfolioViewModel(
         name = name,
-        data = data
+        data = data,
+        id = name
     )

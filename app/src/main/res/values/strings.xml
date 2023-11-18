@@ -6,6 +6,10 @@
     <string name="profile_currency_promt">In order to use application you should select profile currency firstly</string>
     <string name="portfolio_add">Add portfolio +</string>
     <string name="about_button_description">About</string>
+    <string name="back_button_description">Back</string>
     <string name="portfolio_name">Portfolio name</string>
     <string name="portfolio_currency">Currency</string>
+    <string name="ticker_add">Add ticker +</string>
+    <string name="ticker">Ticker</string>
+    <string name="no_result">No result</string>
 </resources>

@@ -7,9 +7,11 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.koin.core.annotation.Factory
+import org.koin.core.annotation.Named
 import pl.deniotokiari.capitalgaincalculator.AppDispatchers
 import pl.deniotokiari.capitalgaincalculator.core.Result
 import pl.deniotokiari.capitalgaincalculator.core.failed
+import pl.deniotokiari.capitalgaincalculator.core.network.ANONYMOUS
 import pl.deniotokiari.capitalgaincalculator.core.success
 import pl.deniotokiari.capitalgaincalculator.data.db.DbCurrency
 import pl.deniotokiari.capitalgaincalculator.data.db.toDataCurrency
@@ -19,7 +21,7 @@ import pl.deniotokiari.capitalgaincalculator.data.model.DataError
 
 @Factory
 class CurrencyAlphaVantageDataSource(
-    private val okHttpClient: OkHttpClient,
+    @Named(ANONYMOUS) private val okHttpClient: OkHttpClient,
     private val appDispatchers: AppDispatchers
 ) {
     private suspend fun getCurrencies(url: String, type: Currency.Type): Result<List<Currency>, DataError> =
