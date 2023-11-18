@@ -1,4 +1,4 @@
-package pl.deniotokiari.capitalgaincalculator.ui.compose
+package pl.deniotokiari.capitalgaincalculator.ui.compose.screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -26,25 +26,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import org.koin.androidx.compose.koinViewModel
 import pl.deniotokiari.capitalgaincalculator.R
-import pl.deniotokiari.capitalgaincalculator.core.LocalNavController
-import pl.deniotokiari.capitalgaincalculator.ui.theme.paddingLarge
+import pl.deniotokiari.capitalgaincalculator.ui.compose.widget.MarketValueWidget
+import pl.deniotokiari.capitalgaincalculator.ui.theme.paddingMedium
 import pl.deniotokiari.capitalgaincalculator.ui.viewmodel.HomeViewModel
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
-    val navController = LocalNavController.current
-
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(paddingLarge)
+        modifier = Modifier.fillMaxSize()
     ) {
         Box(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = paddingMedium)
         ) {
-            IconButton(onClick = {
-                navController.navigate("about")
-            }) {
+            IconButton(onClick = viewModel::onAboutClicked) {
                 Icon(
                     imageVector = Icons.Outlined.Info,
                     contentDescription = stringResource(id = R.string.about_button_description)
@@ -62,7 +58,7 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
 
             IconButton(
                 modifier = Modifier.align(Alignment.CenterEnd),
-                onClick = { navController.navigate("settings") }
+                onClick = viewModel::onSettingsClicked
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Settings,
@@ -75,34 +71,45 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
 
         when {
             state.loading -> Loading()
-            else -> Idle(state)
+            else -> Idle(state, viewModel::onAddPortfolioClicked)
         }
     }
 }
 
 @Composable
-private fun Idle(state: HomeViewModel.UiState) {
-    val navigation = LocalNavController.current
-
+private fun Idle(state: HomeViewModel.UiState, addPortfolio: () -> Unit) {
     when {
         state.portfolios.isEmpty() -> Box(modifier = Modifier.fillMaxSize()) {
             TextButton(
                 modifier = Modifier.align(Alignment.Center),
-                onClick = { navigation.navigate("portfolio_add") }
+                onClick = addPortfolio
             ) {
                 Text(text = stringResource(id = R.string.portfolio_add))
             }
         }
 
         else -> {
-            LazyColumn() {
-                state.portfolios.forEach { portfolio ->
-                    item(portfolio.name) {
-                        Box(modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { }) {
-                            MarketValueRow(marketData = portfolio.data) {
-                                Text(text = portfolio.name, fontSize = 14.sp)
+            Column {
+                TextButton(
+                    onClick = addPortfolio,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                ) {
+                    Text(text = stringResource(id = R.string.portfolio_add))
+                }
+
+                state.marketDataForAllPortfolios?.let { MarketValueWidget(marketData = it) }
+
+                LazyColumn {
+                    state.portfolios.forEach { portfolio ->
+                        item(portfolio.name) {
+                            Box(modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { }) {
+                                MarketValueWidget(
+                                    marketData = portfolio.data
+                                ) {
+                                    Text(text = portfolio.name, fontSize = 14.sp)
+                                }
                             }
                         }
                     }

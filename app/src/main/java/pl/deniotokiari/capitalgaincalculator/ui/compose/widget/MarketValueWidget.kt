@@ -1,4 +1,4 @@
-package pl.deniotokiari.capitalgaincalculator.ui.compose
+package pl.deniotokiari.capitalgaincalculator.ui.compose.widget
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,15 +14,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import pl.deniotokiari.capitalgaincalculator.domain.model.MarketData
+import pl.deniotokiari.capitalgaincalculator.ui.theme.paddingLarge
 import pl.deniotokiari.capitalgaincalculator.ui.theme.paddingMedium
 import pl.deniotokiari.capitalgaincalculator.ui.theme.paddingSmall
 import java.math.BigDecimal
 import java.text.DecimalFormat
 
 @Composable
-fun MarketValueRow(
-    marketData: MarketData,
-    content: @Composable BoxScope.() -> Unit
+fun MarketValueWidget(
+    modifier: Modifier = Modifier,
+    marketData: MarketData?,
+    content: (@Composable BoxScope.() -> Unit)? = null
 ) {
     val currencyFormat = DecimalFormat("#,###.00")
     val percentFormat = DecimalFormat("##.00")
@@ -31,29 +33,50 @@ fun MarketValueRow(
     val red = Color("#BC1513".toColorInt())
 
     Row(
-        modifier = Modifier
-            .padding(vertical = paddingMedium + paddingSmall)
+        modifier = modifier
+            .padding(vertical = paddingMedium + paddingSmall, horizontal = paddingLarge)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Box(modifier = Modifier.weight(0.2F)) {
-            content(this)
+        val contentWeight = 0.2F
+        var marketWeight = 0.3F
+        var gainWeight = 0.3F
+        var percentWeight = 0.2F
+
+        var textAlign = TextAlign.End
+
+        if (content == null) {
+            (1F / 3).let {
+                marketWeight = it
+                gainWeight = it
+                percentWeight = it
+            }
+
+            textAlign = TextAlign.Center
         }
+
+        content?.let {
+            Box(modifier = Modifier.weight(contentWeight)) {
+                it(this)
+            }
+        }
+
+        marketData ?: return
 
         // market value
         Text(
             text = "${currencyFormat.format(marketData.marketValue.value)}${marketData.marketValue.currency.code.value}",
-            modifier = Modifier.weight(0.3F),
+            modifier = Modifier.weight(marketWeight),
             fontSize = fontSize,
-            textAlign = TextAlign.End
+            textAlign = textAlign
         )
 
         // gain
         Text(
             text = "${currencyFormat.format(marketData.gain.value)}${marketData.gain.currency.code.value}",
-            modifier = Modifier.weight(0.3F),
+            modifier = Modifier.weight(gainWeight),
             fontSize = fontSize,
-            textAlign = TextAlign.End,
+            textAlign = textAlign,
             color = if (marketData.gain.value < BigDecimal.ZERO) {
                 red
             } else {
@@ -64,9 +87,9 @@ fun MarketValueRow(
         // percent
         Text(
             text = "${percentFormat.format(marketData.percent.value)}%",
-            modifier = Modifier.weight(0.2F),
+            modifier = Modifier.weight(percentWeight),
             fontSize = fontSize,
-            textAlign = TextAlign.End,
+            textAlign = textAlign,
             color = if (marketData.percent.value < BigDecimal.ZERO) {
                 red
             } else {

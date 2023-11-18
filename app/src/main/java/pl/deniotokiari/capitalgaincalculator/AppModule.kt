@@ -10,12 +10,15 @@ import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
+import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation
 
 val appModule = module {
     single { get<Context>().dataStore }
     single { AppDispatchers() }
     single { WorkManager.getInstance(get()) }
     singleOf(::OkHttpClient)
+
+    single { AppNavigation() }
 }
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")

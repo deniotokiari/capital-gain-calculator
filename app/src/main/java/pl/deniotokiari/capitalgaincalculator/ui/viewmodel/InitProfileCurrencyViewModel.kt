@@ -14,11 +14,13 @@ import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.IsProfileHasCurrencyUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.SetProfileCurrencyUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.work.UpdateCurrenciesWorker
+import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation
 
 @KoinViewModel
 class InitProfileCurrencyViewModel(
     private val isProfileHasCurrencyUseCase: IsProfileHasCurrencyUseCase,
     private val setProfileCurrencyUseCase: SetProfileCurrencyUseCase,
+    private val appNavigation: AppNavigation,
     workManager: WorkManager
 ) : ViewModel() {
     private val currency: MutableStateFlow<Currency?> = MutableStateFlow(null)
@@ -33,7 +35,7 @@ class InitProfileCurrencyViewModel(
     init {
         viewModelScope.launch {
             if (isProfileHasCurrencyUseCase(Unit)) {
-                _uiState.value = UiState.Initialized
+                appNavigation.navigateToHomeFromInitProfileCurrency()
             } else {
                 UpdateCurrenciesWorker.start(workManager)
 
@@ -54,7 +56,7 @@ class InitProfileCurrencyViewModel(
             currency.value?.let {
                 setProfileCurrencyUseCase(it)
 
-                _uiState.value = UiState.Initialized
+                appNavigation.navigateToHomeFromInitProfileCurrency()
             }
         }
     }
@@ -66,7 +68,5 @@ class InitProfileCurrencyViewModel(
             val currency: Currency?,
             val confirmEnabled: Boolean
         ) : UiState()
-
-        object Initialized : UiState()
     }
 }

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package pl.deniotokiari.capitalgaincalculator.ui.compose
+package pl.deniotokiari.capitalgaincalculator.ui.compose.widget
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -30,7 +30,7 @@ import pl.deniotokiari.capitalgaincalculator.ui.theme.Purple40
 import pl.deniotokiari.capitalgaincalculator.ui.viewmodel.CurrencySelectorViewModel
 
 @Composable
-fun CurrencySelector(
+fun CurrencySelectorWidget(
     selectedCurrency: Currency?,
     title: String,
     onCurrencySelected: (Currency) -> Unit,

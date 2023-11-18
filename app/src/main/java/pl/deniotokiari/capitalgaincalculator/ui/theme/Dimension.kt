@@ -7,3 +7,4 @@ val paddingSmall = 4.dp
 val paddingMedium = 8.dp
 val paddingLarge = 16.dp
 val paddingXLarge = 32.dp
+val paddingXXLarge = 64.dp

@@ -9,31 +9,50 @@ import kotlinx.coroutines.flow.stateIn
 import org.koin.android.annotation.KoinViewModel
 import pl.deniotokiari.capitalgaincalculator.domain.model.MarketData
 import pl.deniotokiari.capitalgaincalculator.domain.model.PortfolioWithMarketData
+import pl.deniotokiari.capitalgaincalculator.domain.usecase.CalculateMarketDataFromMarketDataList
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetAllPortfoliosWithMarketDataUseCase
+import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation
 
 @KoinViewModel
 class HomeViewModel(
-    getAllPortfoliosWithMarketDataUseCase: GetAllPortfoliosWithMarketDataUseCase
+    private val appNavigation: AppNavigation,
+    getAllPortfoliosWithMarketDataUseCase: GetAllPortfoliosWithMarketDataUseCase,
+    calculateMarketDataFromMarketDataList: CalculateMarketDataFromMarketDataList
 ) : ViewModel() {
     val uiState: StateFlow<UiState> = getAllPortfoliosWithMarketDataUseCase(Unit).map {
         UiState(
             portfolios = it.toViewModelList(),
-            loading = false
+            loading = false,
+            marketDataForAllPortfolios = calculateMarketDataFromMarketDataList(it.mapNotNull { item -> item.data })
         )
     }.stateIn(viewModelScope, SharingStarted.Lazily, UiState.default())
 
+    fun onAboutClicked() {
+        appNavigation.navigateToAbout()
+    }
+
+    fun onSettingsClicked() {
+        appNavigation.navigateToSettings()
+    }
+
+    fun onAddPortfolioClicked() {
+        appNavigation.navigateToPortfolioAdd()
+    }
+
     data class UiState(
         val portfolios: List<PortfolioViewModel>,
+        val marketDataForAllPortfolios: MarketData?,
         val loading: Boolean
     ) {
         data class PortfolioViewModel(
             val name: String,
-            val data: MarketData
+            val data: MarketData?
         )
 
         companion object {
             fun default(): UiState = UiState(
                 portfolios = emptyList(),
+                marketDataForAllPortfolios = null,
                 loading = true
             )
         }

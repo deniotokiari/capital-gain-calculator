@@ -11,11 +11,13 @@ import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.data.model.Portfolio
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.AddPortfolioUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.ValidatePortfolioNameUseCase
+import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation
 
 @KoinViewModel
 class AddPortfolioViewModel(
     private val validatePortfolioNameUseCase: ValidatePortfolioNameUseCase,
-    private val addPortfolioUseCase: AddPortfolioUseCase
+    private val addPortfolioUseCase: AddPortfolioUseCase,
+    private val appNavigation: AppNavigation
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(
         UiState(
@@ -58,6 +60,8 @@ class AddPortfolioViewModel(
                     currency = currency
                 )
             )
+
+            appNavigation.popBackStack()
         }
     }
 

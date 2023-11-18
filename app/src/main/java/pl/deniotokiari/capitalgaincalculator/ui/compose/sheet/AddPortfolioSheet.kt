@@ -1,4 +1,4 @@
-package pl.deniotokiari.capitalgaincalculator.ui.compose
+package pl.deniotokiari.capitalgaincalculator.ui.compose.sheet
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,15 +17,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.koin.androidx.compose.koinViewModel
 import pl.deniotokiari.capitalgaincalculator.R
-import pl.deniotokiari.capitalgaincalculator.core.LocalNavController
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
+import pl.deniotokiari.capitalgaincalculator.ui.compose.widget.CurrencySelectorWidget
 import pl.deniotokiari.capitalgaincalculator.ui.theme.paddingLarge
 import pl.deniotokiari.capitalgaincalculator.ui.theme.paddingMedium
 import pl.deniotokiari.capitalgaincalculator.ui.theme.paddingSmall
 import pl.deniotokiari.capitalgaincalculator.ui.viewmodel.AddPortfolioViewModel
 
 @Composable
-fun AddPortfolio(viewModel: AddPortfolioViewModel = koinViewModel()) {
+fun AddPortfolioSheet(viewModel: AddPortfolioViewModel = koinViewModel()) {
     var portfolioName: String by remember { mutableStateOf("") }
 
     Column(
@@ -48,7 +48,7 @@ fun AddPortfolio(viewModel: AddPortfolioViewModel = koinViewModel()) {
 
         var currency: Currency? by remember { mutableStateOf(null) }
 
-        CurrencySelector(
+        CurrencySelectorWidget(
             selectedCurrency = currency,
             title = stringResource(id = R.string.portfolio_currency),
             onCurrencySelected = {
@@ -57,14 +57,8 @@ fun AddPortfolio(viewModel: AddPortfolioViewModel = koinViewModel()) {
             }
         )
 
-        val navigation = LocalNavController.current
-
         TextButton(
-            onClick = {
-                viewModel.onOk()
-
-                navigation.popBackStack()
-            },
+            onClick = viewModel::onOk,
             enabled = state.okEnabled,
             modifier = Modifier
                 .padding(paddingMedium)
