@@ -1,4 +1,6 @@
-@file:OptIn(ExperimentalMaterialNavigationApi::class, ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterialNavigationApi::class, ExperimentalMaterial3Api::class,
+    ExperimentalMaterialNavigationApi::class
+)
 
 package pl.deniotokiari.capitalgaincalculator.ui.navigation
 
@@ -16,6 +18,7 @@ import androidx.navigation.compose.composable
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.bottomSheet
 import kotlinx.coroutines.suspendCancellableCoroutine
+import org.koin.core.annotation.Single
 import pl.deniotokiari.capitalgaincalculator.data.model.Ticker
 import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.HomeScreen
 import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.InitProfileCurrencyScreen
@@ -25,6 +28,7 @@ import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.TickerSearchSheet
 import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation.Route.Companion.getId
 import kotlin.coroutines.resume
 
+@Single
 class AppNavigation {
     private lateinit var controller: NavHostController
     val startDestination: String get() = Route.InitProfileCurrency.name
