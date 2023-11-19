@@ -14,13 +14,13 @@ import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.IsProfileHasCurrencyUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.SetProfileCurrencyUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.work.UpdateCurrenciesWorker
-import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation
+import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
 
 @KoinViewModel
 class InitProfileCurrencyViewModel(
     private val isProfileHasCurrencyUseCase: IsProfileHasCurrencyUseCase,
     private val setProfileCurrencyUseCase: SetProfileCurrencyUseCase,
-    private val appNavigation: AppNavigation,
+    private val appNavigation: AppHostNavigation,
     workManager: WorkManager
 ) : ViewModel() {
     private val currency: MutableStateFlow<Currency?> = MutableStateFlow(null)

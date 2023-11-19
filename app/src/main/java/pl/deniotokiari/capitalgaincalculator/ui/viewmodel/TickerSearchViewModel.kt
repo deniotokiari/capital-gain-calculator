@@ -14,12 +14,12 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import pl.deniotokiari.capitalgaincalculator.data.model.Ticker
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.SearchTickerUseCase
-import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation
+import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
 
 @KoinViewModel
 class TickerSearchViewModel(
     private val searchTickerUseCase: SearchTickerUseCase,
-    private val appNavigation: AppNavigation
+    private val appNavigation: AppHostNavigation
 ) : ViewModel() {
     private val query = MutableStateFlow("")
     private val _uiState = MutableStateFlow(UiState.default())

@@ -11,11 +11,11 @@ import pl.deniotokiari.capitalgaincalculator.domain.model.MarketData
 import pl.deniotokiari.capitalgaincalculator.domain.model.PortfolioWithMarketData
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.CalculateMarketDataFromMarketDataList
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetAllPortfoliosWithMarketDataUseCase
-import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation
+import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
 
 @KoinViewModel
 class HomeViewModel(
-    private val appNavigation: AppNavigation,
+    private val appNavigation: AppHostNavigation,
     getAllPortfoliosWithMarketDataUseCase: GetAllPortfoliosWithMarketDataUseCase,
     calculateMarketDataFromMarketDataList: CalculateMarketDataFromMarketDataList
 ) : ViewModel() {

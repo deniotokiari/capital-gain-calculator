@@ -10,7 +10,7 @@ class ApiKeyRepository(
 ) {
     fun getAlphaVantageApiKey(): ApiToken = apiKeyDataSource.getAlphaVantageApiKey()
 
-    fun useNextAlphaVantageApiKey() = apiKeyDataSource.useNextApiKey()
+    fun useNextAlphaVantageApiKey() = apiKeyDataSource.useNextAlphaVantageApiKey()
 
-    fun isLastAlphaVantageApiKey(): Boolean = apiKeyDataSource.isLastApiKey()
+    fun isLastAlphaVantageApiKey(): Boolean = apiKeyDataSource.isLastAlphaVantageApiKey()
 }

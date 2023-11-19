@@ -19,7 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import org.koin.compose.koinInject
 import pl.deniotokiari.capitalgaincalculator.R
-import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation
+import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
 import pl.deniotokiari.capitalgaincalculator.ui.theme.paddingMedium
 
 sealed class AppHeaderWidgetAction {
@@ -33,7 +33,7 @@ sealed class AppHeaderWidgetAction {
 fun AppHeaderWidget(
     title: String,
     leftAction: AppHeaderWidgetAction.Left,
-    appNavigation: AppNavigation = koinInject()
+    appNavigation: AppHostNavigation = koinInject()
 ) {
     Box(
         modifier = Modifier

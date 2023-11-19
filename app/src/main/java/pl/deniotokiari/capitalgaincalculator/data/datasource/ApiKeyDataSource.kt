@@ -8,28 +8,28 @@ import java.util.Stack
 interface ApiKeyDataSource {
     fun getAlphaVantageApiKey(): ApiToken
 
-    fun useNextApiKey()
+    fun useNextAlphaVantageApiKey()
 
-    fun isLastApiKey(): Boolean
+    fun isLastAlphaVantageApiKey(): Boolean
 }
 
 @Single
 class ApiKeyLocalDataSource : ApiKeyDataSource {
-    private val keys = Stack<String>()
+    private val alphaVantageAPiKeys = Stack<String>()
 
     init {
-        keys.addAll(BuildConfig.ALPHA_VANTAGE_API_KEYS)
+        alphaVantageAPiKeys.addAll(BuildConfig.ALPHA_VANTAGE_API_KEYS)
     }
 
-    override fun getAlphaVantageApiKey(): ApiToken = keys.peek().let(::ApiToken)
+    override fun getAlphaVantageApiKey(): ApiToken = alphaVantageAPiKeys.peek().let(::ApiToken)
 
-    override fun useNextApiKey() {
-        if (keys.size == 1) {
+    override fun useNextAlphaVantageApiKey() {
+        if (alphaVantageAPiKeys.size == 1) {
             return
         }
 
-        keys.pop()
+        alphaVantageAPiKeys.pop()
     }
 
-    override fun isLastApiKey(): Boolean = keys.size == 1
+    override fun isLastAlphaVantageApiKey(): Boolean = alphaVantageAPiKeys.size == 1
 }

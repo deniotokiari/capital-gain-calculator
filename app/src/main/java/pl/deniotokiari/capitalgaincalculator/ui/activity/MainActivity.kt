@@ -19,20 +19,20 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import org.koin.android.ext.android.get
-import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppNavigation
+import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
 import pl.deniotokiari.capitalgaincalculator.ui.theme.CapitalGainCalculatorTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val appNavigation = get<AppNavigation>()
+        val appNavigation = get<AppHostNavigation>()
 
         setContent {
             val bottomSheetNavigator = rememberBottomSheetNavigator()
             val navController = rememberNavController(bottomSheetNavigator)
 
-            appNavigation.setController(navController)
+            appNavigation.controller = navController
 
             CapitalGainCalculatorTheme {
                 Surface(
@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(
                             navController = navController,
-                            startDestination = appNavigation.startDestination,
+                            startDestination = appNavigation.startDestination.name,
                             enterTransition = { EnterTransition.None },
                             exitTransition = { ExitTransition.None },
                             builder = appNavigation::navigationGraph
