@@ -12,7 +12,7 @@ private const val API_RATE_LIMIT = "API rate limit"
 
 @Named(ALPHA_VANTAGE)
 @Single
-fun create(
+fun createAlphaVantage(
     @Named(ANONYMOUS) anonymous: OkHttpClient,
     apiKeyRepository: ApiKeyRepository
 ): OkHttpClient {

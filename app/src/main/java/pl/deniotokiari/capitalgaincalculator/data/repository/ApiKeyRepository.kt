@@ -13,4 +13,8 @@ class ApiKeyRepository(
     fun useNextAlphaVantageApiKey() = apiKeyDataSource.useNextAlphaVantageApiKey()
 
     fun isLastAlphaVantageApiKey(): Boolean = apiKeyDataSource.isLastAlphaVantageApiKey()
+
+    fun getPoligonApiKey(): String = apiKeyDataSource.getPoligonApiKey()
+
+    fun getYahooFinanceApiKey(): String = apiKeyDataSource.getYahooFinanceApiKey()
 }

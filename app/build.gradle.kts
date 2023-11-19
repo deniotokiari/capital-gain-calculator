@@ -40,6 +40,16 @@ android {
             "ALPHA_VANTAGE_API_KEYS",
             getAlphaVantageApiKeys(gradleLocalProperties(rootDir).getProperty("alphavantage.api.keys"))
         )
+        buildConfigField(
+            "String",
+            "POLIGON_API_KEY",
+            "\"${gradleLocalProperties(rootDir).getProperty("poligon.api.key")}\""
+        )
+        buildConfigField(
+            "String",
+            "YAHOO_FINANCE_API_KEY",
+            "\"${gradleLocalProperties(rootDir).getProperty("yahoo.finance.api.key")}\""
+        )
     }
 
     buildTypes {

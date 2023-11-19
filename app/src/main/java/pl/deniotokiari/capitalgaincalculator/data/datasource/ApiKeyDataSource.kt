@@ -11,6 +11,10 @@ interface ApiKeyDataSource {
     fun useNextAlphaVantageApiKey()
 
     fun isLastAlphaVantageApiKey(): Boolean
+
+    fun getPoligonApiKey(): String
+
+    fun getYahooFinanceApiKey(): String
 }
 
 @Single
@@ -32,4 +36,8 @@ class ApiKeyLocalDataSource : ApiKeyDataSource {
     }
 
     override fun isLastAlphaVantageApiKey(): Boolean = alphaVantageAPiKeys.size == 1
+
+    override fun getPoligonApiKey(): String = BuildConfig.POLIGON_API_KEY
+
+    override fun getYahooFinanceApiKey(): String = BuildConfig.YAHOO_FINANCE_API_KEY
 }

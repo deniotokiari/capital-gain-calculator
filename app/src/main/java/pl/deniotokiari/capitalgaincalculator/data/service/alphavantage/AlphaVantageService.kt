@@ -18,7 +18,7 @@ interface AlphaVantageService {
 }
 
 @Single
-fun create(@Named(ALPHA_VANTAGE) http: OkHttpClient): AlphaVantageService {
+fun createAlphaVantageService(@Named(ALPHA_VANTAGE) http: OkHttpClient): AlphaVantageService {
     val retrofit = Retrofit.Builder()
         .client(http)
         .baseUrl("https://www.alphavantage.co")

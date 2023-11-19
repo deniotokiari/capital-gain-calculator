@@ -8,13 +8,31 @@ import pl.deniotokiari.capitalgaincalculator.data.model.DataError
 import pl.deniotokiari.capitalgaincalculator.data.model.Ticker
 import pl.deniotokiari.capitalgaincalculator.data.service.alphavantage.AlphaVantageService
 import pl.deniotokiari.capitalgaincalculator.data.service.alphavantage.model.toDataModel
+import pl.deniotokiari.capitalgaincalculator.data.service.poligon.PoligonService
+import pl.deniotokiari.capitalgaincalculator.data.service.poligon.model.toDataModel
 
-@Factory
+interface TickerDataSource {
+    suspend fun search(query: String): Result<List<Ticker.Search>, DataError>
+}
+
+//@Factory
 class TickerAlphaVantageDataSource(
     private val alphaVantageService: AlphaVantageService
-) {
-    suspend fun search(query: String): Result<List<Ticker.Search>, DataError> = runCatching {
+) : TickerDataSource {
+    override suspend fun search(query: String): Result<List<Ticker.Search>, DataError> = runCatching {
         alphaVantageService.symbolSearch(query).bestMatches.map { it.toDataModel() }
+    }.fold(
+        onSuccess = { it.success() },
+        onFailure = { DataError(it).failed() }
+    )
+}
+
+@Factory
+class TickerPoligonDataSource(
+    private val poligonService: PoligonService
+) : TickerDataSource {
+    override suspend fun search(query: String): Result<List<Ticker.Search>, DataError> = runCatching {
+        poligonService.tickers(query).results.map { it.toDataModel() }
     }.fold(
         onSuccess = { it.success() },
         onFailure = { DataError(it).failed() }
