@@ -1,5 +1,6 @@
 package pl.deniotokiari.capitalgaincalculator.ui.compose.widget
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -57,12 +59,19 @@ fun AppHeaderWidget(
         }
 
         Text(
-            text = title,
-            modifier = Modifier.align(Alignment.Center),
+            text = title.ifEmpty { stringResource(id = R.string.app_name) },
+            modifier = Modifier
+                .align(Alignment.Center)
+                .background(shimmerBrush(showShimmer = title.isEmpty())),
             style = TextStyle(
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center
-            )
+            ),
+            color = if (title.isEmpty()) {
+                Color.Transparent
+            } else {
+                Color.Unspecified
+            }
         )
 
         IconButton(

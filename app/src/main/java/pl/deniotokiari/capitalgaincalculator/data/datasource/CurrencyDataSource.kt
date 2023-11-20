@@ -72,4 +72,6 @@ class CurrencyRoomDataSource(
     fun currencies(): Flow<List<Currency>> = dao.currencies().map {
         it.map { item -> item.toDataCurrency() }
     }.flowOn(appDispatchers.io)
+
+    fun currencyByCode(code: String): Currency = dao.currencyByCode(code).toDataCurrency()
 }

@@ -11,15 +11,25 @@ import org.koin.core.annotation.Single
 @Database(
     entities = [
         DbCurrency.Model::class,
-        DbPortfolio.Model::class
+        DbPortfolio.Model::class,
+        DbInstrument.Model::class,
+        DbTicker.Model::class
     ], version = 1,
     exportSchema = false
 )
-@TypeConverters(DbCurrency.Converter::class)
+@TypeConverters(
+    DbCurrency.Converter::class,
+    DbInstrument.Converter::class,
+    DbTicker.Converter::class
+)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun portfolioDao(): DbPortfolio.Dao
 
     abstract fun currencyDao(): DbCurrency.Dao
+
+    abstract fun instrumentDao(): DbInstrument.Dao
+
+    abstract fun tickerDao(): DbTicker.Dao
 }
 
 @Single
@@ -30,3 +40,9 @@ fun portfolioDao(db: AppDataBase): DbPortfolio.Dao = db.portfolioDao()
 
 @Factory
 fun currencyDao(db: AppDataBase): DbCurrency.Dao = db.currencyDao()
+
+@Factory
+fun instrumentDao(db: AppDataBase): DbInstrument.Dao = db.instrumentDao()
+
+@Factory
+fun tickerDao(db: AppDataBase): DbTicker.Dao = db.tickerDao()

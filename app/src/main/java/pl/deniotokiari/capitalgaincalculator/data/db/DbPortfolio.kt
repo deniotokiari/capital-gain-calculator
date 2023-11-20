@@ -30,6 +30,9 @@ class DbPortfolio {
 
         @Insert
         fun addPortfolio(portfolio: Model)
+
+        @Query("SELECT name FROM portfolio WHERE name = :id")
+        suspend fun getName(id: String): String
     }
 
     data class PortfolioWithCurrency(

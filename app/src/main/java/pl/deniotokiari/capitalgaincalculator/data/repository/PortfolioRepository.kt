@@ -13,5 +13,7 @@ class PortfolioRepository(
 
     suspend fun addPortfolio(portfolio: Portfolio) = portfolioDataSource.addPortfolio(portfolio)
 
+    suspend fun getName(id: String): String = portfolioDataSource.getName(id)
+
     fun portfolios(): Flow<List<Portfolio>> = portfolioDataSource.portfolios()
 }

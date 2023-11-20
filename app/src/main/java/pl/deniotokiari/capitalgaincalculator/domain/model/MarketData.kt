@@ -12,14 +12,14 @@ data class MarketData(
 @JvmInline
 value class Percent(val value: BigDecimal) {
     companion object {
-        private val oneHundred = BigDecimal(100)
+        private const val oneHundred = 100.0
 
         // ((market + gain) / market) * 100 - 100
         fun fromMarketAndGainValues(market: BigDecimal, gain: BigDecimal): Percent {
             return if (market == BigDecimal.ZERO) {
                 Percent(BigDecimal.ZERO)
             } else {
-                Percent(((market + gain) / market) * oneHundred - oneHundred)
+                Percent(BigDecimal(((market + gain).toDouble() / market.toDouble()) * oneHundred - oneHundred))
             }
         }
     }

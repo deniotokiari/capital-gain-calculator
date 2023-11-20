@@ -5,8 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 data class Ticker(
     val symbol: String,
-    val name: String,
-    val region: String,
     val currency: Currency
 ) {
     @Parcelize

@@ -28,6 +28,9 @@ class DbCurrency {
 
         @Insert
         fun addCurrencies(currencies: List<Model>)
+
+        @Query("SELECT * FROM currency WHERE code = :code")
+        fun currencyByCode(code: String): Model
     }
 
     class Converter {

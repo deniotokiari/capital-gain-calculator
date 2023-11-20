@@ -17,6 +17,8 @@ interface PortfolioDataSource {
     suspend fun addPortfolio(portfolio: Portfolio)
 
     suspend fun exists(name: String): Boolean
+
+    suspend fun getName(id: String): String
 }
 
 @Factory
@@ -35,5 +37,7 @@ class PortfolioRoomDataSource(
     override suspend fun addPortfolio(portfolio: Portfolio) = withContext(appDispatchers.io) {
         portfolioDao.addPortfolio(portfolio.toDbPortfolio())
     }
+
+    override suspend fun getName(id: String): String = portfolioDao.getName(id)
 }
 
