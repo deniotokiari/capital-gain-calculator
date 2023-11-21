@@ -83,7 +83,17 @@ fun PortfolioScreen(
                                     onClick = { viewModel.onAddPositionClicked(index) },
                                     modifier = Modifier.align(Alignment.CenterHorizontally)
                                 ) {
-                                    Text(text = stringResource(id = R.string.portfolio_add))
+                                    Text(text = stringResource(id = R.string.position_add))
+                                }
+                            }
+                        }
+
+                        state.positions[item.instrumentId]?.forEachIndexed { i, position ->
+                            item("${item.instrumentId}-$i") {
+                                MarketValueWidget(
+                                    marketData = position.marketData
+                                ) {
+                                    Text(text = "${position.position.count}")
                                 }
                             }
                         }

@@ -44,7 +44,7 @@ class DbCurrency {
 
 fun DbCurrency.Type.toDataType(): Currency.Type = enumValues<Currency.Type>()[ordinal]
 
-fun DbCurrency.Model.toDataCurrency(): Currency = Currency(
+fun DbCurrency.Model.toDataModel(): Currency = Currency(
     name = name,
     code = Currency.Code(code),
     type = type.toDataType()

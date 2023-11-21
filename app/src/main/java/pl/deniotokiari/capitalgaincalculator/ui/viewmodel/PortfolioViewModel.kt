@@ -1,17 +1,25 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package pl.deniotokiari.capitalgaincalculator.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import pl.deniotokiari.capitalgaincalculator.domain.model.MarketData
+import pl.deniotokiari.capitalgaincalculator.domain.model.PositionWithMarketData
 import pl.deniotokiari.capitalgaincalculator.domain.model.TickerWithMarketData
+import pl.deniotokiari.capitalgaincalculator.domain.usecase.AddPositionToInstrument
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.AddTickerToPortfolioUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetAllPortfolioTickersWithMarketData
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetPortfolioNameByIdUseCase
+import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetPositionsWithMarketDataByInstrumentsIdUseCase
 import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
 
 @KoinViewModel
@@ -20,7 +28,9 @@ class PortfolioViewModel(
     private val appNavigation: AppHostNavigation,
     private val addTickerToPortfolioUseCase: AddTickerToPortfolioUseCase,
     private val getAllPortfolioTickersWithMarketData: GetAllPortfolioTickersWithMarketData,
-    private val getPortfolioNameByIdUseCase: GetPortfolioNameByIdUseCase
+    private val getPortfolioNameByIdUseCase: GetPortfolioNameByIdUseCase,
+    private val addPositionToInstrument: AddPositionToInstrument,
+    private val getPositionsWithMarketDataByInstrumentsIdUseCase: GetPositionsWithMarketDataByInstrumentsIdUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState.default())
     val uiState: StateFlow<UiState> = _uiState
@@ -30,15 +40,25 @@ class PortfolioViewModel(
             _uiState.update {
                 it.copy(portfolioName = getPortfolioNameByIdUseCase(id))
             }
+        }
 
-            getAllPortfolioTickersWithMarketData(id).collect { items ->
-                _uiState.update {
-                    it.copy(
-                        tickers = items.toViewModel(),
-                        loading = false
-                    )
+        viewModelScope.launch {
+            getAllPortfolioTickersWithMarketData(id)
+                .flatMapConcat { tickers ->
+                    getPositionsWithMarketDataByInstrumentsIdUseCase(tickers.map { item -> item.ticker.symbol })
+                        .map { positions ->
+                            tickers to positions
+                        }
                 }
-            }
+                .collect { (tickers, positions) ->
+                    _uiState.update {
+                        it.copy(
+                            tickers = tickers.toViewModel(_uiState.value.tickers),
+                            positions = positions,
+                            loading = false
+                        )
+                    }
+                }
         }
     }
 
@@ -62,7 +82,12 @@ class PortfolioViewModel(
             val position = appNavigation.navigateToPositionAdd()
 
             if (position != null) {
-
+                addPositionToInstrument(
+                    AddPositionToInstrument.Params(
+                        instrumentId = uiState.value.tickers[index].instrumentId,
+                        position = position
+                    )
+                )
             }
         }
     }
@@ -81,29 +106,34 @@ class PortfolioViewModel(
 
     data class UiState(
         val tickers: List<Ticker>,
+        val positions: Map<String, List<PositionWithMarketData>>,
         val portfolioName: String,
         val loading: Boolean
     ) {
         data class Ticker(
             val name: String,
             val data: MarketData?,
-            val expanded: Boolean
+            val expanded: Boolean,
+            val instrumentId: String
         )
 
         companion object {
             fun default(): UiState = UiState(
                 tickers = emptyList(),
                 portfolioName = "",
-                loading = true
+                loading = true,
+                positions = emptyMap()
             )
         }
     }
 }
 
-private fun List<TickerWithMarketData>.toViewModel(): List<PortfolioViewModel.UiState.Ticker> = map { item ->
-    PortfolioViewModel.UiState.Ticker(
-        name = item.ticker.symbol,
-        data = item.data,
-        expanded = false
-    )
-}
+private fun List<TickerWithMarketData>.toViewModel(items: List<PortfolioViewModel.UiState.Ticker>): List<PortfolioViewModel.UiState.Ticker> =
+    map { item ->
+        PortfolioViewModel.UiState.Ticker(
+            name = item.ticker.symbol,
+            data = item.data,
+            expanded = items.firstOrNull { ticker -> ticker.instrumentId == item.ticker.symbol }?.expanded ?: false,
+            instrumentId = item.ticker.symbol
+        )
+    }

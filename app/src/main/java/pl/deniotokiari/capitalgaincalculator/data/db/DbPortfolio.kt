@@ -41,9 +41,9 @@ class DbPortfolio {
     )
 }
 
-fun DbPortfolio.PortfolioWithCurrency.toDataCurrency() = Portfolio(
+fun DbPortfolio.PortfolioWithCurrency.toDataModel() = Portfolio(
     name = portfolio.name,
-    currency = currency.toDataCurrency()
+    currency = currency.toDataModel()
 )
 
 fun Portfolio.toDbPortfolio(): DbPortfolio.Model = DbPortfolio.Model(

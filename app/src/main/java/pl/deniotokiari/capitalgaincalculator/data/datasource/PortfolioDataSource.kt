@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Factory
 import pl.deniotokiari.capitalgaincalculator.AppDispatchers
 import pl.deniotokiari.capitalgaincalculator.data.db.DbPortfolio
-import pl.deniotokiari.capitalgaincalculator.data.db.toDataCurrency
+import pl.deniotokiari.capitalgaincalculator.data.db.toDataModel
 import pl.deniotokiari.capitalgaincalculator.data.db.toDbPortfolio
 import pl.deniotokiari.capitalgaincalculator.data.model.Portfolio
 
@@ -27,7 +27,7 @@ class PortfolioRoomDataSource(
     private val appDispatchers: AppDispatchers
 ) : PortfolioDataSource {
     override fun portfolios(): Flow<List<Portfolio>> = portfolioDao.portfolios().map {
-        it.map { item -> item.toDataCurrency() }
+        it.map { item -> item.toDataModel() }
     }.flowOn(appDispatchers.io)
 
     override suspend fun exists(name: String): Boolean = withContext(appDispatchers.io) {

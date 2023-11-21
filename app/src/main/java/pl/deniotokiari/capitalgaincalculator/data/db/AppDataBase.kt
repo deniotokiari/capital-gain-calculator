@@ -17,7 +17,7 @@ class BigDecimalConverter {
     fun fromType(value: BigDecimal): String = value.toPlainString()
 
     @TypeConverter
-    fun toType(value: String): BigDecimal = BigDecimal.ZERO//value.toBigDecimal()
+    fun toType(value: String): BigDecimal = value.toBigDecimal()
 }
 
 class LocalDateConverter {

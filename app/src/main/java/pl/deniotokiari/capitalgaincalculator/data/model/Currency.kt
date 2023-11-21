@@ -1,16 +1,20 @@
 package pl.deniotokiari.capitalgaincalculator.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.math.BigDecimal
 
+@Parcelize
 data class Currency(
     val name: String,
     val code: Code,
     val type: Type
-) {
-    val title: String = "${code.value} - $name"
+) : Parcelable {
+    val title: String get() = "${code.value} - $name"
 
     @JvmInline
-    value class Code(val value: String) {
+    @Parcelize
+    value class Code(val value: String) : Parcelable {
         companion object {
             fun fromLocalModel(value: String): Code = Code(value)
         }
@@ -36,10 +40,11 @@ data class Currency(
     }
 }
 
+@Parcelize
 data class CurrencyValue(
     val value: BigDecimal,
     val currency: Currency
-)
+) : Parcelable
 
 fun Currency.Type.toLocalModel(): String = ordinal.toString()
 

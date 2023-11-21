@@ -38,5 +38,5 @@ fun Ticker.Search.toDbModel(currency: Currency, price: BigDecimal): DbTicker.Mod
 
 fun DbTicker.Dao.TickerWithCurrency.toDataModel(): Ticker = Ticker(
     symbol = ticker.symbol,
-    currency = currency.toDataCurrency()
+    currency = currency.toDataModel()
 )

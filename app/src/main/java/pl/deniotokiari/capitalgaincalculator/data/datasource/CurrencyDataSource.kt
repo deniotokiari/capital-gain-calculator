@@ -14,7 +14,7 @@ import pl.deniotokiari.capitalgaincalculator.core.failed
 import pl.deniotokiari.capitalgaincalculator.core.network.ANONYMOUS
 import pl.deniotokiari.capitalgaincalculator.core.success
 import pl.deniotokiari.capitalgaincalculator.data.db.DbCurrency
-import pl.deniotokiari.capitalgaincalculator.data.db.toDataCurrency
+import pl.deniotokiari.capitalgaincalculator.data.db.toDataModel
 import pl.deniotokiari.capitalgaincalculator.data.db.toDbCurrency
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.data.model.DataError
@@ -70,8 +70,8 @@ class CurrencyRoomDataSource(
     }
 
     fun currencies(): Flow<List<Currency>> = dao.currencies().map {
-        it.map { item -> item.toDataCurrency() }
+        it.map { item -> item.toDataModel() }
     }.flowOn(appDispatchers.io)
 
-    fun currencyByCode(code: String): Currency = dao.currencyByCode(code).toDataCurrency()
+    fun currencyByCode(code: String): Currency = dao.currencyByCode(code).toDataModel()
 }

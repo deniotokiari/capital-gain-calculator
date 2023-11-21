@@ -8,6 +8,9 @@
     <string name="about_button_description">About</string>
     <string name="back_button_description">Back</string>
     <string name="portfolio_name">Portfolio name</string>
+    <string name="count">Count</string>
+    <string name="price">Price</string>
+    <string name="currency">Currency</string>
     <string name="portfolio_currency">Currency</string>
     <string name="ticker_add">Add ticker +</string>
     <string name="ticker">Ticker</string>
