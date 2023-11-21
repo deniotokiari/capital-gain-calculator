@@ -25,7 +25,7 @@ class DbInstrument {
     @androidx.room.Dao
     interface Dao {
         @Insert
-        fun addInstrument(instrument: Model)
+        suspend fun addInstrument(instrument: Model)
 
         @Transaction
         @Query("SELECT * FROM instrument WHERE portfolio_id = :id AND type = :type")
@@ -38,7 +38,7 @@ class DbInstrument {
                 entityColumn = "symbol",
                 entity = DbTicker.Model::class
             )
-            val ticker: DbTicker.Dao.TickerWithCurrency,
+            val ticker: DbTicker.Dao.TickerWithCurrency
         )
     }
 

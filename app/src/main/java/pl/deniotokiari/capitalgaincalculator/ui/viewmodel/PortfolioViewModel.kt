@@ -57,6 +57,28 @@ class PortfolioViewModel(
         }
     }
 
+    fun onAddPositionClicked(index: Int) {
+        viewModelScope.launch {
+            val position = appNavigation.navigateToPositionAdd()
+
+            if (position != null) {
+
+            }
+        }
+    }
+
+    fun onTickerClicked(index: Int) {
+        _uiState.update {
+            it.copy(tickers = it.tickers.mapIndexed { i, ticker ->
+                if (i == index) {
+                    ticker.copy(expanded = !ticker.expanded)
+                } else {
+                    ticker
+                }
+            })
+        }
+    }
+
     data class UiState(
         val tickers: List<Ticker>,
         val portfolioName: String,
@@ -64,7 +86,8 @@ class PortfolioViewModel(
     ) {
         data class Ticker(
             val name: String,
-            val data: MarketData?
+            val data: MarketData?,
+            val expanded: Boolean
         )
 
         companion object {
@@ -80,6 +103,7 @@ class PortfolioViewModel(
 private fun List<TickerWithMarketData>.toViewModel(): List<PortfolioViewModel.UiState.Ticker> = map { item ->
     PortfolioViewModel.UiState.Ticker(
         name = item.ticker.symbol,
-        data = item.data
+        data = item.data,
+        expanded = false
     )
 }

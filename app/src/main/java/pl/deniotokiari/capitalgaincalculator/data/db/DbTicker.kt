@@ -6,7 +6,6 @@ import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Relation
-import androidx.room.TypeConverter
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.data.model.Ticker
 import java.math.BigDecimal
@@ -19,18 +18,10 @@ class DbTicker {
         val price: BigDecimal
     )
 
-    class Converter {
-        @TypeConverter
-        fun fromType(value: BigDecimal): String = value.toPlainString()
-
-        @TypeConverter
-        fun toType(value: String): BigDecimal = value.toBigDecimal()
-    }
-
     @androidx.room.Dao
     interface Dao {
         @Insert
-        fun addTicker(ticker: Model)
+        suspend fun addTicker(ticker: Model)
 
         data class TickerWithCurrency(
             @Embedded val ticker: Model,

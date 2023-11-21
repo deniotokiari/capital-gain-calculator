@@ -4,6 +4,7 @@ import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Factory
 import pl.deniotokiari.capitalgaincalculator.AppDispatchers
 import pl.deniotokiari.capitalgaincalculator.core.UseCase
+import pl.deniotokiari.capitalgaincalculator.data.db.AppDataBase
 import pl.deniotokiari.capitalgaincalculator.data.db.DbInstrument
 import pl.deniotokiari.capitalgaincalculator.data.db.DbTicker
 import pl.deniotokiari.capitalgaincalculator.data.db.toDbModel
@@ -16,10 +17,12 @@ class AddTickerToPortfolioUseCase(
     private val tickerDao: DbTicker.Dao,
     private val instrumentDao: DbInstrument.Dao,
     private val appDispatchers: AppDispatchers,
-    private val currencyRepository: CurrencyRepository
+    private val currencyRepository: CurrencyRepository,
+    private val appDataBase: AppDataBase
 ) : UseCase<AddTickerToPortfolioUseCase.Params, Unit> {
     override suspend fun invoke(params: Params) = withContext(appDispatchers.io) {
         val currency = currencyRepository.getByCode(params.ticker.currency)
+
         tickerDao.addTicker(
             params.ticker.toDbModel(
                 currency = currency,

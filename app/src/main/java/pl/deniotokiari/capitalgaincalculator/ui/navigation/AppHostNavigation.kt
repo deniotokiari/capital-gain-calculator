@@ -1,11 +1,13 @@
 package pl.deniotokiari.capitalgaincalculator.ui.navigation
 
 import org.koin.core.annotation.Single
+import pl.deniotokiari.capitalgaincalculator.data.model.Position
 import pl.deniotokiari.capitalgaincalculator.data.model.Ticker
 import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.HomeScreen
 import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.InitProfileCurrencyScreen
 import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.PortfolioScreen
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.AddPortfolioSheet
+import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.PositionAddSheet
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.TickerSearchSheet
 
 @Single(binds = [AppHostNavigation::class])
@@ -34,6 +36,8 @@ class AppHostNavigation : HostNavigation() {
     }
 
     suspend fun navigateToTickerSearch(): Ticker.Search? = navigateWithResult(Destination.TickerSearch.route)
+
+    suspend fun navigateToPositionAdd(): Position? = navigateWithResult(Destination.PositionAdd.route)
 
     enum class Destination(val route: Route) {
         Home(
@@ -76,6 +80,12 @@ class AppHostNavigation : HostNavigation() {
             Route.sheet(
                 name = "ticker_search",
                 content = { TickerSearchSheet() }
+            )
+        ),
+        PositionAdd(
+            Route.sheet(
+                name = "position_add",
+                content = { PositionAddSheet() }
             )
         )
     }

@@ -17,8 +17,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -56,20 +54,16 @@ fun PortfolioScreen(
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         } else {
-            val collapsedState = remember(state.tickers) {
-                mutableStateListOf(*BooleanArray(state.tickers.size).toTypedArray())
-            }
-
             LazyColumn(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 state.tickers.forEachIndexed { index, item ->
-                    val expanded = collapsedState[index]
+                    val expanded = item.expanded
 
                     item(item.name) {
                         MarketValueWidget(
                             marketData = item.data,
-                            modifier = Modifier.clickable { collapsedState[index] = !expanded }
+                            modifier = Modifier.clickable { viewModel.onTickerClicked(index) }
                         ) {
                             Row {
                                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
@@ -86,7 +80,7 @@ fun PortfolioScreen(
                         item("${item.name}-expanded") {
                             Column(modifier = Modifier.fillMaxWidth()) {
                                 TextButton(
-                                    onClick = { },
+                                    onClick = { viewModel.onAddPositionClicked(index) },
                                     modifier = Modifier.align(Alignment.CenterHorizontally)
                                 ) {
                                     Text(text = stringResource(id = R.string.portfolio_add))
