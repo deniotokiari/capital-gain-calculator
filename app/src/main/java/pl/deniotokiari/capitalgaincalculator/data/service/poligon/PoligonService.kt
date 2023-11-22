@@ -7,10 +7,12 @@ import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import pl.deniotokiari.capitalgaincalculator.core.network.POLIGON
 import pl.deniotokiari.capitalgaincalculator.data.service.poligon.model.PoligonResponse
+import pl.deniotokiari.capitalgaincalculator.data.service.poligon.model.PreviousClose
 import pl.deniotokiari.capitalgaincalculator.data.service.poligon.model.Ticker
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PoligonService {
@@ -18,6 +20,9 @@ interface PoligonService {
     suspend fun tickers(
         @Query("search") search: String
     ): PoligonResponse<List<Ticker>>
+
+    @GET("/v2/aggs/ticker/{stocksTicker}/prev")
+    suspend fun previousClose(@Path("stocksTicker") ticker: String): PoligonResponse<List<PreviousClose>>
 }
 
 @Single

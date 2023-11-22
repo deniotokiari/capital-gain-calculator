@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
+import androidx.room.Query
 import androidx.room.Relation
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.data.model.Ticker
@@ -23,6 +24,12 @@ class DbTicker {
     interface Dao {
         @Insert(onConflict = OnConflictStrategy.IGNORE)
         suspend fun addTicker(ticker: Model)
+
+        @Query("SELECT * FROM ticker WHERE symbol = :ticker")
+        suspend fun ticker(ticker: String): Model?
+
+        @Query("UPDATE ticker SET price = :price WHERE symbol = :ticker")
+        suspend fun updatePrice(ticker: String, price: BigDecimal)
 
         data class TickerWithCurrency(
             @Embedded val ticker: Model,

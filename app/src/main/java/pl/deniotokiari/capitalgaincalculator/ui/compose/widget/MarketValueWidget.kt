@@ -72,9 +72,15 @@ fun MarketValueWidget(
             textAlign = textAlign
         )
 
+        val gainSign = if (marketData.gain.value < BigDecimal.ZERO) {
+            ""
+        } else {
+            "+"
+        }
+
         // gain
         Text(
-            text = "${currencyFormat.format(marketData.gain.value)}${marketData.gain.currency.code.value}",
+            text = "$gainSign${currencyFormat.format(marketData.gain.value)}${marketData.gain.currency.code.value}",
             modifier = Modifier.weight(gainWeight),
             fontSize = fontSize,
             textAlign = textAlign,
@@ -85,9 +91,15 @@ fun MarketValueWidget(
             }
         )
 
+        val percentSign = if (marketData.percent.value < BigDecimal.ZERO) {
+            ""
+        } else {
+            "+"
+        }
+
         // percent
         Text(
-            text = "${percentFormat.format(marketData.percent.value)}%",
+            text = "$percentSign${percentFormat.format(marketData.percent.value)}%",
             modifier = Modifier.weight(percentWeight),
             fontSize = fontSize,
             textAlign = textAlign,

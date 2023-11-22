@@ -19,9 +19,10 @@ data class Ticker(
     //@Json(name = "type") val type: String
 )
 
-fun Ticker.toDataModel(): pl.deniotokiari.capitalgaincalculator.data.model.Ticker.Search = pl.deniotokiari.capitalgaincalculator.data.model.Ticker.Search(
-    symbol = ticker,
-    name = name,
-    region = locale,
-    currency = currencyName
-)
+fun Ticker.toDataModel(): pl.deniotokiari.capitalgaincalculator.data.model.Ticker.Search =
+    pl.deniotokiari.capitalgaincalculator.data.model.Ticker.Search(
+        symbol = ticker,
+        name = name,
+        region = locale,
+        currency = currencyName.uppercase()
+    )

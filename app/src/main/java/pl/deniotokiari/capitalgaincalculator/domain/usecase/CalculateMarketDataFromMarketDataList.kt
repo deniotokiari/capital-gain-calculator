@@ -13,7 +13,7 @@ class CalculateMarketDataFromMarketDataList : UseCase<List<MarketData>, MarketDa
         if (params.isEmpty()) {
             return null
         }
-
+        // TODO currency conversion
         var market = BigDecimal.ZERO
         var gain = BigDecimal.ZERO
 

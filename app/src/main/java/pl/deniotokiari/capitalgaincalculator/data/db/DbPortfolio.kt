@@ -33,6 +33,10 @@ class DbPortfolio {
 
         @Query("SELECT name FROM portfolio WHERE name = :id")
         suspend fun getName(id: String): String
+
+        @Transaction
+        @Query("SELECT * FROM portfolio LEFT JOIN position ON name = portfolio_id")
+        fun portfoliosWithPositions(): Flow<Map<PortfolioWithCurrency, List<DbPosition.Dao.PositionWithTickerAndCurrency>>>
     }
 
     data class PortfolioWithCurrency(

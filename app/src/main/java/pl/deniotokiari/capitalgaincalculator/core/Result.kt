@@ -6,7 +6,7 @@ data class Success<out V>(val value: V) : Result<V, Nothing>
 
 data class Failed<out E>(val value: E) : Result<Nothing, E>
 
-fun <V, E> Result<V, E>.onSuccess(action: (V) -> Unit): Result<V, E> {
+inline fun <V, E> Result<V, E>.onSuccess(action: (V) -> Unit): Result<V, E> {
     if (this is Success) {
         action(value)
     }

@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import pl.deniotokiari.capitalgaincalculator.core.network.ALPHA_VANTAGE
+import pl.deniotokiari.capitalgaincalculator.data.service.alphavantage.model.Quote
 import pl.deniotokiari.capitalgaincalculator.data.service.alphavantage.model.SymbolSearch
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -15,6 +16,9 @@ import retrofit2.http.Query
 interface AlphaVantageService {
     @GET("/query?function=SYMBOL_SEARCH")
     suspend fun symbolSearch(@Query("keywords") keywords: String): SymbolSearch
+
+    @GET("query?function=GLOBAL_QUOTE")
+    suspend fun quote(@Query("symbol") symbol: String): Quote
 }
 
 @Single

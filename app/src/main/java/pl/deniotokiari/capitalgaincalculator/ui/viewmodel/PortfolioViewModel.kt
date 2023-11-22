@@ -12,6 +12,7 @@ import pl.deniotokiari.capitalgaincalculator.domain.model.PositionWithMarketData
 import pl.deniotokiari.capitalgaincalculator.domain.model.TickerWithMarketData
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.AddPositionToInstrument
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.AddTickerToPortfolioUseCase
+import pl.deniotokiari.capitalgaincalculator.domain.usecase.CalculateMarketDataFromMarketDataList
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetPortfolioInstrumentsWithPositionsUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetPortfolioNameByIdUseCase
 import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
@@ -26,7 +27,8 @@ class PortfolioViewModel(
     private val addTickerToPortfolioUseCase: AddTickerToPortfolioUseCase,
     private val getPortfolioNameByIdUseCase: GetPortfolioNameByIdUseCase,
     private val addPositionToInstrument: AddPositionToInstrument,
-    private val getPortfolioInstrumentsWithPositionsUseCase: GetPortfolioInstrumentsWithPositionsUseCase
+    private val getPortfolioInstrumentsWithPositionsUseCase: GetPortfolioInstrumentsWithPositionsUseCase,
+    private val calculateMarketDataFromMarketDataList: CalculateMarketDataFromMarketDataList
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState.default())
     val uiState: StateFlow<UiState> = _uiState
@@ -43,7 +45,10 @@ class PortfolioViewModel(
                 _uiState.update {
                     it.copy(
                         tickers = items.toViewModelTicker(_uiState.value.tickers),
-                        loading = false
+                        loading = false,
+                        portfolioMarketData = calculateMarketDataFromMarketDataList(
+                            items.mapNotNull { item -> item.data }
+                        )
                     )
                 }
             }
@@ -96,7 +101,8 @@ class PortfolioViewModel(
     data class UiState(
         val tickers: List<Ticker>,
         val portfolioName: String,
-        val loading: Boolean
+        val loading: Boolean,
+        val portfolioMarketData: MarketData?
     ) {
         data class Ticker(
             val name: String,
@@ -117,6 +123,7 @@ class PortfolioViewModel(
                 tickers = emptyList(),
                 portfolioName = "",
                 loading = true,
+                portfolioMarketData = null
             )
         }
     }

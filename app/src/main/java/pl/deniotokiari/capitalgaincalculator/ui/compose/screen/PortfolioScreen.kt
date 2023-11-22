@@ -42,6 +42,12 @@ fun PortfolioScreen(
             leftAction = AppHeaderWidgetAction.Left.Back
         )
 
+        MarketValueWidget(
+            marketData = state.portfolioMarketData,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            fontSize = 15.sp
+        )
+
         TextButton(
             onClick = viewModel::onAddTickerCLicked,
             modifier = Modifier.align(Alignment.CenterHorizontally)

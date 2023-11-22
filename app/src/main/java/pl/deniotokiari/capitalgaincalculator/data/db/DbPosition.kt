@@ -30,6 +30,17 @@ class DbPosition {
             @Embedded val position: Model,
             @Relation(parentColumn = "currency_code", entityColumn = "code") val currency: DbCurrency.Model
         )
+
+        data class PositionWithTickerAndCurrency(
+            @Embedded val position: Model,
+            @Relation(parentColumn = "currency_code", entityColumn = "code") val currency: DbCurrency.Model,
+            @Relation(
+                parentColumn = "instrument_id",
+                entityColumn = "symbol",
+                entity = DbTicker.Model::class
+            )
+            val ticker: DbTicker.Dao.TickerWithCurrency
+        )
     }
 }
 

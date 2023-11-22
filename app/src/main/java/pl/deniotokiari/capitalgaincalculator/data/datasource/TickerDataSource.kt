@@ -17,9 +17,12 @@ import pl.deniotokiari.capitalgaincalculator.data.service.poligon.PoligonService
 import pl.deniotokiari.capitalgaincalculator.data.service.poligon.model.toDataModel
 import pl.deniotokiari.capitalgaincalculator.data.service.yahoo.YahooFinanceService
 import pl.deniotokiari.capitalgaincalculator.data.service.yahoo.model.toDataModel
+import java.math.BigDecimal
 
 interface TickerDataSource {
     suspend fun search(query: String): Result<List<Ticker.Search>, DataError>
+
+    suspend fun info(ticker: String): Result<Ticker.Price, DataError>
 }
 
 @Named(ALPHA_VANTAGE)
@@ -31,6 +34,13 @@ class TickerAlphaVantageDataSource(
         alphaVantageService.symbolSearch(query).bestMatches.map { it.toDataModel() }
     }.fold(
         onSuccess = { successOrFailedOnCondition(it.isEmpty(), it) },
+        onFailure = { DataError(it).failed() }
+    )
+
+    override suspend fun info(ticker: String): Result<Ticker.Price, DataError> = runCatching {
+        alphaVantageService.quote(ticker).globalQuote.price.toBigDecimal().let(Ticker::Price)
+    }.fold(
+        onSuccess = { it.success() },
         onFailure = { DataError(it).failed() }
     )
 }
@@ -46,6 +56,13 @@ class TickerPoligonDataSource(
         onSuccess = { successOrFailedOnCondition(it.isEmpty(), it) },
         onFailure = { DataError(it).failed() }
     )
+
+    override suspend fun info(ticker: String): Result<Ticker.Price, DataError> = runCatching {
+        poligonService.previousClose(ticker).results.first().close.toBigDecimal().let(Ticker::Price)
+    }.fold(
+        onSuccess = { it.success() },
+        onFailure = { DataError(it).failed() }
+    )
 }
 
 @Named(YAHOO_FINANCE)
@@ -53,6 +70,8 @@ class TickerPoligonDataSource(
 class TickerYahooDataSource(
     private val yahooFinanceService: YahooFinanceService
 ) : TickerDataSource {
+    private val priceMap = mutableMapOf<String, BigDecimal>()
+
     override suspend fun search(query: String): Result<List<Ticker.Search>, DataError> = runCatching {
         val autocompleteResult = yahooFinanceService.autocomplete(query).resultSet.result
 
@@ -63,12 +82,26 @@ class TickerYahooDataSource(
                     .joinToString(separator = ",") { it.symbol }
             ).quoteResponse.result.associateBy { it.symbol }
 
+            priceMap.putAll(quoteResult.mapValues { (_, quote) -> quote.regularMarketPrice.toBigDecimal() })
+
             autocompleteResult.map { it.toDataModel(quoteResult[it.symbol]) }
         } else {
             emptyList()
         }
     }.fold(
         onSuccess = { successOrFailedOnCondition(it.isEmpty(), it) },
+        onFailure = { DataError(it).failed() }
+    )
+
+    override suspend fun info(ticker: String): Result<Ticker.Price, DataError> = runCatching {
+        if (priceMap.contains(ticker)) {
+            requireNotNull(priceMap[ticker]).let(Ticker::Price)
+        } else {
+            yahooFinanceService.quote(ticker).quoteResponse.result.first().regularMarketPrice.toBigDecimal()
+                .let(Ticker::Price)
+        }
+    }.fold(
+        onSuccess = { it.success() },
         onFailure = { DataError(it).failed() }
     )
 }

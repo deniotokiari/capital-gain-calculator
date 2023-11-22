@@ -18,6 +18,7 @@ data class Quote(
         @Json(name = "region") val region: String,
         @Json(name = "currency") val currency: String,
         @Json(name = "symbol") val symbol: String,
-        @Json(name = "fullExchangeName") val fullExchangeName: String
+        @Json(name = "fullExchangeName") val fullExchangeName: String,
+        @Json(name = "regularMarketPrice") val regularMarketPrice: Double
     )
 }

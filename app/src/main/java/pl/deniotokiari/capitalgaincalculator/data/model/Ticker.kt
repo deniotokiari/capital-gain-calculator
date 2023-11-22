@@ -2,6 +2,7 @@ package pl.deniotokiari.capitalgaincalculator.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import java.math.BigDecimal
 
 data class Ticker(
     val symbol: String,
@@ -14,4 +15,7 @@ data class Ticker(
         val region: String,
         val currency: String
     ) : Parcelable
+
+    @JvmInline
+    value class Price(val value: BigDecimal)
 }
