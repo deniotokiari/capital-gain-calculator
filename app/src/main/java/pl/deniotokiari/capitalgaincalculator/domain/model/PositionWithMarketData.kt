@@ -4,5 +4,5 @@ import pl.deniotokiari.capitalgaincalculator.data.model.Position
 
 class PositionWithMarketData(
     val position: Position,
-    val marketData: MarketData?
+    val data: MarketData?
 )

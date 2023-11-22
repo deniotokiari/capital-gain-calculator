@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import pl.deniotokiari.capitalgaincalculator.domain.model.MarketData
@@ -24,11 +25,11 @@ import java.text.DecimalFormat
 fun MarketValueWidget(
     modifier: Modifier = Modifier,
     marketData: MarketData?,
+    fontSize: TextUnit = 14.sp,
     content: (@Composable BoxScope.() -> Unit)? = null
 ) {
     val currencyFormat = DecimalFormat("#,###.00")
     val percentFormat = DecimalFormat("##.00")
-    val fontSize = 14.sp
     val green = Color("#027560".toColorInt())
     val red = Color("#BC1513".toColorInt())
 

@@ -1,14 +1,9 @@
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package pl.deniotokiari.capitalgaincalculator.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
@@ -17,20 +12,21 @@ import pl.deniotokiari.capitalgaincalculator.domain.model.PositionWithMarketData
 import pl.deniotokiari.capitalgaincalculator.domain.model.TickerWithMarketData
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.AddPositionToInstrument
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.AddTickerToPortfolioUseCase
-import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetAllPortfolioTickersWithMarketData
+import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetPortfolioInstrumentsWithPositionsUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetPortfolioNameByIdUseCase
-import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetPositionsWithMarketDataByInstrumentsIdUseCase
 import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
+import java.time.format.DateTimeFormatter
+
+private val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
 @KoinViewModel
 class PortfolioViewModel(
     private val id: String,
     private val appNavigation: AppHostNavigation,
     private val addTickerToPortfolioUseCase: AddTickerToPortfolioUseCase,
-    private val getAllPortfolioTickersWithMarketData: GetAllPortfolioTickersWithMarketData,
     private val getPortfolioNameByIdUseCase: GetPortfolioNameByIdUseCase,
     private val addPositionToInstrument: AddPositionToInstrument,
-    private val getPositionsWithMarketDataByInstrumentsIdUseCase: GetPositionsWithMarketDataByInstrumentsIdUseCase
+    private val getPortfolioInstrumentsWithPositionsUseCase: GetPortfolioInstrumentsWithPositionsUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState.default())
     val uiState: StateFlow<UiState> = _uiState
@@ -43,22 +39,14 @@ class PortfolioViewModel(
         }
 
         viewModelScope.launch {
-            getAllPortfolioTickersWithMarketData(id)
-                .flatMapConcat { tickers ->
-                    getPositionsWithMarketDataByInstrumentsIdUseCase(tickers.map { item -> item.ticker.symbol })
-                        .map { positions ->
-                            tickers to positions
-                        }
+            getPortfolioInstrumentsWithPositionsUseCase(id).collect { items ->
+                _uiState.update {
+                    it.copy(
+                        tickers = items.toViewModelTicker(_uiState.value.tickers),
+                        loading = false
+                    )
                 }
-                .collect { (tickers, positions) ->
-                    _uiState.update {
-                        it.copy(
-                            tickers = tickers.toViewModel(_uiState.value.tickers),
-                            positions = positions,
-                            loading = false
-                        )
-                    }
-                }
+            }
         }
     }
 
@@ -84,8 +72,9 @@ class PortfolioViewModel(
             if (position != null) {
                 addPositionToInstrument(
                     AddPositionToInstrument.Params(
-                        instrumentId = uiState.value.tickers[index].instrumentId,
-                        position = position
+                        position = position,
+                        instrumentId = _uiState.value.tickers[index].instrumentId,
+                        portfolioId = id
                     )
                 )
             }
@@ -106,34 +95,49 @@ class PortfolioViewModel(
 
     data class UiState(
         val tickers: List<Ticker>,
-        val positions: Map<String, List<PositionWithMarketData>>,
         val portfolioName: String,
         val loading: Boolean
     ) {
         data class Ticker(
             val name: String,
+            val instrumentId: String,
             val data: MarketData?,
             val expanded: Boolean,
-            val instrumentId: String
-        )
+            val positions: List<Position>
+        ) {
+            data class Position(
+                val count: String,
+                val date: String,
+                val data: MarketData?
+            )
+        }
 
         companion object {
             fun default(): UiState = UiState(
                 tickers = emptyList(),
                 portfolioName = "",
                 loading = true,
-                positions = emptyMap()
             )
         }
     }
 }
 
-private fun List<TickerWithMarketData>.toViewModel(items: List<PortfolioViewModel.UiState.Ticker>): List<PortfolioViewModel.UiState.Ticker> =
+private fun List<TickerWithMarketData>.toViewModelTicker(tickers: List<PortfolioViewModel.UiState.Ticker>): List<PortfolioViewModel.UiState.Ticker> =
     map { item ->
         PortfolioViewModel.UiState.Ticker(
             name = item.ticker.symbol,
             data = item.data,
-            expanded = items.firstOrNull { ticker -> ticker.instrumentId == item.ticker.symbol }?.expanded ?: false,
-            instrumentId = item.ticker.symbol
+            instrumentId = item.instrumentId,
+            expanded = tickers.firstOrNull { ticker -> ticker.instrumentId == item.instrumentId }?.expanded ?: false,
+            positions = item.positions.toViewModelPosition()
+        )
+    }
+
+private fun List<PositionWithMarketData>.toViewModelPosition(): List<PortfolioViewModel.UiState.Ticker.Position> =
+    map { item ->
+        PortfolioViewModel.UiState.Ticker.Position(
+            count = item.position.count.toPlainString(),
+            date = dateFormatter.format(item.position.date),
+            data = item.data
         )
     }

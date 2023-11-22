@@ -4,5 +4,7 @@ import pl.deniotokiari.capitalgaincalculator.data.model.Ticker
 
 data class TickerWithMarketData(
     val ticker: Ticker,
-    val data: MarketData?
+    val instrumentId: String,
+    val data: MarketData?,
+    val positions: List<PositionWithMarketData>
 )

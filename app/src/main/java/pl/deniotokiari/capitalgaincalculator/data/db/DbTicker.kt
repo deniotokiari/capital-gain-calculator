@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
@@ -20,7 +21,7 @@ class DbTicker {
 
     @androidx.room.Dao
     interface Dao {
-        @Insert
+        @Insert(onConflict = OnConflictStrategy.IGNORE)
         suspend fun addTicker(ticker: Model)
 
         data class TickerWithCurrency(

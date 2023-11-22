@@ -1,11 +1,9 @@
 package pl.deniotokiari.capitalgaincalculator.data.db
 
 import androidx.room.ColumnInfo
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Relation
 import androidx.room.Transaction
 import androidx.room.TypeConverter
 import kotlinx.coroutines.flow.Flow
@@ -28,18 +26,11 @@ class DbInstrument {
         suspend fun addInstrument(instrument: Model)
 
         @Transaction
-        @Query("SELECT * FROM instrument WHERE portfolio_id = :id AND type = :type")
-        fun instrumentsByPortfolioId(id: String, type: Type): Flow<List<InstrumentWithTicker>>
-
-        data class InstrumentWithTicker(
-            @Embedded val instrument: Model,
-            @Relation(
-                parentColumn = "id",
-                entityColumn = "symbol",
-                entity = DbTicker.Model::class
-            )
-            val ticker: DbTicker.Dao.TickerWithCurrency
-        )
+        @Query("SELECT ticker.*, position.* " +
+                "FROM instrument JOIN ticker ON instrument.id = ticker.symbol " +
+                "LEFT JOIN position ON position.instrument_id = instrument.id AND position.portfolio_id = instrument.portfolio_id " +
+                "WHERE instrument.portfolio_id = :portfolioId")
+        fun positionsByPortfolioId(portfolioId: String): Flow<Map<DbTicker.Dao.TickerWithCurrency, List<DbPosition.Dao.PositionWithCurrency>>>
     }
 
     class Converter {

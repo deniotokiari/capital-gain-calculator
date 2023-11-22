@@ -16,13 +16,15 @@ class AddPositionToInstrument(
                 count = params.position.count,
                 price = params.position.price.value,
                 currencyCode = params.position.price.currency.code.value,
-                date = params.position.date
+                date = params.position.date,
+                portfolioId = params.portfolioId
             )
         )
     }
 
     data class Params(
         val instrumentId: String,
+        val portfolioId: String,
         val position: Position
     )
 }

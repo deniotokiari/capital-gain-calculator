@@ -88,12 +88,22 @@ fun PortfolioScreen(
                             }
                         }
 
-                        state.positions[item.instrumentId]?.forEachIndexed { i, position ->
+                        item.positions.forEachIndexed { i, position ->
                             item("${item.instrumentId}-$i") {
                                 MarketValueWidget(
-                                    marketData = position.marketData
+                                    marketData = position.data,
+                                    fontSize = 12.sp
                                 ) {
-                                    Text(text = "${position.position.count}")
+                                    Row {
+                                        /*Text(
+                                            text = dateFormatter.format(position.position.date),
+                                            fontSize = 12.sp
+                                        )*/
+                                        Text(
+                                            text = position.count,
+                                            fontSize = 12.sp
+                                        )
+                                    }
                                 }
                             }
                         }
