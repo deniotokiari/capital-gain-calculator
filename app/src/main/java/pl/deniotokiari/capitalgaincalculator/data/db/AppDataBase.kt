@@ -36,7 +36,8 @@ class LocalDateConverter {
         DbPortfolio.Model::class,
         DbInstrument.Model::class,
         DbTicker.Model::class,
-        DbPosition.Model::class
+        DbPosition.Model::class,
+        DbConversionRate.Model::class
     ], version = 1,
     exportSchema = false
 )
@@ -56,6 +57,8 @@ abstract class AppDataBase : RoomDatabase() {
     abstract fun tickerDao(): DbTicker.Dao
 
     abstract fun positionDao(): DbPosition.Dao
+
+    abstract fun conversionRateDao(): DbConversionRate.Dao
 }
 
 @Single
@@ -75,3 +78,6 @@ fun tickerDao(db: AppDataBase): DbTicker.Dao = db.tickerDao()
 
 @Factory
 fun positionDao(db: AppDataBase): DbPosition.Dao = db.positionDao()
+
+@Factory
+fun conversionRateDao(db: AppDataBase): DbConversionRate.Dao = db.conversionRateDao()

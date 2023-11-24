@@ -4,6 +4,12 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.math.BigDecimal
 
+val USD = Currency(
+    name = "USD",
+    code = Currency.Code("USD"),
+    type = Currency.Type.Physical
+)
+
 @Parcelize
 data class Currency(
     val name: String,

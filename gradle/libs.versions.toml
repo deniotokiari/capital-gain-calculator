@@ -22,6 +22,8 @@ retrofit = "2.9.0"
 moshi = "1.14.0"
 accompanist = "0.33.2-alpha"
 foundation = "1.6.0-beta01"
+kotlinx-coroutines-test = "1.7.3"
+mockito-kotlin = "5.1.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -56,6 +58,8 @@ retrofit-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", v
 moshi = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 accompanist = { group = "com.google.accompanist", name = "accompanist-navigation-material", version.ref = "accompanist" }
 foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
