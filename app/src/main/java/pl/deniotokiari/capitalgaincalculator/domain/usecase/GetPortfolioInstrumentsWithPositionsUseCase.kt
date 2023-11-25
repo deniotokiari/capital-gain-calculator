@@ -13,30 +13,37 @@ import pl.deniotokiari.capitalgaincalculator.domain.model.TickerWithMarketData
 @Factory(binds = [GetPortfolioInstrumentsWithPositionsUseCase::class])
 class GetPortfolioInstrumentsWithPositionsUseCase(
     private val instrumentDao: DbInstrument.Dao,
-    private val calculateMarketDataFromMarketDataList: CalculateMarketDataFromMarketDataList
+    private val calculateMarketDataFromMarketDataList: CalculateMarketDataFromMarketDataList,
+    private val convertCurrencyValueUseCase: ConvertCurrencyValueUseCase
 ) : FlowUseCase<String, List<TickerWithMarketData>> {
     override fun invoke(params: String): Flow<List<TickerWithMarketData>> =
         instrumentDao.positionsByPortfolioId(params).map {
             it.map { (ticker, positions) ->
+                val tickerCurrency = ticker.currency.toDataModel()
                 val positionsMarketData =
                     positions.map { position ->
-                        // TODO convert currency
+                        val model = position.toDataModel()
+
                         MarketData.from(
-                            spent = position.position.price,
+                            spent = convertCurrencyValueUseCase(model.price to tickerCurrency).value,
                             count = position.position.count,
                             currentPrice = ticker.ticker.price,
-                            currency = ticker.currency.toDataModel()
-                        )
+                            currency = tickerCurrency
+                        ) to model
                     }
 
                 TickerWithMarketData(
                     ticker = ticker.toDataModel(),
                     instrumentId = ticker.ticker.symbol,
-                    data = calculateMarketDataFromMarketDataList(positionsMarketData),
-                    positions = positions.mapIndexed { index, position ->
+                    data = calculateMarketDataFromMarketDataList(
+                        CalculateMarketDataFromMarketDataList.Params(
+                            tickerCurrency,
+                            positionsMarketData.map { (data, _) -> data })
+                    ),
+                    positions = positionsMarketData.map { (data, position) ->
                         PositionWithMarketData(
-                            position = position.toDataModel(),
-                            data = positionsMarketData[index]
+                            position = position,
+                            data = data
                         )
                     }
                 )

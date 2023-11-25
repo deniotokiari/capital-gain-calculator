@@ -18,7 +18,7 @@ class DbConversionRate {
     @androidx.room.Dao
     interface Dao {
         @Insert(onConflict = OnConflictStrategy.REPLACE)
-        suspend fun addRate(from: String, to: String, rate: BigDecimal)
+        suspend fun addRate(item: Model)
 
         @Query("SELECT rate FROM conversion_rate WHERE from_code = :from AND to_code = :to")
         suspend fun rate(from: String, to: String): BigDecimal?

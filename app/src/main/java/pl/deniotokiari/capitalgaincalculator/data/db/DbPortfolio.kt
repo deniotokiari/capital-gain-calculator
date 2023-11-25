@@ -26,10 +26,10 @@ class DbPortfolio {
 
         @Transaction
         @Query("SELECT * FROM portfolio WHERE name = :name")
-        fun getPortfolioByName(name: String): PortfolioWithCurrency?
+        suspend fun getPortfolioByName(name: String): PortfolioWithCurrency?
 
         @Insert
-        fun addPortfolio(portfolio: Model)
+        suspend fun addPortfolio(portfolio: Model)
 
         @Query("SELECT name FROM portfolio WHERE name = :id")
         suspend fun getName(id: String): String

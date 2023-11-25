@@ -12,8 +12,8 @@ import pl.deniotokiari.capitalgaincalculator.domain.model.PositionWithMarketData
 import pl.deniotokiari.capitalgaincalculator.domain.model.TickerWithMarketData
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.AddPositionToInstrument
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.AddTickerToPortfolioUseCase
-import pl.deniotokiari.capitalgaincalculator.domain.usecase.CalculateMarketDataFromMarketDataList
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetPortfolioInstrumentsWithPositionsUseCase
+import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetPortfolioMarketDataUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetPortfolioNameByIdUseCase
 import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
 import java.time.format.DateTimeFormatter
@@ -28,7 +28,7 @@ class PortfolioViewModel(
     private val getPortfolioNameByIdUseCase: GetPortfolioNameByIdUseCase,
     private val addPositionToInstrument: AddPositionToInstrument,
     private val getPortfolioInstrumentsWithPositionsUseCase: GetPortfolioInstrumentsWithPositionsUseCase,
-    private val calculateMarketDataFromMarketDataList: CalculateMarketDataFromMarketDataList
+    private val gtePortfolioMarketDataUseCase: GetPortfolioMarketDataUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState.default())
     val uiState: StateFlow<UiState> = _uiState
@@ -46,9 +46,7 @@ class PortfolioViewModel(
                     it.copy(
                         tickers = items.toViewModelTicker(_uiState.value.tickers),
                         loading = false,
-                        portfolioMarketData = calculateMarketDataFromMarketDataList(
-                            items.mapNotNull { item -> item.data }
-                        )
+                        portfolioMarketData = gtePortfolioMarketDataUseCase(id)
                     )
                 }
             }

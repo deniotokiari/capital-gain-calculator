@@ -26,7 +26,7 @@ class CurrencyRepository(
     private val currencyRoomDataSource: CurrencyRoomDataSource,
     private val conversionRateDao: DbConversionRate.Dao
 ) {
-    fun getByCode(code: String): Currency = currencyRoomDataSource.currencyByCode(code)
+    suspend fun getByCode(code: String): Currency = currencyRoomDataSource.currencyByCode(code)
 
     fun currencies(): Flow<List<Currency>> = currencyRoomDataSource.currencies()
 
@@ -47,7 +47,15 @@ class CurrencyRepository(
                 .conversionRate(from, to)
                 .flatMapFailed { currencyYahooDataSource.conversionRate(from = from, to = to) }
                 .flatMapFailed { currencyPoligonDataSource.conversionRate(from = from, to = to) }
-                .onSuccess { conversionRateDao.addRate(from = from.code.value, to = to.code.value, rate = it) }
+                .onSuccess {
+                    conversionRateDao.addRate(
+                        DbConversionRate.Model(
+                            fromCode = from.code.value,
+                            toCode = to.code.value,
+                            rate = it
+                        )
+                    )
+                }
                 .fold(
                     success = { it },
                     failed = { BigDecimal.ONE }

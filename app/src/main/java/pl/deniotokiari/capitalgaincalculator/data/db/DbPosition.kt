@@ -4,7 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Insert
+import androidx.room.Query
 import androidx.room.Relation
+import androidx.room.Transaction
+import kotlinx.coroutines.flow.Flow
 import pl.deniotokiari.capitalgaincalculator.data.model.CurrencyValue
 import pl.deniotokiari.capitalgaincalculator.data.model.Position
 import java.math.BigDecimal
@@ -25,6 +28,13 @@ class DbPosition {
     interface Dao {
         @Insert
         suspend fun addPosition(position: Model)
+
+        @Query("SELECT * FROM position")
+        fun positions(): Flow<Model>
+
+        @Transaction
+        @Query("SELECT * FROM position WHERE portfolio_id = :portfolio")
+        suspend fun positionsByPortfolio(portfolio: String): List<PositionWithTickerAndCurrency>
 
         data class PositionWithCurrency(
             @Embedded val position: Model,

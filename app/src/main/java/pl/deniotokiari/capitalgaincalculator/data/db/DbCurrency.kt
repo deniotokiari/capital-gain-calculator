@@ -27,10 +27,10 @@ class DbCurrency {
         fun currencies(): Flow<List<Model>>
 
         @Insert
-        fun addCurrencies(currencies: List<Model>)
+        suspend fun addCurrencies(currencies: List<Model>)
 
         @Query("SELECT * FROM currency WHERE code = :code")
-        fun currencyByCode(code: String): Model
+        suspend fun currencyByCode(code: String): Model
     }
 
     class Converter {

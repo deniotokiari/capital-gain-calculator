@@ -23,12 +23,11 @@ value class Percent(val value: BigDecimal) {
     companion object {
         private const val oneHundred = 100.0
 
-        // ((market + gain) / market) * 100 - 100
         fun fromMarketAndGainValues(market: BigDecimal, gain: BigDecimal): Percent {
             return if (market == BigDecimal.ZERO) {
                 Percent(BigDecimal.ZERO)
             } else {
-                Percent(BigDecimal(((market + gain).toDouble() / market.toDouble()) * oneHundred - oneHundred))
+                Percent(BigDecimal((market.toDouble() / (market - gain).toDouble()) * oneHundred - oneHundred))
             }
         }
     }

@@ -232,5 +232,5 @@ class CurrencyRoomDataSource(
         it.map { item -> item.toDataModel() }
     }.flowOn(appDispatchers.io)
 
-    fun currencyByCode(code: String): Currency = dao.currencyByCode(code).toDataModel()
+    suspend fun currencyByCode(code: String): Currency = dao.currencyByCode(code).toDataModel()
 }

@@ -2,30 +2,47 @@ package pl.deniotokiari.capitalgaincalculator.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import pl.deniotokiari.capitalgaincalculator.domain.model.MarketData
 import pl.deniotokiari.capitalgaincalculator.domain.model.PortfolioWithMarketData
-import pl.deniotokiari.capitalgaincalculator.domain.usecase.CalculateMarketDataFromMarketDataList
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetAllPortfoliosWithMarketDataUseCase
+import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetProfileMarketDataUseCase
 import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
 
 @KoinViewModel
 class HomeViewModel(
     private val appNavigation: AppHostNavigation,
     getAllPortfoliosWithMarketDataUseCase: GetAllPortfoliosWithMarketDataUseCase,
-    calculateMarketDataFromMarketDataList: CalculateMarketDataFromMarketDataList
+    getProfileMarketDataUseCase: GetProfileMarketDataUseCase
 ) : ViewModel() {
-    val uiState: StateFlow<UiState> = getAllPortfoliosWithMarketDataUseCase(Unit).map {
-        UiState(
-            portfolios = it.toViewModelList(),
-            loading = false,
-            marketDataForAllPortfolios = calculateMarketDataFromMarketDataList(it.mapNotNull { item -> item.data })
-        )
-    }.stateIn(viewModelScope, SharingStarted.Lazily, UiState.default())
+    private val _uiState = MutableStateFlow(UiState.default())
+    val uiState: StateFlow<UiState> = _uiState
+
+    init {
+        viewModelScope.launch {
+            getAllPortfoliosWithMarketDataUseCase(Unit).collect { items ->
+                _uiState.update {
+                    it.copy(
+                        loading = false,
+                        portfolios = items.map { item -> item.toViewModel() }
+                    )
+                }
+            }
+        }
+        viewModelScope.launch {
+            getProfileMarketDataUseCase(Unit).collect { data ->
+                _uiState.update {
+                    it.copy(
+                        marketDataForAllPortfolios = data
+                    )
+                }
+            }
+        }
+    }
 
     fun onPortfolioClicked(index: Int) {
         uiState.value.portfolios.getOrNull(index)?.let {
@@ -57,9 +74,6 @@ class HomeViewModel(
         }
     }
 }
-
-private fun List<PortfolioWithMarketData>.toViewModelList(): List<HomeViewModel.UiState.PortfolioViewModel> =
-    map { it.toViewModel() }
 
 private fun PortfolioWithMarketData.toViewModel(): HomeViewModel.UiState.PortfolioViewModel =
     HomeViewModel.UiState.PortfolioViewModel(
