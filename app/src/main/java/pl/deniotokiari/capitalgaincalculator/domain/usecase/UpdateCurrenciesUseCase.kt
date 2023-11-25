@@ -13,5 +13,5 @@ class UpdateCurrenciesUseCase(
     private val currencyRepository: CurrencyRepository
 ) : UseCase<Unit, Result<Unit, DomainError>> {
     override suspend fun invoke(params: Unit): Result<Unit, DomainError> =
-        currencyRepository.update().mapFailure { it.toDomainError() }
+        currencyRepository.updateCurrencies().mapFailure { it.toDomainError() }
 }

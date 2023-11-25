@@ -1,9 +1,10 @@
 package pl.deniotokiari.capitalgaincalculator.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import org.koin.core.annotation.Factory
 import pl.deniotokiari.capitalgaincalculator.core.FlowUseCase
+import pl.deniotokiari.capitalgaincalculator.data.db.DbConversionRate
 import pl.deniotokiari.capitalgaincalculator.data.db.DbInstrument
 import pl.deniotokiari.capitalgaincalculator.data.db.toDataModel
 import pl.deniotokiari.capitalgaincalculator.domain.model.MarketData
@@ -14,11 +15,12 @@ import pl.deniotokiari.capitalgaincalculator.domain.model.TickerWithMarketData
 class GetPortfolioInstrumentsWithPositionsUseCase(
     private val instrumentDao: DbInstrument.Dao,
     private val calculateMarketDataFromMarketDataList: CalculateMarketDataFromMarketDataList,
-    private val convertCurrencyValueUseCase: ConvertCurrencyValueUseCase
+    private val convertCurrencyValueUseCase: ConvertCurrencyValueUseCase,
+    private val conversionRateDao: DbConversionRate.Dao
 ) : FlowUseCase<String, List<TickerWithMarketData>> {
     override fun invoke(params: String): Flow<List<TickerWithMarketData>> =
-        instrumentDao.positionsByPortfolioId(params).map {
-            it.map { (ticker, positions) ->
+        conversionRateDao.rates().combine(instrumentDao.positionsByPortfolioId(params)) { _, instruments ->
+            instruments.map { (ticker, positions) ->
                 val tickerCurrency = ticker.currency.toDataModel()
                 val positionsMarketData =
                     positions.map { position ->
@@ -47,6 +49,6 @@ class GetPortfolioInstrumentsWithPositionsUseCase(
                         )
                     }
                 )
-            }
+            }.sortedBy { it.data?.percent?.value?.let { value -> -value } }
         }
 }

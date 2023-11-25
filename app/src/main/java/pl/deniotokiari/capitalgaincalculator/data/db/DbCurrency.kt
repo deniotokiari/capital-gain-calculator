@@ -2,6 +2,7 @@ package pl.deniotokiari.capitalgaincalculator.data.db
 
 import androidx.room.Entity
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.TypeConverter
@@ -26,7 +27,7 @@ class DbCurrency {
         @Query("SELECT * FROM currency")
         fun currencies(): Flow<List<Model>>
 
-        @Insert
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
         suspend fun addCurrencies(currencies: List<Model>)
 
         @Query("SELECT * FROM currency WHERE code = :code")

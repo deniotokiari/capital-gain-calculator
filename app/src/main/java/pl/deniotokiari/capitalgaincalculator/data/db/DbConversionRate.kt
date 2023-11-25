@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import java.math.BigDecimal
 
 class DbConversionRate {
@@ -64,6 +65,9 @@ class DbConversionRate {
         """)
         suspend fun getUnusedRates(): List<String>
 
+        @Query("SELECT * FROM conversion_rate")
+        suspend fun allRates(): List<Model>
+
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         suspend fun addRate(item: Model)
 
@@ -72,5 +76,8 @@ class DbConversionRate {
 
         @Query("DELETE FROM conversion_rate WHERE from_code IN (:items) OR to_code IN (:items)")
         suspend fun deleteRates(items: List<String>)
+
+        @Query("SELECT * FROM conversion_rate")
+        fun rates(): Flow<Model>
     }
 }

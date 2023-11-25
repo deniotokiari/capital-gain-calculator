@@ -2,6 +2,7 @@ package pl.deniotokiari.capitalgaincalculator.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.WorkManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -12,6 +13,8 @@ import pl.deniotokiari.capitalgaincalculator.domain.model.PortfolioWithMarketDat
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.DeletePortfolioUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetAllPortfoliosWithMarketDataUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetProfileMarketDataUseCase
+import pl.deniotokiari.capitalgaincalculator.domain.work.UpdateConversionRatesWorker
+import pl.deniotokiari.capitalgaincalculator.domain.work.UpdateTickersPriceWorker
 import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
 
 @KoinViewModel
@@ -19,12 +22,16 @@ class HomeViewModel(
     private val appNavigation: AppHostNavigation,
     getAllPortfoliosWithMarketDataUseCase: GetAllPortfoliosWithMarketDataUseCase,
     getProfileMarketDataUseCase: GetProfileMarketDataUseCase,
-    private val deletePortfolioUseCase: DeletePortfolioUseCase
+    private val deletePortfolioUseCase: DeletePortfolioUseCase,
+    workManager: WorkManager
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState.default())
     val uiState: StateFlow<UiState> = _uiState
 
     init {
+        UpdateConversionRatesWorker.start(workManager)
+        UpdateTickersPriceWorker.start(workManager)
+
         viewModelScope.launch {
             getAllPortfoliosWithMarketDataUseCase(Unit).collect { items ->
                 _uiState.update {

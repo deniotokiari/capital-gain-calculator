@@ -30,7 +30,7 @@ class CurrencyRepository(
 
     fun currencies(): Flow<List<Currency>> = currencyRoomDataSource.currencies()
 
-    suspend fun update(): Result<Unit, DataError> = currencyAlphaVantageDataSource.getPhysicalCurrencies()
+    suspend fun updateCurrencies(): Result<Unit, DataError> = currencyAlphaVantageDataSource.getPhysicalCurrencies()
         .flatMapSuccess { physicalCurrencies ->
             currencyAlphaVantageDataSource.getDigitalCurrencies()
                 .mapSuccess { digitalCurrencies -> physicalCurrencies to digitalCurrencies }
@@ -41,10 +41,35 @@ class CurrencyRepository(
             Unit.success()
         }
 
+    suspend fun updateConversionRates(): Result<Unit, DataError> {
+        val rates = conversionRateDao.allRates()
+
+        rates.forEach { (fromCode, toCode, _) ->
+            val from = getByCode(fromCode)
+            val to = getByCode(toCode)
+
+            currencyAlphaVantageDataSource
+                .conversionRate(from = from, to = to)
+                .flatMapFailed { currencyYahooDataSource.conversionRate(from = from, to = to) }
+                .flatMapFailed { currencyPoligonDataSource.conversionRate(from = from, to = to) }
+                .onSuccess {
+                    conversionRateDao.addRate(
+                        DbConversionRate.Model(
+                            fromCode = from.code.value,
+                            toCode = to.code.value,
+                            rate = it
+                        )
+                    )
+                }
+        }
+
+        return Unit.success()
+    }
+
     suspend fun conversionRate(from: Currency, to: Currency): BigDecimal =
         conversionRateDao.rate(from = from.code.value, to = to.code.value)
             ?: currencyAlphaVantageDataSource
-                .conversionRate(from, to)
+                .conversionRate(from = from, to = to)
                 .flatMapFailed { currencyYahooDataSource.conversionRate(from = from, to = to) }
                 .flatMapFailed { currencyPoligonDataSource.conversionRate(from = from, to = to) }
                 .onSuccess {
