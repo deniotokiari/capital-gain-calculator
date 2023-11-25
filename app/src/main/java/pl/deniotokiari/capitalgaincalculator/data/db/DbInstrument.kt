@@ -22,6 +22,9 @@ class DbInstrument {
 
     @androidx.room.Dao
     interface Dao {
+        @Query("DELETE FROM instrument WHERE portfolio_id = :id")
+        suspend fun deleteByPortfolio(id: String)
+
         @Insert
         suspend fun addInstrument(instrument: Model)
 

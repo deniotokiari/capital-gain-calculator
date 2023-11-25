@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import pl.deniotokiari.capitalgaincalculator.domain.model.MarketData
 import pl.deniotokiari.capitalgaincalculator.domain.model.PortfolioWithMarketData
+import pl.deniotokiari.capitalgaincalculator.domain.usecase.DeletePortfolioUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetAllPortfoliosWithMarketDataUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.GetProfileMarketDataUseCase
 import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
@@ -17,7 +18,8 @@ import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
 class HomeViewModel(
     private val appNavigation: AppHostNavigation,
     getAllPortfoliosWithMarketDataUseCase: GetAllPortfoliosWithMarketDataUseCase,
-    getProfileMarketDataUseCase: GetProfileMarketDataUseCase
+    getProfileMarketDataUseCase: GetProfileMarketDataUseCase,
+    private val deletePortfolioUseCase: DeletePortfolioUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState.default())
     val uiState: StateFlow<UiState> = _uiState
@@ -52,6 +54,12 @@ class HomeViewModel(
 
     fun onAddPortfolioClicked() {
         appNavigation.navigateToPortfolioAdd()
+    }
+
+    fun onDeletePortfolio(name: String) {
+        viewModelScope.launch {
+            deletePortfolioUseCase(name)
+        }
     }
 
     data class UiState(

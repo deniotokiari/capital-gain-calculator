@@ -26,6 +26,9 @@ class DbPosition {
 
     @androidx.room.Dao
     interface Dao {
+        @Query("DELETE FROM position WHERE portfolio_id = :id")
+        suspend fun deleteByPortfolio(id: String)
+
         @Insert
         suspend fun addPosition(position: Model)
 

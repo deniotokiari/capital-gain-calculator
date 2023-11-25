@@ -1,17 +1,25 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package pl.deniotokiari.capitalgaincalculator.ui.compose.screen
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -40,7 +48,8 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
             else -> Idle(
                 state = state,
                 addPortfolio = viewModel::onAddPortfolioClicked,
-                navigateToPortfolio = viewModel::onPortfolioClicked
+                navigateToPortfolio = viewModel::onPortfolioClicked,
+                onDeletePortfolio = viewModel::onDeletePortfolio
             )
         }
     }
@@ -50,6 +59,7 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
 private fun Idle(
     state: HomeViewModel.UiState,
     addPortfolio: () -> Unit,
+    onDeletePortfolio: (String) -> Unit,
     navigateToPortfolio: (Int) -> Unit
 ) {
     when {
@@ -76,14 +86,50 @@ private fun Idle(
                 LazyColumn {
                     state.portfolios.forEachIndexed { index, portfolio ->
                         item(portfolio.name) {
-                            Box(modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable { navigateToPortfolio(index) }) {
+                            var showDeleteDialog by remember(portfolio.name) { mutableStateOf(false) }
+
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .combinedClickable(
+                                        onClick = { navigateToPortfolio(index) },
+                                        onLongClick = { showDeleteDialog = true }
+                                    )
+                            ) {
                                 MarketValueWidget(
                                     marketData = portfolio.data
                                 ) {
                                     Text(text = portfolio.name, fontSize = 14.sp)
                                 }
+                            }
+
+                            if (showDeleteDialog) {
+                                AlertDialog(
+                                    onDismissRequest = { showDeleteDialog = false },
+                                    confirmButton = {
+                                        Text(
+                                            text = stringResource(id = android.R.string.ok),
+                                            modifier = Modifier.clickable {
+                                                onDeletePortfolio(portfolio.name)
+                                                showDeleteDialog = false
+                                            }
+                                        )
+                                    },
+                                    text = {
+                                        Text(
+                                            text = stringResource(
+                                                id = R.string.delete_portfolio,
+                                                portfolio.name
+                                            )
+                                        )
+                                    },
+                                    dismissButton = {
+                                        Text(
+                                            text = stringResource(id = android.R.string.cancel),
+                                            modifier = Modifier.clickable { showDeleteDialog = false }
+                                        )
+                                    }
+                                )
                             }
                         }
                     }

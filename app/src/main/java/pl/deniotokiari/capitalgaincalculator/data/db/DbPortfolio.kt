@@ -20,6 +20,9 @@ class DbPortfolio {
 
     @androidx.room.Dao
     interface Dao {
+        @Query("DELETE FROM portfolio WHERE name = :name")
+        suspend fun deleteByName(name: String)
+
         @Transaction
         @Query("SELECT * FROM portfolio")
         fun portfolios(): Flow<List<PortfolioWithCurrency>>

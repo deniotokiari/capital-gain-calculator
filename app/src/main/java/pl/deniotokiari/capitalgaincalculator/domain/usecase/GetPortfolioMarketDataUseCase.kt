@@ -16,7 +16,7 @@ class GetPortfolioMarketDataUseCase(
     private val convertCurrencyValueUseCase: ConvertCurrencyValueUseCase
 ) : UseCase<String, MarketData?> {
     override suspend fun invoke(params: String): MarketData? {
-        val portfolio = requireNotNull(portfolioDao.getPortfolioByName(params)).toDataModel()
+        val portfolio = portfolioDao.getPortfolioByName(params)?.toDataModel() ?: return null
         val positions = positionDao.positionsByPortfolio(params)
 
         return calculateMarketDataFromMarketDataList(

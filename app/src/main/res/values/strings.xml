@@ -16,4 +16,5 @@
     <string name="ticker">Ticker</string>
     <string name="no_result">No result</string>
     <string name="position_add">Add position +</string>
+    <string name="delete_portfolio">Delete portfolio %s?</string>
 </resources>

@@ -22,6 +22,12 @@ class DbTicker {
 
     @androidx.room.Dao
     interface Dao {
+        @Query("DELETE FROM ticker WHERE symbol IN (:items)")
+        suspend fun delete(items: List<String>)
+
+        @Query("SELECT symbol FROM ticker LEFT JOIN instrument ON ticker.symbol = instrument.id WHERE instrument.id IS NULL")
+        suspend fun tickersWithoutInstrument(): List<String>
+
         @Insert(onConflict = OnConflictStrategy.IGNORE)
         suspend fun addTicker(ticker: Model)
 
