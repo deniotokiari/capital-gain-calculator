@@ -74,11 +74,16 @@ fun PortfolioScreen(
                         ) { Text(text = "Add manually") }
                         TextButton(
                             onClick = {
-                                viewModel.onImportFromRevoluteClicked()
+                                viewModel.onImportFromRevolutClicked()
                                 addTicker = false
                             }
                         ) { Text(text = "Import from Revolut") }
-                        TextButton(onClick = { /*TODO*/ }) { Text(text = "Import from Trading212") }
+                        TextButton(
+                            onClick = {
+                                viewModel.onImportFromTrading212Clicked()
+                                addTicker = false
+                            }
+                        ) { Text(text = "Import from Trading212") }
                     }
                 }
             )

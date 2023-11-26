@@ -8,6 +8,7 @@ import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.InitProfileCurren
 import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.PortfolioScreen
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.AddPortfolioSheet
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.ImportFromRevolutSheet
+import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.ImportFromTrading212Sheet
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.PositionAddSheet
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.TickerSearchSheet
 
@@ -41,7 +42,9 @@ class AppHostNavigation : HostNavigation() {
 
     suspend fun navigateToPositionAdd(): Position? = navigateWithResult(Destination.PositionAdd.route, null)
 
-    fun navigateToImportFromRevolute(id: String) = navigateWithId(Destination.ImportFromRevolut.route, id)
+    fun navigateToImportFromRevolut(id: String) = navigateWithId(Destination.ImportFromRevolut.route, id)
+
+    fun navigateToImportFromTrading212(id: String) = navigateWithId(Destination.ImportFromTrading212.route, id)
 
     enum class Destination(val route: Route) {
         Home(
@@ -96,6 +99,12 @@ class AppHostNavigation : HostNavigation() {
             Route.sheet(
                 name = "import_from_revolut/{${Route.ARGUMENT_ID}}",
                 content = { ImportFromRevolutSheet(id = requireNotNull(it)) }
+            )
+        ),
+        ImportFromTrading212(
+            Route.sheet(
+                name = "import_from_trading212/{${Route.ARGUMENT_ID}}",
+                content = { ImportFromTrading212Sheet(id = requireNotNull(it)) }
             )
         )
     }

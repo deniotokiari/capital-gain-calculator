@@ -124,7 +124,15 @@ abstract class HostNavigation {
             internal const val ARGUMENT_ID = "id"
             internal const val KEY_VALUE = "value"
 
-            internal fun NavBackStackEntry.getId(): String? = arguments?.getString(ARGUMENT_ID)
+            internal fun NavBackStackEntry.getId(): String? {
+                val id = arguments?.getString(ARGUMENT_ID)
+
+                return if (id == "{$ARGUMENT_ID}") {
+                    null
+                } else {
+                    id
+                }
+            }
 
             fun composable(name: String, content: @Composable (id: String?) -> Unit): Route = Route(
                 name = name,

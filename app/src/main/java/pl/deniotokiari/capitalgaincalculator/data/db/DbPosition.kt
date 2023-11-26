@@ -30,7 +30,7 @@ class DbPosition {
         @Query("DELETE FROM position WHERE portfolio_id = :id")
         suspend fun deleteByPortfolio(id: String)
 
-        @Insert(onConflict = OnConflictStrategy.REPLACE)
+        @Insert(onConflict = OnConflictStrategy.IGNORE)
         suspend fun addPosition(position: Model)
 
         @Query("SELECT * FROM position")

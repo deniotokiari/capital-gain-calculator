@@ -24,7 +24,7 @@ android {
             useSupportLibrary = true
         }
 
-        fun getAlphaVantageApiKeys(value: String): String {
+        fun getYahooApiKeys(value: String): String {
             val result = mutableListOf<String>()
             val items = value.split(",")
 
@@ -36,9 +36,9 @@ android {
         }
 
         buildConfigField(
-            "String[]",
-            "ALPHA_VANTAGE_API_KEYS",
-            getAlphaVantageApiKeys(gradleLocalProperties(rootDir).getProperty("alphavantage.api.keys"))
+            "String",
+            "ALPHA_VANTAGE_API_KEY",
+            "\"${gradleLocalProperties(rootDir).getProperty("alphavantage.api.keys")}\""
         )
         buildConfigField(
             "String",
@@ -46,9 +46,9 @@ android {
             "\"${gradleLocalProperties(rootDir).getProperty("poligon.api.key")}\""
         )
         buildConfigField(
-            "String",
-            "YAHOO_FINANCE_API_KEY",
-            "\"${gradleLocalProperties(rootDir).getProperty("yahoo.finance.api.key")}\""
+            "String[]",
+            "YAHOO_FINANCE_API_KEYS",
+            getYahooApiKeys(gradleLocalProperties(rootDir).getProperty("yahoo.finance.api.keys"))
         )
     }
 

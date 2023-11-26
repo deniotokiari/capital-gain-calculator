@@ -39,10 +39,10 @@ fun MarketValueWidget(
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        val contentWeight = 0.2F
-        var marketWeight = 0.3F
-        var gainWeight = 0.3F
-        var percentWeight = 0.2F
+        val contentWeight = 0.24F
+        var marketWeight = 0.29F
+        var gainWeight = 0.29F
+        var percentWeight = 0.18F
 
         var textAlign = TextAlign.End
 

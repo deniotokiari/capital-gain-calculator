@@ -3,6 +3,7 @@ package pl.deniotokiari.capitalgaincalculator.data.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.TypeConverter
@@ -25,7 +26,7 @@ class DbInstrument {
         @Query("DELETE FROM instrument WHERE portfolio_id = :id")
         suspend fun deleteByPortfolio(id: String)
 
-        @Insert
+        @Insert(onConflict = OnConflictStrategy.IGNORE)
         suspend fun addInstrument(instrument: Model)
 
         @Transaction

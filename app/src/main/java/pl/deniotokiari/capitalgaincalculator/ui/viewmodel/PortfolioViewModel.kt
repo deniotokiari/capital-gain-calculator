@@ -68,8 +68,12 @@ class PortfolioViewModel(
         }
     }
 
-    fun onImportFromRevoluteClicked() {
-        appNavigation.navigateToImportFromRevolute(id)
+    fun onImportFromRevolutClicked() {
+        appNavigation.navigateToImportFromRevolut(id)
+    }
+
+    fun onImportFromTrading212Clicked() {
+        appNavigation.navigateToImportFromTrading212(id)
     }
 
     fun onAddPositionClicked(index: Int) {

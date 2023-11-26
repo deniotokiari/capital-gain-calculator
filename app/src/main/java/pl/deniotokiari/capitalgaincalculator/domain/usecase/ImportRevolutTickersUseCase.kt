@@ -13,7 +13,12 @@ class ImportRevolutTickersUseCase(
 
     private fun getType(values: List<String>): String? = values.getOrNull(2)
 
-    private fun getDate(values: List<String>): String? = values.getOrNull(0)
+    private fun getDate(values: List<String>): String? = values
+        .getOrNull(0)
+        ?.split("T")
+        ?.get(0)
+        ?.split("-")
+        ?.joinToString(",")
 
     private fun getQuantity(values: List<String>): String? = values.getOrNull(3)
 

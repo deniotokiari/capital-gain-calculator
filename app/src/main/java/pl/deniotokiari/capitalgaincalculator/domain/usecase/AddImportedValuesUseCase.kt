@@ -31,11 +31,11 @@ class AddImportedValuesUseCase(
                 )
 
                 items.forEach { (date, quantity, totalAmount, currency) ->
-                    val (year, month, day) = date.split("T")[0].split("-").map { it.toInt() }
+                    val (year, month, day) = date.split(",").map { it.toInt() }
 
                     addPositionToInstrument(
                         AddPositionToInstrument.Params(
-                            instrumentId = ticker,
+                            instrumentId = tickerResult.symbol,
                             portfolioId = id,
                             position = Position(
                                 count = BigDecimal(quantity),

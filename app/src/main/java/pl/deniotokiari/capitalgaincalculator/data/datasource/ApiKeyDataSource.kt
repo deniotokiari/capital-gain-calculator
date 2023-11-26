@@ -2,15 +2,10 @@ package pl.deniotokiari.capitalgaincalculator.data.datasource
 
 import org.koin.core.annotation.Single
 import pl.deniotokiari.capitalgaincalculator.BuildConfig
-import pl.deniotokiari.capitalgaincalculator.data.model.ApiToken
-import java.util.Stack
+import kotlin.random.Random
 
 interface ApiKeyDataSource {
-    fun getAlphaVantageApiKey(): ApiToken
-
-    fun useNextAlphaVantageApiKey()
-
-    fun isLastAlphaVantageApiKey(): Boolean
+    fun getAlphaVantageApiKey(): String
 
     fun getPoligonApiKey(): String
 
@@ -19,25 +14,10 @@ interface ApiKeyDataSource {
 
 @Single
 class ApiKeyLocalDataSource : ApiKeyDataSource {
-    private val alphaVantageAPiKeys = Stack<String>()
-
-    init {
-        alphaVantageAPiKeys.addAll(BuildConfig.ALPHA_VANTAGE_API_KEYS)
-    }
-
-    override fun getAlphaVantageApiKey(): ApiToken = alphaVantageAPiKeys.peek().let(::ApiToken)
-
-    override fun useNextAlphaVantageApiKey() {
-        if (alphaVantageAPiKeys.size == 1) {
-            return
-        }
-
-        alphaVantageAPiKeys.pop()
-    }
-
-    override fun isLastAlphaVantageApiKey(): Boolean = alphaVantageAPiKeys.size == 1
+    override fun getAlphaVantageApiKey(): String = BuildConfig.ALPHA_VANTAGE_API_KEY
 
     override fun getPoligonApiKey(): String = BuildConfig.POLIGON_API_KEY
 
-    override fun getYahooFinanceApiKey(): String = BuildConfig.YAHOO_FINANCE_API_KEY
+    override fun getYahooFinanceApiKey(): String =
+        BuildConfig.YAHOO_FINANCE_API_KEYS[Random.nextInt(BuildConfig.YAHOO_FINANCE_API_KEYS.size)]
 }
