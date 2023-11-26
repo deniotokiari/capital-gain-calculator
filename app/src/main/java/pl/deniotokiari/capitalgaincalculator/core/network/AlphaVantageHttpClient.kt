@@ -29,6 +29,6 @@ fun createAlphaVantage(
 
     return anonymous
         .newBuilder()
-        .addInterceptor { makeRequest(it, apiKeyRepository.getAlphaVantageApiKey().value) }
+        .addInterceptor { makeRequest(it, apiKeyRepository.getAlphaVantageApiKey()) }
         .build()
 }
