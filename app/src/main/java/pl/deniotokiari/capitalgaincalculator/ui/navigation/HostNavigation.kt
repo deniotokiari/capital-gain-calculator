@@ -65,9 +65,9 @@ abstract class HostNavigation {
         controller.popBackStack()
     }
 
-    protected suspend fun <T> navigateWithResult(route: Route): T? {
+    protected suspend fun <T> navigateWithResult(route: Route, id: String?): T? {
         val backstackEntry = controller.currentBackStackEntry
-        controller.navigate(route.name)
+        controller.navigate(route.withId(id))
 
         val result = suspendCancellableCoroutine {
             lateinit var onDestinationChangedListener: NavController.OnDestinationChangedListener
@@ -110,7 +110,11 @@ abstract class HostNavigation {
         val type: Type,
         val content: @Composable (String?) -> Unit
     ) {
-        fun withId(value: String) = name.replace("{$ARGUMENT_ID}", value)
+        fun withId(value: String?) = if (value != null) {
+            name.replace("{$ARGUMENT_ID}", value)
+        } else {
+            name
+        }
 
         enum class Type {
             COMPOSABLE, SHEET

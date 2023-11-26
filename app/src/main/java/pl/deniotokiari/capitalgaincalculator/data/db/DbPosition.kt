@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Relation
 import androidx.room.Transaction
@@ -29,7 +30,7 @@ class DbPosition {
         @Query("DELETE FROM position WHERE portfolio_id = :id")
         suspend fun deleteByPortfolio(id: String)
 
-        @Insert
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
         suspend fun addPosition(position: Model)
 
         @Query("SELECT * FROM position")

@@ -53,9 +53,9 @@ class PortfolioViewModel(
         }
     }
 
-    fun onAddTickerCLicked() {
+    fun onAddTickerClicked() {
         viewModelScope.launch {
-            val ticker = appNavigation.navigateToTickerSearch()
+            val ticker = appNavigation.navigateToTickerSearch(null)
 
             if (ticker != null) {
                 addTickerToPortfolioUseCase(
@@ -66,6 +66,10 @@ class PortfolioViewModel(
                 )
             }
         }
+    }
+
+    fun onImportFromRevoluteClicked() {
+        appNavigation.navigateToImportFromRevolute(id)
     }
 
     fun onAddPositionClicked(index: Int) {

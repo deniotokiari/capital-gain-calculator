@@ -7,6 +7,7 @@ import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.HomeScreen
 import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.InitProfileCurrencyScreen
 import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.PortfolioScreen
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.AddPortfolioSheet
+import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.ImportFromRevolutSheet
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.PositionAddSheet
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.TickerSearchSheet
 
@@ -35,9 +36,12 @@ class AppHostNavigation : HostNavigation() {
         navigateWithId(Destination.Portfolio.route, id)
     }
 
-    suspend fun navigateToTickerSearch(): Ticker.Search? = navigateWithResult(Destination.TickerSearch.route)
+    suspend fun navigateToTickerSearch(ticker: String?): Ticker.Search? =
+        navigateWithResult(Destination.TickerSearch.route, ticker)
 
-    suspend fun navigateToPositionAdd(): Position? = navigateWithResult(Destination.PositionAdd.route)
+    suspend fun navigateToPositionAdd(): Position? = navigateWithResult(Destination.PositionAdd.route, null)
+
+    fun navigateToImportFromRevolute(id: String) = navigateWithId(Destination.ImportFromRevolut.route, id)
 
     enum class Destination(val route: Route) {
         Home(
@@ -78,14 +82,20 @@ class AppHostNavigation : HostNavigation() {
         ),
         TickerSearch(
             Route.sheet(
-                name = "ticker_search",
-                content = { TickerSearchSheet() }
+                name = "ticker_search/{${Route.ARGUMENT_ID}}",
+                content = { TickerSearchSheet(it) }
             )
         ),
         PositionAdd(
             Route.sheet(
                 name = "position_add",
                 content = { PositionAddSheet() }
+            )
+        ),
+        ImportFromRevolut(
+            Route.sheet(
+                name = "import_from_revolut/{${Route.ARGUMENT_ID}}",
+                content = { ImportFromRevolutSheet(id = requireNotNull(it)) }
             )
         )
     }

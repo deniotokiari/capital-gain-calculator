@@ -28,8 +28,8 @@ fun MarketValueWidget(
     fontSize: TextUnit = 14.sp,
     content: (@Composable BoxScope.() -> Unit)? = null
 ) {
-    val currencyFormat = DecimalFormat("#,###.00")
-    val percentFormat = DecimalFormat("##.00")
+    val currencyFormat = DecimalFormat("#,##0.00")
+    val percentFormat = DecimalFormat("#0.00")
     val green = Color("#027560".toColorInt())
     val red = Color("#BC1513".toColorInt())
 

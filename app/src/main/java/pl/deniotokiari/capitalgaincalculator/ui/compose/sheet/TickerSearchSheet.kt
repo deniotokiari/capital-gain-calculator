@@ -28,12 +28,17 @@ import pl.deniotokiari.capitalgaincalculator.ui.viewmodel.TickerSearchViewModel
 
 @Composable
 fun TickerSearchSheet(
+    initialTicker: String?,
     viewModel: TickerSearchViewModel = koinViewModel()
 ) {
     Column(
         modifier = Modifier.padding(paddingLarge)
     ) {
-        var ticker by remember { mutableStateOf("") }
+        var ticker by remember { mutableStateOf(initialTicker ?: "") }
+
+        if (initialTicker != null) {
+            viewModel.onQueryChanged(initialTicker)
+        }
 
         OutlinedTextField(
             modifier = Modifier
