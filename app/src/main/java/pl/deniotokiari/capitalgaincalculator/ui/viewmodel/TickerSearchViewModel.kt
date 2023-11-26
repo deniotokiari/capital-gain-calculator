@@ -30,31 +30,30 @@ class TickerSearchViewModel(
     init {
         viewModelScope.launch {
             query.debounce(250L).collect {
-                if (it.isEmpty() || it.isBlank()) {
-                    searchJob?.cancel()
-                    _uiState.value = UiState.default()
-
-                    return@collect
-                }
-
-                _uiState.value = UiState.loading()
-
                 searchJob?.cancel()
 
-                searchJob = launch {
-                    val items = searchTickerUseCase(it).map { item -> item.toViewModel() }
+                if (it.isEmpty() || it.isBlank()) {
+                    _uiState.value = UiState.default()
+                } else {
+                    _uiState.value = UiState.loading()
 
-                    _uiState.value = UiState(
-                        items = items,
-                        loading = false,
-                        noResult = items.isEmpty()
-                    )
+                    searchJob = launch {
+                        val items = searchTickerUseCase(it).map { item -> item.toViewModel() }
+
+                        _uiState.value = UiState(
+                            items = items,
+                            loading = false,
+                            noResult = items.isEmpty()
+                        )
+                    }
                 }
             }
         }
     }
 
     fun onQueryChanged(query: String) {
+        searchJob?.cancel()
+        _uiState.update { UiState.loading() }
         this.query.update { query }
     }
 
