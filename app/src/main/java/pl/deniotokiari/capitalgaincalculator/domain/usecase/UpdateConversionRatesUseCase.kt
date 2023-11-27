@@ -10,5 +10,5 @@ import pl.deniotokiari.capitalgaincalculator.data.repository.CurrencyRepository
 class UpdateConversionRatesUseCase(
     private val currencyRepository: CurrencyRepository
 ) : UseCase<Unit, Result<Unit, DataError>> {
-    override suspend fun invoke(params: Unit): Result<Unit, DataError> = currencyRepository.updateCurrencies()
+    override suspend fun invoke(params: Unit): Result<Unit, DataError> = currencyRepository.updateConversionRates()
 }

@@ -26,8 +26,8 @@ class UpdateConversionRatesWorker(
 
     companion object {
         private const val WORK_NAME = "update_conversion_rates"
-        private const val REPEAT_INTERVAL = 1L
-        private val REPEAT_INTERVAL_TIME_UNIT = TimeUnit.DAYS
+        private const val REPEAT_INTERVAL = 6L
+        private val REPEAT_INTERVAL_TIME_UNIT = TimeUnit.HOURS
 
         fun start(workManager: WorkManager) {
             val request = PeriodicWorkRequestBuilder<UpdateConversionRatesWorker>(

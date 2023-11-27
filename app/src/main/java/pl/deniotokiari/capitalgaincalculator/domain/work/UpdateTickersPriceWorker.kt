@@ -26,8 +26,8 @@ class UpdateTickersPriceWorker(
 
     companion object {
         private const val WORK_NAME = "update_tickers_price"
-        private const val REPEAT_INTERVAL = 1L
-        private val REPEAT_INTERVAL_TIME_UNIT = TimeUnit.DAYS
+        private const val REPEAT_INTERVAL = 6L
+        private val REPEAT_INTERVAL_TIME_UNIT = TimeUnit.HOURS
 
         fun start(workManager: WorkManager) {
             val request = PeriodicWorkRequestBuilder<UpdateTickersPriceWorker>(
