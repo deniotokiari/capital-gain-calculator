@@ -3,6 +3,7 @@
 package pl.deniotokiari.capitalgaincalculator.ui.compose.screen
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -89,11 +90,21 @@ fun PortfolioScreen(
             )
         }
 
-        TextButton(
-            onClick = { addTicker = true },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround
         ) {
-            Text(text = stringResource(id = R.string.ticker_add))
+            TextButton(
+                onClick = { addTicker = true }
+            ) {
+                Text(text = stringResource(id = R.string.ticker_add))
+            }
+
+            TextButton(
+                onClick = { addTicker = true }
+            ) {
+                Text(text = stringResource(id = R.string.currency_add))
+            }
         }
 
         if (state.loading) {

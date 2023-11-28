@@ -6,6 +6,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
+import pl.deniotokiari.capitalgaincalculator.core.successOrNull
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.data.service.yahoo.YahooFinanceService
 import pl.deniotokiari.capitalgaincalculator.data.service.yahoo.model.Quote
@@ -41,7 +42,7 @@ class CurrencyConversionDataSourceTest {
 
         val result = sut.conversionRate(from, to)
 
-        assertEquals(BigDecimal(3.99889).toDouble(), result?.toDouble())
+        assertEquals(BigDecimal(3.99889).toDouble(), result.successOrNull()?.toDouble())
     }
 
     @Test
@@ -68,7 +69,7 @@ class CurrencyConversionDataSourceTest {
 
         val result = sut.conversionRate(from, to)
 
-        assertEquals(BigDecimal(0.04785419246505833).toDouble(), result?.toDouble())
+        assertEquals(BigDecimal(0.04785419246505833).toDouble(), result.successOrNull()?.toDouble())
     }
 
     @Test
@@ -91,7 +92,7 @@ class CurrencyConversionDataSourceTest {
 
         val result = sut.conversionRate(from, to)
 
-        assertEquals(BigDecimal(0.19133541404218257).toDouble(), result?.toDouble())
+        assertEquals(BigDecimal(0.19133541404218257).toDouble(), result.successOrNull()?.toDouble())
     }
 
     // DOT to PLN
@@ -119,7 +120,7 @@ class CurrencyConversionDataSourceTest {
 
         val result = sut.conversionRate(from, to)
 
-        assertEquals(BigDecimal(20.77268824504303).toDouble(), result?.toDouble())
+        assertEquals(BigDecimal(20.77268824504303).toDouble(), result.successOrNull()?.toDouble())
     }
 
     // DOT to USD
@@ -143,7 +144,7 @@ class CurrencyConversionDataSourceTest {
 
         val result = sut.conversionRate(from, to)
 
-        assertEquals(BigDecimal(5.226424).toDouble(), result?.toDouble())
+        assertEquals(BigDecimal(5.226424).toDouble(), result.successOrNull()?.toDouble())
     }
 
     // DOT to BTC
@@ -171,6 +172,6 @@ class CurrencyConversionDataSourceTest {
 
         val result = sut.conversionRate(from, to)
 
-        assertEquals(BigDecimal(2.5).toDouble(), result?.toDouble())
+        assertEquals(BigDecimal(2.5).toDouble(), result.successOrNull()?.toDouble())
     }
 }

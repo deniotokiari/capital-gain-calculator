@@ -18,7 +18,7 @@ class DbInstrument {
     )
 
     enum class Type {
-        Ticker
+        Ticker, Currency
     }
 
     @androidx.room.Dao
