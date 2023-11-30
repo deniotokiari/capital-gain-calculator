@@ -54,6 +54,7 @@ fun PortfolioScreen(
         )
 
         var addTicker by remember { mutableStateOf(false) }
+        var addCurrency by remember { mutableStateOf(false) }
 
         if (addTicker) {
             AlertDialog(
@@ -90,6 +91,35 @@ fun PortfolioScreen(
             )
         }
 
+        if (addCurrency) {
+            AlertDialog(
+                onDismissRequest = { addCurrency = false },
+                confirmButton = { },
+                dismissButton = {
+                    Text(
+                        text = stringResource(id = android.R.string.cancel),
+                        modifier = Modifier.clickable { addCurrency = false }
+                    )
+                },
+                text = {
+                    Column {
+                        TextButton(
+                            onClick = {
+                                viewModel.onAddTickerClicked()
+                                addCurrency = false
+                            }
+                        ) { Text(text = "Add manually") }
+                        TextButton(
+                            onClick = {
+                                viewModel.onImportFromRevolutClicked()
+                                addCurrency = false
+                            }
+                        ) { Text(text = "Import from Revolut") }
+                    }
+                }
+            )
+        }
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
@@ -101,7 +131,7 @@ fun PortfolioScreen(
             }
 
             TextButton(
-                onClick = { addTicker = true }
+                onClick = { addCurrency = true }
             ) {
                 Text(text = stringResource(id = R.string.currency_add))
             }
