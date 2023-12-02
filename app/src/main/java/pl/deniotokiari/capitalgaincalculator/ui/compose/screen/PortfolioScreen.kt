@@ -76,7 +76,7 @@ fun PortfolioScreen(
                         ) { Text(text = "Add manually") }
                         TextButton(
                             onClick = {
-                                viewModel.onImportFromRevolutClicked()
+                                viewModel.onImportTickerFromRevolutClicked()
                                 addTicker = false
                             }
                         ) { Text(text = "Import from Revolut") }
@@ -105,13 +105,13 @@ fun PortfolioScreen(
                     Column {
                         TextButton(
                             onClick = {
-                                viewModel.onAddTickerClicked()
+                                viewModel.onAddCurrencyClicked()
                                 addCurrency = false
                             }
                         ) { Text(text = "Add manually") }
                         TextButton(
                             onClick = {
-                                viewModel.onImportFromRevolutClicked()
+                                viewModel.onImportCurrencyFromRevolutClicked()
                                 addCurrency = false
                             }
                         ) { Text(text = "Import from Revolut") }
@@ -145,7 +145,7 @@ fun PortfolioScreen(
             LazyColumn(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                state.tickers.forEachIndexed { index, item ->
+                state.instruments.forEachIndexed { index, item ->
                     val expanded = item.expanded
 
                     item(item.name) {
@@ -188,7 +188,11 @@ fun PortfolioScreen(
                                             fontSize = 12.sp
                                         )*/
                                         Text(
-                                            text = position.count,
+                                            text = if (position.showSymbol) {
+                                                "${position.count}${item.name}"
+                                            } else {
+                                                position.count
+                                            },
                                             fontSize = 12.sp
                                         )
                                     }

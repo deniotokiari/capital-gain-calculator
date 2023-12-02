@@ -2,12 +2,10 @@
 
 package pl.deniotokiari.capitalgaincalculator.ui.compose.widget
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -22,11 +20,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
-import pl.deniotokiari.capitalgaincalculator.ui.theme.Purple40
 import pl.deniotokiari.capitalgaincalculator.ui.viewmodel.CurrencySelectorViewModel
 
 @Composable
@@ -70,43 +66,14 @@ fun CurrencySelectorWidget(
         ModalBottomSheet(
             onDismissRequest = { isExpanded = false }
         ) {
-            var searchInput by remember { mutableStateOf("") }
-
-            OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                value = searchInput,
-                onValueChange = {
-                    searchInput = it
-
-                    viewModel.onQueryChange(searchInput)
+            CurrenciesListWithSearchWidget(
+                onCurrencySelected = {
+                    viewModel.onSelectedCurrencyChange(it)
+                    onCurrencySelected(it)
+                    isExpanded = false
                 },
-                label = { Text(text = "Search for currency") },
-                singleLine = true
+                viewModel = viewModel
             )
-            LazyColumn {
-                state.items
-                    .forEach {
-                        item(key = it.currency.title) {
-                            Text(
-                                text = it.title,
-                                modifier = Modifier
-                                    .clickable {
-                                        viewModel.onSelectedCurrencyChange(it.currency)
-                                        onCurrencySelected(it.currency)
-                                        isExpanded = false
-                                    }
-                                    .fillParentMaxWidth()
-                                    .padding(16.dp), color = if (it.selected) {
-                                    Purple40
-                                } else {
-                                    Color.Unspecified
-                                }
-                            )
-                        }
-                    }
-            }
         }
     }
 }

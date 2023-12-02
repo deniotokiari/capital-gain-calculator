@@ -30,12 +30,24 @@ class DbInstrument {
         suspend fun addInstrument(instrument: Model)
 
         @Transaction
-        @Query("SELECT ticker.*, position.* " +
-                "FROM instrument JOIN ticker ON instrument.id = ticker.symbol " +
-                "LEFT JOIN position ON position.instrument_id = instrument.id AND position.portfolio_id = instrument.portfolio_id " +
-                "WHERE instrument.portfolio_id = :portfolioId " +
-                "ORDER BY position.date DESC")
-        fun positionsByPortfolioId(portfolioId: String): Flow<Map<DbTicker.Dao.TickerWithCurrency, List<DbPosition.Dao.PositionWithCurrency>>>
+        @Query(
+            "SELECT ticker.*, position.* " +
+                    "FROM instrument JOIN ticker ON instrument.id = ticker.symbol " +
+                    "LEFT JOIN position ON position.instrument_id = instrument.id AND position.portfolio_id = instrument.portfolio_id " +
+                    "WHERE instrument.portfolio_id = :portfolioId " +
+                    "ORDER BY position.date DESC"
+        )
+        fun tickerPositionsByPortfolioId(portfolioId: String): Flow<Map<DbTicker.Dao.TickerWithCurrency, List<DbPosition.Dao.PositionWithCurrency>>>
+
+        @Transaction
+        @Query(
+            "SELECT currency.*, position.* " +
+                    "FROM instrument JOIN currency ON instrument.id = currency.code " +
+                    "LEFT JOIN position ON position.instrument_id = instrument.id AND position.portfolio_id = instrument.portfolio_id " +
+                    "WHERE instrument.portfolio_id = :portfolioId " +
+                    "ORDER BY position.date DESC"
+        )
+        fun currencyPositionsByPortfolioId(portfolioId: String): Flow<Map<DbCurrency.Model, List<DbPosition.Dao.PositionWithCurrency>>>
     }
 
     class Converter {

@@ -7,6 +7,8 @@ import pl.deniotokiari.capitalgaincalculator.data.db.DbPosition
 import pl.deniotokiari.capitalgaincalculator.data.db.toDataModel
 import pl.deniotokiari.capitalgaincalculator.data.model.CurrencyValue
 import pl.deniotokiari.capitalgaincalculator.domain.model.MarketData
+import pl.deniotokiari.capitalgaincalculator.domain.model.Percent
+import java.math.BigDecimal
 
 @Factory(binds = [GetPortfolioMarketDataUseCase::class])
 class GetPortfolioMarketDataUseCase(
@@ -22,18 +24,52 @@ class GetPortfolioMarketDataUseCase(
         return calculateMarketDataFromMarketDataList(
             CalculateMarketDataFromMarketDataList.Params(
                 targetCurrency = portfolio.currency,
-                data = positions.map { (position, currency, ticker) ->
-                    MarketData.from(
-                        spent = convertCurrencyValueUseCase(
-                            CurrencyValue(
-                                value = position.price,
-                                currency = currency.toDataModel()
-                            ) to ticker.currency.toDataModel()
-                        ).value,
-                        count = position.count,
-                        currentPrice = ticker.ticker.price,
-                        currency = ticker.currency.toDataModel()
-                    )
+                data = positions.mapNotNull { (position, currency, tickerPosition, currencyPosition) ->
+                    when {
+                        tickerPosition != null -> {
+                            MarketData.from(
+                                spent = convertCurrencyValueUseCase(
+                                    CurrencyValue(
+                                        value = position.price,
+                                        currency = currency.toDataModel()
+                                    ) to tickerPosition.currency.toDataModel()
+                                ).value,
+                                count = position.count,
+                                currentPrice = tickerPosition.ticker.price,
+                                currency = tickerPosition.currency.toDataModel(),
+                            )
+                        }
+
+                        currencyPosition != null -> {
+                            if (currencyPosition.code == position.currencyCode) {
+                                MarketData(
+                                    marketValue = CurrencyValue(
+                                        value = position.count,
+                                        currency = currency.toDataModel()
+                                    ),
+                                    gain = CurrencyValue(
+                                        value = BigDecimal.ZERO,
+                                        currency = currency.toDataModel()
+                                    ),
+                                    percent = Percent(value = BigDecimal.ZERO)
+                                )
+                            } else {
+                                MarketData.from(
+                                    spent = position.price,
+                                    count = position.count,
+                                    currentPrice = position.count * convertCurrencyValueUseCase(
+                                        CurrencyValue(
+                                            value = BigDecimal.ONE,
+                                            currency = currencyPosition.toDataModel()
+                                        ) to portfolio.currency
+                                    ).value,
+                                    currency = portfolio.currency
+                                )
+                            }
+                        }
+
+                        else -> null
+                    }
                 }
             )
         )

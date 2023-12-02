@@ -38,14 +38,14 @@ class DbPosition {
 
         @Transaction
         @Query("SELECT * FROM position WHERE portfolio_id = :portfolio")
-        suspend fun positionsByPortfolio(portfolio: String): List<PositionWithTickerAndCurrency>
+        suspend fun positionsByPortfolio(portfolio: String): List<PositionWithTickerOrCurrency>
 
         data class PositionWithCurrency(
             @Embedded val position: Model,
             @Relation(parentColumn = "currency_code", entityColumn = "code") val currency: DbCurrency.Model
         )
 
-        data class PositionWithTickerAndCurrency(
+        data class PositionWithTickerOrCurrency(
             @Embedded val position: Model,
             @Relation(parentColumn = "currency_code", entityColumn = "code") val currency: DbCurrency.Model,
             @Relation(
@@ -53,7 +53,12 @@ class DbPosition {
                 entityColumn = "symbol",
                 entity = DbTicker.Model::class
             )
-            val ticker: DbTicker.Dao.TickerWithCurrency
+            val tickerPosition: DbTicker.Dao.TickerWithCurrency?,
+            @Relation(
+                parentColumn = "instrument_id",
+                entityColumn = "code"
+            )
+            val currencyPosition: DbCurrency.Model?
         )
     }
 }

@@ -1,12 +1,14 @@
 package pl.deniotokiari.capitalgaincalculator.ui.navigation
 
 import org.koin.core.annotation.Single
+import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.data.model.Position
 import pl.deniotokiari.capitalgaincalculator.data.model.Ticker
 import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.HomeScreen
 import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.InitProfileCurrencyScreen
 import pl.deniotokiari.capitalgaincalculator.ui.compose.screen.PortfolioScreen
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.AddPortfolioSheet
+import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.CurrencySearchSheet
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.ImportFromRevolutSheet
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.ImportFromTrading212Sheet
 import pl.deniotokiari.capitalgaincalculator.ui.compose.sheet.PositionAddSheet
@@ -45,6 +47,8 @@ class AppHostNavigation : HostNavigation() {
     fun navigateToImportFromRevolut(id: String) = navigateWithId(Destination.ImportFromRevolut.route, id)
 
     fun navigateToImportFromTrading212(id: String) = navigateWithId(Destination.ImportFromTrading212.route, id)
+
+    suspend fun navigateToCurrencySearch(): Currency? = navigateWithResult(Destination.CurrencySearch.route, null)
 
     enum class Destination(val route: Route) {
         Home(
@@ -105,6 +109,12 @@ class AppHostNavigation : HostNavigation() {
             Route.sheet(
                 name = "import_from_trading212/{${Route.ARGUMENT_ID}}",
                 content = { ImportFromTrading212Sheet(id = requireNotNull(it)) }
+            )
+        ),
+        CurrencySearch(
+            Route.sheet(
+                name = "currency_search/${Route.ARGUMENT_ID}",
+                content = { CurrencySearchSheet() }
             )
         )
     }
