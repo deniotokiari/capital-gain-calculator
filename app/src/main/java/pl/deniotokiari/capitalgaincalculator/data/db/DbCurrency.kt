@@ -32,6 +32,9 @@ class DbCurrency {
 
         @Query("SELECT * FROM currency WHERE code = :code")
         suspend fun currencyByCode(code: String): Model
+
+        @Query("SELECT * FROM currency WHERE code = :code")
+        suspend fun currencyOrNull(code: String): Model?
     }
 
     class Converter {

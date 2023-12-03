@@ -8,15 +8,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
-import pl.deniotokiari.capitalgaincalculator.domain.usecase.AddImportedValuesUseCase
+import pl.deniotokiari.capitalgaincalculator.domain.usecase.AddImportedTickerValuesUseCase
 import pl.deniotokiari.capitalgaincalculator.domain.usecase.ImportRevolutTickersUseCase
 import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
 
 @KoinViewModel
-class ImportFromRevolutViewModel(
+class ImportTickerFromRevolutViewModel(
     private val id: String,
     private val importRevolutTickersUseCase: ImportRevolutTickersUseCase,
-    private val addImportedValuesUseCase: AddImportedValuesUseCase,
+    private val addImportedTickerValuesUseCase: AddImportedTickerValuesUseCase,
     private val appHostNavigation: AppHostNavigation
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState(loading = false))
@@ -30,8 +30,8 @@ class ImportFromRevolutViewModel(
             if (map == null) {
                 _uiState.update { it.copy(loading = false) }
             } else {
-                addImportedValuesUseCase(
-                    AddImportedValuesUseCase.Params(
+                addImportedTickerValuesUseCase(
+                    AddImportedTickerValuesUseCase.Params(
                         map = map,
                         portfolioId = id
                     )

@@ -16,12 +16,12 @@ import androidx.compose.ui.Modifier
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import pl.deniotokiari.capitalgaincalculator.ui.theme.paddingLarge
-import pl.deniotokiari.capitalgaincalculator.ui.viewmodel.ImportFromRevolutViewModel
+import pl.deniotokiari.capitalgaincalculator.ui.viewmodel.ImportTickerFromRevolutViewModel
 
 @Composable
-fun ImportFromRevolutSheet(
+fun ImportTickerFromRevolutSheet(
     id: String,
-    viewModel: ImportFromRevolutViewModel = koinViewModel(parameters = { parametersOf(id) })
+    viewModel: ImportTickerFromRevolutViewModel = koinViewModel(parameters = { parametersOf(id) })
 ) {
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) {
         viewModel.onDocumentSelected(it)

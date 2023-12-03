@@ -28,7 +28,11 @@ class CryptoTest {
                 } else {
                     getTotalAmount(items)
                 }
-                val currency = getCurrency(items)
+                val currency = if (totalAmount == "0") {
+                    crypto
+                } else {
+                    getCurrency(items)
+                }
 
                 val list = map[crypto] ?: mutableListOf()
 

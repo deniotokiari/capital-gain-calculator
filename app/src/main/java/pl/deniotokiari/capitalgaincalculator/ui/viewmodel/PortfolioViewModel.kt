@@ -86,11 +86,11 @@ class PortfolioViewModel(
     }
 
     fun onImportCurrencyFromRevolutClicked() {
-
+        appNavigation.navigateToImportCurrencyFromRevolut(id)
     }
 
     fun onImportTickerFromRevolutClicked() {
-        appNavigation.navigateToImportFromRevolut(id)
+        appNavigation.navigateToImportTickerFromRevolut(id)
     }
 
     fun onImportFromTrading212Clicked() {

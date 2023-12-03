@@ -28,7 +28,8 @@ data class Currency(
 
     enum class Type {
         Physical,
-        Digital;
+        Digital,
+        Unknown;
 
         companion object {
             fun fromLocalModel(value: String): Type = value.toInt().let { Type.values()[it] }
@@ -43,6 +44,12 @@ data class Currency(
                 type = Type.fromLocalModel(type)
             )
         }
+
+        fun fromCode(code: String): Currency = Currency(
+            name = code,
+            code = Code(code),
+            type = Currency.Type.Unknown
+        )
     }
 }
 

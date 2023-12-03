@@ -9,13 +9,13 @@ import pl.deniotokiari.capitalgaincalculator.ui.navigation.AppHostNavigation
 import java.math.BigDecimal
 import java.time.LocalDate
 
-@Factory(binds = [AddImportedValuesUseCase::class])
-class AddImportedValuesUseCase(
+@Factory(binds = [AddImportedTickerValuesUseCase::class])
+class AddImportedTickerValuesUseCase(
     private val appHostNavigation: AppHostNavigation,
     private val addTickerToPortfolioUseCase: AddTickerToPortfolioUseCase,
     private val addPositionToInstrument: AddPositionToInstrument,
     private val currencyRepository: CurrencyRepository
-) : UseCase<AddImportedValuesUseCase.Params, Unit> {
+) : UseCase<AddImportedTickerValuesUseCase.Params, Unit> {
     override suspend fun invoke(params: Params) = runCatching {
         val (map, id) = params
 
