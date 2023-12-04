@@ -183,10 +183,6 @@ fun PortfolioScreen(
                                     fontSize = 12.sp
                                 ) {
                                     Row {
-                                        /*Text(
-                                            text = dateFormatter.format(position.position.date),
-                                            fontSize = 12.sp
-                                        )*/
                                         Text(
                                             text = if (position.showSymbol) {
                                                 "${position.count}${item.name}"

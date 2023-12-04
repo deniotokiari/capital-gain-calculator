@@ -22,7 +22,10 @@ class CalculateMarketDataFromMarketDataList(
 
         for (item in params.data) {
             market += convertCurrencyValueUseCase(item.marketValue to params.targetCurrency).value
-            gain += convertCurrencyValueUseCase(item.gain to params.targetCurrency).value
+
+            if (!item.isCash) {
+                gain += convertCurrencyValueUseCase(item.gain to params.targetCurrency).value
+            }
         }
 
         return MarketData(

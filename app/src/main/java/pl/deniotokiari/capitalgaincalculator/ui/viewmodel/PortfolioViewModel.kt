@@ -142,6 +142,7 @@ class PortfolioViewModel(
                 val count: String,
                 val date: String,
                 val showSymbol: Boolean,
+                val isCash: Boolean,
                 val data: MarketData?
             )
         }
@@ -184,6 +185,7 @@ private fun List<PositionWithMarketData>.toViewModelPosition(showSymbol: Boolean
             count = item.position.count.toPlainString(),
             date = dateFormatter.format(item.position.date),
             data = item.data,
-            showSymbol = showSymbol
+            showSymbol = showSymbol,
+            isCash = item.data?.isCash ?: false
         )
     }

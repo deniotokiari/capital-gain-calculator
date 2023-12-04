@@ -7,11 +7,11 @@ import org.koin.core.annotation.Factory
 import pl.deniotokiari.capitalgaincalculator.core.FlowUseCase
 import pl.deniotokiari.capitalgaincalculator.data.db.DbConversionRate
 import pl.deniotokiari.capitalgaincalculator.data.db.DbInstrument
+import pl.deniotokiari.capitalgaincalculator.data.db.DbPortfolio
 import pl.deniotokiari.capitalgaincalculator.data.db.toDataModel
 import pl.deniotokiari.capitalgaincalculator.data.model.CurrencyValue
 import pl.deniotokiari.capitalgaincalculator.domain.model.InstrumentWithMarketData
 import pl.deniotokiari.capitalgaincalculator.domain.model.MarketData
-import pl.deniotokiari.capitalgaincalculator.domain.model.Percent
 import pl.deniotokiari.capitalgaincalculator.domain.model.PositionWithMarketData
 import java.math.BigDecimal
 
@@ -20,7 +20,8 @@ class GetPortfolioInstrumentsWithPositionsUseCase(
     private val instrumentDao: DbInstrument.Dao,
     private val calculateMarketDataFromMarketDataList: CalculateMarketDataFromMarketDataList,
     private val convertCurrencyValueUseCase: ConvertCurrencyValueUseCase,
-    private val conversionRateDao: DbConversionRate.Dao
+    private val conversionRateDao: DbConversionRate.Dao,
+    private val portfolioDao: DbPortfolio.Dao
 ) : FlowUseCase<String, List<InstrumentWithMarketData>> {
     override fun invoke(params: String): Flow<List<InstrumentWithMarketData>> = conversionRateDao.rates()
         .combine(combine(
@@ -70,22 +71,17 @@ class GetPortfolioInstrumentsWithPositionsUseCase(
                     val model = position.toDataModel()
 
                     if (currency.code == position.currency.code) {
-                        MarketData(
-                            marketValue = CurrencyValue(
+                        MarketData.cash(
+                            CurrencyValue(
                                 value = position.position.count,
                                 currency = currency.toDataModel()
-                            ),
-                            gain = CurrencyValue(
-                                value = BigDecimal.ZERO,
-                                currency = currency.toDataModel()
-                            ),
-                            percent = Percent(value = BigDecimal.ZERO)
+                            )
                         ) to model
                     } else {
                         MarketData.from(
                             spent = position.position.price,
                             count = position.position.count,
-                            currentPrice = position.position.count * convertCurrencyValueUseCase(
+                            currentPrice = convertCurrencyValueUseCase(
                                 CurrencyValue(
                                     value = BigDecimal.ONE,
                                     currency = currency.toDataModel()
@@ -96,11 +92,13 @@ class GetPortfolioInstrumentsWithPositionsUseCase(
                     }
                 }
 
+                val portfolioCurrency = requireNotNull(portfolioDao.getPortfolioByName(params)).currency.toDataModel()
+
                 InstrumentWithMarketData.CurrencyInstrument(
                     currency = currency.toDataModel(),
                     instrumentId = currency.code,
                     data = calculateMarketDataFromMarketDataList(CalculateMarketDataFromMarketDataList.Params(
-                        targetCurrency = currency.toDataModel(),
+                        targetCurrency = portfolioCurrency,
                         data = positionsMarketData.map { (data, _) -> data }
                     )),
                     positions = positionsMarketData.map { (data, position) ->

@@ -1,6 +1,5 @@
 package pl.deniotokiari.capitalgaincalculator.domain.model
 
-import android.util.Log
 import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.data.model.CurrencyValue
 import java.math.BigDecimal
@@ -8,9 +7,17 @@ import java.math.BigDecimal
 data class MarketData(
     val marketValue: CurrencyValue,
     val gain: CurrencyValue,
+    val isCash: Boolean = false,
     val percent: Percent = Percent.fromMarketAndGainValues(market = marketValue.value, gain = gain.value)
 ) {
     companion object {
+        fun cash(value: CurrencyValue): MarketData = MarketData(
+            marketValue = value,
+            gain = value,
+            isCash = true,
+            percent = Percent(value = BigDecimal.ZERO)
+        )
+
         fun from(
             spent: BigDecimal,
             count: BigDecimal,
@@ -33,7 +40,6 @@ value class Percent(val value: BigDecimal) {
             return if (market == BigDecimal.ZERO || market == gain) {
                 Percent(BigDecimal.ZERO)
             } else {
-                Log.d("LOG", "$market => $gain")
                 Percent(BigDecimal((market.toDouble() / (market - gain).toDouble()) * oneHundred - oneHundred))
             }
         }

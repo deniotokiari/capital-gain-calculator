@@ -65,7 +65,7 @@ class CurrencyPoligonDataSource(
             from.type == Currency.Type.Digital && to.type == Currency.Type.Physical -> {
                 if (to.code.value == "USD" || to.code.value == "EUR") {
                     poligonService
-                        .previousClose("X:${from.code.value}-${to.code.value}")
+                        .previousClose("X:${from.code.value}${to.code.value}")
                         .results[0]
                         .close
                         .toBigDecimal()

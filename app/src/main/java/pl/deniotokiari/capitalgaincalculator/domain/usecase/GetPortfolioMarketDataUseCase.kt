@@ -57,7 +57,7 @@ class GetPortfolioMarketDataUseCase(
                                 MarketData.from(
                                     spent = position.price,
                                     count = position.count,
-                                    currentPrice = position.count * convertCurrencyValueUseCase(
+                                    currentPrice = convertCurrencyValueUseCase(
                                         CurrencyValue(
                                             value = BigDecimal.ONE,
                                             currency = currencyPosition.toDataModel()

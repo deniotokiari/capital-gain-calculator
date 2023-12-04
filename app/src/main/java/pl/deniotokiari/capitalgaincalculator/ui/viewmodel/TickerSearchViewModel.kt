@@ -35,8 +35,6 @@ class TickerSearchViewModel(
                 if (it.isEmpty() || it.isBlank()) {
                     _uiState.value = UiState.default()
                 } else {
-                    _uiState.value = UiState.loading()
-
                     searchJob = launch {
                         val items = searchTickerUseCase(it).map { item -> item.toViewModel() }
 

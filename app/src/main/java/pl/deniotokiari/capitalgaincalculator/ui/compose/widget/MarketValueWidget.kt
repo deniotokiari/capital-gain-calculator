@@ -39,9 +39,20 @@ fun MarketValueWidget(
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        val contentWeight = 0.24F
+        if (marketData?.isCash == true) {
+            Text(
+                text = "${currencyFormat.format(marketData.marketValue.value)}${marketData.marketValue.currency.code.value}",
+                modifier = Modifier.fillMaxWidth(),
+                fontSize = fontSize,
+                textAlign = TextAlign.Start
+            )
+
+            return
+        }
+
+        val contentWeight = 0.25F
         var marketWeight = 0.29F
-        var gainWeight = 0.29F
+        var gainWeight = 0.28F
         var percentWeight = 0.18F
 
         var textAlign = TextAlign.End
