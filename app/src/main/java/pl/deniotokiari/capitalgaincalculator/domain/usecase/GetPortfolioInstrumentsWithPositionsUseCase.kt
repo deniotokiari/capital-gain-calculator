@@ -10,10 +10,12 @@ import pl.deniotokiari.capitalgaincalculator.data.db.DbInstrument
 import pl.deniotokiari.capitalgaincalculator.data.db.DbPortfolio
 import pl.deniotokiari.capitalgaincalculator.data.db.toDataModel
 import pl.deniotokiari.capitalgaincalculator.data.model.CurrencyValue
+import pl.deniotokiari.capitalgaincalculator.data.model.Position
 import pl.deniotokiari.capitalgaincalculator.domain.model.InstrumentWithMarketData
 import pl.deniotokiari.capitalgaincalculator.domain.model.MarketData
 import pl.deniotokiari.capitalgaincalculator.domain.model.PositionWithMarketData
 import java.math.BigDecimal
+import java.time.LocalDate
 
 @Factory(binds = [GetPortfolioInstrumentsWithPositionsUseCase::class])
 class GetPortfolioInstrumentsWithPositionsUseCase(
@@ -67,29 +69,45 @@ class GetPortfolioInstrumentsWithPositionsUseCase(
             }.let(items::addAll)
 
             currencies.map { (currency, positions) ->
-                val positionsMarketData = positions.map { position ->
+                val positionsMarketData = mutableListOf<Pair<MarketData, Position>>()
+                var cashData = MarketData.cash(
+                    CurrencyValue(
+                        value = BigDecimal.ZERO,
+                        currency = currency.toDataModel()
+                    )
+                )
+                var cashPosition = Position(
+                    count = BigDecimal.ZERO,
+                    price = CurrencyValue(value = BigDecimal.ZERO, currency = currency.toDataModel()),
+                    date = LocalDate.now()
+                )
+
+                for (position in positions) {
                     val model = position.toDataModel()
 
                     if (currency.code == position.currency.code) {
-                        MarketData.cash(
-                            CurrencyValue(
-                                value = position.position.count,
-                                currency = currency.toDataModel()
-                            )
-                        ) to model
+                        cashData =
+                            cashData.copy(marketValue = cashData.marketValue.copy(value = cashData.marketValue.value + position.position.count))
+                        cashPosition = cashPosition.copy(count = cashPosition.count + position.position.count)
                     } else {
-                        MarketData.from(
-                            spent = position.position.price,
-                            count = position.position.count,
-                            currentPrice = convertCurrencyValueUseCase(
-                                CurrencyValue(
-                                    value = BigDecimal.ONE,
-                                    currency = currency.toDataModel()
-                                ) to position.currency.toDataModel()
-                            ).value,
-                            currency = position.currency.toDataModel()
-                        ) to model
+                        positionsMarketData.add(
+                            MarketData.from(
+                                spent = position.position.price,
+                                count = position.position.count,
+                                currentPrice = convertCurrencyValueUseCase(
+                                    CurrencyValue(
+                                        value = BigDecimal.ONE,
+                                        currency = currency.toDataModel()
+                                    ) to position.currency.toDataModel()
+                                ).value,
+                                currency = position.currency.toDataModel()
+                            ) to model
+                        )
                     }
+                }
+
+                if (cashData.marketValue.value != BigDecimal.ZERO) {
+                    positionsMarketData.add(cashData to cashPosition)
                 }
 
                 val portfolioCurrency = requireNotNull(portfolioDao.getPortfolioByName(params)).currency.toDataModel()

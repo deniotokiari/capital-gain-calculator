@@ -41,7 +41,7 @@ fun MarketValueWidget(
     ) {
         if (marketData?.isCash == true) {
             Text(
-                text = "${currencyFormat.format(marketData.marketValue.value)}${marketData.marketValue.currency.code.value}",
+                text = "${marketData.marketValue.value}${marketData.marketValue.currency.code.value}",
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = fontSize,
                 textAlign = TextAlign.Start

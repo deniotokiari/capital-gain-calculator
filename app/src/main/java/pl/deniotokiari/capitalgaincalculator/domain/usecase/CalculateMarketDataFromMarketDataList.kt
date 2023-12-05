@@ -20,10 +20,12 @@ class CalculateMarketDataFromMarketDataList(
         var market = BigDecimal.ZERO
         var gain = BigDecimal.ZERO
 
+        val isCash = params.data.all { it.isCash }
+
         for (item in params.data) {
             market += convertCurrencyValueUseCase(item.marketValue to params.targetCurrency).value
 
-            if (!item.isCash) {
+            if (!isCash) {
                 gain += convertCurrencyValueUseCase(item.gain to params.targetCurrency).value
             }
         }
