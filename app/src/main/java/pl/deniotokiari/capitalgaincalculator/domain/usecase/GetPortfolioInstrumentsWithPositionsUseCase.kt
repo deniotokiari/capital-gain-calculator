@@ -106,11 +106,11 @@ class GetPortfolioInstrumentsWithPositionsUseCase(
                     }
                 }
 
-                if (cashData.marketValue.value != BigDecimal.ZERO) {
-                    positionsMarketData.add(cashData to cashPosition)
-                }
-
                 val portfolioCurrency = requireNotNull(portfolioDao.getPortfolioByName(params)).currency.toDataModel()
+
+                if (cashData.marketValue.value != BigDecimal.ZERO) {
+                    positionsMarketData.add(0, cashData to cashPosition)
+                }
 
                 InstrumentWithMarketData.CurrencyInstrument(
                     currency = currency.toDataModel(),

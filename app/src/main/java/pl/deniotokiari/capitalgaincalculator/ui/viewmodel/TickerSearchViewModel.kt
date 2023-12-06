@@ -51,7 +51,7 @@ class TickerSearchViewModel(
 
     fun onQueryChanged(query: String) {
         searchJob?.cancel()
-        _uiState.update { UiState.loading() }
+        //_uiState.update { UiState.loading() }
         this.query.update { query }
     }
 

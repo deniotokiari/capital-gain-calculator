@@ -61,9 +61,9 @@ class GetPortfolioMarketDataUseCase(
                                         CurrencyValue(
                                             value = BigDecimal.ONE,
                                             currency = currencyPosition.toDataModel()
-                                        ) to portfolio.currency
+                                        ) to currency.toDataModel()
                                     ).value,
-                                    currency = portfolio.currency
+                                    currency = currency.toDataModel()
                                 )
                             }
                         }

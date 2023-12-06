@@ -21,8 +21,11 @@ interface AlphaVantageService {
     @GET("/query?function=GLOBAL_QUOTE")
     suspend fun quote(@Query("symbol") symbol: String): Quote
 
-    @GET("/query?function=CURRENCY_EXCHANGE_RATE&from_currency={from}&to_currency={to}")
-    suspend fun currencyExchangeRate(@Query("from") from: String, @Query("to") to: String): CurrencyExchangeRate
+    @GET("/query?function=CURRENCY_EXCHANGE_RATE")
+    suspend fun currencyExchangeRate(
+        @Query("from_currency") from: String,
+        @Query("to_currency") to: String
+    ): CurrencyExchangeRate
 }
 
 @Single

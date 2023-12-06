@@ -1,7 +1,9 @@
 package pl.deniotokiari.capitalgaincalculator.data.repository
 
 import kotlinx.coroutines.flow.Flow
-import org.koin.core.annotation.Factory
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import org.koin.core.annotation.Single
 import pl.deniotokiari.capitalgaincalculator.core.Result
 import pl.deniotokiari.capitalgaincalculator.core.flatMapFailed
 import pl.deniotokiari.capitalgaincalculator.core.flatMapSuccess
@@ -18,7 +20,7 @@ import pl.deniotokiari.capitalgaincalculator.data.model.Currency
 import pl.deniotokiari.capitalgaincalculator.data.model.DataError
 import java.math.BigDecimal
 
-@Factory
+@Single
 class CurrencyRepository(
     private val currencyAlphaVantageDataSource: CurrencyAlphaVantageDataSource,
     private val currencyPoligonDataSource: CurrencyPoligonDataSource,
@@ -26,6 +28,9 @@ class CurrencyRepository(
     private val currencyRoomDataSource: CurrencyRoomDataSource,
     private val conversionRateDao: DbConversionRate.Dao
 ) {
+    private val mutex = Mutex()
+    private val cache = mutableMapOf<String, BigDecimal>()
+
     suspend fun getByCode(code: String): Currency = currencyRoomDataSource.currencyByCode(code)
 
     fun currencies(): Flow<List<Currency>> = currencyRoomDataSource.currencies()
@@ -66,24 +71,38 @@ class CurrencyRepository(
         return Unit.success()
     }
 
-    suspend fun conversionRate(from: Currency, to: Currency): BigDecimal =
-        conversionRateDao.rate(from = from.code.value, to = to.code.value)
-            ?: currencyAlphaVantageDataSource
-                .conversionRate(from = from, to = to)
-                .flatMapFailed { currencyYahooDataSource.conversionRate(from = from, to = to) }
-                .flatMapFailed { currencyPoligonDataSource.conversionRate(from = from, to = to) }
-                .onSuccess {
-                    conversionRateDao.addRate(
-                        DbConversionRate.Model(
-                            fromCode = from.code.value,
-                            toCode = to.code.value,
-                            rate = it
-                        )
-                    )
-                }
-                .fold(
-                    success = { it },
-                    failed = { BigDecimal.ONE }
-                )
+    suspend fun conversionRate(from: Currency, to: Currency): BigDecimal = mutex.withLock {
+        val memValue = cache["${from.code.value}${to.code.value}"]
 
+        if (memValue != null) {
+            return memValue
+        }
+
+        val dbValue = conversionRateDao.rate(from = from.code.value, to = to.code.value)
+
+        if (dbValue != null) {
+            return dbValue
+        }
+
+        val remoteValue = currencyAlphaVantageDataSource
+            .conversionRate(from = from, to = to)
+            .flatMapFailed { currencyYahooDataSource.conversionRate(from = from, to = to) }
+            .flatMapFailed { currencyPoligonDataSource.conversionRate(from = from, to = to) }
+            .fold(
+                success = { it },
+                failed = { BigDecimal.ONE }
+            )
+
+        cache["${from.code.value}${to.code.value}"] = remoteValue
+
+        conversionRateDao.addRate(
+            DbConversionRate.Model(
+                fromCode = from.code.value,
+                toCode = to.code.value,
+                rate = remoteValue
+            )
+        )
+
+        return remoteValue
+    }
 }
