@@ -17,3 +17,7 @@ rootProject.name = "Capital Gain Calculator"
 include(":app")
 include(":core:ui")
 include(":navigation")
+include(":feature:init-profile")
+include(":data:currency")
+include(":core:network")
+include(":core:common")

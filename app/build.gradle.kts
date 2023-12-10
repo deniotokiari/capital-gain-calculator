@@ -84,7 +84,12 @@ android {
 
 dependencies {
     implementation(project(":core:ui"))
+    implementation(project(":core:network"))
     implementation(project(":navigation"))
+
+    implementation(project(":data:currency"))
+
+    implementation(project(":feature:init-profile"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
