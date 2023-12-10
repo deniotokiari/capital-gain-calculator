@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Capital Gain Calculator"
 include(":app")
+include(":core:ui")
+include(":navigation")

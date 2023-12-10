@@ -83,6 +83,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:ui"))
+    implementation(project(":navigation"))
+
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
