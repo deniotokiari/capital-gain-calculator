@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import kotlinx.coroutines.flow.Flow
 import pl.deniotokiari.data.currency.model.DbCurrency
 
 @Dao
@@ -15,7 +16,7 @@ interface CurrencyRoomDataSource {
     suspend fun addCurrencies(items: List<DbCurrency>)
 
     @Query("SELECT * FROM currency")
-    suspend fun getCurrencies(): List<DbCurrency>
+    fun getCurrencies(): Flow<List<DbCurrency>>
 }
 
 @Database(

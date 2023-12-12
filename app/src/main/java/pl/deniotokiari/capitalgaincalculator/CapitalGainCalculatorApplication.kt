@@ -1,12 +1,15 @@
 package pl.deniotokiari.capitalgaincalculator
 
 import android.app.Application
+import androidx.work.WorkManager
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 import org.koin.ksp.generated.module
 import pl.deniotokiari.core.network.NetworkModule
 import pl.deniotokiari.data.currency.CurrencyDataModule
+import pl.deniotokiari.domain.di.DomainModule
 import pl.deniotokiari.feature.init_profile.InitProfileModule
 import pl.deniotokiari.navigation.NavigationModule
 
@@ -27,6 +30,10 @@ class CapitalGainCalculatorApplication : Application() {
             workManagerFactory()
 
             modules(
+                module {
+                    factory { WorkManager.getInstance(get()) }
+                },
+
                 // general
                 NetworkModule().module,
                 NavigationModule().module,
@@ -35,6 +42,7 @@ class CapitalGainCalculatorApplication : Application() {
                 CurrencyDataModule().module,
 
                 // domain
+                DomainModule().module,
 
                 // feature
                 InitProfileModule().module

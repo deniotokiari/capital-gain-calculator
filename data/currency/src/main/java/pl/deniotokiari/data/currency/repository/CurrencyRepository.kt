@@ -1,41 +1,43 @@
 package pl.deniotokiari.data.currency.repository
 
-import android.util.Log
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Single
+import pl.deniotokiari.core.common.Failed
+import pl.deniotokiari.core.common.Result
+import pl.deniotokiari.core.common.Success
 import pl.deniotokiari.data.currency.datasource.CurrencyAlphaVantageDataSource
 import pl.deniotokiari.data.currency.datasource.CurrencyRoomDataSource
 import pl.deniotokiari.data.currency.model.Currency
+import pl.deniotokiari.data.currency.model.CurrencyError
 import pl.deniotokiari.data.currency.model.DbCurrency
 import pl.deniotokiari.data.currency.model.toCurrenciesList
-
-private const val LOG_TAG = "CurrencyRepository"
 
 @Single
 class CurrencyRepository(
     private val alphaVantageDataSource: CurrencyAlphaVantageDataSource,
     private val roomDataSource: CurrencyRoomDataSource
 ) {
-    suspend fun updateCurrencies() {
-        runCatching {
-            fun mapper(code: String, name: String, type: DbCurrency.Type) = DbCurrency(
-                code = code,
-                name = name,
-                type = type
-            )
-
-            val physical = alphaVantageDataSource.getPhysicalCurrencies()
-            val digital = alphaVantageDataSource.getDigitalCurrencies()
-
-            (physical.map { (code, name) -> mapper(code, name, DbCurrency.Type.Physical) }
-                    +
-                    digital.map { (code, name) -> mapper(code, name, DbCurrency.Type.Digital) }).let { items ->
-                roomDataSource.addCurrencies(items)
-            }
-        }.fold(
-            onSuccess = { Log.d(LOG_TAG, "refreshCurrencies success") },
-            onFailure = { Log.e(LOG_TAG, "refreshCurrencies failed", it) }
+    suspend fun updateCurrencies(): Result<Unit, CurrencyError> = runCatching {
+        fun mapper(code: String, name: String, type: DbCurrency.Type) = DbCurrency(
+            code = code,
+            name = name,
+            type = type
         )
-    }
 
-    suspend fun getCurrencies(): List<Currency> = roomDataSource.getCurrencies().toCurrenciesList()
+        val physical = alphaVantageDataSource.getPhysicalCurrencies()
+        val digital = alphaVantageDataSource.getDigitalCurrencies()
+
+        (physical.map { (code, name) -> mapper(code, name, DbCurrency.Type.Physical) }
+                +
+                digital.map { (code, name) -> mapper(code, name, DbCurrency.Type.Digital) }).let { items ->
+            roomDataSource.addCurrencies(items)
+        }
+    }.fold(
+        onSuccess = { Success(Unit) },
+        onFailure = { Failed(CurrencyError(it)) }
+    )
+
+
+    fun getCurrencies(): Flow<List<Currency>> = roomDataSource.getCurrencies().map { it.toCurrenciesList() }
 }
