@@ -1,6 +1,8 @@
 package pl.deniotokiari.capitalgaincalculator
 
 import android.app.Application
+import android.content.Context
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.work.WorkManager
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.koin.workManagerFactory
@@ -8,8 +10,10 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.ksp.generated.module
 import pl.deniotokiari.core.network.NetworkModule
-import pl.deniotokiari.data.currency.CurrencyDataModule
+import pl.deniotokiari.data.currency.di.CurrencyDataModule
+import pl.deniotokiari.data.profile.di.ProfileModule
 import pl.deniotokiari.domain.di.DomainModule
+import pl.deniotokiari.feature.home.di.HomeModule
 import pl.deniotokiari.feature.init_profile.di.InitProfileModule
 import pl.deniotokiari.navigation.NavigationModule
 
@@ -32,6 +36,7 @@ class CapitalGainCalculatorApplication : Application() {
             modules(
                 module {
                     factory { WorkManager.getInstance(get()) }
+                    factory { get<Context>().dataStore }
                 },
 
                 // general
@@ -40,13 +45,17 @@ class CapitalGainCalculatorApplication : Application() {
 
                 // data
                 CurrencyDataModule().module,
+                ProfileModule().module,
 
                 // domain
                 DomainModule().module,
 
                 // feature
-                InitProfileModule().module
+                InitProfileModule().module,
+                HomeModule().module
             )
         }
     }
 }
+
+private val Context.dataStore by preferencesDataStore(name = "app_settings")

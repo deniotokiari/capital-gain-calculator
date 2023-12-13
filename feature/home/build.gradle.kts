@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "pl.deniotokiari.domain"
+    namespace = "pl.deniotokiari.feature.home"
     compileSdk = 34
 
     defaultConfig {
@@ -38,9 +38,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:currency"))
-    implementation(project(":data:profile"))
-    api(project(":core:common"))
+    implementation(project(":navigation"))
+    implementation(project(":core:ui"))
+    implementation(project(":domain"))
 
     implementation(libs.core.ktx)
     implementation(libs.material3)
@@ -51,11 +51,6 @@ dependencies {
     implementation(libs.koin.workmanager)
     implementation(libs.koin.annotations)
     ksp(libs.koin.ksp)
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-    annotationProcessor(libs.room.compiler)
-    ksp(libs.room.compiler)
-    implementation(libs.work)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

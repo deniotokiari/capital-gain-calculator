@@ -88,8 +88,10 @@ dependencies {
     implementation(project(":navigation"))
 
     implementation(project(":data:currency"))
+    implementation(project(":data:profile"))
 
     implementation(project(":feature:init-profile"))
+    implementation(project(":feature:home"))
 
     implementation(project(":domain"))
 

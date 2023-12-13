@@ -1,4 +1,4 @@
-package pl.deniotokiari.data.currency
+package pl.deniotokiari.data.currency.di
 
 import android.content.Context
 import androidx.room.Room

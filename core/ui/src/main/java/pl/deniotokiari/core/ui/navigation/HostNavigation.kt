@@ -40,20 +40,20 @@ abstract class HostNavigation {
         }
     }
 
-    fun navigate(route: Route) {
-        controller.navigate(route.name)
+    fun navigate(route: String) {
+        controller.navigate(route)
     }
 
-    fun navigate(route: Route, popTo: Route, inclusive: Boolean) {
-        controller.navigate(route.name) {
-            popUpTo(popTo.name) {
+    fun navigate(route: String, popTo: String, inclusive: Boolean) {
+        controller.navigate(route) {
+            popUpTo(popTo) {
                 this.inclusive = inclusive
             }
         }
     }
 
-    fun navigateWithId(route: Route, id: String) {
-        controller.navigate(route.withId(id))
+    fun navigateWithId(route: String, id: String) {
+        controller.navigate(route.addId(id))
     }
 
     fun popBackStack() {
@@ -65,9 +65,9 @@ abstract class HostNavigation {
         controller.popBackStack()
     }
 
-    protected suspend fun <T> navigateWithResult(route: Route, id: String?): T? {
+    protected suspend fun <T> navigateWithResult(route: String, id: String?): T? {
         val backstackEntry = controller.currentBackStackEntry
-        controller.navigate(route.withId(id))
+        controller.navigate(route.addId(id))
 
         val result = suspendCancellableCoroutine {
             lateinit var onDestinationChangedListener: NavController.OnDestinationChangedListener
@@ -110,12 +110,6 @@ abstract class HostNavigation {
         val type: Type,
         val content: @Composable (String?) -> Unit
     ) {
-        fun withId(value: String?) = if (value != null) {
-            name.replace("{$ARGUMENT_ID}", value)
-        } else {
-            name
-        }
-
         enum class Type {
             COMPOSABLE, SHEET
         }
@@ -149,4 +143,10 @@ abstract class HostNavigation {
     }
 }
 
-fun HostNavigation.Route.withId(): HostNavigation.Route = copy(name = "$name/{${HostNavigation.Route.ARGUMENT_ID}}")
+fun String.withId(): String = "$this/{${HostNavigation.Route.ARGUMENT_ID}}"
+
+private fun String.addId(id: String?): String = if (id != null) {
+    replace("{${HostNavigation.Route.ARGUMENT_ID}}", id)
+} else {
+    this
+}

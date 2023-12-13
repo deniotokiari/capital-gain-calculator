@@ -9,30 +9,41 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import pl.deniotokiari.domain.model.Currency
 import pl.deniotokiari.domain.usecase.GetCurrenciesUseCase
+import pl.deniotokiari.domain.usecase.IsProfileCurrencySetUseCase
 import pl.deniotokiari.domain.usecase.ScheduleCurrenciesUpdateUseCase
+import pl.deniotokiari.domain.usecase.SetProfileCurrencyUseCase
+import pl.deniotokiari.navigation.AppNavigation
 
 @KoinViewModel
 class InitProfileViewModel(
     private val scheduleCurrenciesUpdateUseCase: ScheduleCurrenciesUpdateUseCase,
-    private val getCurrenciesUseCase: GetCurrenciesUseCase
+    private val getCurrenciesUseCase: GetCurrenciesUseCase,
+    private val isProfileCurrencySetUseCase: IsProfileCurrencySetUseCase,
+    private val setProfileCurrencyUseCase: SetProfileCurrencyUseCase,
+    private val appNavigation: AppNavigation
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.default())
     val uiState: StateFlow<UiState> = _uiState
 
     init {
         viewModelScope.launch {
-            scheduleCurrenciesUpdateUseCase(Unit)
-        }
-        viewModelScope.launch {
-            getCurrenciesUseCase(Unit).collect { items ->
-                _uiState.update {
-                    it.copy(
-                        currencies = items.toViewModelList(),
-                        confirmEnabled = false,
-                        loading = false,
-                    )
+            if (isProfileCurrencySetUseCase(Unit)) {
+                appNavigation.navigateToHomeFromInitProfileCurrency()
+            } else {
+                getCurrenciesUseCase(Unit).collect { items ->
+                    _uiState.update {
+                        it.copy(
+                            currencies = items.toViewModelList(),
+                            confirmEnabled = false,
+                            loading = false,
+                        )
+                    }
                 }
             }
+        }
+
+        viewModelScope.launch {
+            scheduleCurrenciesUpdateUseCase(Unit)
         }
     }
 
@@ -47,7 +58,11 @@ class InitProfileViewModel(
     }
 
     fun onConfirmClicked() {
-
+        viewModelScope.launch {
+            _uiState.value.selected?.let { index ->
+                setProfileCurrencyUseCase(_uiState.value.currencies[index])
+            }
+        }
     }
 
     data class UiState(

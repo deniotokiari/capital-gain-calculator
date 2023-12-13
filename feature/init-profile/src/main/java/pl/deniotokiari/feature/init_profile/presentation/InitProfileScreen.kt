@@ -29,7 +29,8 @@ fun InitProfileScreen(
         val uiState by viewModel.uiState.collectAsState()
 
         when {
-            uiState.loading -> CircularProgressIndicator()
+            uiState.loading -> CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+
             else -> {
                 Column(
                     modifier = Modifier
