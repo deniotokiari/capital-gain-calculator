@@ -1,4 +1,4 @@
-package pl.deniotokiari.feature.init_profile
+package pl.deniotokiari.feature.init_profile.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +16,7 @@ class InitProfileViewModel(
     private val scheduleCurrenciesUpdateUseCase: ScheduleCurrenciesUpdateUseCase,
     private val getCurrenciesUseCase: GetCurrenciesUseCase
 ) : ViewModel() {
-    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
+    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.default())
     val uiState: StateFlow<UiState> = _uiState
 
     init {
@@ -26,10 +26,10 @@ class InitProfileViewModel(
         viewModelScope.launch {
             getCurrenciesUseCase(Unit).collect { items ->
                 _uiState.update {
-                    UiState.Idle(
-                        currency = null,
+                    it.copy(
                         currencies = items.toViewModelList(),
-                        confirmEnabled = false
+                        confirmEnabled = false,
+                        loading = false,
                     )
                 }
             }
@@ -37,21 +37,37 @@ class InitProfileViewModel(
     }
 
     fun onCurrencySelected(index: Int) {
-
+        _uiState.update { state ->
+            state.copy(
+                selected = index,
+                title = state.currencies[index],
+                confirmEnabled = true
+            )
+        }
     }
 
     fun onConfirmClicked() {
 
     }
 
-    sealed class UiState {
-        object Loading : UiState()
-
-        data class Idle(
-            val currency: String?,
-            val confirmEnabled: Boolean,
-            val currencies: List<String>
-        ) : UiState()
+    data class UiState(
+        val selected: Int?,
+        val confirmEnabled: Boolean,
+        val currencies: List<String>,
+        val loading: Boolean,
+        val title: String,
+        val label: String
+    ) {
+        companion object {
+            fun default() = UiState(
+                selected = null,
+                confirmEnabled = false,
+                currencies = emptyList(),
+                loading = true,
+                title = "Profile Currency",
+                label = "Search for currency"
+            )
+        }
     }
 }
 

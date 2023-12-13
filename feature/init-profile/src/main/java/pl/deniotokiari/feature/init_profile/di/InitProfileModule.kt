@@ -1,4 +1,4 @@
-package pl.deniotokiari.feature.init_profile
+package pl.deniotokiari.feature.init_profile.di
 
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module

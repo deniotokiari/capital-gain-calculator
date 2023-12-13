@@ -23,19 +23,20 @@ class NetworkModule {
     fun okHttpClient(): OkHttpClient = OkHttpClient()
 
     @Single
-    fun retrofit(): Retrofit = Retrofit.Builder()
+    fun retrofitBuilder(): Retrofit.Builder = Retrofit.Builder()
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(
             MoshiConverterFactory.create(
                 Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             )
         )
-        .build()
 
     @Named(ALPHA_VANTAGE_SERVICE_ANONYMOUS)
     @Single
-    fun alphaVantageServiceAnonymous(okHttpClient: OkHttpClient, retrofit: Retrofit): AlphaVantageService = retrofit
-        .newBuilder()
+    fun alphaVantageServiceAnonymous(
+        okHttpClient: OkHttpClient,
+        retrofitBuilder: Retrofit.Builder
+    ): AlphaVantageService = retrofitBuilder
         .baseUrl("https://www.alphavantage.co")
         .client(okHttpClient.newBuilder().build())
         .build()
@@ -46,9 +47,8 @@ class NetworkModule {
     fun alphaVantageServiceAuthorized(
         @Property("alpha_vantage_api_key") apiKey: String,
         okHttpClient: OkHttpClient,
-        retrofit: Retrofit
-    ): AlphaVantageService = retrofit
-        .newBuilder()
+        retrofitBuilder: Retrofit.Builder
+    ): AlphaVantageService = retrofitBuilder
         .baseUrl("https://www.alphavantage.co")
         .client(
             okHttpClient
