@@ -10,7 +10,7 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import org.koin.android.annotation.KoinWorker
 import pl.deniotokiari.core.common.fold
-import pl.deniotokiari.domain.usecase.UpdateCurrenciesUseCase
+import pl.deniotokiari.domain.usecase.currency.UpdateCurrenciesUseCase
 import java.util.concurrent.TimeUnit
 
 @KoinWorker

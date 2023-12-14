@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Capital Gain Calculator</string>
-    <string name="portfolios">Portfolios</string>
+
+
     <string name="done">Done</string>
-    <string name="portfolio_add">Add portfolio +</string>
-    <string name="about_button_description">About</string>
-    <string name="back_button_description">Back</string>
+
+
+
     <string name="portfolio_name">Portfolio name</string>
     <string name="count">Count</string>
     <string name="price">Price</string>
@@ -15,5 +15,5 @@
     <string name="ticker">Ticker</string>
     <string name="no_result">No result</string>
     <string name="position_add">Add position +</string>
-    <string name="delete_portfolio">Delete portfolio %s?</string>
+
 </resources>

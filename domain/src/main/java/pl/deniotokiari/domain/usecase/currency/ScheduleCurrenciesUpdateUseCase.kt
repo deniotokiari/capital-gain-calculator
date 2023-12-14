@@ -1,4 +1,4 @@
-package pl.deniotokiari.domain.usecase
+package pl.deniotokiari.domain.usecase.currency
 
 import androidx.work.WorkManager
 import org.koin.core.annotation.Factory

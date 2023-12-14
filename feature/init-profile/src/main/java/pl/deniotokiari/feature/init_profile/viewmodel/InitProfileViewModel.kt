@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import pl.deniotokiari.domain.model.Currency
-import pl.deniotokiari.domain.usecase.GetCurrenciesUseCase
-import pl.deniotokiari.domain.usecase.IsProfileCurrencySetUseCase
-import pl.deniotokiari.domain.usecase.ScheduleCurrenciesUpdateUseCase
-import pl.deniotokiari.domain.usecase.SetProfileCurrencyUseCase
+import pl.deniotokiari.domain.usecase.currency.GetCurrenciesUseCase
+import pl.deniotokiari.domain.usecase.profile.IsProfileCurrencySetUseCase
+import pl.deniotokiari.domain.usecase.currency.ScheduleCurrenciesUpdateUseCase
+import pl.deniotokiari.domain.usecase.profile.SetProfileCurrencyUseCase
 import pl.deniotokiari.navigation.AppNavigation
 
 @KoinViewModel

@@ -1,4 +1,4 @@
-package pl.deniotokiari.domain.usecase
+package pl.deniotokiari.domain.usecase.profile
 
 import org.koin.core.annotation.Factory
 import pl.deniotokiari.core.common.UseCase

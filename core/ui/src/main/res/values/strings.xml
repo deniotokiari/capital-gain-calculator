@@ -1,0 +1,5 @@
+<resources>
+    <string name="about_button_description">About</string>
+    <string name="back_button_description">Back</string>
+    <string name="app_name">Capital Gain Calculator</string>
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="portfolios">Portfolios</string>
+    <string name="portfolio_add">Add portfolio +</string>
+    <string name="delete_portfolio">Delete portfolio %s?</string>
+</resources>

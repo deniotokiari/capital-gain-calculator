@@ -11,7 +11,6 @@ import pl.deniotokiari.data.currency.datasource.CurrencyRoomDataSource
 import pl.deniotokiari.data.currency.model.Currency
 import pl.deniotokiari.data.currency.model.CurrencyError
 import pl.deniotokiari.data.currency.model.DbCurrency
-import pl.deniotokiari.data.currency.model.toCurrenciesList
 
 @Single
 class CurrencyRepository(
@@ -40,4 +39,14 @@ class CurrencyRepository(
 
 
     fun getCurrencies(): Flow<List<Currency>> = roomDataSource.getCurrencies().map { it.toCurrenciesList() }
+}
+
+private fun DbCurrency.Type.toCurrencyType(): Currency.Type = enumValues<Currency.Type>()[ordinal]
+
+private fun List<DbCurrency>.toCurrenciesList(): List<Currency> = map { (code, name, type) ->
+    Currency(
+        code = code,
+        name = name,
+        type = type.toCurrencyType()
+    )
 }

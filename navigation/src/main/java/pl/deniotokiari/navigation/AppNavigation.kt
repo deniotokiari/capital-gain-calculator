@@ -14,6 +14,18 @@ class AppNavigation(
         navigate(HOME_ROUTE, popTo = INIT_PROFILE_CURRENCY_ROUTE, inclusive = true)
     }
 
+    fun navigateToAbout() {
+
+    }
+
+    fun navigateToSettings() {
+
+    }
+
+    fun navigateBack() {
+        popBackStack()
+    }
+
     companion object {
         const val INIT_PROFILE_CURRENCY_ROUTE = "INIT_PROFILE_CURRENCY_ROUTE"
         const val HOME_ROUTE = "HOME_ROUTE"

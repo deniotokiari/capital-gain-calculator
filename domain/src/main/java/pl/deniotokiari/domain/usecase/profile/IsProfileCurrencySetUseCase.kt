@@ -1,4 +1,4 @@
-package pl.deniotokiari.domain.usecase
+package pl.deniotokiari.domain.usecase.profile
 
 import kotlinx.coroutines.flow.firstOrNull
 import org.koin.core.annotation.Factory

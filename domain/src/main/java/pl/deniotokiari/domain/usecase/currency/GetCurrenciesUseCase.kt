@@ -1,4 +1,4 @@
-package pl.deniotokiari.domain.usecase
+package pl.deniotokiari.domain.usecase.currency
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
