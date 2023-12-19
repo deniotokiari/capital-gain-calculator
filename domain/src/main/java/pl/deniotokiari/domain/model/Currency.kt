@@ -13,3 +13,7 @@ fun DataCurrency.toDomainModel(): Currency = Currency(
 )
 
 fun List<DataCurrency>.toDomainModelList(): List<Currency> = map { it.toDomainModel() }
+
+fun Currency.toViewModel(): String = "$code - ${name ?: "N/A"}"
+
+fun List<Currency>.toViewModelList(): List<String> = map { it.toViewModel() }

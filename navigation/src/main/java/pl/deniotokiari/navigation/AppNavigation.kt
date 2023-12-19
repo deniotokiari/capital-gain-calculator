@@ -29,6 +29,7 @@ class AppNavigation(
     companion object {
         const val INIT_PROFILE_CURRENCY_ROUTE = "INIT_PROFILE_CURRENCY_ROUTE"
         const val HOME_ROUTE = "HOME_ROUTE"
+        const val ADD_PORTFOLIO = "ADD_PORTFOLIO"
 
         const val START_ROUTE = INIT_PROFILE_CURRENCY_ROUTE
     }

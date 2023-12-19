@@ -1,6 +1,5 @@
 package pl.deniotokiari.feature.init_profile.presentation
 
-import android.R
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -58,7 +57,7 @@ fun InitProfileScreen(
                             .padding(paddingMedium)
                             .align(Alignment.End)
                     ) {
-                        Text(text = stringResource(id = R.string.ok))
+                        Text(text = stringResource(id = android.R.string.ok))
                     }
                 }
             }

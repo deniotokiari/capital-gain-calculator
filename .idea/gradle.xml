@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/currency" />
+            <option value="$PROJECT_DIR$/data/portfolio" />
             <option value="$PROJECT_DIR$/data/profile" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/feature" />

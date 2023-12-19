@@ -14,6 +14,7 @@ import pl.deniotokiari.data.currency.di.CurrencyDataModule
 import pl.deniotokiari.data.portfolio.di.PortfolioModule
 import pl.deniotokiari.data.profile.di.ProfileModule
 import pl.deniotokiari.domain.di.DomainModule
+import pl.deniotokiari.feature.add_portfolio.di.AddPortfolioModule
 import pl.deniotokiari.feature.home.di.HomeModule
 import pl.deniotokiari.feature.init_profile.di.InitProfileModule
 import pl.deniotokiari.navigation.NavigationModule
@@ -54,7 +55,8 @@ class CapitalGainCalculatorApplication : Application() {
 
                 // feature
                 InitProfileModule().module,
-                HomeModule().module
+                HomeModule().module,
+                AddPortfolioModule().module
             )
         }
     }

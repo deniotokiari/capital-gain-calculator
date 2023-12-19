@@ -34,7 +34,7 @@ class HomeViewModel(
     }
 
     fun onAddPortfolio() {
-        // addPortfolioUseCase()
+
     }
 
     fun onPortfolioClicked(index: Int) {
