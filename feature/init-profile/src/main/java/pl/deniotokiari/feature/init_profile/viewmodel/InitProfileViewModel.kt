@@ -1,9 +1,11 @@
 package pl.deniotokiari.feature.init_profile.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import pl.deniotokiari.core.common.launchInDefault
 import pl.deniotokiari.domain.model.toViewModelList
@@ -27,7 +29,9 @@ class InitProfileViewModel(
     init {
         launchInDefault {
             if (isProfileCurrencySetUseCase(Unit)) {
-                appNavigation.navigateToHomeFromInitProfileCurrency()
+                viewModelScope.launch {
+                    appNavigation.navigateToHomeFromInitProfileCurrency()
+                }
             } else {
                 getCurrenciesUseCase(Unit).collect { items ->
                     _uiState.update {

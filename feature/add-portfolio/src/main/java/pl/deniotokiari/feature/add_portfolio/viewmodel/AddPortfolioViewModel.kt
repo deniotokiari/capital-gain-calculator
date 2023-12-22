@@ -1,17 +1,23 @@
 package pl.deniotokiari.feature.add_portfolio.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.koin.core.annotation.Factory
 import pl.deniotokiari.core.common.launchInDefault
 import pl.deniotokiari.domain.model.toViewModelList
 import pl.deniotokiari.domain.usecase.currency.GetCurrenciesUseCase
+import pl.deniotokiari.domain.usecase.portfolio.AddPortfolioUseCase
+import pl.deniotokiari.navigation.AppNavigation
 
 @Factory(binds = [AddPortfolioViewModel::class])
 class AddPortfolioViewModel(
-    private val getCurrenciesUseCase: GetCurrenciesUseCase
+    private val getCurrenciesUseCase: GetCurrenciesUseCase,
+    private val addPortfolioUseCase: AddPortfolioUseCase,
+    private val appNavigation: AppNavigation
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.default())
     val uiState: StateFlow<UiState> = _uiState
@@ -32,18 +38,33 @@ class AddPortfolioViewModel(
         _uiState.update { it.copy(selectedCurrencyIndex = index) }
     }
 
+    fun onConfirmClicked() {
+        launchInDefault {
+            addPortfolioUseCase(
+                AddPortfolioUseCase.Params(
+                    name = _uiState.value.name,
+                    currencyCode = _uiState.value.currencies[requireNotNull(_uiState.value.selectedCurrencyIndex)]
+                )
+            )
+
+            viewModelScope.launch {
+                appNavigation.popBackStack()
+            }
+        }
+    }
+
     data class UiState(
-        val name: String?,
+        val name: String,
         val currencies: List<String>,
         val selectedCurrencyIndex: Int?,
         val currencySelectorTitle: String,
         val currencySelectorLabel: String
     ) {
-        val confirmEnabled: Boolean get() = !name.isNullOrEmpty() && selectedCurrencyIndex != null
+        val confirmEnabled: Boolean get() = name.isNotEmpty() && selectedCurrencyIndex != null
 
         companion object {
             fun default() = UiState(
-                name = null,
+                name = "",
                 currencies = emptyList(),
                 selectedCurrencyIndex = null,
                 currencySelectorTitle = "Portfolio currency",

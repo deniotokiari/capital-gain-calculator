@@ -56,7 +56,8 @@ class CapitalGainCalculatorApplication : Application() {
                 // feature
                 InitProfileModule().module,
                 HomeModule().module,
-                AddPortfolioModule().module
+                AddPortfolioModule().module,
+                pl.deniotokiari.feature.portfolio.di.PortfolioModule().module
             )
         }
     }

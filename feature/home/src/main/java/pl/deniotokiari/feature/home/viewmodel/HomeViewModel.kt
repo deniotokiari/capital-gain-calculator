@@ -7,15 +7,15 @@ import kotlinx.coroutines.flow.update
 import org.koin.android.annotation.KoinViewModel
 import pl.deniotokiari.core.common.launchInDefault
 import pl.deniotokiari.domain.model.Portfolio
-import pl.deniotokiari.domain.usecase.portfolio.AddPortfolioUseCase
 import pl.deniotokiari.domain.usecase.portfolio.DeletePortfolioUseCase
 import pl.deniotokiari.domain.usecase.portfolio.GetPortfoliosUseCase
+import pl.deniotokiari.navigation.AppNavigation
 
 @KoinViewModel
 class HomeViewModel(
-    private val addPortfolioUseCase: AddPortfolioUseCase,
     private val deletePortfolioUseCase: DeletePortfolioUseCase,
-    private val getPortfoliosUseCase: GetPortfoliosUseCase
+    private val getPortfoliosUseCase: GetPortfoliosUseCase,
+    private val appNavigation: AppNavigation
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState.default())
     val uiState: StateFlow<UiState> = _uiState
@@ -34,11 +34,11 @@ class HomeViewModel(
     }
 
     fun onAddPortfolio() {
-
+        appNavigation.navigateToAddPortfolio()
     }
 
     fun onPortfolioClicked(index: Int) {
-
+        appNavigation.navigateToPortfolio(_uiState.value.items[index].name)
     }
 
     fun onDeletePortfolio(index: Int) {

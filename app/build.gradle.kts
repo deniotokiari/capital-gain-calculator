@@ -94,6 +94,7 @@ dependencies {
     implementation(project(":feature:init-profile"))
     implementation(project(":feature:home"))
     implementation(project(":feature:add-portfolio"))
+    implementation(project(":feature:portfolio"))
 
     implementation(project(":domain"))
 
