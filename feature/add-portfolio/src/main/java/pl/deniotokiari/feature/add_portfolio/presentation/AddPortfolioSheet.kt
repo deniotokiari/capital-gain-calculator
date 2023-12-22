@@ -40,7 +40,7 @@ fun AddPortfolioSheet(viewModel: AddPortfolioViewModel = koinViewModel()) {
         ItemSelectorWidget(
             title = uiState.currencySelectorTitle,
             label = uiState.currencySelectorLabel,
-            items = uiState.currencies,
+            items = uiState.currenciesSelectorItems,
             selected = uiState.selectedCurrencyIndex,
             onSelected = viewModel::onCurrencySelected
         )

@@ -10,6 +10,8 @@ class ProfileRepository(
 ) {
     fun getProfileCurrency(): Flow<String> = profilePreferencesDataSource.getProfileCurrency()
 
+    suspend fun isProfileCurrencySet(): Boolean = profilePreferencesDataSource.isProfileCurrencySet()
+
     suspend fun setProfileCurrency(currency: String) {
         profilePreferencesDataSource.setProfileCurrency(currency)
     }

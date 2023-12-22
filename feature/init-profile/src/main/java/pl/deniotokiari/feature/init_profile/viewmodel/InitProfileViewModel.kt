@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import pl.deniotokiari.core.common.launchInDefault
-import pl.deniotokiari.domain.model.toViewModelList
+import pl.deniotokiari.domain.model.Currency
 import pl.deniotokiari.domain.usecase.currency.GetCurrenciesUseCase
 import pl.deniotokiari.domain.usecase.currency.ScheduleCurrenciesUpdateUseCase
 import pl.deniotokiari.domain.usecase.profile.IsProfileCurrencySetUseCase
@@ -52,7 +52,7 @@ class InitProfileViewModel(
         _uiState.update { state ->
             state.copy(
                 selected = index,
-                title = state.currencies[index]
+                title = state.currencies[index].name
             )
         }
     }
@@ -60,19 +60,30 @@ class InitProfileViewModel(
     fun onConfirmClicked() {
         launchInDefault {
             _uiState.value.selected?.let { index ->
-                setProfileCurrencyUseCase(_uiState.value.currencies[index])
+                setProfileCurrencyUseCase(_uiState.value.currencies[index].code)
+
+                viewModelScope.launch {
+                    appNavigation.navigateToHomeFromInitProfileCurrency()
+                }
             }
         }
     }
 
     data class UiState(
         val selected: Int?,
-        val currencies: List<String>,
+        val currencies: List<Currency>,
         val loading: Boolean,
         val title: String,
         val label: String
     ) {
         val confirmEnabled: Boolean get() = selected != null
+
+        val currenciesSelectorItems: List<String> = currencies.map { "${it.code} - ${it.name}" }
+
+        data class Currency(
+            val name: String,
+            val code: String
+        )
 
         companion object {
             fun default() = UiState(
@@ -85,3 +96,10 @@ class InitProfileViewModel(
         }
     }
 }
+
+private fun Currency.toViewModel() = InitProfileViewModel.UiState.Currency(
+    name = name ?: code,
+    code = code
+)
+
+private fun List<Currency>.toViewModelList() = map { it.toViewModel() }

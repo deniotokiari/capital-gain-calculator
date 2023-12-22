@@ -45,7 +45,7 @@ fun InitProfileScreen(
                     ItemSelectorWidget(
                         title = uiState.title,
                         label = uiState.label,
-                        items = uiState.currencies,
+                        items = uiState.currenciesSelectorItems,
                         selected = uiState.selected,
                         onSelected = viewModel::onCurrencySelected
                     )
