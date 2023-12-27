@@ -90,6 +90,7 @@ dependencies {
     implementation(project(":data:currency"))
     implementation(project(":data:profile"))
     implementation(project(":data:portfolio"))
+    implementation(project(":data:asset"))
 
     implementation(project(":feature:init-profile"))
     implementation(project(":feature:home"))

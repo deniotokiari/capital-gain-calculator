@@ -10,6 +10,7 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.ksp.generated.module
 import pl.deniotokiari.core.network.NetworkModule
+import pl.deniotokiari.data.asset.di.AssetModule
 import pl.deniotokiari.data.currency.di.CurrencyDataModule
 import pl.deniotokiari.data.portfolio.di.PortfolioModule
 import pl.deniotokiari.data.profile.di.ProfileModule
@@ -49,6 +50,7 @@ class CapitalGainCalculatorApplication : Application() {
                 CurrencyDataModule().module,
                 ProfileModule().module,
                 PortfolioModule().module,
+                AssetModule().module,
 
                 // domain
                 DomainModule().module,
