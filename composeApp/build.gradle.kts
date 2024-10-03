@@ -63,6 +63,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.koin.compose)
             implementation(libs.koin.core)
+            implementation(libs.navigation.compose)
             implementation(project.dependencies.platform(libs.koin.bom))
         }
     }
