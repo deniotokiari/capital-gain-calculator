@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -64,6 +65,7 @@ kotlin {
             implementation(libs.bundles.koin)
             implementation(libs.navigation.compose)
             implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.kotlinx.serialization.json)
 
             implementation(project(":core:misc"))
         }
