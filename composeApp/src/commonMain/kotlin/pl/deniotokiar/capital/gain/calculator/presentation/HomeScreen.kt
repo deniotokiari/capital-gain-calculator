@@ -17,7 +17,7 @@ fun HomeScreen() {
         Text(text = "Home Screen")
         Button(
             onClick = {
-                navController?.navigate(Greeting.name)
+                navController?.navigate(Greeting)
             },
             content = {
                 Text(text = "To greeting screen")

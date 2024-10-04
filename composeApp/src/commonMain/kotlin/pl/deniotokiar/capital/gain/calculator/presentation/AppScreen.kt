@@ -18,12 +18,12 @@ fun AppScreen() {
         CompositionLocalProvider(LocalNavController provides navController) {
             NavHost(
                 navController = navController,
-                startDestination = Home.name,
+                startDestination = Home,
             ) {
-                composable(Home.name) {
+                composable<Home> {
                     HomeScreen()
                 }
-                composable(Greeting.name) {
+                composable<Greeting> {
                     GreetScreen()
                 }
             }
