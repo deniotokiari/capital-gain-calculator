@@ -68,6 +68,7 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
 
             implementation(project(":core:misc"))
+            implementation(project(":core:navigation"))
         }
     }
 }
