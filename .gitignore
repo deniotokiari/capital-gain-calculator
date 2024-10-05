@@ -18,3 +18,4 @@ captures
 **/xcshareddata/WorkspaceSettings.xcsettings
 /composeApp/google-services.json
 /composeApp/src/wasmJsMain/resources/firebase.js
+/iosApp/iosApp/GoogleService-Info.plist
