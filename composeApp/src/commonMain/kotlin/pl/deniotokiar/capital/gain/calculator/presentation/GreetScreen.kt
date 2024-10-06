@@ -11,8 +11,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.firestore.firestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,6 +18,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinViewModel
+import pl.deniotokiar.capital.gain.calculator.Platform
 
 @Composable
 fun GreetScreen() {
@@ -43,21 +42,16 @@ fun GreetScreen() {
     }
 }
 
-class GreetViewModel : ViewModel() {
+class GreetViewModel(
+    private val platform: Platform,
+) : ViewModel() {
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState> get() = _uiState
 
     init {
         viewModelScope.launch(Dispatchers.Default) {
             runCatching {
-                Firebase
-                    .firestore
-                    .collection("USERS")
-                    .get()
-                    .documents
-                    .map { document ->
-                        document.data<User>()
-                    }
+                platform.getUsers()
             }.fold(
                 onSuccess = { users ->
                     _uiState.update { UiState.Users(users) }

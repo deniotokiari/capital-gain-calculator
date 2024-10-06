@@ -54,6 +54,12 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.firebase.common.ktx)
+            implementation(libs.firebase.common)
+            implementation(libs.firebase.firestore)
+        }
+        iosMain.dependencies {
+            implementation(libs.firebase.common)
+            implementation(libs.firebase.firestore)
         }
         commonMain.dependencies {
             implementation(compose.components.resources)
@@ -68,9 +74,7 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.kotlinx.serialization.json)
-            implementation(libs.firebase.common)
-            implementation(libs.firebase.firestore)
-
+            
             implementation(project(":core:misc"))
             implementation(project(":core:navigation"))
         }

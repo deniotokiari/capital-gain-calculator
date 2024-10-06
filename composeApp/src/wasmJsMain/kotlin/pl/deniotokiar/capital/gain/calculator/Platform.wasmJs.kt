@@ -1,7 +1,11 @@
 package pl.deniotokiar.capital.gain.calculator
 
-class WasmPlatform: Platform {
-    override val name: String = "Web with Kotlin/Wasm"
+import pl.deniotokiar.capital.gain.calculator.presentation.User
+
+class WasmPlatform : Platform {
+    override suspend fun getUsers(): List<User> = listOf(
+        User("Web", 10)
+    )
 }
 
 actual fun getPlatform(): Platform = WasmPlatform()

@@ -1,9 +1,18 @@
 package pl.deniotokiar.capital.gain.calculator
 
-import android.os.Build
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.firestore.firestore
+import pl.deniotokiar.capital.gain.calculator.presentation.User
 
 class AndroidPlatform : Platform {
-    override val name: String = "Android ${Build.VERSION.SDK_INT}"
+    override suspend fun getUsers(): List<User> = Firebase
+        .firestore
+        .collection("USERS")
+        .get()
+        .documents
+        .map { document ->
+            document.data<User>()
+        } + User("Android", 10)
 }
 
 actual fun getPlatform(): Platform = AndroidPlatform()
