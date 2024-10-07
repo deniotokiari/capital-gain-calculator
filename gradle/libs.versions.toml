@@ -42,6 +42,7 @@ navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-co
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 firebase-common-ktx = { module = "com.google.firebase:firebase-common-ktx", version.ref = "firebase-common" }
 firebase-firestore = { module = "dev.gitlive:firebase-firestore", version.ref = "gitlive-firebase" }
+firebase-auth = { module = "dev.gitlive:firebase-auth", version.ref = "gitlive-firebase" }
 firebase-common = { module = "dev.gitlive:firebase-common", version.ref = "gitlive-firebase" }
 
 [plugins]

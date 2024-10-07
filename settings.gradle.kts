@@ -31,3 +31,4 @@ dependencyResolutionManagement {
 include(":composeApp")
 include(":core:misc")
 include(":core:navigation")
+include(":feature:auth")

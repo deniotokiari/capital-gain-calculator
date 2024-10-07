@@ -56,10 +56,14 @@ kotlin {
             implementation(libs.firebase.common.ktx)
             implementation(libs.firebase.common)
             implementation(libs.firebase.firestore)
+
+            implementation(project(":feature:auth"))
         }
         iosMain.dependencies {
             implementation(libs.firebase.common)
             implementation(libs.firebase.firestore)
+
+            implementation(project(":feature:auth"))
         }
         commonMain.dependencies {
             implementation(compose.components.resources)
