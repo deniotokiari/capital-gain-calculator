@@ -26,35 +26,14 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "auth"
+            baseName = "platform-common-auth"
             isStatic = true
         }
     }
 
     sourceSets {
-        androidMain.dependencies {
-            implementation(project(":platform:android-ios:auth"))
-        }
-        iosMain.dependencies {
-            implementation(project(":platform:android-ios:auth"))
-        }
-        wasmJsMain.dependencies {
-            implementation(project(":platform:web:auth"))
-        }
-
         commonMain.dependencies {
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(compose.foundation)
-            implementation(compose.material)
             implementation(compose.runtime)
-            implementation(compose.ui)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.bundles.koin)
-            implementation(libs.navigation.compose)
-            implementation(project.dependencies.platform(libs.koin.bom))
-
-            api(project(":platform:common:auth"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -63,7 +42,7 @@ kotlin {
 }
 
 android {
-    namespace = "pl.deniotokiari.capital.gain.calculator.feature.auth"
+    namespace = "pl.deniotokiari.capital.gain.calculator.platform.common.auth"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

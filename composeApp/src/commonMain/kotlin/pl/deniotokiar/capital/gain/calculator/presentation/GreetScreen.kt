@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinViewModel
 import pl.deniotokiar.capital.gain.calculator.Platform
+import pl.deniotokiari.capital.gain.calculator.platform.common.auth.data.AuthDataSource
 
 @Composable
 fun GreetScreen() {
@@ -34,7 +35,7 @@ fun GreetScreen() {
             is UiState.Users -> {
                 LazyColumn {
                     items(state.users.size) { index ->
-                        Text(text = state.users[index].name)
+                        Text(text = state.users[index])
                     }
                 }
             }
@@ -43,7 +44,7 @@ fun GreetScreen() {
 }
 
 class GreetViewModel(
-    private val platform: Platform,
+    private val authDataSource: AuthDataSource,
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState> get() = _uiState
@@ -51,10 +52,10 @@ class GreetViewModel(
     init {
         viewModelScope.launch(Dispatchers.Default) {
             runCatching {
-                platform.getUsers()
+                authDataSource.test()
             }.fold(
                 onSuccess = { users ->
-                    _uiState.update { UiState.Users(users) }
+                    _uiState.update { UiState.Users(listOf(users)) }
                 },
                 onFailure = { error ->
                     _uiState.update { UiState.Error(error.message ?: "Unknown error") }
@@ -67,7 +68,7 @@ class GreetViewModel(
 sealed interface UiState {
     data object Loading : UiState
     data class Error(val message: String) : UiState
-    data class Users(val users: List<User>) : UiState
+    data class Users(val users: List<String>) : UiState
 }
 
 @Serializable
