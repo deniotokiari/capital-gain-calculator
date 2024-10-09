@@ -1,4 +1,4 @@
-package pl.deniotokiar.capital.gain.calculator
+package pl.deniotokiari.capital.gain.calculator
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

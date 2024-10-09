@@ -84,7 +84,7 @@ kotlin {
 }
 
 android {
-    namespace = "pl.deniotokiar.capital.gain.calculator"
+    namespace = "pl.deniotokiari.capital.gain.calculator"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -92,7 +92,7 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "pl.deniotokiar.capital.gain.calculator"
+        applicationId = "pl.deniotokiari.capital.gain.calculator"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1

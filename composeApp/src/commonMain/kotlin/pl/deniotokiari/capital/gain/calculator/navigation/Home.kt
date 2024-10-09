@@ -1,4 +1,4 @@
-package pl.deniotokiar.capital.gain.calculator.navigation
+package pl.deniotokiari.capital.gain.calculator.navigation
 
 import kotlinx.serialization.Serializable
 
