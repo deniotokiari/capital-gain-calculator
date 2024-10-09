@@ -54,6 +54,8 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(project.dependencies.platform(libs.koin.bom))
 
+            implementation(project(":core:misc"))
+            implementation(project(":core:navigation"))
             implementation(project(":platform:common:auth"))
         }
         commonTest.dependencies {

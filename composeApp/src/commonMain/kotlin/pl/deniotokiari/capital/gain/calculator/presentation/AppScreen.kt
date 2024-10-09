@@ -6,8 +6,10 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import pl.deniotokiari.capital.gain.calculator.navigation.Home
+import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.compose.AuthScreen
 import pl.deniotokiari.core.misc.compose.LocalNavController
+import pl.deniotokiari.core.navigation.route.Auth
+import pl.deniotokiari.core.navigation.route.Home
 
 @Composable
 fun AppScreen() {
@@ -17,11 +19,10 @@ fun AppScreen() {
         CompositionLocalProvider(LocalNavController provides navController) {
             NavHost(
                 navController = navController,
-                startDestination = Home,
+                startDestination = Auth,
             ) {
-                composable<Home> {
-                    HomeScreen()
-                }
+                composable<Auth> { AuthScreen() }
+                composable<Home> { HomeScreen() }
             }
         }
     }
