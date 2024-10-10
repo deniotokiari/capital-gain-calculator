@@ -10,3 +10,9 @@ import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.compose
 fun AuthPreviewLoading() = AuthContent(
     uiState = AuthUiState.Loading,
 )
+
+@Preview(showBackground = true)
+@Composable
+fun AuthPreviewError() = AuthContent(
+    uiState = AuthUiState.Error,
+)

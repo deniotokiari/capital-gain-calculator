@@ -7,6 +7,6 @@ class IsAuthRequiredUseCase : UseCase<Unit, Boolean> {
     override suspend fun invoke(input: Unit): Boolean {
         delay(5 * 1000L)
 
-        return false
+        return true
     }
 }

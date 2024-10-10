@@ -14,6 +14,7 @@ import org.koin.compose.viewmodel.koinViewModel
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiEvent
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiState
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthViewModel
+import pl.deniotokiari.capital.gain.calculator.uikit.compose.GenericErrorWithRetry
 import pl.deniotokiari.core.misc.compose.LocalNavController
 import pl.deniotokiari.core.navigation.route.Auth
 import pl.deniotokiari.core.navigation.route.Home
@@ -50,7 +51,9 @@ fun AuthContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         when (uiState) {
-            AuthUiState.Error -> TODO()
+            AuthUiState.Error -> GenericErrorWithRetry(
+                onRetry = {},
+            )
             AuthUiState.Loading -> CircularProgressIndicator()
             AuthUiState.Login -> TODO()
             AuthUiState.SignUp -> TODO()

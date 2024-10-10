@@ -56,6 +56,8 @@ kotlin {
             implementation(libs.firebase.common.ktx)
             implementation(libs.firebase.common)
             implementation(libs.firebase.firestore)
+
+            implementation(project(":ui-kit"))
         }
         iosMain.dependencies {
             implementation(libs.firebase.common)
@@ -74,7 +76,7 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.kotlinx.serialization.json)
-            
+
             implementation(project(":core:misc"))
             implementation(project(":core:navigation"))
 
@@ -90,6 +92,7 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    sourceSets["main"].res.srcDirs("../ui-kit/src/commonMain/composeResources")
 
     defaultConfig {
         applicationId = "pl.deniotokiari.capital.gain.calculator"

@@ -24,7 +24,7 @@ class AuthViewModel(
     init {
         viewModelScope.launch(appDispatchers.default) {
             if (isAuthRequiredUseCase(Unit)) {
-                _uiState.update { AuthUiState.Login }
+                _uiState.update { AuthUiState.Error }
             } else {
                 _event.emit(AuthUiEvent.NavigateToHome)
             }
