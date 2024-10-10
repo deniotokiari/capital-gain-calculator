@@ -38,12 +38,16 @@ fun AuthScreen() {
 
     AuthContent(
         uiState = uiState,
+        onRetry = viewModel::onRetry,
+        onLogin = viewModel::onLogin,
     )
 }
 
 @Composable
 fun AuthContent(
     uiState: AuthUiState,
+    onRetry: () -> Unit,
+    onLogin: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -51,11 +55,9 @@ fun AuthContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         when (uiState) {
-            AuthUiState.Error -> GenericErrorWithRetry(
-                onRetry = {},
-            )
+            AuthUiState.Error -> GenericErrorWithRetry(onRetry = onRetry)
             AuthUiState.Loading -> CircularProgressIndicator()
-            AuthUiState.Login -> TODO()
+            AuthUiState.Login -> LoginContent(onLogin = onLogin)
             AuthUiState.SignUp -> TODO()
         }
     }

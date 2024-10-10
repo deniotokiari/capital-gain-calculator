@@ -12,9 +12,9 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import capital_gain_calculator.ui_kit.generated.resources.Res
-import capital_gain_calculator.ui_kit.generated.resources.ui_kit_generic_error_button_text
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_generic_error_message
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_generic_error_title
+import capital_gain_calculator.ui_kit.generated.resources.ui_kit_retry
 import pl.deniotokiari.capital.gain.calculator.uikit.stringResource
 
 @Composable
@@ -42,7 +42,7 @@ fun GenericErrorWithRetry(
             onClick = onRetry,
         ) {
             Text(
-                text = stringResource(Res.string.ui_kit_generic_error_button_text),
+                text = stringResource(Res.string.ui_kit_retry),
             )
         }
     }

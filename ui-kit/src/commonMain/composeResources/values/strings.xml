@@ -2,5 +2,6 @@
 <resources>
     <string name="ui_kit_generic_error_title">Something went wrong</string>
     <string name="ui_kit_generic_error_message">Please try again later.</string>
-    <string name="ui_kit_generic_error_button_text">Retry</string>
+    <string name="ui_kit_retry">Retry</string>
+    <string name="ui_kit_login">Login</string>
 </resources>
