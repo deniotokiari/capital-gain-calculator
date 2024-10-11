@@ -2,6 +2,16 @@
 <resources>
     <string name="ui_kit_generic_error_title">Something went wrong</string>
     <string name="ui_kit_generic_error_message">Please try again later.</string>
+
     <string name="ui_kit_retry">Retry</string>
     <string name="ui_kit_login">Login</string>
+    <string name="ui_kit_email">Email</string>
+    <string name="ui_kit_password">Password</string>
+
+    <string name="ui_kit_login_title">Welcome Back!</string>
+    <string name="ui_kit_login_message">Enter your email and password to login</string>
+
+    <string name="ui_kit_signup_title">Welcome!</string>
+    <string name="ui_kit_signup_message">Create an account to get started or</string>
+    <string name="ui_kit_signup">Signup</string>
 </resources>

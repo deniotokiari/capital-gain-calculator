@@ -4,7 +4,7 @@ sealed interface AuthUiState {
     data object Loading : AuthUiState
     data object Error : AuthUiState
     data object Login : AuthUiState
-    data object SignUp : AuthUiState
+    data object Signup : AuthUiState
 }
 
 sealed interface AuthUiEvent {

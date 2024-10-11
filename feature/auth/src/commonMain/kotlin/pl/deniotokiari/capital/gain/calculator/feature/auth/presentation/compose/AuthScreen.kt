@@ -58,7 +58,7 @@ fun AuthContent(
             AuthUiState.Error -> GenericErrorWithRetry(onRetry = onRetry)
             AuthUiState.Loading -> CircularProgressIndicator()
             AuthUiState.Login -> LoginContent(onLogin = onLogin)
-            AuthUiState.SignUp -> TODO()
+            AuthUiState.Signup -> SignupContent()
         }
     }
 }

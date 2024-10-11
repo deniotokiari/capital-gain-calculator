@@ -28,3 +28,11 @@ fun AuthPreviewLogin() = AuthContent(
     onRetry = {},
     onLogin = {},
 )
+
+@Preview(showBackground = true)
+@Composable
+fun AuthPreviewSignup() = AuthContent(
+    uiState = AuthUiState.Signup,
+    onRetry = {},
+    onLogin = {},
+)
