@@ -18,24 +18,51 @@ class AuthViewModel(
     private val _event = MutableSharedFlow<AuthUiEvent>()
     val event: SharedFlow<AuthUiEvent> get() = _event
 
-    private val _uiState = MutableStateFlow<AuthUiState>(AuthUiState.Loading)
+    private val _uiState = MutableStateFlow(AuthUiState(type = AuthUiType.Loading))
     val uiState: StateFlow<AuthUiState> get() = _uiState
 
     init {
         viewModelScope.launch(appDispatchers.default) {
             if (isAuthRequiredUseCase(Unit)) {
-                _uiState.update { AuthUiState.Login }
+                _uiState.update { it.copy(type = AuthUiType.Signup) }
             } else {
                 _event.emit(AuthUiEvent.NavigateToHome)
             }
         }
     }
 
-    fun onRetry() {
+    fun onAction(action: AuthUiAction) {
+        when (action) {
+            is AuthUiAction.EmailChanged -> onEmailChange(action.value)
+            is AuthUiAction.PasswordChanged -> onPasswordChange(action.value)
+            AuthUiAction.Login -> onLogin()
+            AuthUiAction.NavigateToLogin -> onNavigateToLogin()
+            AuthUiAction.Retry -> onRetry()
+            AuthUiAction.Signup -> onSignup()
+        }
+    }
+
+    private fun onEmailChange(email: String) {
+        _uiState.update { state -> state.copy(email = state.email.copy(value = email)) }
+    }
+
+    private fun onPasswordChange(password: String) {
+        _uiState.update { state -> state.copy(password = state.password.copy(value = password)) }
+    }
+
+    private fun onRetry() {
 
     }
 
-    fun onLogin() {
+    private fun onLogin() {
 
+    }
+
+    private fun onSignup() {
+
+    }
+
+    private fun onNavigateToLogin() {
+        _uiState.update { it.copy(type = AuthUiType.Login) }
     }
 }

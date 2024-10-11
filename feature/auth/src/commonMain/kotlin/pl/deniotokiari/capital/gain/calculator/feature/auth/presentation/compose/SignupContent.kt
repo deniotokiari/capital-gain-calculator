@@ -11,25 +11,30 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import capital_gain_calculator.ui_kit.generated.resources.Res
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_email
-import capital_gain_calculator.ui_kit.generated.resources.ui_kit_generic_error_title
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_login
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_password
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_signup
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_signup_message
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_signup_title
+import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiAction
+import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.CredentialsField
 import pl.deniotokiari.capital.gain.calculator.uikit.stringResource
 
 @Composable
-fun SignupContent() {
+fun SignupContent(
+    email: CredentialsField,
+    password: CredentialsField,
+    onAction: (AuthUiAction) -> Unit,
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = CenterHorizontally,
@@ -53,7 +58,7 @@ fun SignupContent() {
                     link = LinkAnnotation.Clickable(
                         tag = "LOGIN",
                         linkInteractionListener = {
-
+                            onAction(AuthUiAction.NavigateToLogin)
                         },
                     ),
                 ) {
@@ -65,20 +70,28 @@ fun SignupContent() {
         )
 
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = email.value,
+            onValueChange = {
+                onAction(AuthUiAction.EmailChanged(it))
+            },
             label = { Text(stringResource(Res.string.ui_kit_email)) },
+            isError = email.error,
         )
 
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            modifier = Modifier.padding(top = 4.dp),
+            value = password.value,
+            onValueChange = {
+                onAction(AuthUiAction.PasswordChanged(it))
+            },
             label = { Text(stringResource(Res.string.ui_kit_password)) },
+            isError = password.error,
+            visualTransformation = PasswordVisualTransformation(),
         )
 
         Button(
             modifier = Modifier.padding(8.dp),
-            onClick = {},
+            onClick = { onAction(AuthUiAction.Signup) },
             content = { Text(stringResource(Res.string.ui_kit_signup)) }
         )
     }

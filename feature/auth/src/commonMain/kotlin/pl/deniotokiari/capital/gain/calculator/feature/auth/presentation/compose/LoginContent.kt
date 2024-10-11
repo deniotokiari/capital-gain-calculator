@@ -18,11 +18,12 @@ import capital_gain_calculator.ui_kit.generated.resources.ui_kit_login
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_login_message
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_login_title
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_password
+import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiAction
 import pl.deniotokiari.capital.gain.calculator.uikit.stringResource
 
 @Composable
 fun LoginContent(
-    onLogin: () -> Unit,
+    onAction: (AuthUiAction) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -48,6 +49,7 @@ fun LoginContent(
         )
 
         OutlinedTextField(
+            modifier = Modifier.padding(top = 4.dp),
             value = "",
             onValueChange = {},
             label = { Text(stringResource(Res.string.ui_kit_password)) },
@@ -55,7 +57,7 @@ fun LoginContent(
 
         Button(
             modifier = Modifier.padding(8.dp),
-            onClick = onLogin,
+            onClick = { onAction(AuthUiAction.Login) },
         ) {
             Text(stringResource(Res.string.ui_kit_login))
         }

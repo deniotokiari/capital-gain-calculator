@@ -1,5 +1,6 @@
 package pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.compose
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,8 +12,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.koin.compose.viewmodel.koinViewModel
+import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiAction
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiEvent
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiState
+import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiType
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthViewModel
 import pl.deniotokiari.capital.gain.calculator.uikit.compose.GenericErrorWithRetry
 import pl.deniotokiari.core.misc.compose.LocalNavController
@@ -38,27 +41,39 @@ fun AuthScreen() {
 
     AuthContent(
         uiState = uiState,
-        onRetry = viewModel::onRetry,
-        onLogin = viewModel::onLogin,
+        onAction = viewModel::onAction,
     )
 }
 
 @Composable
 fun AuthContent(
     uiState: AuthUiState,
-    onRetry: () -> Unit,
-    onLogin: () -> Unit,
+    onAction: (AuthUiAction) -> Unit,
 ) {
-    Column(
+    AnimatedContent(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        when (uiState) {
-            AuthUiState.Error -> GenericErrorWithRetry(onRetry = onRetry)
-            AuthUiState.Loading -> CircularProgressIndicator()
-            AuthUiState.Login -> LoginContent(onLogin = onLogin)
-            AuthUiState.Signup -> SignupContent()
+        contentAlignment = Alignment.Center,
+        targetState = uiState,
+        contentKey = { it.type }
+    ) { state ->
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            when (state.type) {
+                AuthUiType.Error -> GenericErrorWithRetry(onRetry = { onAction(AuthUiAction.Retry) })
+                AuthUiType.Loading -> CircularProgressIndicator()
+                AuthUiType.Login -> LoginContent(
+                    onAction = onAction,
+                )
+
+                AuthUiType.Signup -> SignupContent(
+                    email = state.email,
+                    password = state.password,
+                    onAction = onAction,
+                )
+            }
         }
     }
 }
