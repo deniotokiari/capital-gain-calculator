@@ -23,6 +23,7 @@ external fun createUserWithEmailAndPassword(email: String, password: String): Pr
 
 class WebAuthDataSource : AuthDataSource {
     override fun authenticationRequired(): Flow<Boolean> = state
+
     override suspend fun signup(email: String, password: String): Result<Boolean> = runCatching {
         createUserWithEmailAndPassword(
             email = email,

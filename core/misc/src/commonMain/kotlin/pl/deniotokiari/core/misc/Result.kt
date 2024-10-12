@@ -13,4 +13,11 @@ sealed class Result<out T, out E> {
             is Error -> onError(error)
         }
     }
+
+    inline fun <R> then(transform: (value: T) -> Result<R, @UnsafeVariance E>): Result<R, E> {
+        return when (this) {
+            is Success -> transform(data)
+            is Error -> this
+        }
+    }
 }

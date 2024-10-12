@@ -74,6 +74,8 @@ fun AuthContent(
                 AuthUiType.Error -> GenericErrorWithRetry(onRetry = { onAction(AuthUiAction.Retry) })
                 AuthUiType.Loading -> CircularProgressIndicator()
                 AuthUiType.Login -> LoginContent(
+                    email = state.email,
+                    password = state.password,
                     onAction = onAction,
                 )
 
