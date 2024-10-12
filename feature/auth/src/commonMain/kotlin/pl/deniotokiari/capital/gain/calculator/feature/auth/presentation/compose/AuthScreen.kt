@@ -4,13 +4,24 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import capital_gain_calculator.ui_kit.generated.resources.Res
+import capital_gain_calculator.ui_kit.generated.resources.ui_kit_cancel
+import capital_gain_calculator.ui_kit.generated.resources.ui_kit_generic_error_message
+import capital_gain_calculator.ui_kit.generated.resources.ui_kit_generic_error_title
+import capital_gain_calculator.ui_kit.generated.resources.ui_kit_retry
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiAction
@@ -18,7 +29,7 @@ import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiE
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiState
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiType
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthViewModel
-import pl.deniotokiari.capital.gain.calculator.uikit.compose.GenericErrorWithRetry
+import pl.deniotokiari.capital.gain.calculator.uikit.stringResource
 import pl.deniotokiari.core.misc.compose.LocalNavController
 import pl.deniotokiari.core.navigation.route.AuthLogin
 import pl.deniotokiari.core.navigation.route.AuthSignup
@@ -32,6 +43,7 @@ fun AuthScreen(type: AuthType) {
         parameters = { parametersOf(type) },
     )
     val uiState by viewModel.uiState.collectAsState()
+    var showErrorDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.event.collect { event ->
@@ -44,6 +56,8 @@ fun AuthScreen(type: AuthType) {
                 AuthUiEvent.NavigateToLogin -> navController?.navigate(
                     route = AuthLogin,
                 )
+
+                AuthUiEvent.Error -> showErrorDialog = true
             }
         }
     }
@@ -52,6 +66,29 @@ fun AuthScreen(type: AuthType) {
         uiState = uiState,
         onAction = viewModel::onAction,
     )
+
+    if (showErrorDialog) {
+        AlertDialog(
+            title = { Text(stringResource(Res.string.ui_kit_generic_error_title)) },
+            text = { Text(stringResource(Res.string.ui_kit_generic_error_message)) },
+            onDismissRequest = { showErrorDialog = false },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showErrorDialog = false
+                        viewModel.onAction(AuthUiAction.Retry)
+                    },
+                    content = { Text(stringResource(Res.string.ui_kit_retry)) }
+                )
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { showErrorDialog = false },
+                    content = { Text(stringResource(Res.string.ui_kit_cancel)) }
+                )
+            }
+        )
+    }
 }
 
 @Composable
@@ -71,7 +108,6 @@ fun AuthContent(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             when (state.type) {
-                AuthUiType.Error -> GenericErrorWithRetry(onRetry = { onAction(AuthUiAction.Retry) })
                 AuthUiType.Loading -> CircularProgressIndicator()
                 AuthUiType.Login -> LoginContent(
                     email = state.email,

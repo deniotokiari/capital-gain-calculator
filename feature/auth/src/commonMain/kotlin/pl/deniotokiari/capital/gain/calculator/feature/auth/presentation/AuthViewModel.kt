@@ -56,7 +56,11 @@ class AuthViewModel(
     }
 
     private fun onRetry() {
-
+        when (_uiState.value.type) {
+            AuthUiType.Login -> onLogin()
+            AuthUiType.Signup -> onSignup()
+            else -> Unit
+        }
     }
 
     private fun onLogin() {
@@ -92,7 +96,7 @@ class AuthViewModel(
                 },
                 onError = { error ->
                     when (error) {
-                        AuthError.GenericError -> _uiState.update { it.copy(type = AuthUiType.Error) }
+                        AuthError.GenericError -> _event.emit(AuthUiEvent.Error)
                         AuthError.InvalidCredentials -> _uiState.update { state ->
                             state.copy(
                                 email = state.email.copy(enabled = true, error = true),

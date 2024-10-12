@@ -16,13 +16,6 @@ fun AuthPreviewLoading() = AuthContent(
 
 @Preview(showBackground = true)
 @Composable
-fun AuthPreviewError() = AuthContent(
-    uiState = AuthUiState(type = AuthUiType.Error),
-    onAction = {},
-)
-
-@Preview(showBackground = true)
-@Composable
 fun AuthPreviewLogin() = AuthContent(
     uiState = AuthUiState(type = AuthUiType.Login),
     onAction = {},

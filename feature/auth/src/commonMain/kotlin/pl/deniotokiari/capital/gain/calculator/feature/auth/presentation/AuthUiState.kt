@@ -16,7 +16,6 @@ data class CredentialsField(
 
 sealed interface AuthUiType {
     data object Loading : AuthUiType
-    data object Error : AuthUiType
     data object Login : AuthUiType
     data object Signup : AuthUiType
 }
@@ -24,6 +23,7 @@ sealed interface AuthUiType {
 sealed interface AuthUiEvent {
     data object NavigateToHome : AuthUiEvent
     data object NavigateToLogin : AuthUiEvent
+    data object Error : AuthUiEvent
 }
 
 sealed interface AuthUiAction {
