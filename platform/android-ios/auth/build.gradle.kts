@@ -31,6 +31,7 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(libs.firebase.auth)
+            implementation(libs.kotlinx.coroutines.core)
 
             implementation(project(":platform:common:auth"))
         }

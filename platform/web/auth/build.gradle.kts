@@ -16,6 +16,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
+            implementation(libs.kotlinx.coroutines.core)
 
             implementation(project(":platform:common:auth"))
         }

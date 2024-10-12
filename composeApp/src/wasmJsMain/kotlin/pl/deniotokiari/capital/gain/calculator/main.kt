@@ -12,6 +12,8 @@ fun main() {
 }
 
 /*
+external fun collection(path: String): Promise<JsAny?>
+
 override suspend fun getUsers(): List<User> {
         val result = collection("USERS").await<JsAny>().unsafeCast<JsString>()
 
