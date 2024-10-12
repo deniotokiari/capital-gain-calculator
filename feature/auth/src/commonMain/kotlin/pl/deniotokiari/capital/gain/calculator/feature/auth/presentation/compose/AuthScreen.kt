@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiAction
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiEvent
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiState
@@ -19,13 +20,17 @@ import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiT
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthViewModel
 import pl.deniotokiari.capital.gain.calculator.uikit.compose.GenericErrorWithRetry
 import pl.deniotokiari.core.misc.compose.LocalNavController
-import pl.deniotokiari.core.navigation.route.Auth
+import pl.deniotokiari.core.navigation.route.AuthLogin
+import pl.deniotokiari.core.navigation.route.AuthSignup
+import pl.deniotokiari.core.navigation.route.AuthType
 import pl.deniotokiari.core.navigation.route.Home
 
 @Composable
-fun AuthScreen() {
+fun AuthScreen(type: AuthType) {
     val navController = LocalNavController.current
-    val viewModel = koinViewModel<AuthViewModel>()
+    val viewModel = koinViewModel<AuthViewModel>(
+        parameters = { parametersOf(type) },
+    )
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(Unit) {
@@ -33,7 +38,11 @@ fun AuthScreen() {
             when (event) {
                 AuthUiEvent.NavigateToHome -> navController?.navigate(
                     route = Home,
-                    builder = { popUpTo(Auth) { inclusive = true } },
+                    builder = { popUpTo(AuthSignup) { inclusive = true } },
+                )
+
+                AuthUiEvent.NavigateToLogin -> navController?.navigate(
+                    route = AuthLogin,
                 )
             }
         }

@@ -8,11 +8,16 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.model.AuthError
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.IsAuthRequiredUseCase
+import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.SignupUserWithEmailAndPasswordUseCase
 import pl.deniotokiari.core.misc.AppDispatchers
+import pl.deniotokiari.core.navigation.route.AuthType
 
 class AuthViewModel(
+    private val type: AuthType,
     private val isAuthRequiredUseCase: IsAuthRequiredUseCase,
+    private val signupUserWithEmailAndPasswordUseCase: SignupUserWithEmailAndPasswordUseCase,
     private val appDispatchers: AppDispatchers,
 ) : ViewModel() {
     private val _event = MutableSharedFlow<AuthUiEvent>()
@@ -24,7 +29,7 @@ class AuthViewModel(
     init {
         viewModelScope.launch(appDispatchers.default) {
             if (isAuthRequiredUseCase(Unit)) {
-                _uiState.update { it.copy(type = AuthUiType.Signup) }
+                _uiState.update { it.copy(type = type.toUiType) }
             } else {
                 _event.emit(AuthUiEvent.NavigateToHome)
             }
@@ -59,10 +64,50 @@ class AuthViewModel(
     }
 
     private fun onSignup() {
+        viewModelScope.launch(appDispatchers.default) {
+            _uiState.update { state ->
+                state.copy(
+                    email = state.email.copy(enabled = false),
+                    password = state.password.copy(enabled = false),
+                )
+            }
 
+            signupUserWithEmailAndPasswordUseCase(
+                SignupUserWithEmailAndPasswordUseCase.Params(
+                    email = _uiState.value.email.value,
+                    password = _uiState.value.password.value,
+                )
+            ).fold(
+                onSuccess = { result ->
+                    if (result) {
+                        _event.emit(AuthUiEvent.NavigateToHome)
+                    } else {
+                        _uiState.update { state ->
+                            state.copy(
+                                email = state.email.copy(enabled = true, error = true),
+                                password = state.password.copy(enabled = true, error = true),
+                            )
+                        }
+                    }
+                },
+                onError = { error ->
+                    when (error) {
+                        AuthError.GenericError -> _uiState.update { it.copy(type = AuthUiType.Error) }
+                        AuthError.InvalidCredentials -> _uiState.update { state ->
+                            state.copy(
+                                email = state.email.copy(enabled = true, error = true),
+                                password = state.password.copy(enabled = true, error = true),
+                            )
+                        }
+                    }
+                },
+            )
+        }
     }
 
     private fun onNavigateToLogin() {
-        _uiState.update { it.copy(type = AuthUiType.Login) }
+        viewModelScope.launch(appDispatchers.default) {
+            _event.emit(AuthUiEvent.NavigateToLogin)
+        }
     }
 }

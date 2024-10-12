@@ -45,3 +45,14 @@ fun AuthPreviewSignupEmailAndPasswordError() = AuthContent(
     ),
     onAction = {},
 )
+
+@Preview(showBackground = true)
+@Composable
+fun AuthPreviewSignupSending() = AuthContent(
+    uiState = AuthUiState(
+        type = AuthUiType.Signup,
+        email = CredentialsField(value = "email@email.com", enabled = false),
+        password = CredentialsField(value = "password", enabled = false),
+    ),
+    onAction = {},
+)

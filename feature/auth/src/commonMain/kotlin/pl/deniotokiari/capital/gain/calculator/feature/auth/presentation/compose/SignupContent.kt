@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -76,6 +77,7 @@ fun SignupContent(
             },
             label = { Text(stringResource(Res.string.ui_kit_email)) },
             isError = email.error,
+            enabled = email.enabled,
         )
 
         OutlinedTextField(
@@ -86,13 +88,17 @@ fun SignupContent(
             },
             label = { Text(stringResource(Res.string.ui_kit_password)) },
             isError = password.error,
+            enabled = password.enabled,
             visualTransformation = PasswordVisualTransformation(),
         )
 
         Button(
             modifier = Modifier.padding(8.dp),
             onClick = { onAction(AuthUiAction.Signup) },
-            content = { Text(stringResource(Res.string.ui_kit_signup)) }
+            enabled = email.enabled && password.enabled,
+            content = {
+                Text(stringResource(Res.string.ui_kit_signup))
+            }
         )
     }
 }

@@ -14,4 +14,15 @@ class AndroidIosAuthDataSource : AuthDataSource {
         firebaseAuth.authStateChanged.map { user ->
             user == null
         }
+
+    override suspend fun signup(email: String, password: String): Result<Boolean> = runCatching {
+        firebaseAuth.createUserWithEmailAndPassword(
+            email = email,
+            password = password,
+        ).user != null
+    }
+
+    override suspend fun login(email: String, password: String): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
 }
