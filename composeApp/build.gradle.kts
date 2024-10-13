@@ -56,8 +56,6 @@ kotlin {
             implementation(libs.firebase.common.ktx)
             implementation(libs.firebase.common)
             implementation(libs.firebase.firestore)
-
-            implementation(project(":ui-kit"))
         }
         iosMain.dependencies {
             implementation(libs.firebase.common)
@@ -81,6 +79,8 @@ kotlin {
             implementation(project(":core:navigation"))
 
             implementation(project(":feature:auth"))
+
+            implementation(project(":ui-kit"))
         }
     }
 }

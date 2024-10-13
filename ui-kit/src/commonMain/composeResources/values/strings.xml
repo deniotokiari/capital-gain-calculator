@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="ui_kit_app_name">Capital Gain Calculator</string>
+
     <string name="ui_kit_generic_error_title">Something went wrong</string>
     <string name="ui_kit_generic_error_message">Please try again later</string>
 

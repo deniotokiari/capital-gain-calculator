@@ -32,9 +32,9 @@ import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthVie
 import pl.deniotokiari.capital.gain.calculator.uikit.stringResource
 import pl.deniotokiari.core.misc.compose.LocalNavController
 import pl.deniotokiari.core.navigation.route.AuthLogin
-import pl.deniotokiari.core.navigation.route.AuthSignup
 import pl.deniotokiari.core.navigation.route.AuthType
 import pl.deniotokiari.core.navigation.route.Home
+import pl.deniotokiari.core.navigation.route.StartRoute
 
 @Composable
 fun AuthScreen(type: AuthType) {
@@ -50,7 +50,7 @@ fun AuthScreen(type: AuthType) {
             when (event) {
                 AuthUiEvent.NavigateToHome -> navController?.navigate(
                     route = Home,
-                    builder = { popUpTo(AuthSignup) { inclusive = true } },
+                    builder = { popUpTo(StartRoute) { inclusive = true } },
                 )
 
                 AuthUiEvent.NavigateToLogin -> navController?.navigate(
@@ -102,31 +102,24 @@ fun AuthContent(
     uiState: AuthUiState,
     onAction: (AuthUiAction) -> Unit,
 ) {
-    AnimatedContent(
+    Column(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-        targetState = uiState,
-        contentKey = { it.type }
-    ) { state ->
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            when (state.type) {
-                AuthUiType.Loading -> CircularProgressIndicator()
-                AuthUiType.Login -> LoginContent(
-                    email = state.email,
-                    password = state.password,
-                    onAction = onAction,
-                )
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        when (uiState.type) {
+            AuthUiType.Loading -> CircularProgressIndicator()
+            AuthUiType.Login -> LoginContent(
+                email = uiState.email,
+                password = uiState.password,
+                onAction = onAction,
+            )
 
-                AuthUiType.Signup -> SignupContent(
-                    email = state.email,
-                    password = state.password,
-                    onAction = onAction,
-                )
-            }
+            AuthUiType.Signup -> SignupContent(
+                email = uiState.email,
+                password = uiState.password,
+                onAction = onAction,
+            )
         }
     }
 }
