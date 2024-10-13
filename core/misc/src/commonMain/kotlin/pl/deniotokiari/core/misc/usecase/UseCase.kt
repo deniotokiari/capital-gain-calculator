@@ -7,5 +7,5 @@ interface UseCase<in T, out P> {
 }
 
 interface FlowUseCase<in T, out P> {
-    fun invoke(input: T): Flow<P>
+    operator fun invoke(input: T): Flow<P>
 }

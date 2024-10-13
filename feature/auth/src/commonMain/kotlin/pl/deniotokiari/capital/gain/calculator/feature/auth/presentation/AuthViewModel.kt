@@ -32,8 +32,6 @@ class AuthViewModel(
         viewModelScope.launch(appDispatchers.default) {
             if (isAuthRequiredUseCase(Unit)) {
                 _uiState.update { it.copy(type = type.toUiType) }
-            } else {
-                _event.emit(AuthUiEvent.NavigateToHome)
             }
         }
     }
@@ -92,10 +90,8 @@ class AuthViewModel(
         }
     }
 
-    private suspend fun handleSuccess(result: Boolean) {
-        if (result) {
-            _event.emit(AuthUiEvent.NavigateToHome)
-        } else {
+    private fun handleSuccess(result: Boolean) {
+        if (!result) {
             _uiState.update { state ->
                 state.copy(
                     email = state.email.copy(enabled = true, error = true),

@@ -1,12 +1,12 @@
 package pl.deniotokiari.capital.gain.calculator.presentation
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -24,15 +24,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import capital_gain_calculator.ui_kit.generated.resources.Res
-import capital_gain_calculator.ui_kit.generated.resources.ui_kit_app_name
-import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.compose.AuthScreen
+import pl.deniotokiari.capital.gain.calculator.feature.home.presentation.compose.HomeScreen
 import pl.deniotokiari.core.misc.compose.LocalNavController
 import pl.deniotokiari.core.navigation.route.AuthLogin
 import pl.deniotokiari.core.navigation.route.AuthSignup
 import pl.deniotokiari.core.navigation.route.AuthType
 import pl.deniotokiari.core.navigation.route.Home
+import pl.deniotokiari.core.navigation.route.Splash
 import pl.deniotokiari.core.navigation.route.StartRoute
 
 @Composable
@@ -47,6 +47,8 @@ fun AppScreen() {
                 showBackButton = backStackEntryList.size > 2
             }
         }
+
+        val viewModel = koinViewModel<AppViewModel>()
 
         Scaffold(
             topBar = {
@@ -70,11 +72,40 @@ fun AppScreen() {
                     navController = navController,
                     startDestination = StartRoute,
                 ) {
+                    composable<Splash> { SplashScreen() }
                     composable<AuthLogin> { AuthScreen(AuthType.Login) }
                     composable<AuthSignup> { AuthScreen(AuthType.Signup) }
                     composable<Home> { HomeScreen() }
                 }
             }
         }
+
+        LaunchedEffect(Unit) {
+            viewModel.event.collect { event ->
+                when (event) {
+                    AppUiAction.AuthRequired -> navController.navigate(
+                        route = AuthSignup,
+                        builder = {
+                            popUpTo(0)
+                        },
+                    )
+
+                    AppUiAction.NavigateToHome -> navController.navigate(
+                        route = Home,
+                        builder = {
+                            popUpTo(0)
+                        },
+                    )
+                }
+            }
+        }
     }
+}
+
+@Composable
+fun SplashScreen() = Box(
+    modifier = Modifier.fillMaxSize(),
+    contentAlignment = Alignment.Center,
+) {
+    CircularProgressIndicator()
 }

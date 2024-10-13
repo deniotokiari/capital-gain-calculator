@@ -1,6 +1,5 @@
 package pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.compose
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,8 +32,6 @@ import pl.deniotokiari.capital.gain.calculator.uikit.stringResource
 import pl.deniotokiari.core.misc.compose.LocalNavController
 import pl.deniotokiari.core.navigation.route.AuthLogin
 import pl.deniotokiari.core.navigation.route.AuthType
-import pl.deniotokiari.core.navigation.route.Home
-import pl.deniotokiari.core.navigation.route.StartRoute
 
 @Composable
 fun AuthScreen(type: AuthType) {
@@ -48,11 +45,6 @@ fun AuthScreen(type: AuthType) {
     LaunchedEffect(Unit) {
         viewModel.event.collect { event ->
             when (event) {
-                AuthUiEvent.NavigateToHome -> navController?.navigate(
-                    route = Home,
-                    builder = { popUpTo(StartRoute) { inclusive = true } },
-                )
-
                 AuthUiEvent.NavigateToLogin -> navController?.navigate(
                     route = AuthLogin,
                 )

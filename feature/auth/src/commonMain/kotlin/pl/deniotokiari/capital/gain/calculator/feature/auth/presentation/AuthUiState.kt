@@ -21,7 +21,6 @@ sealed interface AuthUiType {
 }
 
 sealed interface AuthUiEvent {
-    data object NavigateToHome : AuthUiEvent
     data object NavigateToLogin : AuthUiEvent
     data object Error : AuthUiEvent
 }

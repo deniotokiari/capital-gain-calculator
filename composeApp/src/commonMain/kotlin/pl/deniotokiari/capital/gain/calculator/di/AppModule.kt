@@ -1,11 +1,12 @@
 package pl.deniotokiari.capital.gain.calculator.di
 
 import kotlinx.coroutines.Dispatchers
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
+import pl.deniotokiari.capital.gain.calculator.presentation.AppViewModel
 import pl.deniotokiari.core.misc.AppDispatchers
 import kotlin.coroutines.CoroutineContext
 
-// global dependencies
 val appModule = module {
     single<AppDispatchers> {
         object : AppDispatchers {
@@ -14,4 +15,6 @@ val appModule = module {
             override val main: CoroutineContext = Dispatchers.Main
         }
     }
+
+    viewModelOf(::AppViewModel)
 }
