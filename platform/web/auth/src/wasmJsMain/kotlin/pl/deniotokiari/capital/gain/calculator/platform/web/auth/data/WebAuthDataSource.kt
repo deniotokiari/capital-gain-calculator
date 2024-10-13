@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import pl.deniotokiari.capital.gain.calculator.platform.common.auth.data.AuthDataSource
 import kotlin.js.Promise
 
-private val state = MutableSharedFlow<Boolean>()
+private val state = MutableSharedFlow<Boolean>(replay = 1)
 
 @OptIn(ExperimentalJsExport::class, DelicateCoroutinesApi::class)
 @JsExport

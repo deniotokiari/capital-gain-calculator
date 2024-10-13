@@ -67,7 +67,9 @@ fun SignupContent(
             buttonLabel = stringResource(Res.string.ui_kit_signup),
             email = email,
             password = password,
-            onAction = onAction,
+            onEmailChange = { onAction(AuthUiAction.EmailChanged(it)) },
+            onPasswordChange = { onAction(AuthUiAction.PasswordChanged(it)) },
+            onAction = { onAction(AuthUiAction.Signup) },
         )
     }
 }

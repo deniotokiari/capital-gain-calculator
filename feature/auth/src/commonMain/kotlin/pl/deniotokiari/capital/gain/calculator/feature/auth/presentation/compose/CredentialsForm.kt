@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import capital_gain_calculator.ui_kit.generated.resources.Res
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_email
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_password
-import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiAction
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.CredentialsField
 import pl.deniotokiari.capital.gain.calculator.uikit.stringResource
 
@@ -26,7 +25,9 @@ fun CredentialsForm(
     buttonLabel: String,
     email: CredentialsField,
     password: CredentialsField,
-    onAction: (AuthUiAction) -> Unit,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onAction: () -> Unit,
 ) {
     Box(
         modifier = Modifier.wrapContentSize(),
@@ -41,7 +42,7 @@ fun CredentialsForm(
                 enabled = email.enabled,
                 isError = email.error,
                 label = { Text(stringResource(Res.string.ui_kit_email)) },
-                onValueChange = { onAction(AuthUiAction.EmailChanged(it)) },
+                onValueChange = { onEmailChange(it) },
                 value = email.value,
             )
 
@@ -50,7 +51,7 @@ fun CredentialsForm(
                 isError = password.error,
                 label = { Text(stringResource(Res.string.ui_kit_password)) },
                 modifier = Modifier.padding(top = 4.dp),
-                onValueChange = { onAction(AuthUiAction.PasswordChanged(it)) },
+                onValueChange = { onPasswordChange(it) },
                 value = password.value,
                 visualTransformation = PasswordVisualTransformation(),
             )
@@ -59,7 +60,7 @@ fun CredentialsForm(
                 content = { Text(buttonLabel) },
                 enabled = email.enabled && password.enabled,
                 modifier = Modifier.padding(8.dp),
-                onClick = { onAction(AuthUiAction.Signup) },
+                onClick = onAction,
             )
         }
 
