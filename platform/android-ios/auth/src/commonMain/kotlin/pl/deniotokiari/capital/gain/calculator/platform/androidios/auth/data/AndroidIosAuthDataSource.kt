@@ -22,7 +22,10 @@ class AndroidIosAuthDataSource : AuthDataSource {
         ).user != null
     }
 
-    override suspend fun login(email: String, password: String): Result<Boolean> {
-        TODO("Not yet implemented")
+    override suspend fun login(email: String, password: String): Result<Boolean> = runCatching {
+        firebaseAuth.signInWithEmailAndPassword(
+            email = email,
+            password = password,
+        ).user != null
     }
 }

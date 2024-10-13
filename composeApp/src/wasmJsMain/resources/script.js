@@ -23,3 +23,19 @@ function createUserWithEmailAndPassword(email, password) {
             return false
         });
 }
+
+function signInWithEmailAndPassword(email, password) {
+    return auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            var user = userCredential.user;
+
+            if (user) {
+                return true
+            } else {
+                return false
+            }
+        })
+        .catch((error) => {
+            return false
+        });
+}

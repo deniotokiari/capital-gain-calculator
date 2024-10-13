@@ -71,7 +71,10 @@ fun AuthScreen(type: AuthType) {
         AlertDialog(
             title = { Text(stringResource(Res.string.ui_kit_generic_error_title)) },
             text = { Text(stringResource(Res.string.ui_kit_generic_error_message)) },
-            onDismissRequest = { showErrorDialog = false },
+            onDismissRequest = {
+                showErrorDialog = false
+                viewModel.onAction(AuthUiAction.OnRetryCancel)
+            },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -83,7 +86,10 @@ fun AuthScreen(type: AuthType) {
             },
             dismissButton = {
                 TextButton(
-                    onClick = { showErrorDialog = false },
+                    onClick = {
+                        showErrorDialog = false
+                        viewModel.onAction(AuthUiAction.OnRetryCancel)
+                    },
                     content = { Text(stringResource(Res.string.ui_kit_cancel)) }
                 )
             }

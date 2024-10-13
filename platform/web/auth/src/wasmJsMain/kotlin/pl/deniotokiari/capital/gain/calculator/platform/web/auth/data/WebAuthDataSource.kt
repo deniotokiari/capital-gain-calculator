@@ -21,6 +21,8 @@ fun updateAuthState(isAuthenticated: Boolean) {
 
 external fun createUserWithEmailAndPassword(email: String, password: String): Promise<JsAny>
 
+external fun signInWithEmailAndPassword(email: String, password: String): Promise<JsAny>
+
 class WebAuthDataSource : AuthDataSource {
     override fun authenticationRequired(): Flow<Boolean> = state
 
@@ -31,7 +33,10 @@ class WebAuthDataSource : AuthDataSource {
         ).await<JsAny>().unsafeCast<JsBoolean>().toBoolean()
     }
 
-    override suspend fun login(email: String, password: String): Result<Boolean> {
-        TODO("Not yet implemented")
+    override suspend fun login(email: String, password: String): Result<Boolean> = runCatching {
+        signInWithEmailAndPassword(
+            email = email,
+            password = password,
+        ).await<JsAny>().unsafeCast<JsBoolean>().toBoolean()
     }
 }
