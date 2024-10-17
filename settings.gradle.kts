@@ -25,6 +25,7 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
     }
 }
 
@@ -37,3 +38,4 @@ include(":platform:common:auth")
 include(":platform:web:auth")
 include(":ui-kit")
 include(":feature:home")
+include(":feature:currency")

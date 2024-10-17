@@ -20,19 +20,26 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_17)
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "misc"
+            baseName = "currency"
             isStatic = true
         }
     }
 
     sourceSets {
+        androidMain.dependencies {
+        }
+        iosMain.dependencies {
+        }
+        wasmJsMain.dependencies {
+        }
+
         commonMain.dependencies {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -40,10 +47,14 @@ kotlin {
             implementation(compose.material)
             implementation(compose.runtime)
             implementation(compose.ui)
-            implementation(libs.bundles.ktor.common)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.multiplatform.settings)
+            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.bundles.koin)
             implementation(libs.navigation.compose)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.kotlinx.serialization.json)
+
+            implementation(project(":core:misc"))
+            implementation(project(":ui-kit"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -52,7 +63,7 @@ kotlin {
 }
 
 android {
-    namespace = "pl.deniotokiari.core.misc"
+    namespace = "pl.deniotokiari.capital.gain.calculator.feature.currency"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
@@ -62,3 +73,4 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 }
+
