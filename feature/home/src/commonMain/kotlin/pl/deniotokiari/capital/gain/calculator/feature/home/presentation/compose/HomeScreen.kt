@@ -1,14 +1,35 @@
 package pl.deniotokiari.capital.gain.calculator.feature.home.presentation.compose
 
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import org.koin.compose.viewmodel.koinViewModel
+import pl.deniotokiari.capital.gain.calculator.feature.home.presentation.HomeUiState
+import pl.deniotokiari.capital.gain.calculator.feature.home.presentation.HomeViewModel
+import pl.deniotokiari.capital.gain.calculator.uikit.compose.GenericErrorWithRetry
 
 @Composable
 fun HomeScreen() {
-    HomeContent()
+    val viewModel = koinViewModel<HomeViewModel>()
+    val uisState by viewModel.uiState.collectAsState()
+
+    HomeContent(
+        uiState = uisState,
+    )
 }
 
 @Composable
-fun HomeContent() {
-    Text("Home")
+fun HomeContent(
+    uiState: HomeUiState,
+) {
+    when (uiState) {
+        HomeUiState.Error -> GenericErrorWithRetry(
+            onRetry = {},
+        )
+
+        HomeUiState.Loading -> CircularProgressIndicator()
+        is HomeUiState.Portfolios -> Text("portfolios")
+    }
 }
