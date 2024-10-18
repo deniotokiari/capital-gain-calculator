@@ -1,36 +1,8 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.compose.compiler)
+    id("pl.deniotokiari.capital.gain.calculator.common")
 }
 
 kotlin {
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs().browser()
-
-    androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
-        }
-    }
-
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "auth"
-            isStatic = true
-        }
-    }
-
     sourceSets {
         androidMain.dependencies {
             implementation(project(":platform:android-ios:auth"))
@@ -43,12 +15,6 @@ kotlin {
         }
 
         commonMain.dependencies {
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.runtime)
-            implementation(compose.ui)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.bundles.koin)
             implementation(libs.navigation.compose)
@@ -59,20 +25,5 @@ kotlin {
             implementation(project(":platform:common:auth"))
             implementation(project(":ui-kit"))
         }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-        }
-    }
-}
-
-android {
-    namespace = "pl.deniotokiari.capital.gain.calculator.feature.auth"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
     }
 }

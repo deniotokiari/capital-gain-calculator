@@ -2,6 +2,7 @@ rootProject.name = "capital-gain-calculator"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             mavenContent {
@@ -33,9 +34,9 @@ include(":composeApp")
 include(":core:misc")
 include(":core:navigation")
 include(":feature:auth")
+include(":feature:currency")
+include(":feature:home")
 include(":platform:android-ios:auth")
 include(":platform:common:auth")
 include(":platform:web:auth")
 include(":ui-kit")
-include(":feature:home")
-include(":feature:currency")
