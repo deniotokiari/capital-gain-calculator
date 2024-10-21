@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.services)
+    id("org.jetbrains.kotlinx.kover")
 }
 
 kotlin {
@@ -125,3 +126,12 @@ android {
     }
 }
 
+dependencies {
+    rootProject.allprojects.forEach { project ->
+        if (project.subprojects.size == 0 && project.name != name) {
+            kover(project(project.path))
+        }
+    }
+}
+
+//  ./gradlew clean composeApp:koverHtmlReportDebug

@@ -36,7 +36,11 @@ internal fun Project.configureKotlinMultiplatform(
                 }
 
                 ProjectType.Web -> {
-                    androidTarget()
+                    androidTarget {
+                        compilerOptions {
+                            jvmTarget.set(JvmTarget.JVM_17)
+                        }
+                    }
                     wasmJs().browser()
                 }
             }

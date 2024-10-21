@@ -27,6 +27,10 @@ open class ComposeMultiplatformPlugin(
 
             apply(libs.findPlugin("jetbrainsCompose").get().get().pluginId)
             apply(libs.findPlugin("compose-compiler").get().get().pluginId)
+
+            //if (projectTypes.size != 1 || projectTypes.first() != ProjectType.Web) {
+                apply("org.jetbrains.kotlinx.kover")
+            //}
         }
 
         val compose = extensions.getByType<ComposeExtension>().dependencies
