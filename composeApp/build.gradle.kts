@@ -134,4 +134,14 @@ dependencies {
     }
 }
 
+kover {
+    reports {
+        filters {
+            excludes {
+                packages("*.generated.*")
+            }
+        }
+    }
+}
+
 //  ./gradlew clean composeApp:koverHtmlReportDebug
