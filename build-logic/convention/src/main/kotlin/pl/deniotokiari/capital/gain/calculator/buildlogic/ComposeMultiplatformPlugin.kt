@@ -45,6 +45,12 @@ open class ComposeMultiplatformPlugin(
                     implementation(compose.runtime)
                     implementation(compose.ui)
                 }
+
+                androidUnitTest.dependencies {
+                    implementation(libs.findLibrary("kotlin-test").get().get())
+                    implementation(libs.findLibrary("kotlinx-coroutines-test").get().get())
+                    implementation(libs.findLibrary("mockito-kotlin").get().get())
+                }
             }
 
             configureKotlinMultiplatform(

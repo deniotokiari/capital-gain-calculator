@@ -25,11 +25,5 @@ kotlin {
             implementation(project(":platform:common:auth"))
             implementation(project(":ui-kit"))
         }
-
-        androidUnitTest.dependencies {
-            implementation(libs.kotlin.test)
-            implementation(libs.kotlinx.coroutines.test)
-            implementation(libs.mockito.kotlin)
-        }
     }
 }
