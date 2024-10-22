@@ -21,3 +21,7 @@ sealed class Result<out T, out E> {
         }
     }
 }
+
+fun <T> T.ok() = Result.Success(this)
+
+fun <E> E.error() = Result.Error(this)
