@@ -50,6 +50,10 @@ open class ComposeMultiplatformPlugin(
                     implementation(libs.findLibrary("kotlin-test").get().get())
                     implementation(libs.findLibrary("kotlinx-coroutines-test").get().get())
                     implementation(libs.findLibrary("mockito-kotlin").get().get())
+                    implementation(libs.findLibrary("mockito-junit-jupiter").get().get())
+                    implementation(libs.findLibrary("junit-jupiter-params").get().get())
+
+                    implementation(project(":core:test"))
                 }
             }
 

@@ -28,6 +28,7 @@ mockito = "5.1.1"
 mockito-kotlin = "5.4.0"
 multiplatform-settings = "1.2.0"
 navigation-compose = "2.8.0-alpha10"
+junit-jupiter-params = "5.11.3"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -68,6 +69,7 @@ mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatform-settings" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit-jupiter-params" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

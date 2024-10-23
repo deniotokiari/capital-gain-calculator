@@ -41,15 +41,19 @@ class AuthViewModel(
             is AuthUiAction.EmailChanged -> onEmailChange(action.value)
             is AuthUiAction.PasswordChanged -> onPasswordChange(action.value)
             AuthUiAction.Login -> onLogin()
+            AuthUiAction.Signup -> onSignup()
             AuthUiAction.NavigateToLogin -> onNavigateToLogin()
             AuthUiAction.Retry -> onRetry()
-            AuthUiAction.Signup -> onSignup()
-            AuthUiAction.OnRetryCancel -> _uiState.update { state ->
-                state.copy(
-                    email = state.email.copy(enabled = true),
-                    password = state.password.copy(enabled = true),
-                )
-            }
+            AuthUiAction.RetryCancel -> onRetryCancel()
+        }
+    }
+
+    private fun onRetryCancel() {
+        _uiState.update { state ->
+            state.copy(
+                email = state.email.copy(enabled = true),
+                password = state.password.copy(enabled = true),
+            )
         }
     }
 

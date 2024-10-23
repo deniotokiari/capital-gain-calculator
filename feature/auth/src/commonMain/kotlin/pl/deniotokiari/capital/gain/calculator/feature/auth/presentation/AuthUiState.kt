@@ -32,7 +32,7 @@ sealed interface AuthUiAction {
     data object Login : AuthUiAction
     data object Signup : AuthUiAction
     data object NavigateToLogin : AuthUiAction
-    data object OnRetryCancel : AuthUiAction
+    data object RetryCancel : AuthUiAction
 }
 
 val AuthType.toUiType: AuthUiType

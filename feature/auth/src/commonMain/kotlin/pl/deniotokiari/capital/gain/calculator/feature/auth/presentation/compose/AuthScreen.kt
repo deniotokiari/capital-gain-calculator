@@ -65,7 +65,7 @@ fun AuthScreen(type: AuthType) {
             text = { Text(stringResource(Res.string.ui_kit_generic_error_message)) },
             onDismissRequest = {
                 showErrorDialog = false
-                viewModel.onAction(AuthUiAction.OnRetryCancel)
+                viewModel.onAction(AuthUiAction.RetryCancel)
             },
             confirmButton = {
                 TextButton(
@@ -80,7 +80,7 @@ fun AuthScreen(type: AuthType) {
                 TextButton(
                     onClick = {
                         showErrorDialog = false
-                        viewModel.onAction(AuthUiAction.OnRetryCancel)
+                        viewModel.onAction(AuthUiAction.RetryCancel)
                     },
                     content = { Text(stringResource(Res.string.ui_kit_cancel)) }
                 )

@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 rootProject.name = "capital-gain-calculator"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
@@ -33,6 +35,7 @@ dependencyResolutionManagement {
 include(":composeApp")
 include(":core:misc")
 include(":core:navigation")
+include(":core:test")
 include(":feature:auth")
 include(":feature:currency")
 include(":feature:home")
