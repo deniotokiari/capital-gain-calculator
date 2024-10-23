@@ -1,41 +1,59 @@
 package pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase
 
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.toCollection
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import pl.deniotokiari.capital.gain.calculator.platform.common.auth.data.AuthDataSource
 import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
+import kotlin.test.assertEquals
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class IsAuthRequiredFlowUseCaseTest {
     private lateinit var mockAuthDataSource: AuthDataSource
     private lateinit var sut: IsAuthRequiredFlowUseCase
 
     @BeforeTest
-    fun setUp(){
+    fun setUp() {
         mockAuthDataSource = mock()
         sut = IsAuthRequiredFlowUseCase(mockAuthDataSource)
     }
 
     @Test
-    fun `GIVEN auth not required WHEN sut invoked THEN return false`() = runTest {
-        whenever(mockAuthDataSource.authenticationRequired()).thenReturn(flowOf(false))
+    fun `GIVEN auth data source fire values WHEN sut invoked THEN return flow of values`() =
+        runTest {
+            whenever(mockAuthDataSource.authenticationRequired()).thenReturn(
+                flowOf(
+                    false,
+                    true,
+                    true,
+                    false,
+                ),
+            )
+            val result = mutableListOf<Boolean>()
 
-        val result = sut(Unit).first()
+            val job = launch {
+                sut(Unit).toCollection(result)
+            }
 
-        assertFalse(result)
-    }
+            advanceUntilIdle()
 
-    @Test
-    fun `GIVEN auth required WHEN sut invoked THEN return true`() = runTest {
-        whenever(mockAuthDataSource.authenticationRequired()).thenReturn(flowOf(true))
+            job.cancel()
 
-        val result = sut(Unit).first()
 
-        assertTrue(result)
-    }
+            assertEquals(
+                listOf(
+                    false,
+                    true,
+                    true,
+                    false,
+                ),
+                result,
+            )
+        }
 }

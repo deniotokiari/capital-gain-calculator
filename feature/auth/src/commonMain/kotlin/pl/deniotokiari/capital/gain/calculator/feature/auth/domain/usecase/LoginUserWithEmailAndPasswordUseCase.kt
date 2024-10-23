@@ -3,6 +3,8 @@ package pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.model.AuthError
 import pl.deniotokiari.capital.gain.calculator.platform.common.auth.data.AuthDataSource
 import pl.deniotokiari.core.misc.Result
+import pl.deniotokiari.core.misc.error
+import pl.deniotokiari.core.misc.ok
 import pl.deniotokiari.core.misc.usecase.UseCase
 
 class LoginUserWithEmailAndPasswordUseCase(
@@ -14,8 +16,8 @@ class LoginUserWithEmailAndPasswordUseCase(
             password = input.password,
         )
         .fold(
-            onSuccess = { Result.Success(true) },
-            onFailure = { Result.Error(AuthError.GenericError) },
+            onSuccess = { true.ok() },
+            onFailure = { AuthError.GenericError.error() },
         )
 
     data class Params(

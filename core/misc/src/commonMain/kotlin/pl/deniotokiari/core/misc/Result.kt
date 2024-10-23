@@ -20,6 +20,16 @@ sealed class Result<out T, out E> {
             is Error -> this
         }
     }
+
+    inline fun getOrNull(): T? = when (this) {
+        is Error -> null
+        is Success -> data
+    }
+
+    inline fun errorOrNull(): E? = when (this) {
+        is Error -> error
+        is Success -> null
+    }
 }
 
 fun <T> T.ok() = Result.Success(this)
