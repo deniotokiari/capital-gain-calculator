@@ -46,6 +46,24 @@ class AuthViewModelTest {
         assertEquals(AuthUiType.Loading, sut.uiState.value.type)
     }
 
+    @Test
+    fun `WHEN email change action THEN state contains new email`() = runTest {
+        whenever(mockIsAuthRequiredUseCase.invoke(Unit)).thenReturn(false)
+        val sut = createSut(AuthType.Login)
+        sut.onAction(AuthUiAction.EmailChanged("test@email.com"))
+
+        assertEquals("test@email.com", sut.uiState.value.email.value)
+    }
+
+    @Test
+    fun `WHEN password change action THEN state contains new password`() = runTest {
+        whenever(mockIsAuthRequiredUseCase.invoke(Unit)).thenReturn(false)
+        val sut = createSut(AuthType.Login)
+        sut.onAction(AuthUiAction.PasswordChanged("password"))
+
+        assertEquals("password", sut.uiState.value.password.value)
+    }
+
     private fun TestScope.createSut(type: AuthType) = AuthViewModel(
         isAuthRequiredUseCase = mockIsAuthRequiredUseCase,
         signupUserWithEmailAndPasswordUseCase = mockSignupUserWithEmailAndPasswordUseCase,
