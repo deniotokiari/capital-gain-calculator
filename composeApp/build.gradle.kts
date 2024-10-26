@@ -145,3 +145,4 @@ kover {
 }
 
 //  ./gradlew clean composeApp:koverHtmlReportDebug
+// :composeApp:wasmJsBrowserDevelopmentRun
