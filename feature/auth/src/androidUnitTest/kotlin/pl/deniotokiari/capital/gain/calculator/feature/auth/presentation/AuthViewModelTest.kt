@@ -208,7 +208,7 @@ class AuthViewModelTest {
         }
 
     @Test
-    fun `WHEN signup action and login success THEN perform signup action`() = runTest {
+    fun `WHEN signup action and signup success THEN perform signup action`() = runTest {
         whenever(mockIsAuthRequiredUseCase.invoke(Unit)).thenReturn(false)
         whenever(
             mockSignupUserWithEmailAndPasswordUseCase.invoke(
@@ -360,6 +360,101 @@ class AuthViewModelTest {
                 events,
             )
         }
+
+    @Test
+    fun `GIVEN login or signup failed WHEN retry dialog canceled THEN email and password are enabled`() =
+        runTest {
+            whenever(mockIsAuthRequiredUseCase.invoke(Unit)).thenReturn(false)
+            whenever(
+                mockLoginUserWithEmailAndPasswordUseCase.invoke(
+                    LoginUserWithEmailAndPasswordUseCase.Params(
+                        email = "",
+                        password = "",
+                    ),
+                ),
+            ).thenReturn(AuthError.GenericError.error())
+            whenever(
+                mockSignupUserWithEmailAndPasswordUseCase.invoke(
+                    SignupUserWithEmailAndPasswordUseCase.Params(
+                        email = "",
+                        password = "",
+                    ),
+                ),
+            ).thenReturn(AuthError.GenericError.error())
+            val sut = createSut(AuthType.Login)
+
+            sut.onAction(AuthUiAction.Login)
+            sut.onAction(AuthUiAction.RetryCancel)
+
+            assertEquals(
+                CredentialsField(value = "", error = false, enabled = true),
+                sut.uiState.value.email,
+            )
+            assertEquals(
+                CredentialsField(value = "", error = false, enabled = true),
+                sut.uiState.value.password,
+            )
+
+            sut.onAction(AuthUiAction.Signup)
+            sut.onAction(AuthUiAction.RetryCancel)
+
+            assertEquals(
+                CredentialsField(value = "", error = false, enabled = true),
+                sut.uiState.value.email,
+            )
+            assertEquals(
+                CredentialsField(value = "", error = false, enabled = true),
+                sut.uiState.value.password,
+            )
+        }
+
+    @Test
+    fun `GIVEN login type and login failed WHEN retry THEN retry login`() = runTest {
+        whenever(mockIsAuthRequiredUseCase.invoke(Unit)).thenReturn(false)
+        whenever(
+            mockLoginUserWithEmailAndPasswordUseCase.invoke(
+                LoginUserWithEmailAndPasswordUseCase.Params(
+                    email = "",
+                    password = "",
+                ),
+            ),
+        ).thenReturn(AuthError.GenericError.error())
+        val sut = createSut(AuthType.Login)
+        sut.onAction(AuthUiAction.Login)
+
+        sut.onAction(AuthUiAction.Retry)
+
+        verify(mockLoginUserWithEmailAndPasswordUseCase).invoke(
+            LoginUserWithEmailAndPasswordUseCase.Params(
+                email = "",
+                password = "",
+            ),
+        )
+    }
+
+    @Test
+    fun `GIVEN signup type and signup failed WHEN retry THEN retry signup`() = runTest {
+        whenever(mockIsAuthRequiredUseCase.invoke(Unit)).thenReturn(false)
+        whenever(
+            mockSignupUserWithEmailAndPasswordUseCase.invoke(
+                SignupUserWithEmailAndPasswordUseCase.Params(
+                    email = "",
+                    password = "",
+                ),
+            ),
+        ).thenReturn(AuthError.GenericError.error())
+        val sut = createSut(AuthType.Signup)
+        sut.onAction(AuthUiAction.Signup)
+
+        sut.onAction(AuthUiAction.Retry)
+
+        verify(mockSignupUserWithEmailAndPasswordUseCase).invoke(
+            SignupUserWithEmailAndPasswordUseCase.Params(
+                email = "",
+                password = "",
+            ),
+        )
+    }
 
     private fun TestScope.createSut(type: AuthType) = AuthViewModel(
         isAuthRequiredUseCase = mockIsAuthRequiredUseCase,
