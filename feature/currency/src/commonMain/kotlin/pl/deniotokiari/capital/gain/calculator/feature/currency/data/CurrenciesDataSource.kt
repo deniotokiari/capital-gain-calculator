@@ -35,9 +35,7 @@ class CurrenciesLocalDataSource(
 ) : CurrenciesDataSource {
     override suspend fun getPhysicalCurrencies(): List<Currency> = store
         .getString(PHYSICAL_CURRENCIES_KEY)
-        ?.let {
-            Json.decodeFromString(it)
-        }
+        ?.let(Json::decodeFromString)
         ?: emptyList()
 
     fun savePhysicalCurrencies(currencies: List<Currency>) {

@@ -1,22 +1,22 @@
 package pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase
 
 import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.any
 import org.mockito.kotlin.whenever
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.model.AuthError
 import pl.deniotokiari.capital.gain.calculator.platform.common.auth.data.AuthDataSource
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
 class SignupUserWithEmailAndPasswordUseCaseTest {
     private lateinit var mockAuthDataSource: AuthDataSource
     private lateinit var sut: SignupUserWithEmailAndPasswordUseCase
 
-    @BeforeTest
+    @BeforeEach
     fun setUp() {
         mockAuthDataSource = mock()
         sut = SignupUserWithEmailAndPasswordUseCase(mockAuthDataSource)
@@ -35,7 +35,7 @@ class SignupUserWithEmailAndPasswordUseCaseTest {
 
 
         assertNotNull(result)
-        assertTrue(result)
+        assertTrue(result!!)
     }
 
     @Test
@@ -64,7 +64,6 @@ class SignupUserWithEmailAndPasswordUseCaseTest {
                 password = "password",
             ),
         ).errorOrNull()
-
 
         assertNotNull(result)
         assertEquals(AuthError.GenericError, result)

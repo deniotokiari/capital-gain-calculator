@@ -2,19 +2,19 @@ package pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase
 
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 import pl.deniotokiari.capital.gain.calculator.platform.common.auth.data.AuthDataSource
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 class IsAuthRequiredUseCaseTest {
     private lateinit var mockAuthDataSource: AuthDataSource
     private lateinit var sut: IsAuthRequiredUseCase
 
-    @BeforeTest
+    @BeforeEach
     fun setUp() {
         mockAuthDataSource = mock()
         sut = IsAuthRequiredUseCase(mockAuthDataSource)

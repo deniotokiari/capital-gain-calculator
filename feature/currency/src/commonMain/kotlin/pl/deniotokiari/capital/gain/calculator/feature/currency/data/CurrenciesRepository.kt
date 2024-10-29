@@ -8,13 +8,14 @@ class CurrenciesRepository(
 ) {
     suspend fun getPhysicalCurrencies(force: Boolean): Result<List<Currency>> =
         runCatching {
-            val localCurrencies = localCurrenciesDataSource.getPhysicalCurrencies()
-
-            if (localCurrencies.isNotEmpty() && !force) {
-                localCurrencies
+            if (force) {
+                remoteCurrenciesDataSource.getPhysicalCurrencies()
+                    .also(localCurrenciesDataSource::savePhysicalCurrencies)
             } else {
-                remoteCurrenciesDataSource.getPhysicalCurrencies().also {
-                    localCurrenciesDataSource.savePhysicalCurrencies(it)
+                val localCurrencies = localCurrenciesDataSource.getPhysicalCurrencies()
+
+                localCurrencies.ifEmpty {
+                    getPhysicalCurrencies(force = true).getOrThrow()
                 }
             }
         }

@@ -80,6 +80,7 @@ kotlin {
             implementation(project(":core:navigation"))
 
             implementation(project(":feature:auth"))
+            implementation(project(":feature:currency"))
             implementation(project(":feature:home"))
 
             implementation(project(":ui-kit"))

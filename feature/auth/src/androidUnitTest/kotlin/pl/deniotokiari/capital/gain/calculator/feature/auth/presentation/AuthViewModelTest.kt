@@ -7,6 +7,9 @@ import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.mockito.kotlin.whenever
@@ -18,16 +21,13 @@ import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.Signu
 import pl.deniotokiari.core.misc.error
 import pl.deniotokiari.core.misc.ok
 import pl.deniotokiari.core.navigation.route.AuthType
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class AuthViewModelTest {
     private lateinit var mockIsAuthRequiredUseCase: IsAuthRequiredUseCase
     private lateinit var mockSignupUserWithEmailAndPasswordUseCase: SignupUserWithEmailAndPasswordUseCase
     private lateinit var mockLoginUserWithEmailAndPasswordUseCase: LoginUserWithEmailAndPasswordUseCase
 
-    @BeforeTest
+    @BeforeEach
     fun setUp() {
         mockIsAuthRequiredUseCase = mock()
         mockSignupUserWithEmailAndPasswordUseCase = mock()

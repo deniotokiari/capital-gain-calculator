@@ -3,6 +3,8 @@ package pl.deniotokiari.capital.gain.calculator.buildlogic
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.api.tasks.testing.Test
+import org.gradle.kotlin.dsl.withType
 
 private const val PACKAGE_NAME = "pl.deniotokiari.capital.gain.calculator"
 
@@ -24,5 +26,9 @@ internal fun Project.configureKotlinAndroid(extensions: LibraryExtension) = exte
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
     }
 }
