@@ -8,7 +8,16 @@ sealed interface CurrenciesListUiState {
     data class Data(
         val currencies: List<Currency>,
         val currentCurrency: Currency?,
+        val showItems: Boolean,
     ) : CurrenciesListUiState
+}
+
+sealed interface CurrenciesListAction {
+    data object FieldClicked : CurrenciesListAction
+}
+
+sealed interface CurrenciesListEvent {
+
 }
 
 internal val CurrenciesListUiState.isEnabled: Boolean
@@ -19,3 +28,13 @@ internal val CurrenciesListUiState.isError: Boolean
 
 internal val CurrenciesListUiState.isLoading: Boolean
     get() = this is CurrenciesListUiState.Loading
+
+internal val CurrenciesListUiState.currentCurrency: String
+    get() = when (this) {
+        is CurrenciesListUiState.Data -> currentCurrency?.let { currency -> "${currency.code} - ${currency.name}" }
+        CurrenciesListUiState.Error,
+        CurrenciesListUiState.Loading -> null
+    } ?: ""
+
+internal val CurrenciesListUiState.showItems: Boolean
+    get() = this is CurrenciesListUiState.Data && showItems

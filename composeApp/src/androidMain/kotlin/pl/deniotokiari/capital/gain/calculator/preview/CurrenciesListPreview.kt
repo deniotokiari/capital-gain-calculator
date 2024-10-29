@@ -10,12 +10,14 @@ import pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.com
 @Composable
 fun CurrenciesListLoadingPreview() = CurrenciesListContent(
     uiState = CurrenciesListUiState.Loading,
+    onAction = {},
 )
 
 @Preview(showBackground = true)
 @Composable
 fun CurrenciesListErrorPreview() = CurrenciesListContent(
     uiState = CurrenciesListUiState.Error,
+    onAction = {},
 )
 
 @Preview(showBackground = true)
@@ -24,7 +26,9 @@ fun CurrenciesListDataEmptyPreview() = CurrenciesListContent(
     uiState = CurrenciesListUiState.Data(
         currencies = emptyList(),
         currentCurrency = null,
+        showItems = false,
     ),
+    onAction = {},
 )
 
 @Preview(showBackground = true)
@@ -32,6 +36,8 @@ fun CurrenciesListDataEmptyPreview() = CurrenciesListContent(
 fun CurrenciesListDataSelectedPreview() = CurrenciesListContent(
     uiState = CurrenciesListUiState.Data(
         currencies = emptyList(),
-        currentCurrency = Currency.Physical(name = "PLN", code = "PLN"),
+        currentCurrency = Currency.Physical(name = "Polish zloty", code = "PLN"),
+        showItems = false,
     ),
+    onAction = {},
 )
