@@ -17,4 +17,6 @@
     <string name="ui_kit_signup_message">Create an account to get started or</string>
     <string name="ui_kit_signup">Signup</string>
     <string name="ui_kit_cancel">Cancel</string>
+
+    <string name="ui_kit_currency">Currency</string>
 </resources>
