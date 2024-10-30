@@ -2,6 +2,7 @@ package pl.deniotokiari.capital.gain.calculator.preview
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import pl.deniotokiari.capital.gain.calculator.PreviewApplication
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiState
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiType
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.CredentialsField
@@ -23,29 +24,35 @@ fun AuthPreviewLogin() = AuthContent(
 
 @Preview(showBackground = true)
 @Composable
-fun AuthPreviewSignup() = AuthContent(
-    uiState = AuthUiState(type = AuthUiType.Signup),
-    onAction = {},
-)
+fun AuthPreviewSignup() = PreviewApplication {
+    AuthContent(
+        uiState = AuthUiState(type = AuthUiType.Signup),
+        onAction = {},
+    )
+}
 
 @Preview(showBackground = true)
 @Composable
-fun AuthPreviewSignupEmailAndPasswordError() = AuthContent(
-    uiState = AuthUiState(
-        type = AuthUiType.Signup,
-        email = CredentialsField(value = "email@email.com", error = true),
-        password = CredentialsField(value = "password", error = true),
-    ),
-    onAction = {},
-)
+fun AuthPreviewSignupEmailAndPasswordError() = PreviewApplication {
+    AuthContent(
+        uiState = AuthUiState(
+            type = AuthUiType.Signup,
+            email = CredentialsField(value = "email@email.com", error = true),
+            password = CredentialsField(value = "password", error = true),
+        ),
+        onAction = {},
+    )
+}
 
 @Preview(showBackground = true)
 @Composable
-fun AuthPreviewSignupSending() = AuthContent(
-    uiState = AuthUiState(
-        type = AuthUiType.Signup,
-        email = CredentialsField(value = "email@email.com", enabled = false),
-        password = CredentialsField(value = "password", enabled = false),
-    ),
-    onAction = {},
-)
+fun AuthPreviewSignupSending() = PreviewApplication {
+    AuthContent(
+        uiState = AuthUiState(
+            type = AuthUiType.Signup,
+            email = CredentialsField(value = "email@email.com", enabled = false),
+            password = CredentialsField(value = "password", enabled = false),
+        ),
+        onAction = {},
+    )
+}

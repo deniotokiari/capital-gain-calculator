@@ -11,5 +11,17 @@ kotlin {
             implementation(libs.multiplatform.settings)
             implementation(libs.navigation.compose)
         }
+
+        androidMain.dependencies {
+            implementation(libs.ktor.android)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.ios)
+        }
+
+        wasmJsMain.dependencies {
+            implementation(libs.ktor.wasm)
+        }
     }
 }

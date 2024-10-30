@@ -8,17 +8,24 @@ sealed interface CurrenciesListUiState {
     data class Data(
         val currencies: List<Currency>,
         val currentCurrency: Currency?,
-        val showItems: Boolean,
+        val itemsBottomSheetState: ItemsBottomSheetState?,
     ) : CurrenciesListUiState
 }
 
+data class ItemsBottomSheetState(
+    val searchValue: String = "",
+    val currencies: List<Currency>,
+)
+
 sealed interface CurrenciesListAction {
     data object FieldClicked : CurrenciesListAction
+    data object ItemsBottomSheetDismissed : CurrenciesListAction
+    data class CurrencyClicked(val currency: Currency) : CurrenciesListAction
+    data class CurrencySearchValueChange(val value: String) : CurrenciesListAction
 }
 
-sealed interface CurrenciesListEvent {
-
-}
+internal val CurrenciesListUiState.itemsBottomSheetState: ItemsBottomSheetState?
+    get() = (this as? CurrenciesListUiState.Data)?.itemsBottomSheetState
 
 internal val CurrenciesListUiState.isEnabled: Boolean
     get() = this !is CurrenciesListUiState.Loading
@@ -29,12 +36,15 @@ internal val CurrenciesListUiState.isError: Boolean
 internal val CurrenciesListUiState.isLoading: Boolean
     get() = this is CurrenciesListUiState.Loading
 
-internal val CurrenciesListUiState.currentCurrency: String
+internal val CurrenciesListUiState.currentCurrencyLabel: String
     get() = when (this) {
-        is CurrenciesListUiState.Data -> currentCurrency?.let { currency -> "${currency.code} - ${currency.name}" }
+        is CurrenciesListUiState.Data -> currentCurrency?.label
         CurrenciesListUiState.Error,
         CurrenciesListUiState.Loading -> null
     } ?: ""
 
-internal val CurrenciesListUiState.showItems: Boolean
-    get() = this is CurrenciesListUiState.Data && showItems
+internal val CurrenciesListUiState.currencies: List<Currency>
+    get() = (this as? CurrenciesListUiState.Data)?.currencies ?: emptyList()
+
+internal val Currency.label: String
+    get() = "$code - $name"

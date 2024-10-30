@@ -19,4 +19,6 @@
     <string name="ui_kit_cancel">Cancel</string>
 
     <string name="ui_kit_currency">Currency</string>
+    <string name="ui_kit_search_currency">Search currency</string>
+    <string name="ui_kit_empty_currencies">No currencies</string>
 </resources>

@@ -3,10 +3,10 @@ package pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.compos
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +28,7 @@ fun CredentialsForm(
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onAction: () -> Unit,
+    content: @Composable (ColumnScope.() -> Unit)? = null,
 ) {
     Box(
         modifier = Modifier.wrapContentSize(),
@@ -50,11 +51,19 @@ fun CredentialsForm(
                 enabled = password.enabled,
                 isError = password.error,
                 label = { Text(stringResource(Res.string.ui_kit_password)) },
-                modifier = Modifier.padding(top = 4.dp),
+                modifier = Modifier.apply {
+                    if (content == null) {
+                        padding(top = 4.dp)
+                    } else {
+                        padding(vertical = 4.dp)
+                    }
+                },
                 onValueChange = { onPasswordChange(it) },
                 value = password.value,
                 visualTransformation = PasswordVisualTransformation(),
             )
+
+            content?.invoke(this)
 
             Button(
                 content = { Text(buttonLabel) },
@@ -62,10 +71,6 @@ fun CredentialsForm(
                 modifier = Modifier.padding(8.dp),
                 onClick = onAction,
             )
-        }
-
-        if (!email.enabled || !password.enabled) {
-            CircularProgressIndicator()
         }
     }
 }

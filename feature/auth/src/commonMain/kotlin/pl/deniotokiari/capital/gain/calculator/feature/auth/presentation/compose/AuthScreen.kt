@@ -1,7 +1,7 @@
 package pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.compose
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.CircularProgressIndicator
@@ -94,24 +94,39 @@ fun AuthContent(
     uiState: AuthUiState,
     onAction: (AuthUiAction) -> Unit,
 ) {
-    Column(
+    Box(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        contentAlignment = Alignment.Center,
     ) {
-        when (uiState.type) {
-            AuthUiType.Loading -> CircularProgressIndicator()
-            AuthUiType.Login -> LoginContent(
-                email = uiState.email,
-                password = uiState.password,
-                onAction = onAction,
-            )
+        if (uiState.type == AuthUiType.Loading) {
+            CircularProgressIndicator()
+        } else {
+            when (uiState.type) {
+                AuthUiType.Login -> LoginContent(
+                    email = uiState.email,
+                    password = uiState.password,
+                    onAction = onAction,
+                )
 
-            AuthUiType.Signup -> SignupContent(
-                email = uiState.email,
-                password = uiState.password,
-                onAction = onAction,
-            )
+                AuthUiType.Signup -> SignupContent(
+                    email = uiState.email,
+                    password = uiState.password,
+                    onAction = onAction,
+                )
+
+                else -> Unit
+            }
+
+            if (!uiState.email.enabled || !uiState.password.enabled) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clickable(enabled = false) { }
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
         }
     }
 }

@@ -11,10 +11,11 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.kotlinx.serialization.json)
+            implementation(compose.material3)
 
             implementation(project(":core:misc"))
+            implementation(project(":gateway"))
             implementation(project(":ui-kit"))
         }
-
     }
 }

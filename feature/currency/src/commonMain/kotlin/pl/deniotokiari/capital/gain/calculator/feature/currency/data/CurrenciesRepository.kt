@@ -2,11 +2,15 @@ package pl.deniotokiari.capital.gain.calculator.feature.currency.data
 
 import pl.deniotokiari.capital.gain.calculator.feature.currency.data.model.Currency
 
-class CurrenciesRepository(
+interface CurrenciesRepository {
+    suspend fun getPhysicalCurrencies(force: Boolean): Result<List<Currency>>
+}
+
+class CurrenciesRepositoryImpl(
     private val remoteCurrenciesDataSource: AlphaVantageCurrenciesRemoteDataSource,
     private val localCurrenciesDataSource: CurrenciesLocalDataSource,
-) {
-    suspend fun getPhysicalCurrencies(force: Boolean): Result<List<Currency>> =
+) : CurrenciesRepository {
+    override suspend fun getPhysicalCurrencies(force: Boolean): Result<List<Currency>> =
         runCatching {
             if (force) {
                 remoteCurrenciesDataSource.getPhysicalCurrencies()

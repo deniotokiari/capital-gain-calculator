@@ -20,8 +20,10 @@ import capital_gain_calculator.ui_kit.generated.resources.ui_kit_login
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_signup
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_signup_message
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_signup_title
+import org.koin.compose.koinInject
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiAction
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.CredentialsField
+import pl.deniotokiari.capital.gain.calculator.gateway.currency.CurrencyUiGateway
 import pl.deniotokiari.capital.gain.calculator.uikit.stringResource
 
 @Composable
@@ -30,6 +32,8 @@ fun SignupContent(
     password: CredentialsField,
     onAction: (AuthUiAction) -> Unit,
 ) {
+    val currencyUiGateway = koinInject<CurrencyUiGateway>()
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = CenterHorizontally,
@@ -70,6 +74,11 @@ fun SignupContent(
             onEmailChange = { onAction(AuthUiAction.EmailChanged(it)) },
             onPasswordChange = { onAction(AuthUiAction.PasswordChanged(it)) },
             onAction = { onAction(AuthUiAction.Signup) },
+            content = {
+                currencyUiGateway.Currencies(
+                    onCurrencyChange = { currency -> },
+                )
+            }
         )
     }
 }

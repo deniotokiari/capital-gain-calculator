@@ -22,6 +22,7 @@ kotlin {
 
             implementation(project(":core:misc"))
             implementation(project(":core:navigation"))
+            implementation(project(":gateway"))
             implementation(project(":platform:common:auth"))
             implementation(project(":ui-kit"))
         }
