@@ -18,9 +18,6 @@ function createUserWithEmailAndPassword(email, password) {
             } else {
                 return false
             }
-        })
-        .catch((error) => {
-            return false
         });
 }
 
@@ -34,8 +31,5 @@ function signInWithEmailAndPassword(email, password) {
             } else {
                 return false
             }
-        })
-        .catch((error) => {
-            return false
         });
 }
