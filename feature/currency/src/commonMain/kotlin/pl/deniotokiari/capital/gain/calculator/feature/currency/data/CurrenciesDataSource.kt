@@ -4,7 +4,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import pl.deniotokiari.capital.gain.calculator.feature.currency.data.model.Currency
 import pl.deniotokiari.core.misc.HttpClient
-import pl.deniotokiari.core.misc.Store
+import pl.deniotokiari.core.misc.LocalStore
 
 interface CurrenciesDataSource {
     suspend fun getPhysicalCurrencies(): List<Currency>
@@ -31,14 +31,14 @@ class AlphaVantageCurrenciesRemoteDataSource(
 }
 
 class CurrenciesLocalDataSource(
-    private val store: Store,
+    private val localStore: LocalStore,
 ) : CurrenciesDataSource {
-    override suspend fun getPhysicalCurrencies(): List<Currency> = store
+    override suspend fun getPhysicalCurrencies(): List<Currency> = localStore
         .getString(PHYSICAL_CURRENCIES_KEY)
         ?.let(Json::decodeFromString)
         ?: emptyList()
 
     fun savePhysicalCurrencies(currencies: List<Currency>) {
-        store.putString(PHYSICAL_CURRENCIES_KEY, Json.encodeToString(currencies))
+        localStore.putString(PHYSICAL_CURRENCIES_KEY, Json.encodeToString(currencies))
     }
 }

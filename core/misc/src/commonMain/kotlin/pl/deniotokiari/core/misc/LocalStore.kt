@@ -2,7 +2,7 @@ package pl.deniotokiari.core.misc
 
 import com.russhwolf.settings.Settings
 
-class Store {
+class LocalStore {
     private val settings = Settings()
 
     fun putString(key: String, value: String) = settings.putString(key, value)

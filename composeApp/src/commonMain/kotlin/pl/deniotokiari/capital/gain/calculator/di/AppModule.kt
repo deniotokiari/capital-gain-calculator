@@ -6,7 +6,7 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import pl.deniotokiari.capital.gain.calculator.presentation.AppViewModel
 import pl.deniotokiari.core.misc.AppDispatchers
-import pl.deniotokiari.core.misc.Store
+import pl.deniotokiari.core.misc.LocalStore
 import kotlin.coroutines.CoroutineContext
 
 val appModule = module {
@@ -17,7 +17,7 @@ val appModule = module {
             override val main: CoroutineContext = Dispatchers.Main
         }
     }
-    singleOf(::Store)
+    singleOf(::LocalStore)
 
     viewModelOf(::AppViewModel)
 }

@@ -14,14 +14,20 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.ktor.android)
+
+            implementation(project(":platform:android-ios:remote-store"))
         }
 
         iosMain.dependencies {
             implementation(libs.ktor.ios)
+
+            implementation(project(":platform:android-ios:remote-store"))
         }
 
         wasmJsMain.dependencies {
             implementation(libs.ktor.wasm)
+
+            implementation(project(":platform:web:remote-store"))
         }
     }
 }
