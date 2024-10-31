@@ -8,7 +8,7 @@ import pl.deniotokiari.capital.gain.calculator.feature.currency.data.model.Curre
 import pl.deniotokiari.capital.gain.calculator.feature.currency.domain.usecase.GetCurrenciesUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.currency.gateway.CurrencyFeatureUiGateway
 import pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.CurrenciesListViewModel
-import pl.deniotokiari.capital.gain.calculator.gateway.currency.CurrencyUiGateway
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.CurrencyUiGateway
 
 val currencyPreviewModule = module {
     factory<CurrenciesRepository> {

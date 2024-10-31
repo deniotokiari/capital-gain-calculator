@@ -10,14 +10,16 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import pl.deniotokiari.capital.gain.calculator.core.test.getAppDispatcher
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.model.AuthError
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.IsAuthRequiredUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.LoginUserWithEmailAndPasswordUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.SignupUserWithEmailAndPasswordUseCase
+import pl.deniotokiari.capital.gain.calculator.gateway.domain.usecase.GetUsdCurrencyUseCase
 import pl.deniotokiari.core.misc.error
 import pl.deniotokiari.core.misc.ok
 import pl.deniotokiari.core.navigation.route.AuthType
@@ -26,12 +28,16 @@ class AuthViewModelTest {
     private lateinit var mockIsAuthRequiredUseCase: IsAuthRequiredUseCase
     private lateinit var mockSignupUserWithEmailAndPasswordUseCase: SignupUserWithEmailAndPasswordUseCase
     private lateinit var mockLoginUserWithEmailAndPasswordUseCase: LoginUserWithEmailAndPasswordUseCase
+    private lateinit var mockGetUsdCurrencyUseCase: GetUsdCurrencyUseCase
 
     @BeforeEach
     fun setUp() {
         mockIsAuthRequiredUseCase = mock()
         mockSignupUserWithEmailAndPasswordUseCase = mock()
         mockLoginUserWithEmailAndPasswordUseCase = mock()
+        mockGetUsdCurrencyUseCase = mock {
+            onBlocking { invoke(Unit) } doReturn null
+        }
     }
 
     @Test
@@ -460,6 +466,7 @@ class AuthViewModelTest {
         isAuthRequiredUseCase = mockIsAuthRequiredUseCase,
         signupUserWithEmailAndPasswordUseCase = mockSignupUserWithEmailAndPasswordUseCase,
         loginUserWithEmailAndPasswordUseCase = mockLoginUserWithEmailAndPasswordUseCase,
+        getUsdCurrencyUseCase = mockGetUsdCurrencyUseCase,
         type = type,
         appDispatchers = getAppDispatcher(),
     )

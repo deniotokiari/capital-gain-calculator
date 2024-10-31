@@ -1,9 +1,9 @@
 package pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.compose
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -133,7 +133,7 @@ fun CurrenciesListContent(
             )
 
             override suspend fun emit(interaction: Interaction) {
-                if (interaction is PressInteraction.Release) {
+                if (interaction is FocusInteraction.Focus) {
                     onAction(CurrenciesListAction.FieldClicked)
                 }
 

@@ -1,4 +1,4 @@
-package pl.deniotokiari.capital.gain.calculator.gateway.currency
+package pl.deniotokiari.capital.gain.calculator.gateway.feature.currency
 
 import androidx.compose.runtime.Composable
 

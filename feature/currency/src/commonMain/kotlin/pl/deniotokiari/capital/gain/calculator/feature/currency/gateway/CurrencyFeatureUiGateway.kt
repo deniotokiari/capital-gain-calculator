@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import pl.deniotokiari.capital.gain.calculator.feature.currency.data.model.Currency
 import pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.compose.CurrenciesList
 import pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.label
-import pl.deniotokiari.capital.gain.calculator.gateway.currency.CurrencyUiGateway
-import pl.deniotokiari.capital.gain.calculator.gateway.currency.GatewayCurrency
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.CurrencyUiGateway
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.GatewayCurrency
 
 class CurrencyFeatureUiGateway : CurrencyUiGateway {
     @Composable
@@ -23,13 +23,13 @@ class CurrencyFeatureUiGateway : CurrencyUiGateway {
         )
 }
 
-private fun Currency.toGatewayCurrency() = GatewayCurrency(
+internal fun Currency.toGatewayCurrency() = GatewayCurrency(
     code = code,
     name = name,
     label = label,
 )
 
-private fun GatewayCurrency.toCurrency() = Currency.Physical(
+internal fun GatewayCurrency.toCurrency() = Currency.Physical(
     code = code,
     name = name,
 )

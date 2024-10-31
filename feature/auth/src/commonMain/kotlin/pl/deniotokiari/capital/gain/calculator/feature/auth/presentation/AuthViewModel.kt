@@ -12,6 +12,8 @@ import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.model.AuthErr
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.IsAuthRequiredUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.LoginUserWithEmailAndPasswordUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.SignupUserWithEmailAndPasswordUseCase
+import pl.deniotokiari.capital.gain.calculator.gateway.domain.usecase.GetUsdCurrencyUseCase
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.GatewayCurrency
 import pl.deniotokiari.core.misc.AppDispatchers
 import pl.deniotokiari.core.navigation.route.AuthType
 
@@ -20,6 +22,7 @@ class AuthViewModel(
     private val isAuthRequiredUseCase: IsAuthRequiredUseCase,
     private val signupUserWithEmailAndPasswordUseCase: SignupUserWithEmailAndPasswordUseCase,
     private val loginUserWithEmailAndPasswordUseCase: LoginUserWithEmailAndPasswordUseCase,
+    private val getUsdCurrencyUseCase: GetUsdCurrencyUseCase,
     private val appDispatchers: AppDispatchers,
 ) : ViewModel() {
     private val _event = MutableSharedFlow<AuthUiEvent>()
@@ -31,7 +34,12 @@ class AuthViewModel(
     init {
         viewModelScope.launch(appDispatchers.default) {
             if (isAuthRequiredUseCase(Unit)) {
-                _uiState.update { it.copy(type = type.toUiType) }
+                _uiState.update { state ->
+                    state.copy(
+                        type = type.toUiType,
+                        currency = getUsdCurrencyUseCase(Unit),
+                    )
+                }
             }
         }
     }
@@ -40,12 +48,17 @@ class AuthViewModel(
         when (action) {
             is AuthUiAction.EmailChanged -> onEmailChange(action.value)
             is AuthUiAction.PasswordChanged -> onPasswordChange(action.value)
+            is AuthUiAction.CurrencyChanged -> onCurrencyChange(action.currency)
             AuthUiAction.Login -> onLogin()
             AuthUiAction.Signup -> onSignup()
             AuthUiAction.NavigateToLogin -> onNavigateToLogin()
             AuthUiAction.Retry -> onRetry()
             AuthUiAction.RetryCancel -> onRetryCancel()
         }
+    }
+
+    private fun onCurrencyChange(currency: GatewayCurrency) {
+        _uiState.update { state -> state.copy(currency = currency) }
     }
 
     private fun onRetryCancel() {

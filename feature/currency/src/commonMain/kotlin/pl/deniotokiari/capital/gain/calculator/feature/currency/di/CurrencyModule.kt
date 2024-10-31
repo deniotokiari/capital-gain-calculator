@@ -10,9 +10,11 @@ import pl.deniotokiari.capital.gain.calculator.feature.currency.data.CurrenciesL
 import pl.deniotokiari.capital.gain.calculator.feature.currency.data.CurrenciesRepository
 import pl.deniotokiari.capital.gain.calculator.feature.currency.data.CurrenciesRepositoryImpl
 import pl.deniotokiari.capital.gain.calculator.feature.currency.domain.usecase.GetCurrenciesUseCase
+import pl.deniotokiari.capital.gain.calculator.feature.currency.gateway.CurrencyFeatureGateway
 import pl.deniotokiari.capital.gain.calculator.feature.currency.gateway.CurrencyFeatureUiGateway
 import pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.CurrenciesListViewModel
-import pl.deniotokiari.capital.gain.calculator.gateway.currency.CurrencyUiGateway
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.CurrencyGateway
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.CurrencyUiGateway
 import pl.deniotokiari.core.misc.HttpClient
 
 object CurrencyHttpClient
@@ -30,6 +32,7 @@ val currencyModule = module {
     factoryOf(::CurrenciesRepositoryImpl) bind CurrenciesRepository::class
     factoryOf(::GetCurrenciesUseCase)
     factoryOf<CurrencyUiGateway>(::CurrencyFeatureUiGateway)
+    factoryOf(::CurrencyFeatureGateway) bind CurrencyGateway::class
 
     viewModel { args ->
         CurrenciesListViewModel(

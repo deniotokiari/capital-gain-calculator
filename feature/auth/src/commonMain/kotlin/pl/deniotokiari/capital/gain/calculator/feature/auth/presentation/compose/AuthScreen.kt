@@ -109,6 +109,7 @@ fun AuthContent(
                 )
 
                 AuthUiType.Signup -> SignupContent(
+                    initialCurrency = uiState.currency,
                     email = uiState.email,
                     password = uiState.password,
                     onAction = onAction,
