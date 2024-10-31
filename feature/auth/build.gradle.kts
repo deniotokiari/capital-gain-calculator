@@ -4,16 +4,6 @@ plugins {
 
 kotlin {
     sourceSets {
-        androidMain.dependencies {
-            implementation(project(":platform:android-ios:auth"))
-        }
-        iosMain.dependencies {
-            implementation(project(":platform:android-ios:auth"))
-        }
-        wasmJsMain.dependencies {
-            implementation(project(":platform:web:auth"))
-        }
-
         commonMain.dependencies {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.bundles.koin)
@@ -23,8 +13,8 @@ kotlin {
             implementation(project(":core:misc"))
             implementation(project(":core:navigation"))
             implementation(project(":gateway"))
-            implementation(project(":platform:common:auth"))
             implementation(project(":ui-kit"))
+            implementation(project(":feature:auth:platform:common"))
         }
     }
 }

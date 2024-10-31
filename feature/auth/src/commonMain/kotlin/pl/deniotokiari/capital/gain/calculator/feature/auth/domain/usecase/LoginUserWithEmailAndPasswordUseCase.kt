@@ -1,7 +1,7 @@
 package pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase
 
+import pl.deniotokiari.capital.gain.calculator.feature.auth.data.AuthDataSource
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.model.AuthError
-import pl.deniotokiari.capital.gain.calculator.platform.common.auth.data.AuthDataSource
 import pl.deniotokiari.core.misc.Result
 import pl.deniotokiari.core.misc.error
 import pl.deniotokiari.core.misc.ok
