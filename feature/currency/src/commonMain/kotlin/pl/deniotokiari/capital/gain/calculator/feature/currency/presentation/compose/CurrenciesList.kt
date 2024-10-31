@@ -149,7 +149,8 @@ fun CurrenciesListContent(
     val focusManager = LocalFocusManager.current
 
     OutlinedTextField(
-        modifier = Modifier.width(OutlinedTextFieldDefaults.MinWidth)
+        modifier = Modifier
+            .width(OutlinedTextFieldDefaults.MinWidth)
             .clickable { onAction(CurrenciesListAction.FieldClicked) },
         label = { Text(label) },
         enabled = uiState.isEnabled,
@@ -164,8 +165,10 @@ fun CurrenciesListContent(
     )
 
     uiState.itemsBottomSheetState?.let { itemsBottomSheetState ->
+        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
+
         ModalBottomSheet(
-            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false),
+            sheetState = sheetState,
             onDismissRequest = {
                 onAction(CurrenciesListAction.ItemsBottomSheetDismissed)
             },
@@ -219,7 +222,7 @@ fun Currencies(
                                     .clickable {
                                         onAction(
                                             CurrenciesListAction.CurrencyClicked(
-                                                currency
+                                                currency,
                                             )
                                         )
                                     },

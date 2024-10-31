@@ -145,5 +145,6 @@ kover {
     }
 }
 
-//  ./gradlew clean composeApp:koverHtmlReportDebug
+// ./gradlew clean composeApp:koverHtmlReportDebug
 // :composeApp:wasmJsBrowserDevelopmentRun
+// ./gradlew kotlinUpgradeYarnLock
