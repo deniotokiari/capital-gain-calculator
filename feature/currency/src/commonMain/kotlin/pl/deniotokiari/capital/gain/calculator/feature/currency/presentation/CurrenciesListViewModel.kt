@@ -11,6 +11,7 @@ import pl.deniotokiari.capital.gain.calculator.feature.currency.domain.usecase.G
 import pl.deniotokiari.core.misc.AppDispatchers
 
 class CurrenciesListViewModel(
+    private val initialCurrency: Currency?,
     private val getCurrenciesUseCase: GetCurrenciesUseCase,
     private val appDispatchers: AppDispatchers,
 ) : ViewModel() {
@@ -40,7 +41,7 @@ class CurrenciesListViewModel(
                     _uiState.update {
                         CurrenciesListUiState.Data(
                             currencies = result,
-                            currentCurrency = null,
+                            currentCurrency = initialCurrency,
                             itemsBottomSheetState = null,
                         )
                     }

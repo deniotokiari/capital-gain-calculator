@@ -16,6 +16,7 @@ import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import capital_gain_calculator.ui_kit.generated.resources.Res
+import capital_gain_calculator.ui_kit.generated.resources.ui_kit_account_currency
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_login
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_signup
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_signup_message
@@ -76,6 +77,8 @@ fun SignupContent(
             onAction = { onAction(AuthUiAction.Signup) },
             content = {
                 currencyUiGateway.Currencies(
+                    label = stringResource(Res.string.ui_kit_account_currency),
+                    initialCurrency = null,
                     onCurrencyChange = { currency -> },
                 )
             }

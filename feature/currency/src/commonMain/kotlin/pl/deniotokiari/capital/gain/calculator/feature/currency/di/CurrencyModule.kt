@@ -1,7 +1,7 @@
 package pl.deniotokiari.capital.gain.calculator.feature.currency.di
 
 import org.koin.core.module.dsl.factoryOf
-import org.koin.core.module.dsl.viewModelOf
+import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -31,5 +31,11 @@ val currencyModule = module {
     factoryOf(::GetCurrenciesUseCase)
     factoryOf<CurrencyUiGateway>(::CurrencyFeatureUiGateway)
 
-    viewModelOf(::CurrenciesListViewModel)
+    viewModel { args ->
+        CurrenciesListViewModel(
+            initialCurrency = args[0],
+            getCurrenciesUseCase = get(),
+            appDispatchers = get(),
+        )
+    }
 }

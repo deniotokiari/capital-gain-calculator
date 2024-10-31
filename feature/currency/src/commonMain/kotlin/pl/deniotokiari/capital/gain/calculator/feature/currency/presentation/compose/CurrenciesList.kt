@@ -38,6 +38,7 @@ import capital_gain_calculator.ui_kit.generated.resources.ui_kit_search_currency
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 import pl.deniotokiari.capital.gain.calculator.feature.currency.data.model.Currency
 import pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.CurrenciesListAction
 import pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.CurrenciesListUiState
@@ -53,12 +54,17 @@ import pl.deniotokiari.capital.gain.calculator.uikit.stringResource
 
 @Composable
 fun CurrenciesList(
+    label: String = stringResource(Res.string.ui_kit_currency),
+    initialCurrency: Currency? = null,
     onCurrencyChange: (Currency) -> Unit,
 ) {
-    val viewModel = koinViewModel<CurrenciesListViewModel>()
+    val viewModel = koinViewModel<CurrenciesListViewModel> {
+        parametersOf(initialCurrency)
+    }
     val uiState by viewModel.uiState.collectAsState()
 
     CurrenciesListContent(
+        label = label,
         uiState = uiState,
         onAction = { action ->
             viewModel.onAction(action)
@@ -72,6 +78,7 @@ fun CurrenciesList(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CurrenciesListContent(
+    label: String = stringResource(Res.string.ui_kit_currency),
     uiState: CurrenciesListUiState,
     onAction: (CurrenciesListAction) -> Unit,
 ) {
@@ -144,7 +151,7 @@ fun CurrenciesListContent(
     OutlinedTextField(
         modifier = Modifier.width(OutlinedTextFieldDefaults.MinWidth)
             .clickable { onAction(CurrenciesListAction.FieldClicked) },
-        label = { Text(stringResource(Res.string.ui_kit_currency)) },
+        label = { Text(label) },
         enabled = uiState.isEnabled,
         isError = uiState.isError,
         value = uiState.currentCurrencyLabel,
