@@ -45,6 +45,7 @@ fun CredentialsForm(
                 label = { Text(stringResource(Res.string.ui_kit_email)) },
                 onValueChange = { onEmailChange(it) },
                 value = email.value,
+                singleLine = true,
             )
 
             OutlinedTextField(

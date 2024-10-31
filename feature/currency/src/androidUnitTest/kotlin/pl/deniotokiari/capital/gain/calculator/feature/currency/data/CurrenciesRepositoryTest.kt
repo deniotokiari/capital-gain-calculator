@@ -18,7 +18,7 @@ class CurrenciesRepositoryTest {
     fun setUp() {
         mockRemoteCurrenciesDataSource = mock()
         mockLocalCurrenciesDataSource = mock()
-        sut = CurrenciesRepository(
+        sut = CurrenciesRepositoryImpl(
             remoteCurrenciesDataSource = mockRemoteCurrenciesDataSource,
             localCurrenciesDataSource = mockLocalCurrenciesDataSource,
         )
