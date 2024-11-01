@@ -8,5 +8,18 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.google.services) apply false
-    id("org.jetbrains.kotlinx.kover") version "0.9.0-RC"
+    alias(libs.plugins.ktlint) apply false
+    alias(libs.plugins.kover) apply false
+}
+
+subprojects {
+    if (subprojects.size == 0) {
+        apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+        configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+            filter {
+                exclude("**/generated/**")
+            }
+        }
+    }
 }
