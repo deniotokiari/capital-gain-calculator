@@ -8,5 +8,4 @@ import pl.deniotokiari.capital.gain.calculator.gateway.domain.usecase.SaveSettin
 val gateWayModule = module {
     factoryOf(::GetUsdCurrencyUseCase)
     factoryOf(::SaveSettingsUseCase)
-
 }

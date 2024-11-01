@@ -10,12 +10,12 @@ sealed interface Currency {
     @Serializable
     data class Physical(
         override val name: String,
-        override val code: String
+        override val code: String,
     ) : Currency
 
     @Serializable
     data class Digital(
         override val name: String,
-        override val code: String
+        override val code: String,
     ) : Currency
 }

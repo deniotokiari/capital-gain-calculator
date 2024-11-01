@@ -102,7 +102,7 @@ class CurrenciesListViewModel(
                             itemsBottomSheetState = ItemsBottomSheetState(
                                 currencies = state.currencies,
                                 searchValue = "",
-                            )
+                            ),
                         )
                         ?: state
                 }

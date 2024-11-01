@@ -22,4 +22,4 @@ subprojects {
             }
         }
     }
-}
+}///standard:multiline-expression-wrapping

@@ -55,7 +55,7 @@ class CurrenciesRepositoryTest {
             val error = RuntimeException()
             whenever(mockRemoteCurrenciesDataSource.getPhysicalCurrencies()).thenReturn(currencies)
             whenever(mockLocalCurrenciesDataSource.savePhysicalCurrencies(currencies)).thenThrow(
-                error
+                error,
             )
 
             val result = sut.getPhysicalCurrencies(force = true)

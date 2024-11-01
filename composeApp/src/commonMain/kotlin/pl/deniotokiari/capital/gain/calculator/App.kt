@@ -22,7 +22,7 @@ fun App() {
                 homeModule,
                 settingsModule,
             )
-        }
+        },
     ) {
         AppScreen()
     }

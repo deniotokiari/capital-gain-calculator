@@ -40,7 +40,8 @@ internal val CurrenciesListUiState.currentCurrencyLabel: String
     get() = when (this) {
         is CurrenciesListUiState.Data -> currentCurrency?.label
         CurrenciesListUiState.Error,
-        CurrenciesListUiState.Loading -> null
+        CurrenciesListUiState.Loading,
+        -> null
     } ?: ""
 
 internal val CurrenciesListUiState.currencies: List<Currency>

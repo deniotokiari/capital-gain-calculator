@@ -10,7 +10,7 @@ actual fun string(key: String): String {
     val id = LocalContext.current.resources.getIdentifier(
         key,
         "string",
-        LocalContext.current.packageName
+        LocalContext.current.packageName,
     )
 
     return androidx.compose.ui.res.stringResource(id)

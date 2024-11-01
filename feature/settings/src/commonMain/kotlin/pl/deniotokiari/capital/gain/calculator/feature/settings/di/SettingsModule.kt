@@ -11,5 +11,4 @@ import pl.deniotokiari.capital.gain.calculator.gateway.feature.settings.Settings
 val settingsModule = module {
     factoryOf(::SettingsRemoteDataSource) bind SettingsDataSource::class
     factoryOf(::SettingsFeatureGateway) bind SettingsGateway::class
-
 }

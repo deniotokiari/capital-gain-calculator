@@ -25,9 +25,7 @@ fun HomeScreen() {
 }
 
 @Composable
-fun HomeContent(
-    uiState: HomeUiState,
-) {
+fun HomeContent(uiState: HomeUiState) {
     when (uiState) {
         HomeUiState.Error -> GenericErrorWithRetry(
             onRetry = {},

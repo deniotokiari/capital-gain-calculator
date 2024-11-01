@@ -62,7 +62,7 @@ fun CurrenciesItemsPreview() = Currencies(
             Currency.Physical(name = "Polish zloty", code = "PLN"),
             Currency.Physical(name = "Euro", code = "EUR"),
             Currency.Digital(name = "Bitcoin", code = "BTC"),
-        )
+        ),
     ),
     onAction = {},
 )

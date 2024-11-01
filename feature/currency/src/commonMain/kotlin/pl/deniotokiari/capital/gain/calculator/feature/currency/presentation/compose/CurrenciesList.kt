@@ -72,7 +72,8 @@ fun CurrenciesList(
             if (action is CurrenciesListAction.CurrencyClicked) {
                 onCurrencyChange(action.currency)
             }
-        })
+        },
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -119,7 +120,7 @@ fun CurrenciesListContent(
                     imageVector = Icons.Default.ArrowDropDown,
                     contentDescription = null,
                     modifier = Modifier.rotate(
-                        if (uiState.itemsBottomSheetState != null) 180f else 0f
+                        if (uiState.itemsBottomSheetState != null) 180f else 0f,
                     ),
                 )
             }
@@ -223,7 +224,7 @@ fun Currencies(
                                         onAction(
                                             CurrenciesListAction.CurrencyClicked(
                                                 currency,
-                                            )
+                                            ),
                                         )
                                     },
                                 text = currency.label,
@@ -231,7 +232,7 @@ fun Currencies(
                                     androidx.compose.material.MaterialTheme.colors.primary
                                 } else {
                                     androidx.compose.material.MaterialTheme.colors.onSurface
-                                }
+                                },
                             )
                         }
                     }

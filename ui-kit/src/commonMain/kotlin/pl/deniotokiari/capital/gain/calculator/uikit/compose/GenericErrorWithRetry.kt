@@ -18,9 +18,7 @@ import capital_gain_calculator.ui_kit.generated.resources.ui_kit_retry
 import pl.deniotokiari.capital.gain.calculator.uikit.stringResource
 
 @Composable
-fun GenericErrorWithRetry(
-    onRetry: () -> Unit,
-) {
+fun GenericErrorWithRetry(onRetry: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = CenterHorizontally,
@@ -29,13 +27,13 @@ fun GenericErrorWithRetry(
         Text(
             text = stringResource(Res.string.ui_kit_generic_error_title),
             style = MaterialTheme.typography.h6,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp),
         )
 
         Text(
             text = stringResource(Res.string.ui_kit_generic_error_message),
             style = MaterialTheme.typography.body2,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp),
         )
 
         Button(
