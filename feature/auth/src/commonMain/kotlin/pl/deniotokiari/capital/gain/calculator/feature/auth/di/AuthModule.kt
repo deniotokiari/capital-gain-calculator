@@ -5,6 +5,7 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import pl.deniotokiari.capital.gain.calculator.feature.auth.data.AuthDataSource
 import pl.deniotokiari.capital.gain.calculator.feature.auth.data.getPlatformAuthDataSource
+import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.GetUserIdUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.IsAuthRequiredFlowUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.IsAuthRequiredUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.LoginUserWithEmailAndPasswordUseCase
@@ -18,6 +19,7 @@ val authModule = module {
     factoryOf(::SignupUserWithEmailAndPasswordUseCase)
     factoryOf(::LoginUserWithEmailAndPasswordUseCase)
     factoryOf(::IsAuthRequiredFlowUseCase)
+    factoryOf(::GetUserIdUseCase)
 
     viewModelOf(::AuthViewModel)
 }

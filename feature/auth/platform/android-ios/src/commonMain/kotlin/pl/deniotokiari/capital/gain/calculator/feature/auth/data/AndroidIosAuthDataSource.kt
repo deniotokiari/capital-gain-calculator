@@ -27,4 +27,8 @@ class AndroidIosAuthDataSource : AuthDataSource {
             password = password,
         ).user != null
     }
+
+    override suspend fun getUserId(): Result<String> = runCatching {
+        firebaseAuth.currentUser?.uid ?: error("User is not authenticated")
+    }
 }

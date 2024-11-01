@@ -18,6 +18,8 @@ fun updateAuthState(isAuthenticated: Boolean) {
     }
 }
 
+external fun getUserUid(): String?
+
 external fun createUserWithEmailAndPassword(email: String, password: String): Promise<JsAny>
 
 external fun signInWithEmailAndPassword(email: String, password: String): Promise<JsAny>
@@ -37,5 +39,9 @@ class WebAuthDataSource : AuthDataSource {
             email = email,
             password = password,
         ).await<JsAny>().unsafeCast<JsBoolean>().toBoolean()
+    }
+
+    override suspend fun getUserId(): Result<String> = runCatching {
+        getUserUid() ?: error("User is not authenticated")
     }
 }

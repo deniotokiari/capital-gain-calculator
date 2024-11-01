@@ -1,5 +1,8 @@
 package pl.deniotokiari.core.misc
 
+import pl.deniotokiari.core.misc.Result.Error
+import pl.deniotokiari.core.misc.Result.Success
+
 sealed class Result<out T, out E> {
     data class Success<out T>(val data: T) : Result<T, Nothing>()
     data class Error<out E>(val error: E) : Result<Nothing, E>()
@@ -35,3 +38,9 @@ sealed class Result<out T, out E> {
 fun <T> T.ok() = Result.Success(this)
 
 fun <E> E.error() = Result.Error(this)
+
+fun <T, E, F> Result<T, E>.mapError(transform: (E) -> F): Result<T, F> =
+    when (this) {
+        is Success -> this
+        is Error -> Error(transform(error))
+    }

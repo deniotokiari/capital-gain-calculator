@@ -9,12 +9,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.model.AuthError
+import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.GetUserIdUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.IsAuthRequiredUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.LoginUserWithEmailAndPasswordUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.SignupUserWithEmailAndPasswordUseCase
 import pl.deniotokiari.capital.gain.calculator.gateway.domain.usecase.GetUsdCurrencyUseCase
+import pl.deniotokiari.capital.gain.calculator.gateway.domain.usecase.SaveSettingsUseCase
 import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.GatewayCurrency
 import pl.deniotokiari.core.misc.AppDispatchers
+import pl.deniotokiari.core.misc.mapError
 import pl.deniotokiari.core.navigation.route.AuthType
 
 class AuthViewModel(
@@ -22,7 +25,9 @@ class AuthViewModel(
     private val isAuthRequiredUseCase: IsAuthRequiredUseCase,
     private val signupUserWithEmailAndPasswordUseCase: SignupUserWithEmailAndPasswordUseCase,
     private val loginUserWithEmailAndPasswordUseCase: LoginUserWithEmailAndPasswordUseCase,
+    private val getUserIdUseCase: GetUserIdUseCase,
     private val getUsdCurrencyUseCase: GetUsdCurrencyUseCase,
+    private val saveSettingsUseCase: SaveSettingsUseCase,
     private val appDispatchers: AppDispatchers,
 ) : ViewModel() {
     private val _event = MutableSharedFlow<AuthUiEvent>()
@@ -101,20 +106,18 @@ class AuthViewModel(
                     password = _uiState.value.password.value,
                 )
             ).fold(
-                onSuccess = { result -> handleSuccess(result) },
+                onSuccess = { handleSuccess() },
                 onError = { error -> handleError(error) },
             )
         }
     }
 
-    private fun handleSuccess(result: Boolean) {
-        if (!result) {
-            _uiState.update { state ->
-                state.copy(
-                    email = state.email.copy(enabled = true, error = true),
-                    password = state.password.copy(enabled = true, error = true),
-                )
-            }
+    private fun handleSuccess() {
+        _uiState.update { state ->
+            state.copy(
+                email = state.email.copy(enabled = true, error = true),
+                password = state.password.copy(enabled = true, error = true),
+            )
         }
     }
 
@@ -144,10 +147,20 @@ class AuthViewModel(
                     email = _uiState.value.email.value,
                     password = _uiState.value.password.value,
                 )
-            ).fold(
-                onSuccess = { result -> handleSuccess(result) },
-                onError = { error -> handleError(error) },
             )
+                .then { getUserIdUseCase(Unit) }
+                .then { userId ->
+                    saveSettingsUseCase(
+                        SaveSettingsUseCase.Params(
+                            userId = userId,
+                            currency = _uiState.value.currency,
+                        )
+                    ).mapError { AuthError.GenericError }
+                }
+                .fold(
+                    onSuccess = { handleSuccess() },
+                    onError = { error -> handleError(error) },
+                )
         }
     }
 

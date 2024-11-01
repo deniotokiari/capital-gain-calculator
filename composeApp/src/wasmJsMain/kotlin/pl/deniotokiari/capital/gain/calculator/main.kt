@@ -10,13 +10,3 @@ fun main() {
         App()
     }
 }
-
-/*
-external fun collection(path: String): Promise<JsAny?>
-
-override suspend fun getUsers(): List<User> {
-        val result = collection("USERS").await<JsAny>().unsafeCast<JsString>()
-
-        return Json.decodeFromString<List<User>>(result.toString()) + User("Web", 12)
-}
- */

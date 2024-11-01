@@ -9,14 +9,14 @@ import pl.deniotokiari.core.misc.usecase.UseCase
 
 class SignupUserWithEmailAndPasswordUseCase(
     private val authDataSource: AuthDataSource,
-) : UseCase<SignupUserWithEmailAndPasswordUseCase.Params, Result<Boolean, AuthError>> {
-    override suspend fun invoke(input: Params): Result<Boolean, AuthError> = authDataSource.signup(
+) : UseCase<SignupUserWithEmailAndPasswordUseCase.Params, Result<Unit, AuthError>> {
+    override suspend fun invoke(input: Params): Result<Unit, AuthError> = authDataSource.signup(
         email = input.email,
         password = input.password,
     ).fold(
         onSuccess = { result ->
             if (result) {
-                result.ok()
+                Unit.ok()
             } else {
                 AuthError.InvalidCredentials.error()
             }

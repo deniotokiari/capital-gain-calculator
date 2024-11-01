@@ -6,6 +6,7 @@ import pl.deniotokiari.capital.gain.calculator.di.appModule
 import pl.deniotokiari.capital.gain.calculator.feature.auth.di.authModule
 import pl.deniotokiari.capital.gain.calculator.feature.currency.di.currencyModule
 import pl.deniotokiari.capital.gain.calculator.feature.home.di.homeModule
+import pl.deniotokiari.capital.gain.calculator.feature.settings.di.settingsModule
 import pl.deniotokiari.capital.gain.calculator.gateway.di.gateWayModule
 import pl.deniotokiari.capital.gain.calculator.presentation.AppScreen
 
@@ -19,6 +20,7 @@ fun App() {
                 currencyModule,
                 gateWayModule,
                 homeModule,
+                settingsModule,
             )
         }
     ) {

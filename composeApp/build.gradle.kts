@@ -81,6 +81,7 @@ kotlin {
             implementation(project(":feature:auth"))
             implementation(project(":feature:currency"))
             implementation(project(":feature:home"))
+            implementation(project(":feature:settings"))
             implementation(project(":gateway"))
             implementation(project(":ui-kit"))
         }

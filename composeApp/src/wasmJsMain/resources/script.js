@@ -8,12 +8,13 @@ function getCollection(path) {
   })
 }
 
-function putItem(path, data) {
+function putItem(path, id, data) {
     var json = JSON.parse(data)
 
     return store
         .collection(path)
-        .add(json)
+        .doc(id)
+        .set(json)
         .then((ref) => {
             return true
         })
@@ -43,4 +44,14 @@ function signInWithEmailAndPassword(email, password) {
                 return false
             }
         });
+}
+
+function getUserUid() {
+    var user = firebase.auth().currentUser;
+
+    if (user != null) {
+        return user.uid;
+    } else {
+        return null;
+    }
 }

@@ -7,7 +7,7 @@ import kotlinx.serialization.KSerializer
 class AndroidIosRemoteStore : RemoteStore {
     private val firestore = Firebase.firestore
 
-    override suspend fun <T> getCollection(
+    override suspend fun <T : EntityWithId> getCollection(
         path: String,
         itemSerializer: KSerializer<T>,
     ): List<T> {
@@ -16,7 +16,7 @@ class AndroidIosRemoteStore : RemoteStore {
         }
     }
 
-    override suspend fun <T> putCollection(
+    override suspend fun <T : EntityWithId> putCollection(
         path: String,
         data: List<T>,
         itemSerializer: KSerializer<T>,
@@ -24,7 +24,7 @@ class AndroidIosRemoteStore : RemoteStore {
         val ref = firestore.collection(path)
 
         data.forEach { item ->
-            ref.add(item as Any)
+            ref.document(item.id).set(item as Any)
         }
     }
 }
