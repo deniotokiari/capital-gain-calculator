@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
-import pl.deniotokiari.capital.gain.calculator.platform.common.auth.data.AuthDataSource
+import pl.deniotokiari.capital.gain.calculator.feature.auth.data.AuthDataSource
 
 class IsAuthRequiredUseCaseTest {
     private lateinit var mockAuthDataSource: AuthDataSource

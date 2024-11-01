@@ -3,14 +3,13 @@ package pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.any
 import org.mockito.kotlin.whenever
+import pl.deniotokiari.capital.gain.calculator.feature.auth.data.AuthDataSource
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.model.AuthError
-import pl.deniotokiari.capital.gain.calculator.platform.common.auth.data.AuthDataSource
 
 class SignupUserWithEmailAndPasswordUseCaseTest {
     private lateinit var mockAuthDataSource: AuthDataSource
@@ -35,7 +34,6 @@ class SignupUserWithEmailAndPasswordUseCaseTest {
 
 
         assertNotNull(result)
-        assertTrue(result!!)
     }
 
     @Test

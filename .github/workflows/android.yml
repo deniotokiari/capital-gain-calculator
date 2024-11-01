@@ -32,5 +32,8 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew :composeApp:assembleDebug
 
+      - name: Run unit tests
+        run: ./gradlew clean test
+
       - name: Run kover
         run: ./gradlew clean composeApp:koverHtmlReportDebug

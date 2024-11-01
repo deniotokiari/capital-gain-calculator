@@ -106,17 +106,8 @@ class AuthViewModel(
                     password = _uiState.value.password.value,
                 )
             ).fold(
-                onSuccess = { handleSuccess() },
+                onSuccess = { },
                 onError = { error -> handleError(error) },
-            )
-        }
-    }
-
-    private fun handleSuccess() {
-        _uiState.update { state ->
-            state.copy(
-                email = state.email.copy(enabled = true, error = true),
-                password = state.password.copy(enabled = true, error = true),
             )
         }
     }
@@ -158,7 +149,7 @@ class AuthViewModel(
                     ).mapError { AuthError.GenericError }
                 }
                 .fold(
-                    onSuccess = { handleSuccess() },
+                    onSuccess = { },
                     onError = { error -> handleError(error) },
                 )
         }
