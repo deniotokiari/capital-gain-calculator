@@ -3,8 +3,6 @@ description: "Set up workflow"
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v4
-
     - name: set up JDK 17
       uses: actions/setup-java@v4
       with:
