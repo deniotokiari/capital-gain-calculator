@@ -15,12 +15,8 @@ jobs:
 
       - name: Set Up
         uses: ./.github/actions/setup
-
-      - name: Extract google-services.json
-        run: |
-          cat << EOF > ./composeApp/google-services.json
-          ${{ secrets.GOOGLE_SERVICES }}
-          EOF
+        with:
+          secrets_google_services:  ${{ secrets.GOOGLE_SERVICES }}
 
       - name: Build with Gradle
         run: ./gradlew :composeApp:assembleDebug
@@ -34,6 +30,8 @@ jobs:
 
       - name: Set Up
         uses: ./.github/actions/setup
+        with:
+          secrets_google_services: ${{ secrets.GOOGLE_SERVICES }}
 
       - name: Run unit tests
         run: ./gradlew clean test
@@ -47,6 +45,8 @@ jobs:
 
       - name: Set Up
         uses: ./.github/actions/setup
+        with:
+          secrets_google_services: ${{ secrets.GOOGLE_SERVICES }}
 
       - name: Run ktlint
         run: ./gradlew --continue clean ktlintCheck
@@ -60,12 +60,8 @@ jobs:
 
       - name: Set Up
         uses: ./.github/actions/setup
-
-      - name: Extract google-services.json
-        run: |
-          cat << EOF > ./composeApp/google-services.json
-          ${{ secrets.GOOGLE_SERVICES }}
-          EOF
+        with:
+          secrets_google_services: ${{ secrets.GOOGLE_SERVICES }}
 
       - name: Run kover
         run: ./gradlew clean composeApp:koverHtmlReportDebug
