@@ -16,6 +16,12 @@ jobs:
       - name: Set Up
         uses: ./.github/actions/setup
 
+      - name: Extract google-services.json
+        run: |
+          cat << EOF > ./composeApp/google-services.json
+          ${{ secrets.GOOGLE_SERVICES }}
+          EOF
+
       - name: Build with Gradle
         run: ./gradlew :composeApp:assembleDebug
 
@@ -54,6 +60,12 @@ jobs:
 
       - name: Set Up
         uses: ./.github/actions/setup
+
+      - name: Extract google-services.json
+        run: |
+          cat << EOF > ./composeApp/google-services.json
+          ${{ secrets.GOOGLE_SERVICES }}
+          EOF
 
       - name: Run kover
         run: ./gradlew clean composeApp:koverHtmlReportDebug

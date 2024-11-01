@@ -13,10 +13,3 @@ runs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       shell: bash
-
-    - name: Extract google-services.json
-      run: |
-        cat << EOF > ./composeApp/google-services.json
-        ${{ secrets.GOOGLE_SERVICES }}
-        EOF
-      shell: bash
