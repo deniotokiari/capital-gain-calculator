@@ -1,4 +1,4 @@
-function collection(path) {
+function getCollection(path) {
   return store.collection(path).get().then((querySnapshot) => {
     var result = querySnapshot.docs.map((doc) => {
       return doc.data()
@@ -6,6 +6,17 @@ function collection(path) {
 
     return JSON.stringify(result)
   })
+}
+
+function putItem(path, data) {
+    var json = JSON.parse(data)
+
+    return store
+        .collection(path)
+        .add(json)
+        .then((ref) => {
+            return true
+        })
 }
 
 function createUserWithEmailAndPassword(email, password) {

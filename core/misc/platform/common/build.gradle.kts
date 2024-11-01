@@ -6,25 +6,22 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.bundles.ktor.common)
+            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
-            implementation(libs.multiplatform.settings)
-            implementation(libs.navigation.compose)
 
-            implementation(project(":core:misc:platform:common"))
             api(project(":core:misc:platform:shared"))
         }
 
         androidMain.dependencies {
-            implementation(libs.ktor.android)
+            implementation(project(":core:misc:platform:android-ios"))
         }
 
         iosMain.dependencies {
-            implementation(libs.ktor.ios)
+            implementation(project(":core:misc:platform:android-ios"))
         }
 
         wasmJsMain.dependencies {
-            implementation(libs.ktor.wasm)
+            implementation(project(":core:misc:platform:web"))
         }
     }
 }
