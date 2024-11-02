@@ -114,8 +114,8 @@ jobs:
           summary: |
             | Type | Covered | Missed | Percent |
             |------|:-------:|:------:|:-------:|
-            | Instruction | ${{ steps.kover-instruction-values.outputs.covered }} | ${{ steps.kover-instruction-values.outputs.missed }} | ![](https://progress-bar.xyz/${{ steps.kover-instruction-values.outputs.percent }}) |
-            | Branch | ${{ steps.kover-branch-values.outputs.covered }} | ${{ steps.kover-branch-values.outputs.missed }} | ![](https://progress-bar.xyz/${{ steps.kover-branch-values.outputs.percent }}) |
-            | Line | ${{ steps.kover-line-values.outputs.covered }} | ${{ steps.kover-line-values.outputs.missed }} | ![](https://progress-bar.xyz/${{ steps.kover-line-values.outputs.percent }}) |
-            | Method | ${{ steps.kover-method-values.outputs.covered }} | ${{ steps.kover-method-values.outputs.missed }} | ![](https://progress-bar.xyz/${{ steps.kover-method-values.outputs.percent }}) |
-            | Class | ${{ steps.kover-class-values.outputs.covered }} | ${{ steps.kover-class-values.outputs.missed }} | ![](https://progress-bar.xyz/${{ steps.kover-class-values.outputs.percent }}) |
+            | Instruction | ${{ steps.kover-instruction-values.outputs.covered }} | ${{ steps.kover-instruction-values.outputs.missed }} | ![percent](https://progress-bar.xyz/${{ steps.kover-instruction-values.outputs.percent }}) |
+            | Branch | ${{ steps.kover-branch-values.outputs.covered }} | ${{ steps.kover-branch-values.outputs.missed }} | ![percent](https://progress-bar.xyz/${{ steps.kover-branch-values.outputs.percent }}) |
+            | Line | ${{ steps.kover-line-values.outputs.covered }} | ${{ steps.kover-line-values.outputs.missed }} | ![percent](https://progress-bar.xyz/${{ steps.kover-line-values.outputs.percent }}) |
+            | Method | ${{ steps.kover-method-values.outputs.covered }} | ${{ steps.kover-method-values.outputs.missed }} | ![percent](https://progress-bar.xyz/${{ steps.kover-method-values.outputs.percent }}) |
+            | Class | ${{ steps.kover-class-values.outputs.covered }} | ${{ steps.kover-class-values.outputs.missed }} | ![percent](https://progress-bar.xyz/${{ steps.kover-class-values.outputs.percent }}) |
