@@ -34,7 +34,7 @@ jobs:
           secrets_google_services: ${{ secrets.GOOGLE_SERVICES }}
 
       - name: Run unit tests
-        run: ./gradlew clean test
+        run: ./gradlew --continue clean test
 
       - name: Summarize tests results
         uses: jeantessier/test-summary-action@v1
