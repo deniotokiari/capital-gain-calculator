@@ -85,11 +85,14 @@ jobs:
           missed=$(xmllint --xpath "string(report/counter[@type='LINE']/@missed)" composeApp/build/reports/kover/reportDebug.xml)
           echo "missed=$missed" >> $GITHUB_OUTPUT
 
+      - name: Count total lines
+        id: total_lines
+        run: |
+          total_lines=$((${{ steps.kover_covered_lines.outputs.covered }}+${{ steps.kover_missed_lines.outputs.missed }}))
+          echo "total=$total_lines" >> $GITHUB_OUTPUT
+
       - name: Kover summary
         uses: jazanne/job-summary-action@v1
         with:
           summary: | 
-            # Kover summary
-            
-            Covered lines => ${{ steps.kover_covered_lines.outputs.covered }}
-            Missed lines => ${{ steps.kover_missed_lines.outputs.missed }} 
+            Covered lines => ${{ steps.kover_covered_lines.outputs.covered }}/${{ steps.total_lines.outputs.total }}
