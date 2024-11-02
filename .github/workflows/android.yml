@@ -73,15 +73,49 @@ jobs:
       - name: Install xmllint
         run: sudo apt-get install -y libxml2-utils
 
-      - name: Parse kover report values
-        id: kover-values
+      - name: Parse kover report line values
+        id: kover-line-values
         uses: ./.github/actions/kover
         with:
          path: "composeApp/build/reports/kover/reportDebug.xml"
          type: "LINE"
 
+      - name: Parse kover report class values
+        id: kover-class-values
+        uses: ./.github/actions/kover
+        with:
+          path: "composeApp/build/reports/kover/reportDebug.xml"
+          type: "CLASS"
+
+      - name: Parse kover report instruction values
+        id: kover-instruction-values
+        uses: ./.github/actions/kover
+        with:
+          path: "composeApp/build/reports/kover/reportDebug.xml"
+          type: "INSTRUCTION"
+
+      - name: Parse kover report branch values
+        id: kover-branch-values
+        uses: ./.github/actions/kover
+        with:
+          path: "composeApp/build/reports/kover/reportDebug.xml"
+          type: "BRANCH"
+
+      - name: Parse kover report method values
+        id: kover-method-values
+        uses: ./.github/actions/kover
+        with:
+          path: "composeApp/build/reports/kover/reportDebug.xml"
+          type: "METHOD"
+
       - name: Kover summary
         uses: jazanne/job-summary-action@v1
         with:
-          summary: | 
-            Covered lines => ${{ steps.kover-values.outputs.percent }}
+          summary: |
+            | Type | Covered | Missed | Percent |
+            |------|:-------:|:------:|:-------:|
+            | Instruction | ${{ steps.kover-instruction-values.outputs.covered }} | ${{ steps.kover-instruction-values.outputs.missed }} | ${{ steps.kover-instruction-values.outputs.percent }} |
+            | Branch | ${{ steps.kover-branch-values.outputs.covered }} | ${{ steps.kover-branch-values.outputs.missed }} | ${{ steps.kover-branch-values.outputs.percent }} |
+            | Line | ${{ steps.kover-line-values.outputs.covered }} | ${{ steps.kover-line-values.outputs.missed }} | ${{ steps.kover-line-values.outputs.percent }} |
+            | Method | ${{ steps.kover-method-values.outputs.covered }} | ${{ steps.kover-method-values.outputs.missed }} | ${{ steps.kover-method-values.outputs.percent }} |
+            | Class | ${{ steps.kover-class-values.outputs.covered }} | ${{ steps.kover-class-values.outputs.missed }} | ${{ steps.kover-class-values.outputs.percent }} |
