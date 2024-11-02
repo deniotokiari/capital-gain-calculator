@@ -72,17 +72,11 @@ jobs:
 
       - name: Parse kover report covered lines
         id: kover_covered_lines
-        uses: mavrosxristoforos/get-xml-info@1.0
-        with:
-          xml-file: 'composeApp/build/reports/kover/reportDebug.xml'
-          xpath: 'report/counter[@type="LINE"]/@covered'
+        run: xmllint --xpath "string(report/counter[@type='LINE']/@covered)" composeApp/build/reports/kover/reportDebug.xml >> $GITHUB_OUTPUT
 
       - name: Parse kover report missed lines
         id: kover_missed_lines
-        uses: mavrosxristoforos/get-xml-info@1.0
-        with:
-          xml-file: 'composeApp/build/reports/kover/reportDebug.xml'
-          xpath: 'report/counter[@type="LINE"]/@missed'
+        run: xmllint --xpath "string(report/counter[@type='LINE']/@missed)" composeApp/build/reports/kover/reportDebug.xml >> $GITHUB_OUTPUT
 
       - name: Kover summary
         uses: jazanne/job-summary-action@v1
@@ -90,5 +84,5 @@ jobs:
           summary: | 
             # Kover summary
             
-            Covered lines => ${{ steps.kover_covered_lines.outputs.info }}
-            Missed lines => ${{ steps.kover_missed_lines.outputs.info }} 
+            Covered lines => ${{ steps.kover_covered_lines.outputs }}
+            Missed lines => ${{ steps.kover_missed_lines.outputs }} 
