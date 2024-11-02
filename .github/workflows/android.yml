@@ -68,11 +68,27 @@ jobs:
           secrets_google_services: ${{ secrets.GOOGLE_SERVICES }}
 
       - name: Run kover
-        run: ./gradlew clean composeApp:koverHtmlReportDebug
+        run: ./gradlew clean composeApp:koverXmlReportDebug
 
-      - name: Parse coverage
-        id: parse_coverage
-        uses: stevenleadbeater/kover-report-parser-action@0.0.1
+      - name: Parse kover report covered lines
+        id: kover_covered_lines
+        uses: mavrosxristoforos/get-xml-info@1.0
+        with:
+          xml-file: './composeApp/build/reports/kover/reportDebug.xml'
+          xpath: 'report/counter[@type="LINE"]/@covered'
 
-      - name: Print coverage summary
-        run: echo "Line coverage {{ steps.parse_coverage.outputs.line_covered }}/{{ steps.parse_coverage.outputs.line_missed }}" >> $GITHUB_STEP_SUMMARY
+      - name: Parse kover report missed lines
+        id: kover_missed_lines
+        uses: mavrosxristoforos/get-xml-info@1.0
+        with:
+          xml-file: './composeApp/build/reports/kover/reportDebug.xml'
+          xpath: 'report/counter[@type="LINE"]/@missed'
+
+      - name: Kover summary
+        uses: jazanne/job-summary-action@v1
+        with:
+          summary: | 
+            # Kover summary
+            
+            Covered lines => ${{ steps.kover_covered_lines.outputs.info }}
+            Missed lines => ${{ steps.kover_missed_lines.outputs.info }} 
