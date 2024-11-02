@@ -18,7 +18,7 @@ outputs:
     value: ${{ steps.missed_value.outputs.missed }}
   percent:
     description: "Percent of covered over all"
-    value: ${{  }}
+    value: ${{ steps.percent_value.outputs.percent }}
 
 runs:
   using: composite
