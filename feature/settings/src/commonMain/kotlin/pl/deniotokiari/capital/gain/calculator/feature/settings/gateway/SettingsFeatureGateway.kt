@@ -9,5 +9,5 @@ class SettingsFeatureGateway(
     private val settingsDataSource: SettingsDataSource,
 ) : SettingsGateway {
     override suspend fun saveSettings(userId: String, currency: GatewayCurrency): Result<Unit> =
-        settingsDataSource.saveSettings(Settings(userId, currency))
+        settingsDataSource.saveSettings(Settings(id = userId, profileCurrency = currency))
 }

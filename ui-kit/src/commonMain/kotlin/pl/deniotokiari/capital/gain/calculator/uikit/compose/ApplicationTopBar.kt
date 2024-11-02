@@ -7,7 +7,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -34,5 +34,5 @@ fun ApplicationTopBar(
 @Composable
 fun BackButton(onClick: () -> Unit) = IconButton(
     onClick = onClick,
-    content = { Icon(Icons.AutoMirrored.Filled.ArrowBack, null) },
+    content = { Icon(Icons.AutoMirrored.Outlined.ArrowBack, null) },
 )

@@ -58,10 +58,6 @@ kotlin {
             implementation(libs.firebase.common)
             implementation(libs.firebase.firestore)
         }
-        iosMain.dependencies {
-            implementation(libs.firebase.common)
-            implementation(libs.firebase.firestore)
-        }
         commonMain.dependencies {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -72,15 +68,16 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.bundles.koin)
+            implementation(libs.kotlinx.serialization.json)
             implementation(libs.navigation.compose)
             implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.kotlinx.serialization.json)
 
             implementation(project(":core:misc"))
             implementation(project(":core:navigation"))
             implementation(project(":feature:auth"))
             implementation(project(":feature:currency"))
             implementation(project(":feature:home"))
+            implementation(project(":feature:portfolio"))
             implementation(project(":feature:settings"))
             implementation(project(":gateway"))
             implementation(project(":ui-kit"))

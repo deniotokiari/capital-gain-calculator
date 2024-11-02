@@ -13,12 +13,6 @@ fun HomePreviewLoading() = HomeContent(
 
 @Preview(showBackground = true)
 @Composable
-fun HomePreviewError() = HomeContent(
-    uiState = HomeUiState.Error,
-)
-
-@Preview(showBackground = true)
-@Composable
 fun HomePreviewPortfolios() = HomeContent(
     uiState = HomeUiState.Portfolios(emptyList()),
 )
