@@ -1,4 +1,4 @@
-name: Android CI
+name: KMP CI
 
 on:
   push:
@@ -35,6 +35,10 @@ jobs:
 
       - name: Run unit tests
         run: ./gradlew clean test
+
+      - name: Summarize tests results
+        uses: jeantessier/test-summary-action@v1
+        if: ${{ always() }}
 
   ktlint:
     needs: build
