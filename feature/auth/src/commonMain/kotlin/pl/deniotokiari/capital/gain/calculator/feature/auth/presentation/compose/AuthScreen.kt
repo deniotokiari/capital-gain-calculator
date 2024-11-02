@@ -28,6 +28,8 @@ import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiE
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiState
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiType
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthViewModel
+import pl.deniotokiari.capital.gain.calculator.uikit.compose.ApplicationTopBar
+import pl.deniotokiari.capital.gain.calculator.uikit.compose.BackButton
 import pl.deniotokiari.capital.gain.calculator.uikit.stringResource
 import pl.deniotokiari.core.misc.compose.LocalNavController
 import pl.deniotokiari.core.navigation.route.AuthLogin
@@ -41,23 +43,35 @@ fun AuthScreen(type: AuthType) {
     )
     val uiState by viewModel.uiState.collectAsState()
     var showErrorDialog by remember { mutableStateOf(false) }
+    var showBackButton by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.event.collect { event ->
             when (event) {
-                AuthUiEvent.NavigateToLogin -> navController?.navigate(
-                    route = AuthLogin,
-                )
-
+                AuthUiEvent.NavigateToLogin -> navController?.navigate(route = AuthLogin)
                 AuthUiEvent.Error -> showErrorDialog = true
             }
         }
     }
 
-    AuthContent(
-        uiState = uiState,
-        onAction = viewModel::onAction,
-    )
+    LaunchedEffect(Unit) {
+        navController?.currentBackStack?.collect { entry ->
+            showBackButton = entry.size > 2
+        }
+    }
+
+    ApplicationTopBar(
+        navigationIcon = {
+            if (showBackButton) {
+                BackButton { navController?.popBackStack() }
+            }
+        },
+    ) {
+        AuthContent(
+            uiState = uiState,
+            onAction = viewModel::onAction,
+        )
+    }
 
     if (showErrorDialog) {
         AlertDialog(
