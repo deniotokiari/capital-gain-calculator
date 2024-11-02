@@ -10,11 +10,17 @@ plugins {
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.kover) apply false
+    alias(libs.plugins.dagp) apply false
 }
 
 subprojects {
     if (subprojects.size == 0) {
+        apply(plugin = "com.autonomousapps.dependency-analysis")
         apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+        tasks.withType(com.autonomousapps.tasks.CodeSourceExploderTask::class.java) {
+            dependsOn("generateActualResourceCollectorsForAndroidMain")
+        }
 
         configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
             filter {
@@ -22,4 +28,4 @@ subprojects {
             }
         }
     }
-}///standard:multiline-expression-wrapping
+}

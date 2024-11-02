@@ -18,7 +18,6 @@ import org.koin.compose.viewmodel.koinViewModel
 import pl.deniotokiari.capital.gain.calculator.feature.home.presentation.HomeUiState
 import pl.deniotokiari.capital.gain.calculator.feature.home.presentation.HomeViewModel
 import pl.deniotokiari.capital.gain.calculator.uikit.compose.ApplicationTopBar
-import pl.deniotokiari.capital.gain.calculator.uikit.compose.GenericErrorWithRetry
 
 @Composable
 fun HomeScreen() {
@@ -36,13 +35,13 @@ fun HomeContent(uiState: HomeUiState) {
         navigationIcon = {
             IconButton(
                 onClick = {},
-                content = { Icon(Icons.Outlined.Info, null) }
+                content = { Icon(Icons.Outlined.Info, null) },
             )
         },
         actions = {
             IconButton(
                 onClick = {},
-                content = { Icon(Icons.Outlined.Settings, null) }
+                content = { Icon(Icons.Outlined.Settings, null) },
             )
         },
     ) {
