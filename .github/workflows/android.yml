@@ -34,7 +34,7 @@ jobs:
           secrets_google_services: ${{ secrets.GOOGLE_SERVICES }}
 
       - name: Run unit tests
-        run: ./gradlew --continue clean test
+        run: ./gradlew --continue clean testDebug
 
       - name: Summarize tests results
         uses: jeantessier/test-summary-action@v1
@@ -69,3 +69,10 @@ jobs:
 
       - name: Run kover
         run: ./gradlew clean composeApp:koverHtmlReportDebug
+
+      - name: Parse coverage
+        id: parse_coverage
+        uses: stevenleadbeater/kover-report-parser-action@0.0.1
+
+      - name: Print coverage summary
+        run: echo "Line coverage {{ steps.parse_coverage.outputs.line_covered }}/{{ steps.parse_coverage.outputs.line_missed }}" >> $GITHUB_STEP_SUMMARY
