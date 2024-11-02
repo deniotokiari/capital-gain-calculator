@@ -49,6 +49,6 @@ runs:
     - name: Calculate percent
       id: percent_value
       run: |
-        percent=$(printf "%.f\n" $(awk 'BEGIN {print (${{ env.COVERED }}/${{ env.total }}*100)}'))
+        percent=$(printf "%.2f\n" $(awk 'BEGIN {print (${{ env.COVERED }}/${{ env.total }}*100)}'))
         echo "percent=$percent" >> $GITHUB_OUTPUT
       shell: bash
