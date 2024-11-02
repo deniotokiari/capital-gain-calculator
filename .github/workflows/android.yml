@@ -75,11 +75,15 @@ jobs:
 
       - name: Parse kover report covered lines
         id: kover_covered_lines
-        run: xmllint --xpath "string(report/counter[@type='LINE']/@covered)" composeApp/build/reports/kover/reportDebug.xml >> $GITHUB_OUTPUT
+        run: |
+          covered=$(xmllint --xpath "string(report/counter[@type='LINE']/@covered)" composeApp/build/reports/kover/reportDebug.xml)
+          echo "covered=$covered" >> $GITHUB_OUTPUT
 
       - name: Parse kover report missed lines
         id: kover_missed_lines
-        run: xmllint --xpath "string(report/counter[@type='LINE']/@missed)" composeApp/build/reports/kover/reportDebug.xml >> $GITHUB_OUTPUT
+        run: |
+          missed=$(xmllint --xpath "string(report/counter[@type='LINE']/@missed)" composeApp/build/reports/kover/reportDebug.xml)
+          echo "missed=$missed" >> $GITHUB_OUTPUT
 
       - name: Kover summary
         uses: jazanne/job-summary-action@v1
@@ -87,5 +91,5 @@ jobs:
           summary: | 
             # Kover summary
             
-            Covered lines => ${{ steps.kover_covered_lines.outputs }}
-            Missed lines => ${{ steps.kover_missed_lines.outputs }} 
+            Covered lines => ${{ steps.kover_covered_lines.outputs.covered }}
+            Missed lines => ${{ steps.kover_missed_lines.outputs.missed }} 
