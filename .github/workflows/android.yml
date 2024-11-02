@@ -74,14 +74,14 @@ jobs:
         id: kover_covered_lines
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
-          xml-file: './composeApp/build/reports/kover/reportDebug.xml'
+          xml-file: 'composeApp/build/reports/kover/reportDebug.xml'
           xpath: 'report/counter[@type="LINE"]/@covered'
 
       - name: Parse kover report missed lines
         id: kover_missed_lines
         uses: mavrosxristoforos/get-xml-info@1.0
         with:
-          xml-file: './composeApp/build/reports/kover/reportDebug.xml'
+          xml-file: 'composeApp/build/reports/kover/reportDebug.xml'
           xpath: 'report/counter[@type="LINE"]/@missed'
 
       - name: Kover summary
