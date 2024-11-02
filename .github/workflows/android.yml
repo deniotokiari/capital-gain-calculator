@@ -70,6 +70,9 @@ jobs:
       - name: Run kover
         run: ./gradlew clean composeApp:koverXmlReportDebug
 
+      - name: Install xmllint
+        run: sudo apt-get install -y libxml2-utils
+
       - name: Parse kover report covered lines
         id: kover_covered_lines
         run: xmllint --xpath "string(report/counter[@type='LINE']/@covered)" composeApp/build/reports/kover/reportDebug.xml >> $GITHUB_OUTPUT
