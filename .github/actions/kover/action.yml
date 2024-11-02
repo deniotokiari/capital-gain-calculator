@@ -39,10 +39,16 @@ runs:
         echo "MISSED=$missed" >> $GITHUB_ENV
       shell: bash
 
+    - name: Calculate total
+      id: total_value
+      run: |
+        total=$((${{ env.COVERED }}+${{ env.MISSED }}))
+        echo "total=$total" >> $GITHUB_ENV
+      shell: bash
+
     - name: Calculate percent
       id: percent_value
       run: |
-        total=$((${{ env.COVERED }}+${{ env.MISSED }}))
-        percent=$(awk 'BEGIN {print (${{ env.COVERED }}/$total*100)}')
+        percent=$(awk 'BEGIN {print (${{ env.COVERED }}/${{ env.total }}*100)}')
         echo "percent=$percent" >> $GITHUB_OUTPUT
       shell: bash
