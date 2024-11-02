@@ -1,0 +1,48 @@
+name: Kover report parser
+description: Parse value from kover report
+
+inputs:
+  path:
+    description: "Report path"
+    required: true
+  type:
+    description: "Type of value to parse"
+    required: true
+
+outputs:
+  covered:
+    description: "Covered value"
+    value: ${{ steps.covered_value.outputs.covered }}
+  missed:
+    description: "Missed value"
+    value: ${{ steps.missed_value.outputs.missed }}
+  percent:
+    description: "Percent of covered over all"
+    value: ${{  }}
+
+runs:
+  using: composite
+  steps:
+    - name: Parse covered
+      id: covered_value
+      run: |
+        covered=$(xmllint --xpath "string(report/counter[@type='${{ inputs.type }}']/@covered)" ${{ inputs.path }})
+        echo "covered=$covered" >> $GITHUB_OUTPUT
+        echo "COVERED=$covered" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Parse missed
+      id: missed_value
+      run: |
+        missed=$(xmllint --xpath "string(report/counter[@type='${{ inputs.type }}']/@missed)" ${{ inputs.path }})
+        echo "missed=$missed" >> $GITHUB_OUTPUT
+        echo "MISSED=$missed" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Calculate percent
+      id: percent_value
+      run: |
+        total=$((${{ env.COVERED }}+${{ env.MISSED }}))
+        percent=$(awk 'BEGIN {print (${{ env.COVERED }}/$total*100)}')
+        echo "percent=$percent" >> $GITHUB_OUTPUT
+      shell: bash
