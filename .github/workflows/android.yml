@@ -143,4 +143,4 @@ jobs:
           type: "text/html"
           to: ${{ steps.user-email.outputs.email }}
           subject: "Github Action summary"
-          body: ${{ env.GITHUB_STEP_SUMMARY }}
+          body: "Test result body"
