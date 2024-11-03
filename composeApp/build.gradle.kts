@@ -144,3 +144,4 @@ kover {
 
 // :composeApp:wasmJsBrowserDevelopmentRun
 // ./gradlew kotlinUpgradeYarnLock
+// ./gradlew projectHealth

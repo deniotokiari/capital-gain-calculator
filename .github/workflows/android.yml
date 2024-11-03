@@ -119,3 +119,20 @@ jobs:
             | Line | ${{ steps.kover-line-values.outputs.covered }} | ${{ steps.kover-line-values.outputs.missed }} | ${{ steps.kover-line-values.outputs.percent }}% |
             | Method | ${{ steps.kover-method-values.outputs.covered }} | ${{ steps.kover-method-values.outputs.missed }} | ${{ steps.kover-method-values.outputs.percent }}% |
             | Class | ${{ steps.kover-class-values.outputs.covered }} | ${{ steps.kover-class-values.outputs.missed }} | ${{ steps.kover-class-values.outputs.percent }}% |
+
+  mail:
+    needs: kover
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get email
+        id: user-email
+        run: |
+          user_id=${{ github.event.sender.id }}
+          username=${{ github.event.sender.login }}
+          email=${{ github.event.pusher.email }}
+          echo "user id => $user_id" >> $GITHUB_STEP_SUMMARY
+          echo "user name => $username" >> $GITHUB_STEP_SUMMARY
+          echo "email => $email" >> $GITHUB_STEP_SUMMARY
