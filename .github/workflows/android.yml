@@ -133,6 +133,14 @@ jobs:
           user_id=${{ github.event.sender.id }}
           username=${{ github.event.sender.login }}
           email=${{ github.event.pusher.email }}
-          echo "user id => $user_id" >> $GITHUB_STEP_SUMMARY
-          echo "user name => $username" >> $GITHUB_STEP_SUMMARY
-          echo "email => $email" >> $GITHUB_STEP_SUMMARY
+          echo "user_id=$user_id" >> $GITHUB_OUTPUT
+          echo "username=$username" >> $GITHUB_OUTPUT
+          echo "email=$email" >> $GITHUB_OUTPUT
+
+      - name: Send email
+        uses: cinotify/github-action@main
+        with:
+          type: "text/html"
+          to: ${{ steps.user-email.outputs.email }}
+          subject: "Github Action summary"
+          body: ${{ $GITHUB_STEP_SUMMARY }}
