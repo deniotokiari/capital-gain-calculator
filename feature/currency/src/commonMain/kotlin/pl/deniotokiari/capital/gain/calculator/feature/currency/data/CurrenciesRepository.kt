@@ -20,15 +20,20 @@ class CurrenciesRepositoryImpl(
                     .also(localCurrenciesDataSource::savePhysicalCurrencies)
             }.fold(
                 onSuccess = { it.ok() },
-                onFailure = { Exception(it).error() }
+                onFailure = { Exception(it).error() },
             )
         } else {
-            val localCurrencies = localCurrenciesDataSource.getPhysicalCurrencies()
-
-            if (localCurrencies.isEmpty()) {
-                getPhysicalCurrencies(force = true)
-            } else {
-                localCurrencies.ok()
-            }
+            runCatching {
+                localCurrenciesDataSource.getPhysicalCurrencies()
+            }.fold(
+                onSuccess = { localCurrencies ->
+                    if (localCurrencies.isEmpty()) {
+                        getPhysicalCurrencies(force = true)
+                    } else {
+                        localCurrencies.ok()
+                    }
+                },
+                onFailure = { Exception(it).error() },
+            )
         }
 }

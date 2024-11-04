@@ -37,7 +37,7 @@ class WebAuthDataSource : AuthDataSource {
         ).await<JsAny>().unsafeCast<JsBoolean>().toBoolean()
     }.fold(
         onSuccess = { it.ok() },
-        onFailure = { Exception(it).error() }
+        onFailure = { Exception(it).error() },
     )
 
     override suspend fun login(email: String, password: String): Result<Boolean, Exception> = runCatching {
@@ -47,13 +47,13 @@ class WebAuthDataSource : AuthDataSource {
         ).await<JsAny>().unsafeCast<JsBoolean>().toBoolean()
     }.fold(
         onSuccess = { it.ok() },
-        onFailure = { Exception(it).error() }
+        onFailure = { Exception(it).error() },
     )
 
     override suspend fun getUserId(): Result<String, Exception> = runCatching {
         getUserUid() ?: error("User is not authenticated")
     }.fold(
         onSuccess = { it.ok() },
-        onFailure = { Exception(it).error() }
+        onFailure = { Exception(it).error() },
     )
 }

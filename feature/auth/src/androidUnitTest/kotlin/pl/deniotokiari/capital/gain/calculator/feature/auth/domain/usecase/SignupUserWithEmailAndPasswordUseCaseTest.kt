@@ -10,6 +10,8 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.whenever
 import pl.deniotokiari.capital.gain.calculator.feature.auth.data.AuthDataSource
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.model.AuthError
+import pl.deniotokiari.core.misc.error
+import pl.deniotokiari.core.misc.ok
 
 class SignupUserWithEmailAndPasswordUseCaseTest {
     private lateinit var mockAuthDataSource: AuthDataSource
@@ -23,7 +25,7 @@ class SignupUserWithEmailAndPasswordUseCaseTest {
 
     @Test
     fun `GIVEN success login WHEN sut invoked THEN return true`() = runTest {
-        whenever(mockAuthDataSource.signup(any(), any())).thenReturn(Result.success(true))
+        whenever(mockAuthDataSource.signup(any(), any())).thenReturn(true.ok())
 
         val result = sut(
             SignupUserWithEmailAndPasswordUseCase.Params(
@@ -38,7 +40,7 @@ class SignupUserWithEmailAndPasswordUseCaseTest {
 
     @Test
     fun `GIVEN failed login WHEN sut invoked THEN return invalid credentials error`() = runTest {
-        whenever(mockAuthDataSource.signup(any(), any())).thenReturn(Result.success(false))
+        whenever(mockAuthDataSource.signup(any(), any())).thenReturn(false.ok())
 
         val result = sut(
             SignupUserWithEmailAndPasswordUseCase.Params(
@@ -54,7 +56,7 @@ class SignupUserWithEmailAndPasswordUseCaseTest {
 
     @Test
     fun `GIVEN login throws exception WHEN sut invoked THEN return generic error`() = runTest {
-        whenever(mockAuthDataSource.signup(any(), any())).thenReturn(Result.failure(Exception()))
+        whenever(mockAuthDataSource.signup(any(), any())).thenReturn(Exception().error())
 
         val result = sut(
             SignupUserWithEmailAndPasswordUseCase.Params(

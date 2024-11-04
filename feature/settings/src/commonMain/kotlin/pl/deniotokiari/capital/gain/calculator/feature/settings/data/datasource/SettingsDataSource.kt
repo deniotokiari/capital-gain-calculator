@@ -24,7 +24,7 @@ class SettingsRemoteDataSource(
                 remoteStore.putItem("users/$userId", settings, SettingsHolder.serializer())
             }.fold(
                 onSuccess = { Unit.ok() },
-                onFailure = { Exception(it).error() }
+                onFailure = { Exception(it).error() },
             )
         }
 
@@ -35,7 +35,7 @@ class SettingsRemoteDataSource(
                 remoteStore.getItem("users/$userId", SettingsHolder.serializer())
             }.fold(
                 onSuccess = { it.ok() },
-                onFailure = { Exception(it).error() }
+                onFailure = { Exception(it).error() },
             )
         }
 }

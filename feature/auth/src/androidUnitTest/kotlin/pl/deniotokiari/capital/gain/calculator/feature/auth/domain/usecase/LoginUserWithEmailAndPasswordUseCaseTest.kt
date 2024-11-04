@@ -9,6 +9,8 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.whenever
 import pl.deniotokiari.capital.gain.calculator.feature.auth.data.AuthDataSource
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.model.AuthError
+import pl.deniotokiari.core.misc.error
+import pl.deniotokiari.core.misc.ok
 import kotlin.test.assertNotNull
 
 class LoginUserWithEmailAndPasswordUseCaseTest {
@@ -23,7 +25,7 @@ class LoginUserWithEmailAndPasswordUseCaseTest {
 
     @Test
     fun `GIVEN login success WHEN sut invoked THEN return true`() = runTest {
-        whenever(mockAuthDataSource.login(any(), any())).thenReturn(Result.success(true))
+        whenever(mockAuthDataSource.login(any(), any())).thenReturn(true.ok())
 
         val result = sut(
             LoginUserWithEmailAndPasswordUseCase.Params(
@@ -37,7 +39,7 @@ class LoginUserWithEmailAndPasswordUseCaseTest {
 
     @Test
     fun `GIVEN login failed WHEN sut invoked THEN return error`() = runTest {
-        whenever(mockAuthDataSource.login(any(), any())).thenReturn(Result.failure(Exception()))
+        whenever(mockAuthDataSource.login(any(), any())).thenReturn(Exception().error())
 
         val result = sut(
             LoginUserWithEmailAndPasswordUseCase.Params(

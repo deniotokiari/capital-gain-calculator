@@ -45,7 +45,7 @@ class CurrenciesRepositoryTest {
 
             val result = sut.getPhysicalCurrencies(force = true)
 
-            assertEquals(error, result.exceptionOrNull())
+            assertEquals(error, result.errorOrNull()?.cause)
         }
 
     @Test
@@ -60,7 +60,7 @@ class CurrenciesRepositoryTest {
 
             val result = sut.getPhysicalCurrencies(force = true)
 
-            assertEquals(error, result.exceptionOrNull())
+            assertEquals(error, result.errorOrNull()?.cause)
         }
 
     @Test
@@ -97,6 +97,6 @@ class CurrenciesRepositoryTest {
 
             val result = sut.getPhysicalCurrencies(force = false)
 
-            assertEquals(error, result.exceptionOrNull())
+            assertEquals(error, result.errorOrNull()?.cause)
         }
 }

@@ -24,7 +24,7 @@ class AndroidIosAuthDataSource : AuthDataSource {
         ).user != null
     }.fold(
         onSuccess = { it.ok() },
-        onFailure = { Exception(it).error() }
+        onFailure = { Exception(it).error() },
     )
 
     override suspend fun login(email: String, password: String): Result<Boolean, Exception> = runCatching {
@@ -34,13 +34,13 @@ class AndroidIosAuthDataSource : AuthDataSource {
         ).user != null
     }.fold(
         onSuccess = { it.ok() },
-        onFailure = { Exception(it).error() }
+        onFailure = { Exception(it).error() },
     )
 
     override suspend fun getUserId(): Result<String, Exception> = runCatching {
         firebaseAuth.currentUser?.uid ?: error("User is not authenticated")
     }.fold(
         onSuccess = { it.ok() },
-        onFailure = { Exception(it).error() }
+        onFailure = { Exception(it).error() },
     )
 }
