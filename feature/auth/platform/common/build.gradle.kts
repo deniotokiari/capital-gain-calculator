@@ -8,6 +8,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
 
             api(project(":feature:auth:platform:shared"))
+            implementation(project(":core:misc"))
         }
 
         androidMain.dependencies {

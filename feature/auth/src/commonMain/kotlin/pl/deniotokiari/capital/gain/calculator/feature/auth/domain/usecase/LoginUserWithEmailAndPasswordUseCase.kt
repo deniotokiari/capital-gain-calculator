@@ -17,7 +17,7 @@ class LoginUserWithEmailAndPasswordUseCase(
         )
         .fold(
             onSuccess = { Unit.ok() },
-            onFailure = { AuthError.GenericError.error() },
+            onError = { AuthError.GenericError.error() },
         )
 
     data class Params(

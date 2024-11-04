@@ -9,14 +9,14 @@ import pl.deniotokiari.capital.gain.calculator.feature.currency.domain.usecase.G
 import pl.deniotokiari.capital.gain.calculator.feature.currency.gateway.CurrencyFeatureUiGateway
 import pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.CurrenciesListViewModel
 import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.CurrencyUiGateway
+import pl.deniotokiari.core.misc.Result
+import pl.deniotokiari.core.misc.ok
 
 val currencyPreviewModule = module {
     factory<CurrenciesRepository> {
         object : CurrenciesRepository {
-            override suspend fun getPhysicalCurrencies(force: Boolean): Result<List<Currency>> =
-                Result.success(
-                    listOf(),
-                )
+            override suspend fun getPhysicalCurrencies(force: Boolean): Result<List<Currency>, Exception> =
+                listOf<Currency>().ok()
         }
     }
 

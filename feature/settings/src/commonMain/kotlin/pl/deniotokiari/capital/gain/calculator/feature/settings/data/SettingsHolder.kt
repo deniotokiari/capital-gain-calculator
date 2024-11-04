@@ -5,17 +5,17 @@ import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.Currency
 import pl.deniotokiari.capital.gain.calculator.gateway.feature.settings.SettingsGatewayModel
 
 @Serializable
-data class Settings(
-    val settings: SettingsHolder,
+data class SettingsHolder(
+    val settings: Settings,
 ) {
     @Serializable
-    data class SettingsHolder(
+    data class Settings(
         val profileCurrency: CurrencyGatewayModel,
     )
 }
 
-fun SettingsGatewayModel.toSettings() = Settings(
-    settings = Settings.SettingsHolder(
+fun SettingsGatewayModel.toSettings() = SettingsHolder(
+    settings = SettingsHolder.Settings(
         profileCurrency = profileCurrency,
     ),
 )

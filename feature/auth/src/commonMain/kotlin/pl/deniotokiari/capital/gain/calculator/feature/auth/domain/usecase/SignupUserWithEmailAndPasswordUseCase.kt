@@ -21,7 +21,7 @@ class SignupUserWithEmailAndPasswordUseCase(
                 AuthError.InvalidCredentials.error()
             }
         },
-        onFailure = { AuthError.GenericError.error() },
+        onError = { AuthError.GenericError.error() },
     )
 
     data class Params(
