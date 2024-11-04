@@ -24,13 +24,13 @@ import capital_gain_calculator.ui_kit.generated.resources.ui_kit_signup_title
 import org.koin.compose.koinInject
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.AuthUiAction
 import pl.deniotokiari.capital.gain.calculator.feature.auth.presentation.CredentialsField
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.CurrencyGatewayModel
 import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.CurrencyUiGateway
-import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.GatewayCurrency
 import pl.deniotokiari.capital.gain.calculator.uikit.stringResource
 
 @Composable
 fun SignupContent(
-    initialCurrency: GatewayCurrency?,
+    initialCurrency: CurrencyGatewayModel?,
     email: CredentialsField,
     password: CredentialsField,
     onAction: (AuthUiAction) -> Unit,

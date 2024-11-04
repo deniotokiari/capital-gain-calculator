@@ -1,12 +1,12 @@
 package pl.deniotokiari.capital.gain.calculator.feature.auth.presentation
 
-import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.GatewayCurrency
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.CurrencyGatewayModel
 import pl.deniotokiari.core.navigation.route.AuthType
 
 data class AuthUiState(
     val email: CredentialsField = CredentialsField(""),
     val password: CredentialsField = CredentialsField(""),
-    val currency: GatewayCurrency? = null,
+    val currency: CurrencyGatewayModel? = null,
     val type: AuthUiType,
 )
 
@@ -30,7 +30,7 @@ sealed interface AuthUiEvent {
 sealed interface AuthUiAction {
     data class EmailChanged(val value: String) : AuthUiAction
     data class PasswordChanged(val value: String) : AuthUiAction
-    data class CurrencyChanged(val currency: GatewayCurrency) : AuthUiAction
+    data class CurrencyChanged(val currency: CurrencyGatewayModel) : AuthUiAction
     data object Retry : AuthUiAction
     data object Login : AuthUiAction
     data object Signup : AuthUiAction

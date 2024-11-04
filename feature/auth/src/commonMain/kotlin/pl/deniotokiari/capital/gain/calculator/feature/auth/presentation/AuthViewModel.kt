@@ -9,14 +9,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.model.AuthError
-import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.GetUserIdUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.IsAuthRequiredUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.LoginUserWithEmailAndPasswordUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.SignupUserWithEmailAndPasswordUseCase
-import pl.deniotokiari.capital.gain.calculator.gateway.domain.usecase.GetUsdCurrencyUseCase
-import pl.deniotokiari.capital.gain.calculator.gateway.domain.usecase.SaveSettingsUseCase
-import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.GatewayCurrency
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.CurrencyGatewayModel
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.usecase.GetUsdCurrencyUseCase
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.settings.SettingsGatewayModel
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.settings.usecase.SaveSettingsUseCase
 import pl.deniotokiari.core.misc.AppDispatchers
+import pl.deniotokiari.core.misc.error
 import pl.deniotokiari.core.misc.mapError
 import pl.deniotokiari.core.navigation.route.AuthType
 
@@ -25,7 +26,6 @@ class AuthViewModel(
     private val isAuthRequiredUseCase: IsAuthRequiredUseCase,
     private val signupUserWithEmailAndPasswordUseCase: SignupUserWithEmailAndPasswordUseCase,
     private val loginUserWithEmailAndPasswordUseCase: LoginUserWithEmailAndPasswordUseCase,
-    private val getUserIdUseCase: GetUserIdUseCase,
     private val getUsdCurrencyUseCase: GetUsdCurrencyUseCase,
     private val saveSettingsUseCase: SaveSettingsUseCase,
     private val appDispatchers: AppDispatchers,
@@ -42,7 +42,7 @@ class AuthViewModel(
                 _uiState.update { state ->
                     state.copy(
                         type = type.toUiType,
-                        currency = getUsdCurrencyUseCase(Unit),
+                        currency = getUsdCurrencyUseCase(Unit).getOrNull(),
                     )
                 }
             }
@@ -62,7 +62,7 @@ class AuthViewModel(
         }
     }
 
-    private fun onCurrencyChange(currency: GatewayCurrency) {
+    private fun onCurrencyChange(currency: CurrencyGatewayModel) {
         _uiState.update { state -> state.copy(currency = currency) }
     }
 
@@ -139,13 +139,11 @@ class AuthViewModel(
                     password = _uiState.value.password.value,
                 )
             )
-                .then { getUserIdUseCase(Unit) }
-                .then { userId ->
+                .then {
+                    val currency = _uiState.value.currency ?: return@then AuthError.GenericError.error()
+
                     saveSettingsUseCase(
-                        SaveSettingsUseCase.Params(
-                            userId = userId,
-                            currency = _uiState.value.currency,
-                        )
+                        input = SettingsGatewayModel(currency),
                     ).mapError { AuthError.GenericError }
                 }
                 .fold(

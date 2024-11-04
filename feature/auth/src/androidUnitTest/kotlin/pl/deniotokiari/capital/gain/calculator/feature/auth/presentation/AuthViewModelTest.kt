@@ -17,12 +17,12 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import pl.deniotokiari.capital.gain.calculator.core.test.getAppDispatcher
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.model.AuthError
-import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.GetUserIdUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.IsAuthRequiredUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.LoginUserWithEmailAndPasswordUseCase
 import pl.deniotokiari.capital.gain.calculator.feature.auth.domain.usecase.SignupUserWithEmailAndPasswordUseCase
-import pl.deniotokiari.capital.gain.calculator.gateway.domain.usecase.GetUsdCurrencyUseCase
-import pl.deniotokiari.capital.gain.calculator.gateway.domain.usecase.SaveSettingsUseCase
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.CurrencyGatewayModel
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.usecase.GetUsdCurrencyUseCase
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.settings.usecase.SaveSettingsUseCase
 import pl.deniotokiari.core.misc.error
 import pl.deniotokiari.core.misc.ok
 import pl.deniotokiari.core.navigation.route.AuthType
@@ -32,7 +32,6 @@ class AuthViewModelTest {
     private lateinit var mockSignupUserWithEmailAndPasswordUseCase: SignupUserWithEmailAndPasswordUseCase
     private lateinit var mockLoginUserWithEmailAndPasswordUseCase: LoginUserWithEmailAndPasswordUseCase
     private lateinit var mockGetUsdCurrencyUseCase: GetUsdCurrencyUseCase
-    private lateinit var mockGetUserIdUseCase: GetUserIdUseCase
     private lateinit var mockSaveSettingsUseCase: SaveSettingsUseCase
 
     @BeforeEach
@@ -41,9 +40,8 @@ class AuthViewModelTest {
         mockSignupUserWithEmailAndPasswordUseCase = mock()
         mockLoginUserWithEmailAndPasswordUseCase = mock()
         mockGetUsdCurrencyUseCase = mock {
-            onBlocking { invoke(Unit) } doReturn null
+            onBlocking { invoke(Unit) } doReturn CurrencyGatewayModel(code = "", name = "", label = "").ok()
         }
-        mockGetUserIdUseCase = mock()
         mockSaveSettingsUseCase = mock()
     }
 
@@ -231,7 +229,6 @@ class AuthViewModelTest {
                 ),
             ),
         ).thenReturn(Unit.ok())
-        whenever(mockGetUserIdUseCase.invoke(Unit)).thenReturn("userId".ok())
         whenever(mockSaveSettingsUseCase.invoke(any())).thenReturn(Unit.ok())
         val sut = createSut(AuthType.Login)
         sut.onAction(AuthUiAction.Signup)
@@ -476,7 +473,6 @@ class AuthViewModelTest {
         signupUserWithEmailAndPasswordUseCase = mockSignupUserWithEmailAndPasswordUseCase,
         loginUserWithEmailAndPasswordUseCase = mockLoginUserWithEmailAndPasswordUseCase,
         getUsdCurrencyUseCase = mockGetUsdCurrencyUseCase,
-        getUserIdUseCase = mockGetUserIdUseCase,
         saveSettingsUseCase = mockSaveSettingsUseCase,
         type = type,
         appDispatchers = getAppDispatcher(),

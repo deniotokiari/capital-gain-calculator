@@ -4,15 +4,15 @@ import androidx.compose.runtime.Composable
 import pl.deniotokiari.capital.gain.calculator.feature.currency.data.model.Currency
 import pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.compose.CurrenciesList
 import pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.label
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.CurrencyGatewayModel
 import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.CurrencyUiGateway
-import pl.deniotokiari.capital.gain.calculator.gateway.feature.currency.GatewayCurrency
 
 class CurrencyFeatureUiGateway : CurrencyUiGateway {
     @Composable
     override fun Currencies(
         label: String,
-        initialCurrency: GatewayCurrency?,
-        onCurrencyChange: (GatewayCurrency) -> Unit,
+        initialCurrency: CurrencyGatewayModel?,
+        onCurrencyChange: (CurrencyGatewayModel) -> Unit,
     ) =
         CurrenciesList(
             label = label,
@@ -23,13 +23,13 @@ class CurrencyFeatureUiGateway : CurrencyUiGateway {
         )
 }
 
-internal fun Currency.toGatewayCurrency() = GatewayCurrency(
+internal fun Currency.toGatewayCurrency() = CurrencyGatewayModel(
     code = code,
     name = name,
     label = label,
 )
 
-internal fun GatewayCurrency.toCurrency() = Currency.Physical(
+internal fun CurrencyGatewayModel.toCurrency() = Currency.Physical(
     code = code,
     name = name,
 )

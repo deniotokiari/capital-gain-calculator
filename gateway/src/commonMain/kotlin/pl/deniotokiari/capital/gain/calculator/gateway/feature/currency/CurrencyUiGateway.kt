@@ -6,7 +6,7 @@ interface CurrencyUiGateway {
     @Composable
     fun Currencies(
         label: String,
-        initialCurrency: GatewayCurrency?,
-        onCurrencyChange: (GatewayCurrency) -> Unit,
+        initialCurrency: CurrencyGatewayModel?,
+        onCurrencyChange: (CurrencyGatewayModel) -> Unit,
     )
 }
