@@ -57,6 +57,7 @@ kotlin {
             implementation(libs.firebase.common.ktx)
             implementation(libs.firebase.common)
             implementation(libs.firebase.firestore)
+            implementation(compose.material3)
         }
         commonMain.dependencies {
             implementation(compose.components.resources)

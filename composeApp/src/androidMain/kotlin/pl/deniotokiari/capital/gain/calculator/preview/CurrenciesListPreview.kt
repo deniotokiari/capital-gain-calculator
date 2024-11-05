@@ -1,6 +1,7 @@
 package pl.deniotokiari.capital.gain.calculator.preview
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import pl.deniotokiari.capital.gain.calculator.feature.currency.data.model.Currency
 import pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.CurrenciesListUiState
@@ -19,6 +20,7 @@ fun CurrenciesListLoadingPreview() = CurrenciesListContent(
 @Composable
 fun CurrenciesListErrorPreview() = CurrenciesListContent(
     uiState = CurrenciesListUiState.Error,
+    modifier = Modifier,
     onAction = {},
 )
 

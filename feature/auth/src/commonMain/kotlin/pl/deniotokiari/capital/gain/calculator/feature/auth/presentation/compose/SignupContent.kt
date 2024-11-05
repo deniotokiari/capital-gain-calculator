@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -80,6 +82,7 @@ fun SignupContent(
             content = {
                 currencyUiGateway.Currencies(
                     label = stringResource(Res.string.ui_kit_account_currency),
+                    modifier = Modifier.width(OutlinedTextFieldDefaults.MinWidth),
                     initialCurrency = initialCurrency,
                     onCurrencyChange = { currency ->
                         onAction(AuthUiAction.CurrencyChanged(currency))

@@ -9,6 +9,7 @@ kotlin {
             implementation(libs.bundles.koin)
             implementation(libs.navigation.compose)
             implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(compose.material3)
 
             implementation(project(":core:misc"))
             implementation(project(":core:navigation"))

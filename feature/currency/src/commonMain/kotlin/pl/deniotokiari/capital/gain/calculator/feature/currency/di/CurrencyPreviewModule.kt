@@ -16,7 +16,11 @@ val currencyPreviewModule = module {
     factory<CurrenciesRepository> {
         object : CurrenciesRepository {
             override suspend fun getPhysicalCurrencies(force: Boolean): Result<List<Currency>, Exception> =
-                listOf<Currency>().ok()
+                listOf<Currency>(
+                    Currency.Physical(name = "PLN", code = "PLN"),
+                    Currency.Physical(name = "USD", code = "USD"),
+                    Currency.Physical(name = "EUR", code = "EUR"),
+                ).ok()
         }
     }
 

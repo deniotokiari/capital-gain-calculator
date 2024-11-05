@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
@@ -20,7 +19,6 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -55,6 +53,7 @@ import pl.deniotokiari.capital.gain.calculator.uikit.stringResource
 @Composable
 fun CurrenciesList(
     label: String = stringResource(Res.string.ui_kit_currency),
+    modifier: Modifier,
     initialCurrency: Currency? = null,
     onCurrencyChange: (Currency) -> Unit,
 ) {
@@ -66,6 +65,7 @@ fun CurrenciesList(
     CurrenciesListContent(
         label = label,
         uiState = uiState,
+        modifier = modifier,
         onAction = { action ->
             viewModel.onAction(action)
 
@@ -80,6 +80,7 @@ fun CurrenciesList(
 @Composable
 fun CurrenciesListContent(
     label: String = stringResource(Res.string.ui_kit_currency),
+    modifier: Modifier = Modifier,
     uiState: CurrenciesListUiState,
     onAction: (CurrenciesListAction) -> Unit,
 ) {
@@ -150,9 +151,7 @@ fun CurrenciesListContent(
     val focusManager = LocalFocusManager.current
 
     OutlinedTextField(
-        modifier = Modifier
-            .width(OutlinedTextFieldDefaults.MinWidth)
-            .clickable { onAction(CurrenciesListAction.FieldClicked) },
+        modifier = modifier.clickable { onAction(CurrenciesListAction.FieldClicked) },
         label = { Text(label) },
         enabled = uiState.isEnabled,
         isError = uiState.isError,

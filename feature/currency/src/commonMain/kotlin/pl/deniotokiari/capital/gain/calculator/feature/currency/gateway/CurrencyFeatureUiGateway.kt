@@ -1,6 +1,7 @@
 package pl.deniotokiari.capital.gain.calculator.feature.currency.gateway
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import pl.deniotokiari.capital.gain.calculator.feature.currency.data.model.Currency
 import pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.compose.CurrenciesList
 import pl.deniotokiari.capital.gain.calculator.feature.currency.presentation.label
@@ -11,11 +12,13 @@ class CurrencyFeatureUiGateway : CurrencyUiGateway {
     @Composable
     override fun Currencies(
         label: String,
+        modifier: Modifier,
         initialCurrency: CurrencyGatewayModel?,
         onCurrencyChange: (CurrencyGatewayModel) -> Unit,
     ) =
         CurrenciesList(
             label = label,
+            modifier = modifier,
             initialCurrency = initialCurrency?.toCurrency(),
             onCurrencyChange = { currency ->
                 onCurrencyChange(currency.toGatewayCurrency())

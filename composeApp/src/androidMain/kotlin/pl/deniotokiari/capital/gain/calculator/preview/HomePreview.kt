@@ -7,12 +7,6 @@ import pl.deniotokiari.capital.gain.calculator.feature.home.presentation.compose
 
 @Preview(showBackground = true)
 @Composable
-fun HomePreviewLoading() = HomeContent(
-    uiState = HomeUiState.Loading,
-)
-
-@Preview(showBackground = true)
-@Composable
 fun HomePreviewPortfolios() = HomeContent(
-    uiState = HomeUiState.Portfolios(emptyList()),
+    uiState = HomeUiState.Portfolios,
 )
