@@ -11,5 +11,5 @@ sealed interface PortfoliosUiState {
 }
 
 sealed interface PortfoliosAction {
-    data object Retry: PortfoliosAction
+    data object Retry : PortfoliosAction
 }

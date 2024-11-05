@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -18,6 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import capital_gain_calculator.ui_kit.generated.resources.Res
+import capital_gain_calculator.ui_kit.generated.resources.ui_kit_create
+import capital_gain_calculator.ui_kit.generated.resources.ui_kit_portfolio_add
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_portfolio_currency
 import capital_gain_calculator.ui_kit.generated.resources.ui_kit_portfolio_name
 import org.koin.compose.koinInject
@@ -72,7 +75,7 @@ fun PortfolioItems(
                 onClick = {},
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(text = "+Add")
+                Text(text = stringResource(Res.string.ui_kit_portfolio_add))
             }
         }
 
@@ -102,6 +105,7 @@ fun CreatePortfolio() {
 
     Column(
         modifier = Modifier.padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         OutlinedTextField(
             value = "",
@@ -115,6 +119,12 @@ fun CreatePortfolio() {
             modifier = Modifier.fillMaxWidth(),
             initialCurrency = null,
             onCurrencyChange = {},
+        )
+
+        Button(
+            modifier = Modifier.padding(top = 4.dp),
+            content = { Text(stringResource(Res.string.ui_kit_create)) },
+            onClick = {},
         )
     }
 }

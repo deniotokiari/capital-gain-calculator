@@ -10,6 +10,6 @@ class PortfoliosViewModel : ViewModel() {
         get() = _uiState
 
     fun onAction(action: PortfoliosAction) {
-
+        // nop
     }
 }
