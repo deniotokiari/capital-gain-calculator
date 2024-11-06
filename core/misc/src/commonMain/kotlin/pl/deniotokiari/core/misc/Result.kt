@@ -44,3 +44,9 @@ fun <T, E, F> Result<T, E>.mapError(transform: (E) -> F): Result<T, F> =
         is Success -> this
         is Error -> Error(transform(error))
     }
+
+fun <T, E, F> Result<T, E>.mapSuccess(transform: (T) -> F): Result<F, E> =
+    when (this) {
+        is Error -> this
+        is Success -> Success(transform(data))
+    }

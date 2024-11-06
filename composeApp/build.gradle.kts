@@ -57,13 +57,13 @@ kotlin {
             implementation(libs.firebase.common.ktx)
             implementation(libs.firebase.common)
             implementation(libs.firebase.firestore)
-            implementation(compose.material3)
         }
         commonMain.dependencies {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(compose.foundation)
             implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.runtime)
             implementation(compose.ui)
             implementation(libs.androidx.lifecycle.runtime.compose)

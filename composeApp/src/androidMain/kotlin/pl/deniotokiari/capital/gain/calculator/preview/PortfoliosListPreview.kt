@@ -33,6 +33,7 @@ fun PortfoliosListDataPreview() = PortfoliosListContent(
             Portfolio(name = "Test_1", id = "1"),
             Portfolio(name = "Test_2", id = "2"),
         ),
+        profileCurrency = null,
     ),
     onAction = {},
 )
@@ -42,6 +43,7 @@ fun PortfoliosListDataPreview() = PortfoliosListContent(
 fun PortfoliosListDataEmptyPreview() = PortfoliosListContent(
     uiState = PortfoliosUiState.Data(
         items = listOf(),
+        profileCurrency = null,
     ),
     onAction = {},
 )
@@ -49,7 +51,11 @@ fun PortfoliosListDataEmptyPreview() = PortfoliosListContent(
 @Preview(showBackground = true)
 @Composable
 fun CreatePortfolioPreview() = PreviewApplication {
-    CreatePortfolio()
+    CreatePortfolio(
+        currencyGatewayModel = null,
+        portfolioName = "",
+        onAction = {},
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,6 +65,10 @@ fun CreatePortfolioInBottomSheetPreview() = PreviewApplication {
     ModalBottomSheet(
         onDismissRequest = {},
     ) {
-        CreatePortfolio()
+        CreatePortfolio(
+            currencyGatewayModel = null,
+            portfolioName = "",
+            onAction = {},
+        )
     }
 }

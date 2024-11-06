@@ -16,6 +16,7 @@ kotlin {
             implementation(project(":core:misc"))
             implementation(project(":gateway"))
             implementation(project(":ui-kit"))
+            implementation(project(":core:navigation"))
         }
     }
 }

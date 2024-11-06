@@ -2,16 +2,17 @@ package pl.deniotokiari.capital.gain.calculator.feature.home.presentation.compos
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import pl.deniotokiari.capital.gain.calculator.feature.home.presentation.HomeUiState
 import pl.deniotokiari.capital.gain.calculator.feature.home.presentation.HomeViewModel
+import pl.deniotokiari.capital.gain.calculator.gateway.feature.portfolio.PortfolioUiGateway
 import pl.deniotokiari.capital.gain.calculator.uikit.compose.ApplicationTopBar
 
 @Composable
@@ -40,8 +41,10 @@ fun HomeContent(uiState: HomeUiState) {
             )
         },
     ) {
+        val portfolioUiGateway = koinInject<PortfolioUiGateway>()
+
         when (uiState) {
-            HomeUiState.Portfolios -> Text("portfolios")
+            HomeUiState.Portfolios -> portfolioUiGateway.Portfolios()
         }
     }
 }
