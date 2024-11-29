@@ -8,6 +8,10 @@ kotlin {
             implementation(project(":core:misc"))
         }
 
+        androidUnitTest.dependencies {
+            implementation(libs.bundles.testing)
+        }
+
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.test)
         }
