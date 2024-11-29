@@ -21,8 +21,22 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew :composeApp:assembleDebug
 
+  build-web:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set Up
+        uses: ./.github/actions/setup
+        with:
+          secrets_google_services: ${{ secrets.GOOGLE_SERVICES }}
+
+      - name: Build with Gradle
+        run: ./gradlew clean wasmJsBrowserDevelopmentExecutableDistribution
+
   tests:
-    needs: build-android
+    needs: [build-android, build-web]
     runs-on: ubuntu-latest
 
     steps:
@@ -41,7 +55,7 @@ jobs:
         if: ${{ always() }}
 
   ktlint:
-    needs: build-android
+    needs: [build-android, build-web]
     runs-on: ubuntu-latest
 
     steps:
