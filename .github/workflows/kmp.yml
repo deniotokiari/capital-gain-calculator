@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-android:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,7 @@ jobs:
         run: ./gradlew :composeApp:assembleDebug
 
   tests:
-    needs: build
+    needs: build-android
     runs-on: ubuntu-latest
 
     steps:
@@ -41,7 +41,7 @@ jobs:
         if: ${{ always() }}
 
   ktlint:
-    needs: build
+    needs: build-android
     runs-on: ubuntu-latest
 
     steps:

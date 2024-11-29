@@ -76,6 +76,6 @@ kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 
 [bundles]
-testing = ["junit", "junit-jupiter-params", "kotlin-test", "kotlin-test-junit", "mockito-junit-jupiter", "mockito-kotlin", "kotlinx-coroutines-test"]
+testing = ["junit", "junit-jupiter-params", "kotlin-test", "kotlin-test-junit", "mockito-junit-jupiter", "mockito-kotlin"]
 koin = ["koin-compose", "koin-core", "koin-compose-viewmodel"]
 ktor-common = ["ktor-client-core", "ktor-client-json", "ktor-client-logging", "ktor-client-serialization", "ktor-client-content-negotiation", "ktor-serialization-kotlinx-json"]
