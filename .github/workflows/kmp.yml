@@ -17,9 +17,29 @@ jobs:
         uses: ./.github/actions/setup
         with:
           secrets_google_services:  ${{ secrets.GOOGLE_SERVICES }}
+          secrets_config: ${{ secrets.CONFIG }}
+          secrets_google_services_info: ${{ secrets.GOOGLE_SERVICES_INFO }}
 
       - name: Build with Gradle
         run: ./gradlew :composeApp:assembleDebug
+
+  build-ios:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set Up
+        uses: ./.github/actions/setup
+        with:
+          secrets_google_services: ${{ secrets.GOOGLE_SERVICES }}
+          secrets_config: ${{ secrets.CONFIG }}
+          secrets_google_services_info: ${{ secrets.GOOGLE_SERVICES_INFO }}
+
+      - name: Install Xcode
+        uses: maxim-lobanov/setup-xcode@v1.6.0
+        with:
+          xcode-version: "16.0"
 
   build-web:
     runs-on: ubuntu-latest
@@ -31,12 +51,14 @@ jobs:
         uses: ./.github/actions/setup
         with:
           secrets_google_services: ${{ secrets.GOOGLE_SERVICES }}
+          secrets_config: ${{ secrets.CONFIG }}
+          secrets_google_services_info: ${{ secrets.GOOGLE_SERVICES_INFO }}
 
       - name: Build with Gradle
         run: ./gradlew clean wasmJsBrowserDevelopmentExecutableDistribution
 
   tests:
-    needs: [build-android, build-web]
+    needs: [build-android, build-ios, build-web]
     runs-on: ubuntu-latest
 
     steps:
@@ -46,6 +68,8 @@ jobs:
         uses: ./.github/actions/setup
         with:
           secrets_google_services: ${{ secrets.GOOGLE_SERVICES }}
+          secrets_config: ${{ secrets.CONFIG }}
+          secrets_google_services_info: ${{ secrets.GOOGLE_SERVICES_INFO }}
 
       - name: Run unit tests
         run: ./gradlew --continue clean testDebug
@@ -55,7 +79,7 @@ jobs:
         if: ${{ always() }}
 
   ktlint:
-    needs: [build-android, build-web]
+    needs: [build-android, build-ios, build-web]
     runs-on: ubuntu-latest
 
     steps:
@@ -65,6 +89,8 @@ jobs:
         uses: ./.github/actions/setup
         with:
           secrets_google_services: ${{ secrets.GOOGLE_SERVICES }}
+          secrets_config: ${{ secrets.CONFIG }}
+          secrets_google_services_info: ${{ secrets.GOOGLE_SERVICES_INFO }}
 
       - name: Run ktlint
         run: ./gradlew --continue clean ktlintCheck
@@ -80,6 +106,8 @@ jobs:
         uses: ./.github/actions/setup
         with:
           secrets_google_services: ${{ secrets.GOOGLE_SERVICES }}
+          secrets_config: ${{ secrets.CONFIG }}
+          secrets_google_services_info: ${{ secrets.GOOGLE_SERVICES_INFO }}
 
       - name: Run kover
         run: ./gradlew clean composeApp:koverXmlReportDebug

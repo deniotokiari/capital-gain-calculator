@@ -5,6 +5,12 @@ inputs:
   secrets_google_services:
     description: "Config values for firebase"
     required: true
+  secrets_config:
+    description: "Config values for firebase"
+    required: true
+  secrets_google_services_info:
+    description: "Config values for firebase"
+    required: true
 
 runs:
   using: composite
@@ -20,9 +26,23 @@ runs:
       run: chmod +x gradlew
       shell: bash
 
-    - name: Extract google-services.json
+    - name: Extract google-services.json for Android
       run: |
         cat << EOF > ./composeApp/google-services.json
         ${{ inputs.secrets_google_services }}
+        EOF
+      shell: bash
+
+    - name: Extract config.js for Web
+      run: |
+        cat << EOF > ./composeApp/src/wasmJsMain/resources/config.js
+        ${{ inputs.secrets_config }}
+        EOF
+      shell: bash
+
+    - name: Extract GoogleService-Info.plist for Web
+      run: |
+        cat << EOF > ./iosApp/iosApp/GoogleService-Info.plist
+        ${{ inputs.secrets_google_services_info }}
         EOF
       shell: bash
